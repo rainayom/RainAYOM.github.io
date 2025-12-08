@@ -19,21 +19,31 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="运维日常工作内容我的日常运维工作核心围绕 “稳业务、提效率、撑发展”，主要包括：日常巡检服务器与中间件状态、处理日志排查与常规问题、保障数据备份安全；应急响应故障（10 分钟响应、30 分钟解决核心故障）并复盘优化；编写 Shell&#x2F;Python 自动化脚本、维护 Jenkins CI&#x2F;CD 流程；优化架构性能、按需扩容迭代；搭建优化监控告警体系；跨团队对接开发 &#x2F;">
+    <meta name="description" content="将 Obsidian 文档同步到 GitHub，推荐用Obsidian Git 插件实现自动化同步，比手动输 Git 命令更高效，还支持多设备联动。以下是详细操作步骤，涵盖电脑端核心配置，也包含手机端适配要点： 一、前期准备 安装必备工具：安装电脑版 Obsidian；安装 GithubDesktopDownload GitHub Desktop | GitHub Desktop；注册并登录 Gi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="旧梦的知识库">
-<meta property="og:url" content="http://example.com/2025/12/06/%E6%97%A5%E5%B8%B8%E8%BF%90%E7%BB%B4%E5%B7%A5%E4%BD%9C-1/index.html">
+<meta property="og:title" content="Obsidian 的文档同步到github">
+<meta property="og:url" content="http://example.com/2025/12/08/2025-12-08-Obsidian-%E7%9A%84%E6%96%87%E6%A1%A3%E5%90%8C%E6%AD%A5%E5%88%B0github/index.html">
 <meta property="og:site_name" content="旧梦的知识库">
-<meta property="og:description" content="运维日常工作内容我的日常运维工作核心围绕 “稳业务、提效率、撑发展”，主要包括：日常巡检服务器与中间件状态、处理日志排查与常规问题、保障数据备份安全；应急响应故障（10 分钟响应、30 分钟解决核心故障）并复盘优化；编写 Shell&#x2F;Python 自动化脚本、维护 Jenkins CI&#x2F;CD 流程；优化架构性能、按需扩容迭代；搭建优化监控告警体系；跨团队对接开发 &#x2F;">
+<meta property="og:description" content="将 Obsidian 文档同步到 GitHub，推荐用Obsidian Git 插件实现自动化同步，比手动输 Git 命令更高效，还支持多设备联动。以下是详细操作步骤，涵盖电脑端核心配置，也包含手机端适配要点： 一、前期准备 安装必备工具：安装电脑版 Obsidian；安装 GithubDesktopDownload GitHub Desktop | GitHub Desktop；注册并登录 Gi">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-12-05T20:03:42.819Z">
-<meta property="article:modified_time" content="2025-12-05T20:03:42.821Z">
+<meta property="og:image" content="http://example.com/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/github%E4%BB%93%E5%BA%93.png">
+<meta property="og:image" content="http://example.com/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/github%E4%BB%93%E5%BA%93%E5%85%8B%E9%9A%86%E6%9C%AC%E5%9C%B0.png">
+<meta property="og:image" content="http://example.com/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/%E6%B5%8B%E8%AF%95%E4%B8%8A%E4%BC%A0.png">
+<meta property="og:image" content="http://example.com/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/Obsidian%E5%AE%89%E8%A3%85git%E6%8F%92%E4%BB%B6.png">
+<meta property="og:image" content="http://example.com/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/1%E5%88%86%E9%92%9F%E5%90%8C%E6%AD%A5.png">
+<meta property="og:image" content="http://example.com/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/%E5%90%AF%E5%8A%A8obsidian%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5.png">
+<meta property="og:image" content="http://example.com/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/%E6%8F%92%E4%BB%B6%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%94%B5%E8%84%91%E5%AE%89%E8%A3%85%E7%9A%84git%E8%B7%AF%E5%BE%84.png">
+<meta property="og:image" content="http://example.com/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/%E8%AE%BE%E7%BD%AE2.png">
+<meta property="og:image" content="http://example.com/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/%E8%AE%BE%E7%BD%AE.png">
+<meta property="article:published_time" content="2025-12-08T14:54:25.000Z">
+<meta property="article:modified_time" content="2025-12-08T14:54:25.234Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/github%E4%BB%93%E5%BA%93.png">
   
   
   
-  <title>旧梦的知识库</title>
+  <title>Obsidian 的文档同步到github - 旧梦的知识库</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +209,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="Obsidian 的文档同步到github"></span>
           
         </div>
 
@@ -210,8 +220,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-12-06 04:03" pubdate>
-          2025年12月6日 凌晨
+        <time datetime="2025-12-08 22:54" pubdate>
+          2025年12月8日 晚上
         </time>
       </span>
     
@@ -222,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          862 字
         
       </span>
     
@@ -233,7 +243,7 @@
         
         
         
-          16 分钟
+          8 分钟
         
       </span>
     
@@ -270,81 +280,74 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header"></h1>
+            <h1 id="seo-header">Obsidian 的文档同步到github</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="运维日常工作内容"><a href="#运维日常工作内容" class="headerlink" title="运维日常工作内容"></a>运维日常工作内容</h1><p>我的日常运维工作核心围绕 “稳业务、提效率、撑发展”，主要包括：日常巡检服务器与中间件状态、处理日志排查与常规问题、保障数据备份安全；应急响应故障（10 分钟响应、30 分钟解决核心故障）并复盘优化；编写 Shell&#x2F;Python 自动化脚本、维护 Jenkins CI&#x2F;CD 流程；优化架构性能、按需扩容迭代；搭建优化监控告警体系；跨团队对接开发 &#x2F; 业务 &#x2F; 运维同事支撑需求；沉淀运维文档与案例知识，兼顾基础值守与创造性优化。</p>
-<p>结合过往运维项目经验（如容器化迁移、高并发扩容、监控告警搭建等），我的日常工作围绕 “保障业务稳定运行、提升运维效率、支撑业务发展” 展开，核心分为 7 大模块，兼顾日常值守、应急处理、优化迭代：</p>
-<h3 id="一、日常运维值守（核心基础工作）"><a href="#一、日常运维值守（核心基础工作）" class="headerlink" title="一、日常运维值守（核心基础工作）"></a>一、日常运维值守（核心基础工作）</h3><ul>
-<li><p><strong>服务器 &#x2F; 集群状态巡检</strong>：每日通过 Zabbix、企业微信监控面板查看服务器 CPU &#x2F; 内存 &#x2F; 磁盘 &#x2F; 网络状态，中间件（Nginx&#x2F;MySQL&#x2F;Redis）连接数、响应时间、错误率，确保核心指标在正常阈值内（如 CPU≤80%、内存≤75%、接口响应时间≤500ms）；</p>
-</li>
-<li><p><strong>日志排查与问题响应</strong>：实时查看应用日志（如 Java 应用 Exception、Nginx 5xx 错误）、系统日志（&#x2F;var&#x2F;log&#x2F;messages），响应内部用户反馈（如开发反馈接口超时、业务反馈页面加载慢），每日处理 3-5 个常规问题（如 Nginx 配置调整、数据库索引优化、容器重启）；</p>
-</li>
-<li><p><strong>备份校验与数据安全</strong>：检查每日 MySQL 全量备份、Redis RDB 快照的完整性（通过校验文件 MD5 值），确认备份文件同步至异地服务器，每月执行 1 次数据恢复测试，确保 RTO&#x2F;RPO 达标；</p>
-</li>
-<li><p><strong>配置变更与版本管理</strong>：通过 Git 管理 Nginx、MySQL、应用配置文件，执行配置变更（如新增后端节点、调整限流参数）后，通过<code>nginx -t</code>校验配置、<code>systemctl reload</code>平滑重启，记录变更日志（变更时间、操作人、变更内容、回滚方案）。</p>
-</li>
-</ul>
-<h3 id="二、应急故障处理（优先级最高）"><a href="#二、应急故障处理（优先级最高）" class="headerlink" title="二、应急故障处理（优先级最高）"></a>二、应急故障处理（优先级最高）</h3><ul>
-<li><p><strong>故障响应</strong>：收到 Zabbix 告警（如服务器宕机、MySQL 主从同步失败、接口错误率突增）后，10 分钟内响应，按 “故障定位→临时止血→根因排查→永久修复” 流程处理，P1 级故障（核心业务中断）30 分钟内解决；</p>
-</li>
-<li><p><strong>常见故障处理</strong>：如 Nginx 502 错误（排查后端节点存活、调整连接池参数）、MySQL 慢查询突增（通过<code>show processlist</code>杀慢查询、优化 SQL 索引）、Redis 缓存穿透（临时开启布隆过滤器）、服务器 CPU 高（通过<code>top</code>+<code>jstack</code>定位耗 CPU 进程）；</p>
-</li>
-<li><p><strong>故障复盘</strong>：故障解决后 24 小时内输出复盘报告，记录故障现象、处理步骤、根因分析、优化措施（如服务器宕机因硬件故障，后续新增服务器硬件监控）。</p>
-</li>
-</ul>
-<h3 id="三、自动化运维与脚本开发"><a href="#三、自动化运维与脚本开发" class="headerlink" title="三、自动化运维与脚本开发"></a>三、自动化运维与脚本开发</h3><ul>
-<li><p><strong>日常脚本编写与维护</strong>：每周编写 &#x2F; 优化 1-2 个 Shell&#x2F;Python 脚本，提升运维效率，如：</p>
+                <p>将 Obsidian 文档同步到 GitHub，推荐用<strong>Obsidian Git 插件</strong>实现自动化同步，比手动输 Git 命令更高效，还支持多设备联动。以下是详细操作步骤，涵盖电脑端核心配置，也包含手机端适配要点：</p>
+<h2 id="一、前期准备"><a href="#一、前期准备" class="headerlink" title="一、前期准备"></a>一、前期准备</h2><ol>
+<li><strong>安装必备工具</strong>：安装电脑版 Obsidian；安装 GithubDesktop<a target="_blank" rel="noopener" href="https://desktop.github.com/download/">Download GitHub Desktop | GitHub Desktop</a>；注册并登录 GitHub 账号。</li>
+<li><strong>GitHub 创建私有仓库</strong>：登录 GitHub 后点击右上角 “+” 选择 “New repository”，填写仓库名（如 “obsidian-notes”），勾选 “Private” 设为私有，可勾选 “Add a README file”，最后点击 “Create repository”。创建后复制仓库的 SSH 或 HTTPS 地址备用。</li>
+</ol>
+<h2 id="二、关联本地-Obsidian-与-GitHub-仓库"><a href="#二、关联本地-Obsidian-与-GitHub-仓库" class="headerlink" title="二、关联本地 Obsidian 与 GitHub 仓库"></a>二、关联本地 Obsidian 与 GitHub 仓库</h2><h3 id="1-克隆远程仓库到本地："><a href="#1-克隆远程仓库到本地：" class="headerlink" title="1.克隆远程仓库到本地："></a>1.<strong>克隆远程仓库到本地</strong>：</h3><p>打开Github Desktop ，左上角file-clone a repository 。选择在GitHub新建的仓库</p>
+<p><img src="/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/github%E4%BB%93%E5%BA%93.png" srcset="/img/loading.gif" lazyload alt="github仓库"></p>
+<p>选择仓库，克隆到本地</p>
+<p><img src="/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/github%E4%BB%93%E5%BA%93%E5%85%8B%E9%9A%86%E6%9C%AC%E5%9C%B0.png" srcset="/img/loading.gif" lazyload alt="github仓库克隆本地"></p>
+<h3 id="2-Obsidian-关联本地仓库："><a href="#2-Obsidian-关联本地仓库：" class="headerlink" title="2.Obsidian 关联本地仓库："></a>2.<strong>Obsidian 关联本地仓库</strong>：</h3><p>打开 Obsidian，点击 “打开本地仓库”，选择刚刚克隆的本地仓库文件夹，此时 Obsidian 的笔记就与仓库文件关联了。</p>
+<p>.obsidian文件夹就是Obsidian 配置文件</p>
+<p>把GitHub\obsidian-notes.obsidian\workspace.json这个文件从git管理的文件中排除出去（即不上传到GitHub中）。</p>
+<p>在GitHub\obsidian-notes.obsidian\文件夹的目录新建一个文件名为.gitignore的文件，编辑文件内容</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-title">.obsidian/workspace.json</span><br><span class="hljs-title">.obsidian/workspace-mobile.json</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="三、测试上传到GitHub中"><a href="#三、测试上传到GitHub中" class="headerlink" title="三、测试上传到GitHub中"></a>三、测试上传到GitHub中</h2><p>在GitHubdesktop里选中已经修改的文件，这里会自动勾选。</p>
+<p><img src="/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/%E6%B5%8B%E8%AF%95%E4%B8%8A%E4%BC%A0.png" srcset="/img/loading.gif" lazyload alt="测试上传"></p>
+<p>在summary里填写提交的说明，然后点击commit进行提交</p>
+<p>然后点击右上角的Push按钮进行提交</p>
+<p>提交成功后，刷新网页的项目会发现提交成功了</p>
+<h2 id="四、安装插件实现自动同步"><a href="#四、安装插件实现自动同步" class="headerlink" title="四、安装插件实现自动同步"></a>四、安装插件实现自动同步</h2><ol>
+<li><strong>安装 Obsidian Git 插件</strong>：打开 Obsidian，进入设置→社区插件，关闭 “安全模式”，在插件市场搜索 “Git”（作者 Vinzent），点击安装并启用。</li>
+</ol>
+<p><img src="/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/Obsidian%E5%AE%89%E8%A3%85git%E6%8F%92%E4%BB%B6.png" srcset="/img/loading.gif" lazyload alt="Obsidian安装git插件"></p>
+<p>进入选项，设置</p>
+<p>开启停止编写后1分钟自动提交</p>
+<p><img src="/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/1%E5%88%86%E9%92%9F%E5%90%8C%E6%AD%A5.png" srcset="/img/loading.gif" lazyload alt="1分钟同步"></p>
+<p>启动Obsidian时从GitHub拉取同步：pull on startup</p>
+<p><img src="/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/%E5%90%AF%E5%8A%A8obsidian%E8%87%AA%E5%8A%A8%E5%90%8C%E6%AD%A5.png" srcset="/img/loading.gif" lazyload alt="启动obsidian自动同步"></p>
+<h3 id="问题1：“Vault-is-not-a-Git-repo-or-git-binary-cannot-be-found”"><a href="#问题1：“Vault-is-not-a-Git-repo-or-git-binary-cannot-be-found”" class="headerlink" title="问题1：“Vault is not a Git repo or git binary cannot be found”"></a>问题1：“Vault is not a Git repo or git binary cannot be found”</h3><p>说明<strong>当前 Obsidian 库不是 Git 仓库，或者系统没找到 Git 程序</strong>，按以下步骤逐个解决：</p>
+<p>自动提交需要自己的电脑安装git软件,电脑下载安装<a target="_blank" rel="noopener" href="https://git-scm.cn/downloads">Git - 下载 - Git 版本控制系统</a></p>
+<h4 id="第一步：确认-Git-是否已安装且能被系统识别"><a href="#第一步：确认-Git-是否已安装且能被系统识别" class="headerlink" title="第一步：确认 Git 是否已安装且能被系统识别"></a>第一步：确认 Git 是否已安装且能被系统识别</h4><ol>
+<li><p>检查 Git 安装状态：</p>
 <ul>
-<li><p>日志清理脚本：定时删除 7 天前 Nginx &#x2F; 应用日志，避免磁盘占满；</p>
-</li>
-<li><p>进程监控脚本：监控核心应用进程，异常时自动重启并告警；</p>
-</li>
-<li><p>批量操作脚本：批量部署应用实例、批量修改服务器内核参数；</p>
-</li>
+<li>Windows：打开 “命令提示符”，输入<code>git --version</code>，若显示版本号（如<code>git version 2.43.0</code>）则正常；若提示 “不是内部或外部命令”，说明 Git 未安装或未配置环境变量。</li>
+<li>Mac：打开 “终端”，输入<code>git --version</code>，无输出则需安装 Git（可通过<code>brew install git</code>安装）。</li>
 </ul>
 </li>
-<li><p><strong>CI&#x2F;CD 流程维护</strong>：维护 Jenkins 流水线，确保应用部署自动化（代码提交→编译→打包→容器构建→测试→上线），支持一键回滚，减少人工操作失误，每周协助开发完成 5-10 次应用迭代部署。</p>
+<li><p>配置 Git 环境变量（Windows）：</p>
+<p>若 Git 已安装但未识别，找到 Git 安装目录（如</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livescript">D:<span class="hljs-string">\Program</span> Files<span class="hljs-string">\Git\bin</span><br></code></pre></td></tr></table></figure>
+
+<p>），将其添加到系统环境变量的 “Path” 中，重启电脑后重试。</p>
 </li>
+</ol>
+<h4 id="第二步：在插件中指定-Git-程序路径（若仍报错）"><a href="#第二步：在插件中指定-Git-程序路径（若仍报错）" class="headerlink" title="第二步：在插件中指定 Git 程序路径（若仍报错）"></a>第二步：在插件中指定 Git 程序路径（若仍报错）</h4><p>若 Git 已安装但插件未识别，手动指定路径：</p>
+<ol>
+<li>打开 Obsidian 设置→第三方插件→GitHub Sync 插件→找到 “Git Path” 选项。</li>
+<li>填写 Git 程序的完整路径：<ul>
+<li>Windows：<code>D:\Program Files\Git\bin\git.exe</code></li>
+<li>Mac：<code>/usr/bin/git</code></li>
 </ul>
-<h3 id="四、架构优化与扩容迭代"><a href="#四、架构优化与扩容迭代" class="headerlink" title="四、架构优化与扩容迭代"></a>四、架构优化与扩容迭代</h3><ul>
-<li><p><strong>性能优化</strong>：定期分析系统瓶颈，如通过<code>explain</code>优化 MySQL 慢查询、调整 Nginx 并发参数（worker_connections）、优化 Redis 缓存策略（提升命中率），目标将核心接口响应时间从 500ms 压缩至 300ms 内，服务器负载降低 20%；</p>
 </li>
-<li><p><strong>扩容规划与执行</strong>：根据业务增长（如并发从 5000 升至 10000），执行接入层（Nginx 集群扩容）、应用层（容器实例扩容）、数据层（MySQL 从库新增、Redis 集群扩容）扩容操作，确保架构支撑业务增长；</p>
-</li>
-<li><p><strong>技术升级</strong>：跟进运维技术趋势，落地架构升级，如将传统物理机部署迁移至 Docker 容器、引入 K8s 实现弹性伸缩、接入 SkyWalking 全链路追踪。</p>
-</li>
-</ul>
-<h3 id="五、监控告警体系搭建与优化"><a href="#五、监控告警体系搭建与优化" class="headerlink" title="五、监控告警体系搭建与优化"></a>五、监控告警体系搭建与优化</h3><ul>
-<li><p><strong>监控项迭代</strong>：新增业务监控需求（如电商订单量、支付成功率），通过 Shell 脚本 + Zabbix 实现数据采集，配置告警阈值（如订单量骤降 50% 告警）；</p>
-</li>
-<li><p><strong>告警策略优化</strong>：调整告警频率（避免告警风暴）、优化告警渠道（P1 级短信 + 电话，P2 级邮件 + 企业微信），完善告警文案（明确故障节点、影响范围、处理建议）；</p>
-</li>
-<li><p><strong>监控可视化</strong>：维护 Grafana 监控面板，展示全链路指标（接入层 QPS、应用层线程数、数据层连接数），支持运维人员快速定位瓶颈。</p>
-</li>
-</ul>
-<h3 id="六、跨团队协作与需求支撑"><a href="#六、跨团队协作与需求支撑" class="headerlink" title="六、跨团队协作与需求支撑"></a>六、跨团队协作与需求支撑</h3><ul>
-<li><p><strong>对接开发团队</strong>：配合开发完成环境搭建（如测试 &#x2F; 预发布环境部署）、接口联调（如配置 Nginx 反向代理、数据库权限分配）、线上问题排查（如协助分析代码层面的性能瓶颈）；</p>
-</li>
-<li><p><strong>对接业务 &#x2F; 产品团队</strong>：了解业务需求（如促销活动峰值流量预估），提前做好扩容准备；反馈运维层面的业务优化建议（如商品详情页静态化减少数据库压力）；</p>
-</li>
-<li><p><strong>对接运维团队内部</strong>：分工负责不同模块（如我侧重容器化 + 中间件，同事侧重服务器硬件 + 网络），共享运维经验（如编写故障处理手册、脚本库），协同完成集群级运维操作（如机房迁移、异地容灾部署）。</p>
-</li>
-</ul>
-<h3 id="七、文档编写与知识沉淀"><a href="#七、文档编写与知识沉淀" class="headerlink" title="七、文档编写与知识沉淀"></a>七、文档编写与知识沉淀</h3><ul>
-<li><p><strong>运维手册更新</strong>：维护容灾方案手册、故障处理手册、配置变更手册，确保每个操作有标准化流程（如主从切换步骤、容器扩容命令）；</p>
-</li>
-<li><p><strong>知识沉淀与分享</strong>：记录典型故障案例（如高并发下 MySQL 锁等待问题）、技术优化方案（如 Nginx 高并发配置），每月参与团队内部分享，提升整体运维能力；</p>
-</li>
-<li><p><strong>合规与审计</strong>：按公司要求记录运维操作日志（如服务器登录记录、数据库操作记录），配合安全审计，确保运维操作合规。</p>
-</li>
-</ul>
-<p>总结来说，日常工作既包含 “巡检、日志排查、备份” 等重复性基础工作，也有 “故障应急、架构优化、自动化开发” 等创造性工作，核心目标是 “让业务稳定运行，让运维更高效”，同时通过跨团队协作支撑业务持续发展。如果需要了解某类工作的具体流程（如 Jenkins 部署流水线配置、故障应急响应步骤），可以随时告诉我～</p>
-<blockquote>
-<p>（注：文档部分内容可能由 AI 生成）</p>
-</blockquote>
+</ol>
+<p><img src="/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/%E6%8F%92%E4%BB%B6%E8%AE%BE%E7%BD%AE%E8%87%AA%E5%B7%B1%E7%94%B5%E8%84%91%E5%AE%89%E8%A3%85%E7%9A%84git%E8%B7%AF%E5%BE%84.png" srcset="/img/loading.gif" lazyload alt="插件设置自己电脑安装的git路径"></p>
+<p>完成后重启插件，即可正常自动同步。</p>
+<h2 id="解决图片在GitHub中不识别的问题"><a href="#解决图片在GitHub中不识别的问题" class="headerlink" title="解决图片在GitHub中不识别的问题"></a>解决图片在GitHub中不识别的问题</h2><p>安装插件custom attach location  （自定义附件存储位置）</p>
+<p>assets&#x2F;${noteFileName}&#x2F;${generatedAttachmentFileName}</p>
+<p><img src="/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/%E8%AE%BE%E7%BD%AE2.png" srcset="/img/loading.gif" lazyload alt="设置2"></p>
+<p>附件重命名模式：全部</p>
+<p>是否重命名附加文件：勾选</p>
+<p>系统设置-文件与链接：取消勾选，使用wiki链接 ；内部链接：基于当前笔记的相对路径</p>
+<p><img src="/OBsidian%E3%80%81github%E5%90%8C%E6%AD%A5.assets/%E8%AE%BE%E7%BD%AE.png" srcset="/img/loading.gif" lazyload alt="设置"></p>
 
                 
               </div>
@@ -362,8 +365,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>http://example.com/2025/12/06/日常运维工作-1/</div>
+      <div>Obsidian 的文档同步到github</div>
+      <div>http://example.com/2025/12/08/2025-12-08-Obsidian-的文档同步到github/</div>
     </div>
     <div class="license-meta">
       
@@ -375,7 +378,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年12月6日</div>
+          <div>2025年12月8日</div>
         </div>
       
       
@@ -407,9 +410,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/12/06/openEuler_22.03_EPEL_InstallationopenEuler%2022.03%20%E5%AE%89%E8%A3%85%20EPEL%20%E6%BA%90/" title="">
+                      <a href="/2025/12/08/hello-world/" title="Hello World">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
+                        <span class="hidden-mobile">Hello World</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -417,8 +420,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/12/06/%E9%AB%98%E7%BA%A7%E8%BF%90%E7%BB%B4%E5%BF%85%E4%BC%9A%E7%9A%84%2020%20%E4%B8%AA%E6%A0%B8%E5%BF%83%E6%8A%80%E8%83%BD%EF%BC%8C%E4%BD%A0%E8%BE%BE%E6%A0%87%E4%BA%86%E5%90%97%EF%BC%9F/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2025/12/08/2025-12-08-obsidian-notes/" title="obsidian-notes">
+                        <span class="hidden-mobile">obsidian-notes</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
