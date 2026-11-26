@@ -1902,10 +1902,10 @@ vim<span class="w"> </span>/etc/samba.smb.conf
 <p><code>valid users</code> 从占位符改成 <code>@docs</code>；<code>browsable</code> 改成正确的 <code>browseable</code>；补上 <code>write list</code>（写入白名单，和 valid users 分离，后续只想让人看不想让人改时改这一行就行）；<code>force group = docs</code> 兜底；<code>directory mask</code> 用 <strong>2775</strong>（四位数，含 setgid），这样客户端建子目录不会丢组继承。</p>
 <p>中途我先试过 <code>inherit permissions = yes</code>，实测发现它会让上传的普通文件变成 <code>-rwxrw-r--</code>（属主多出执行位），对 md 文件不干净，所以改成显式掩码，最终文件是标准的 <code>664</code>。</p>
 <p><strong>2. SMB 账号</strong></p>
-<p><code>smbpasswd -a mdftp</code> 建好了 passdb 账号并 <code>-e</code> 启用。选 <code>mdftp</code> 是因为它主组就是 <code>docs</code>、和 FTP 上传走同一身份，省掉再加组。<strong>密码暂时 <code>[REDACTED]</code></strong>，仅用于这次联调，请你自己执行 <code>smbpasswd mdftp</code> 改掉。</p>
+<p><code>smbpasswd -a mdftp</code> 建好了 passdb 账号并 <code>-e</code> 启用。选 <code>mdftp</code> 是因为它主组就是 <code>docs</code>、和 FTP 上传走同一身份，省掉再加组。<strong>密码在部署时自行设定（文档不留明文）</strong>，仅用于这次联调，请你自己执行 <code>smbpasswd mdftp</code> 改掉。</p>
 <p><strong>3. 服务与端口</strong></p>
 <p><code>systemctl enable --now smb nmb</code>，两个服务都已 enabled + active，139/445（含 IPv6）正常监听。</p>
-<p>Windows 端直接 <code>\\192.168.7.130\share</code>，账号 <code>mdftp</code> + 上面那个密码即可；第一次连上后建议先传一个文件，看 <code>ll</code> 是否是 <code>-rw-rw-r-- ... docs</code></p>
+<p>Windows 端直接 <code>\\192.168.7.130\share</code>，账号 <code>mdftp</code> + 你设定的密码即可；第一次连上后建议先传一个文件，看 <code>ll</code> 是否是 <code>-rw-rw-r-- ... docs</code></p>
 <h2 id="12-git-github-actions-cloudflare-pages">12. 阶段九：git → GitHub Actions → Cloudflare Pages<a class="headerlink" href="#12-git-github-actions-cloudflare-pages" title="Permanent link">&para;</a></h2>
 <p>前置：GitHub 仓库、Cloudflare 账号、Pages 项目。</p>
 <ol>
