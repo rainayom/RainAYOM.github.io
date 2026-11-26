@@ -1,0 +1,2138 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://192.168.7.130:8000/1.0/guide/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../tags/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>使用指南 - 运维知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href=".." title="运维知识库" class="md-header__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            运维知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              使用指南
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到明亮模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到明亮模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗黑模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到暗黑模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到跟随系统"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到跟随系统" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  使用指南
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  标签
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ansible/ansible%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+          
+  
+  
+  Ansible
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../ops/docker/" class="md-tabs__link">
+          
+  
+  
+  Ops
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="运维知识库" class="md-nav__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    运维知识库
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用指南
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 最终形态
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 架构与数据流
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 环境与目录规划
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 阶段一：Python 环境
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 阶段二：仓库骨架与写作约定
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-mkdocsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 阶段三：mkdocs.yml 逐项说明
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 阶段四：首页自动目录的原理
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 阶段五：构建与验收
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-systemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 阶段六：systemd 常驻
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ftp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 阶段七：FTP 共享
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 阶段七：FTP 共享">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-pyftpdlib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 为什么是 pyftpdlib
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 被动模式是唯一的坑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 权限模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 Windows 资源管理器接法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5 实测记录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.6 安全边界
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 阶段八：一键部署脚本
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sambadoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        部署samba共享doc目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-git-github-actions-cloudflare-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 阶段九：git → GitHub Actions → Cloudflare Pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 日常运维速查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 故障排查总表
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 已知限制与后续
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ansible
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ansible
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ansible/ansible%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ansible基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ansible/kejilion%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E7%AE%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kejilion脚本工具箱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ansible/%E4%BD%BF%E7%94%A8ansible%E5%AE%89%E8%A3%85AnsibleGalaxy%E7%9A%84roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible安装Ansible Galaxy的roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ansible/%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible批量安装docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ansible/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7pssh%E5%92%8Cansible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化工具pssh和ansible
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ops
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ops
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ops/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ops/nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 最终形态
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 架构与数据流
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 环境与目录规划
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 阶段一：Python 环境
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 阶段二：仓库骨架与写作约定
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-mkdocsyml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 阶段三：mkdocs.yml 逐项说明
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. 阶段四：首页自动目录的原理
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. 阶段五：构建与验收
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-systemd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. 阶段六：systemd 常驻
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-ftp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. 阶段七：FTP 共享
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="10. 阶段七：FTP 共享">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#101-pyftpdlib" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.1 为什么是 pyftpdlib
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#102" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.2 被动模式是唯一的坑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#103" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.3 权限模型
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#104-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.4 Windows 资源管理器接法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#105" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.5 实测记录
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#106" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10.6 安全边界
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. 阶段八：一键部署脚本
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sambadoc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        部署samba共享doc目录
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-git-github-actions-cloudflare-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. 阶段九：git → GitHub Actions → Cloudflare Pages
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        13. 日常运维速查
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        14. 故障排查总表
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        15. 已知限制与后续
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../tags/#tag:mkdocs" class="md-tag">mkdocs</a>
+      
+    
+      
+      
+      
+      
+        <a href="../tags/#tag:部署" class="md-tag">部署</a>
+      
+    
+  </nav>
+
+
+
+<h1 id="_1">使用指南<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>这篇是本知识库的完整搭建与运维指南：从 Markdown 写作约定、MkDocs Material 构建、首页自动目录，到 systemd 常驻、FTP 共享，以及 git → GitHub Actions → Cloudflare Pages 发布。所有命令与参数都已在 openEuler 24.03 LTS-SP3 实机验证。</p>
+<div class="admonition tip">
+<p class="admonition-title">最短路径</p>
+<p>只想快速跑起来：<code>sudo FTP_PASS='强密码' bash deploy-mkdocs-ftp.sh</code>，详见第 11 节。想看写作约定，跳到第 5 节。</p>
+</div>
+<p>本手册记录一套已在 openEuler 24.03 LTS-SP3 实机跑通的 Markdown 文档站流水线：<strong>写作 → FTP 上传 → 热构建预览 → git 推送 → GitHub Actions → Cloudflare Pages</strong>。所有命令、参数、报错都是真机验证过的，可直接照抄。</p>
+<div class="admonition note">
+<p class="admonition-title">适用场景</p>
+<p>内网/单机的 Markdown 知识库：运维笔记、项目文档、教程合集。要求是「文件即源」——不引入数据库，md 与图片就是唯一数据，随时可备份、可迁移、可进 git。</p>
+</div>
+<h2 id="1">1. 最终形态<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>落地方式</th>
+<th>端口</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>网页浏览/搜索</td>
+<td>MkDocs Material + <code>mkdocs serve</code></td>
+<td>8000</td>
+</tr>
+<tr>
+<td>首页自动目录</td>
+<td>自定义 hook 扫描 <code>docs/</code> 下全部 md</td>
+<td>—</td>
+</tr>
+<tr>
+<td>网页编辑</td>
+<td>本地编辑器 / code-server（可选）</td>
+<td>8443</td>
+</tr>
+<tr>
+<td>文件上传管理</td>
+<td>FTP（pyftpdlib），Windows 资源管理器原生可用</td>
+<td>21 + 21200-21210</td>
+</tr>
+<tr>
+<td>常驻守护</td>
+<td>systemd 两个单元，重启自愈</td>
+<td>—</td>
+</tr>
+<tr>
+<td>公网发布</td>
+<td>git push → GitHub Actions → Cloudflare Pages</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2">2. 架构与数据流<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>        ┌─────────────────────────────────────────┐
+        │  Windows 资源管理器 (FTP 21, 被动)       │
+        └───────────────┬─────────────────────────┘
+                        │ 上传 md / 图片
+                        ▼
+   /srv/mkdocs/repo/  ←── 唯一数据源（文件即数据库）
+     ├── docs/*.md          正文
+     ├── docs/images/       图片（必须在 docs 内）
+     ├── hooks/             首页目录生成 hook
+     ├── mkdocs.yml         站点配置
+     └── site/              构建产物（只读保护）
+                        │
+       ┌────────────────┴─────────────────┐
+       ▼                                  ▼
+  mkdocs serve (8000)              git push
+  systemd: mkdocs-serve            → GitHub Actions (mkdocs build --strict)
+  systemd: ftp-share               → Cloudflare Pages (公网)
+</code></pre></div>
+
+<p>关键设计：<strong>一个目录，多协议访问</strong>。FTP、本机编辑、git、mkdocs 全都指向 <code>/srv/mkdocs/repo</code>，不存在「同步」这一步，也就不会出现两边内容不一致。</p>
+<h2 id="3">3. 环境与目录规划<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p>实测环境：openEuler 24.03 LTS-SP3、内核 6.6、Python 3.11.6、git 2.43、SELinux Disabled、firewalld inactive。</p>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>属主/权限</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/srv/mkdocs</code></td>
+<td><code>root:root 755</code></td>
+<td>文档根</td>
+</tr>
+<tr>
+<td><code>/srv/mkdocs/.venv</code></td>
+<td><code>mkdocs:docs 755</code></td>
+<td>专用 Python 环境</td>
+</tr>
+<tr>
+<td><code>/srv/mkdocs/repo</code></td>
+<td><code>mkdocs:docs 2775</code></td>
+<td>仓库（setgid，组自动继承）</td>
+</tr>
+<tr>
+<td><code>/srv/mkdocs/repo/docs</code></td>
+<td><code>mkdocs:docs 2775</code></td>
+<td>正文与图片</td>
+</tr>
+<tr>
+<td><code>/srv/mkdocs/repo/site</code></td>
+<td><code>mkdocs:docs 2755</code></td>
+<td>构建产物，组不可写</td>
+</tr>
+<tr>
+<td><code>/opt/ftp-share</code></td>
+<td><code>root:root 755</code></td>
+<td>FTP 服务与其 venv</td>
+</tr>
+<tr>
+<td><code>/etc/ftp-share.env</code></td>
+<td><code>root:root 600</code></td>
+<td>FTP 凭据（密码所在）</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">为什么不用 root 跑服务</p>
+<p>站点与 FTP 都用专用账号（<code>mkdocs</code> uid 991、<code>mdftp</code>），配 systemd 沙箱。<code>systemd-analyze security mkdocs-serve</code> 实测从 5.6 MEDIUM 降到 <strong>1.7 OK</strong>。</p>
+</div>
+<h2 id="4-python">4. 阶段一：Python 环境<a class="headerlink" href="#4-python" title="Permanent link">&para;</a></h2>
+<p>不要用系统 pip 装 mkdocs——openEuler 的 pip 受 PEP 668 与发行版策略限制，且升级会污染系统包。统一用 venv：</p>
+<div class="codehilite"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/srv/mkdocs/.venv
+/srv/mkdocs/.venv/bin/pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pip
+/srv/mkdocs/.venv/bin/pip<span class="w"> </span>install<span class="w"> </span><span class="s1">'mkdocs-material&gt;=9.6,&lt;10'</span><span class="w"> </span><span class="s1">'mkdocs-awesome-pages-plugin&gt;=2.9,&lt;3'</span>
+</code></pre></div>
+
+<p>国内网络慢就加镜像：<code>-i https://pypi.tuna.tsinghua.edu.cn/simple</code>。实测 mkdocs-material 9.8.2 + mkdocs 1.6.1 + awesome-pages 2.10.1。</p>
+<p>依赖写进 <code>requirements.txt</code>，让本机与 GitHub Actions 用同一份版本约束：</p>
+<div class="codehilite"><pre><span></span><code>mkdocs-material&gt;=9.6,&lt;10
+mkdocs-awesome-pages-plugin&gt;=2.9,&lt;3
+</code></pre></div>
+
+<h2 id="5">5. 阶段二：仓库骨架与写作约定<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="n">repo</span><span class="o">/</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">docs</span><span class="o">/</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nf">index</span><span class="p">.</span><span class="n">md</span><span class="w">          </span><span class="err">首页（内含</span><span class="w"> </span><span class="o">&lt;!--</span><span class="w"> </span><span class="n">DOC</span><span class="o">-</span><span class="n">LIST</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="err">占位）</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">guide</span><span class="p">.</span><span class="n">md</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">images</span><span class="o">/</span><span class="w">           </span><span class="err">图片目录</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">ops</span><span class="o">/</span><span class="w">              </span><span class="err">子目录自动归组</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">hooks</span><span class="o">/</span><span class="n">index_listing</span><span class="p">.</span><span class="n">py</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">mkdocs</span><span class="p">.</span><span class="n">yml</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">requirements</span><span class="p">.</span><span class="n">txt</span>
+<span class="err">└──</span><span class="w"> </span><span class="p">.</span><span class="n">github</span><span class="o">/</span><span class="n">workflows</span><span class="o">/</span><span class="n">deploy</span><span class="o">-</span><span class="n">cloudflare</span><span class="p">.</span><span class="n">yml</span>
+</code></pre></div>
+
+<p>三条硬约定，违反必踩坑：</p>
+<ol>
+<li><strong>图片必须放在 <code>docs/</code> 内</strong>（推荐 <code>docs/images/</code>），正文写 <code>images/xxx.png</code>。放到 <code>docs/</code> 之外，<code>mkdocs build --strict</code> 直接报 <code>link '...' ... not found among documentation files</code> 并中断构建。实测：图片在 <code>docs/images/</code> 内时 strict 构建 0.61 秒通过；移到 <code>docs/</code> 外立刻失败。</li>
+<li><strong>一篇文章一个 <code>.md</code></strong>，首个一级标题就是首页目录里的展示名。</li>
+<li><strong>文件名避开纯数字和特殊符号</strong>，中文名可用（FTP 与 mkdocs 均按 UTF-8 处理），但 URL 里会被转义，分享链接略丑。</li>
+</ol>
+<h2 id="6-mkdocsyml">6. 阶段三：mkdocs.yml 逐项说明<a class="headerlink" href="#6-mkdocsyml" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">我的知识库</span>
+<span class="nt">docs_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs</span>
+<span class="nt">site_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">site</span>
+
+<span class="nt">theme</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">material</span>
+<span class="w">  </span><span class="nt">language</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zh</span>
+<span class="w">  </span><span class="nt">features</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.tabs</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.sections</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">content.code.copy</span>
+
+<span class="nt">plugins</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">search</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">awesome-pages</span>
+
+<span class="nt">hooks</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks/index_listing.py</span>
+
+<span class="nt">markdown_extensions</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admonition</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">codehilite</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">toc</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">permalink</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>作用</th>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>theme.material</code></td>
+<td>Material 主题，自带深色模式与搜索</td>
+<td>9.8.x 会提示 2027-05-05 EOL 并推荐 Zensical，暂不影响使用</td>
+</tr>
+<tr>
+<td><code>language: zh</code></td>
+<td>中文界面与搜索分词</td>
+<td>必须写，否则界面英文</td>
+</tr>
+<tr>
+<td><code>plugins: awesome-pages</code></td>
+<td>侧边栏按目录结构自动生成</td>
+<td><strong>启用后不能再写 <code>nav</code></strong>，否则插件报冲突；也不用手工维护导航</td>
+</tr>
+<tr>
+<td><code>hooks</code></td>
+<td>构建期改写首页</td>
+<td>新增 md 无需改任何配置</td>
+</tr>
+<tr>
+<td><code>markdown_extensions: admonition</code></td>
+<td><code>!!! note</code> 提示块</td>
+<td>手册里大量使用</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7">7. 阶段四：首页自动目录的原理<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<p><code>docs/index.md</code> 里只放一个占位标记：</p>
+<div class="codehilite"><pre><span></span><code><span class="gu">## 文档目录</span>
+
+&lt;!-- DOC-LIST --&gt;
+</code></pre></div>
+
+<p>hook 在每个页面渲染前拦截：只在 <code>index.md</code>、且只有出现标记时才动作。它遍历 mkdocs 已收集的 <code>files</code>，跳过 <code>index.md</code>，按父目录分组（<code>根目录</code> / 子目录名），取每个文件首个 H1 作标题，生成表格替换标记：</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_page_markdown</span><span class="p">(</span><span class="n">markdown</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
+    <span class="n">src_path</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\\</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">src_path</span> <span class="o">!=</span> <span class="s2">"index.md"</span> <span class="ow">or</span> <span class="n">MARKER</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">markdown</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">markdown</span>
+    <span class="n">docs_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">"docs_dir"</span><span class="p">])</span>
+    <span class="c1"># 遍历 files → 分组 → 取首个 H1 → 生成表格</span>
+    <span class="k">return</span> <span class="n">markdown</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">MARKER</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span>
+</code></pre></div>
+
+<p>实测输出：首页显示 <code>共 8 篇文档</code>，分组「根目录」与「ops」，侧栏 17 个链接全部自动生成；通过 FTP 上传一篇新 md 后，8 秒内变 <code>共 9 篇文档</code> 并出现新标题——无需重启、无需改 nav。</p>
+<div class="admonition tip">
+<p class="admonition-title">排序由文件名控制</p>
+<p>想固定顺序就在文件名前加 <code>01-</code>、<code>02-</code> 前缀；awesome-pages 与首页表格都按路径字符串排序。</p>
+</div>
+<h2 id="8">8. 阶段五：构建与验收<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo
+/srv/mkdocs/.venv/bin/python<span class="w"> </span>-m<span class="w"> </span>mkdocs<span class="w"> </span>build<span class="w"> </span>--strict<span class="w">   </span><span class="c1"># CI 用这条</span>
+/srv/mkdocs/.venv/bin/python<span class="w"> </span>-m<span class="w"> </span>mkdocs<span class="w"> </span>serve<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span>.0.0.0:8000
+</code></pre></div>
+
+<p>验收口径（每次改完都看这三条）：</p>
+<ol>
+<li><code>build --strict</code> 退出码 0，无 warning（strict 会把断链、缺图当成错误）；</li>
+<li><code>curl -s http://127.0.0.1:8000/</code> 返回 200；</li>
+<li>首页出现 <code>共 &lt;strong&gt;N&lt;/strong&gt; 篇文档</code>，N 与 <code>find docs -name '*.md' | wc -l</code> 减 1 后一致。</li>
+</ol>
+<p><code>serve</code> 是热重载模式：改 md 自动重建，适合内网预览；CI 与生产用 <code>build</code>。</p>
+<div class="admonition warning">
+<p class="admonition-title">装了新插件要重启 serve</p>
+<p>先起 <code>serve</code> 再 <code>pip install</code> 插件，热重载会报 <code>The "awesome-pages" plugin is not installed</code> 并卡死——旧进程的 entry-points 缓存不会刷新。必须 <code>systemctl restart mkdocs-serve</code>。</p>
+</div>
+<h2 id="9-systemd">9. 阶段六：systemd 常驻<a class="headerlink" href="#9-systemd" title="Permanent link">&para;</a></h2>
+<p>两个单元，都放在 <code>/etc/systemd/system/</code>：</p>
+<table>
+<thead>
+<tr>
+<th>单元</th>
+<th>类型</th>
+<th>关键点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mkdocs-serve.service</code></td>
+<td>simple</td>
+<td><code>User=mkdocs</code>、<code>KillSignal=SIGINT</code>（mkdocs 需优雅退出）、<code>Restart=always</code></td>
+</tr>
+<tr>
+<td><code>ftp-share.service</code></td>
+<td>simple</td>
+<td><code>User=mdftp</code> + <code>AmbientCapabilities=CAP_NET_BIND_SERVICE</code>（非 root 绑 21）</td>
+</tr>
+</tbody>
+</table>
+<p><code>mkdocs-serve.service</code> 的沙箱项与理由：</p>
+<table>
+<thead>
+<tr>
+<th>配置</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ProtectSystem=strict</code></td>
+<td>整个 <code>/usr</code> <code>/etc</code> 只读</td>
+</tr>
+<tr>
+<td><code>ProtectHome=yes</code></td>
+<td>隐藏 <code>/home</code> <code>/root</code></td>
+</tr>
+<tr>
+<td><code>ReadWritePaths=/srv/mkdocs/repo</code></td>
+<td>只放行仓库目录可写</td>
+</tr>
+<tr>
+<td><code>ReadOnlyPaths=/srv/mkdocs/.venv</code></td>
+<td>venv 只读，防篡改</td>
+</tr>
+<tr>
+<td><code>SystemCallFilter=@system-service</code></td>
+<td>只允许系统服务常用系统调用</td>
+</tr>
+<tr>
+<td><code>CapabilityBoundingSet=</code> / <code>AmbientCapabilities=</code></td>
+<td>清空全部 capability</td>
+</tr>
+<tr>
+<td><code>UMask=0027</code></td>
+<td>新建文件默认不给组外读</td>
+</tr>
+</tbody>
+</table>
+<p>验证自愈：<code>kill -9</code> 主进程，5 秒内 PID 变化、端口仍 200：</p>
+<div class="codehilite"><pre><span></span><code>systemctl<span class="w"> </span>show<span class="w"> </span>-p<span class="w"> </span>MainPID<span class="w"> </span>mkdocs-serve<span class="w"> </span>--value
+<span class="nb">kill</span><span class="w"> </span>-9<span class="w"> </span><span class="k">$(</span>systemctl<span class="w"> </span>show<span class="w"> </span>-p<span class="w"> </span>MainPID<span class="w"> </span>mkdocs-serve<span class="w"> </span>--value<span class="k">)</span>
+sleep<span class="w"> </span><span class="m">6</span><span class="p">;</span><span class="w"> </span>systemctl<span class="w"> </span>show<span class="w"> </span>-p<span class="w"> </span>MainPID<span class="w"> </span>mkdocs-serve<span class="w"> </span>--value<span class="p">;</span><span class="w"> </span>curl<span class="w"> </span>-sI<span class="w"> </span>http://127.0.0.1:8000<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
+</code></pre></div>
+
+<p>实测 PID 1970 → 2075，HTTP 200 保持。</p>
+<h2 id="10-ftp">10. 阶段七：FTP 共享<a class="headerlink" href="#10-ftp" title="Permanent link">&para;</a></h2>
+<h3 id="101-pyftpdlib">10.1 为什么是 pyftpdlib<a class="headerlink" href="#101-pyftpdlib" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dnf install vsftpd</code></td>
+<td>openEuler SP3 的 <code>update</code> 仓拉不到 <code>repomd.xml</code>（<code>All mirrors were tried</code>），需 <code>--disablerepo=update --disablerepo=update-source</code>，且要 root 装系统包</td>
+</tr>
+<tr>
+<td>SFTP（sshd 内置）</td>
+<td>零安装、加密，但 <strong>Windows 资源管理器原生不支持</strong>，只能 WinSCP/FileZilla</td>
+</tr>
+<tr>
+<td><strong>pyftpdlib（采用）</strong></td>
+<td>纯 Python，pip 装进独立 venv，不碰系统包；非 root 运行；<code>encoding=utf8</code> 支持中文名；被动端口可控</td>
+</tr>
+</tbody>
+</table>
+<h3 id="102">10.2 被动模式是唯一的坑<a class="headerlink" href="#102" title="Permanent link">&para;</a></h3>
+<p>FTP 有两个连接：控制连接（21）传命令，数据连接（每次列表/传输新建）传内容。客户端默认用被动模式：服务端回一个「我的地址+端口」，客户端去连。容器或 NAT 后面，服务端回的是内网/容器地址，客户端连不上，就出现「能登录，但读取目录列表失败」。</p>
+<p>两个参数解决：</p>
+<div class="codehilite"><pre><span></span><code><span class="n">handler</span><span class="o">.</span><span class="n">passive_ports</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">21200</span><span class="p">,</span> <span class="mi">21211</span><span class="p">)</span>     <span class="c1"># 固定被动端口段，好放行</span>
+<span class="n">handler</span><span class="o">.</span><span class="n">masquerade_address</span> <span class="o">=</span> <span class="s2">"192.168.7.130"</span>   <span class="c1"># 回给客户端的就是这个 IP</span>
+</code></pre></div>
+
+<p>容器里跑还要把 21200-21210 映射出来；单机直装只需防火墙放行。</p>
+<h3 id="103">10.3 权限模型<a class="headerlink" href="#103" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>权限</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/srv/mkdocs/repo</code></td>
+<td><code>mkdocs:docs 2775</code></td>
+<td>目录 2775 = setgid + 组可写，新文件自动继承 docs 组</td>
+</tr>
+<tr>
+<td><code>docs/*.md</code></td>
+<td><code>mkdocs:docs 664</code></td>
+<td>FTP 上传落盘即 644/664，mkdocs 可读</td>
+</tr>
+<tr>
+<td><code>site/</code></td>
+<td><code>mkdocs:docs 2755</code></td>
+<td>组不可写：FTP 账号改不到构建产物</td>
+</tr>
+<tr>
+<td>组 <code>docs</code></td>
+<td>gid 1002</td>
+<td>成员：<code>mkdocs</code>、<code>mdftp</code></td>
+</tr>
+</tbody>
+</table>
+<p>FTP 服务以 <code>mdftp</code> 运行，系统层权限是 <code>docs</code> 组可写；pyftpdlib 的 <code>DummyAuthorizer(perm="elradfmwMT")</code> 只控制协议层允许哪些命令。两层叠加才是完整权限。</p>
+<h3 id="104-windows">10.4 Windows 资源管理器接法<a class="headerlink" href="#104-windows" title="Permanent link">&para;</a></h3>
+<p><strong>方式 A：地址栏</strong>（临时传文件最快）</p>
+<ol>
+<li>地址栏输 <code>ftp://192.168.7.130/</code>；</li>
+<li>登录框填账号 <code>mdftp</code> + 密码；</li>
+<li>进入后看到 <code>docs</code>、<code>hooks</code>、<code>mkdocs.yml</code>，进 <code>docs</code> 即可拖拽。</li>
+</ol>
+<p><strong>方式 B：映射网络位置</strong>（图标常驻「此电脑」）</p>
+<p>「此电脑」右键 → 映射网络驱动器 → 「连接到可用于存储文档和图片的网站」→ 自定义网络位置 → <code>ftp://192.168.7.130/</code> → 取消匿名 → 填账号密码。</p>
+<div class="admonition note">
+<p class="admonition-title">资源管理器相关设置</p>
+<p>资源管理器走被动模式，需要「使用被动 FTP」（IE 选项 → 高级，默认已开）。若单位网络拦截，把 <code>PASV_MIN/MAX</code> 收窄到 10 个端口，或先用 FileZilla 判断是服务端还是网络问题。</p>
+</div>
+<h3 id="105">10.5 实测记录<a class="headerlink" href="#105" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>项</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>登录 / 列目录</td>
+<td>成功，根目录 <code>docs hooks mkdocs.yml site</code></td>
+</tr>
+<tr>
+<td>中文名上传</td>
+<td><code>FTP上传测试笔记.md</code> 成功，落盘 <code>mdftp:docs 644</code></td>
+</tr>
+<tr>
+<td>目录操作</td>
+<td><code>MKD</code> / <code>RNFR+RNTO</code> / <code>DELE</code> / <code>RMD</code> 全部通过</td>
+</tr>
+<tr>
+<td>站点联动</td>
+<td>上传后首页 <code>8 → 9 篇</code>，出现标题「FTP 上传测试」；删除后回落 8</td>
+</tr>
+<tr>
+<td>日志无害报错</td>
+<td><code>550 SIZE not allowed in ASCII mode</code> —— 客户端未先发 <code>TYPE I</code>，资源管理器走二进制不受影响</td>
+</tr>
+</tbody>
+</table>
+<h3 id="106">10.6 安全边界<a class="headerlink" href="#106" title="Permanent link">&para;</a></h3>
+<p>FTP 是明文协议，账号密码与内容都可被嗅探。因此：</p>
+<ul>
+<li>只在内网监听，<strong>不要把 21 与 21200-21210 映射到公网</strong>；</li>
+<li>跨公网用 SFTP 或 WireGuard/Tailscale 隧道；</li>
+<li>需要加密又要资源管理器：pyftpdlib 换 <code>TLS_FTPHandler</code> + 自签证书即可；</li>
+<li>密码放 <code>/etc/ftp-share.env</code>（600，root 独占），不要留在脚本里。</li>
+</ul>
+<h2 id="11">11. 阶段八：一键部署脚本<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
+<p><code>deploy-mkdocs-ftp.sh</code> 是单文件脚本，把上面第 4-10 阶段全部自动化，不依赖其他模板文件（内容都内嵌了）。</p>
+<div class="codehilite"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">FTP_PASS</span><span class="o">=</span><span class="s1">'换成你的强密码'</span><span class="w"> </span>bash<span class="w"> </span>deploy-mkdocs-ftp.sh
+</code></pre></div>
+
+<p>常用变体：</p>
+<div class="codehilite"><pre><span></span><code>sudo<span class="w"> </span>bash<span class="w"> </span>deploy-mkdocs-ftp.sh<span class="w"> </span>--dry-run<span class="w">              </span><span class="c1"># 只打印将要做什么</span>
+sudo<span class="w"> </span>bash<span class="w"> </span>deploy-mkdocs-ftp.sh<span class="w"> </span>--skip-ftp<span class="w">             </span><span class="c1"># 只要站点，不要 FTP</span>
+sudo<span class="w"> </span><span class="nv">FTP_PASS</span><span class="o">=</span>xxx<span class="w"> </span><span class="nv">PIP_INDEX_URL</span><span class="o">=</span>https://pypi.tuna.tsinghua.edu.cn/simple<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="nv">DOC_ROOT</span><span class="o">=</span>/srv/mkdocs<span class="w"> </span>bash<span class="w"> </span>deploy-mkdocs-ftp.sh<span class="w">    </span><span class="c1"># 国内镜像 + 自定义根</span>
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>默认</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DOC_ROOT</code></td>
+<td><code>/srv/mkdocs</code></td>
+<td>文档根</td>
+</tr>
+<tr>
+<td><code>SITE_PORT</code></td>
+<td><code>8000</code></td>
+<td>站点端口</td>
+</tr>
+<tr>
+<td><code>SERVICE_USER</code> / <code>SHARE_GROUP</code></td>
+<td><code>mkdocs</code> / <code>docs</code></td>
+<td>站点账号 / 共享组</td>
+</tr>
+<tr>
+<td><code>FTP_USER</code></td>
+<td><code>mdftp</code></td>
+<td>FTP 账号</td>
+</tr>
+<tr>
+<td><code>FTP_PASS</code></td>
+<td>随机生成</td>
+<td>不传则生成 16 位并打印，务必记录</td>
+</tr>
+<tr>
+<td><code>FTP_MASQ</code></td>
+<td>自动探测</td>
+<td>被动模式回给客户端的 IP</td>
+</tr>
+<tr>
+<td><code>FTP_PORT</code> / <code>PASV_MIN</code> / <code>PASV_MAX</code></td>
+<td><code>21</code> / <code>21200</code> / <code>21210</code></td>
+<td>端口规划</td>
+</tr>
+<tr>
+<td><code>FORCE_CONFIG</code></td>
+<td><code>0</code></td>
+<td>设 1 才覆盖已有的 <code>mkdocs.yml</code>、hook、<code>index.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>脚本行为要点：</p>
+<ul>
+<li><strong>幂等</strong>：重复执行只补缺失项、校正权限与单元文件，<strong>绝不覆盖你已有的 md</strong>；</li>
+<li>已存在的 <code>mkdocs.yml</code> / <code>hooks</code> / <code>index.md</code> 默认保留（避免吃掉你的配置）；</li>
+<li>内置验收：检查两个服务 active、站点 HTTP 200、首页文档数、FTP 端口监听；</li>
+<li>firewalld 运行时自动放行 8000 / 21 / 被动段，未运行则提示。</li>
+</ul>
+<p>脚本分九步：参数打印 → 建用户组 → venv 与依赖 → 仓库骨架 → mkdocs-serve 单元 → FTP 服务（venv/ftpd.py/env/单元）→ 启动自启 → 防火墙 → 验收与摘要。</p>
+<h2 id="sambadoc">部署samba共享doc目录<a class="headerlink" href="#sambadoc" title="Permanent link">&para;</a></h2>
+<p>方便linux与windows之间进行文档编辑上传，即时生效</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">#安装</span>
+sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>samba<span class="w"> </span>samba-client<span class="w"> </span>-y
+
+<span class="c1">#设置共享目录、设置权限</span>
+<span class="c1">#共享目录   /srv/mkdocs/repo/docs/</span>
+<span class="c1">#其他目录使用mkdir 目录路径</span>
+
+<span class="c1">#配置权限</span>
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">2775</span><span class="w"> </span>/srv/mkdocs/repo/docs/
+</code></pre></div>
+
+<p><strong>1. 配置文件</strong>（<code>/etc/samba/smb.conf</code>）</p>
+<div class="codehilite"><pre><span></span><code><span class="c1">#编辑配置文件</span>
+vim<span class="w"> </span>/etc/samba.smb.conf
+<span class="c1">#添加下面配置</span>
+<span class="c1">## read only = no  才运行写入</span>
+<span class="c1">## valid users = your_username  指定允许访问的samba用户</span>
+<span class="o">[</span>share<span class="o">]</span>
+<span class="w">    </span><span class="nv">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>Linux<span class="w"> </span>SMB<span class="w"> </span>share
+<span class="w">    </span><span class="nv">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>/srv/mkdocs/repo/docs
+<span class="w">    </span><span class="nv">browseable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>yes
+<span class="w">    </span><span class="nb">read</span><span class="w"> </span><span class="nv">only</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>no
+<span class="w">    </span>valid<span class="w"> </span><span class="nv">users</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@docs
+<span class="w">    </span>write<span class="w"> </span><span class="nv">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>@docs
+<span class="w">    </span>force<span class="w"> </span><span class="nv">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>docs
+<span class="w">    </span><span class="c1">#inherit permissions = yes   # 副作用: 新文件会带上属主 x 位，故改用显式掩码</span>
+<span class="w">    </span>create<span class="w"> </span><span class="nv">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0664</span>
+<span class="w">    </span>directory<span class="w"> </span><span class="nv">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2775</span>
+</code></pre></div>
+
+<p><code>valid users</code> 从占位符改成 <code>@docs</code>；<code>browsable</code> 改成正确的 <code>browseable</code>；补上 <code>write list</code>（写入白名单，和 valid users 分离，后续只想让人看不想让人改时改这一行就行）；<code>force group = docs</code> 兜底；<code>directory mask</code> 用 <strong>2775</strong>（四位数，含 setgid），这样客户端建子目录不会丢组继承。</p>
+<p>中途我先试过 <code>inherit permissions = yes</code>，实测发现它会让上传的普通文件变成 <code>-rwxrw-r--</code>（属主多出执行位），对 md 文件不干净，所以改成显式掩码，最终文件是标准的 <code>664</code>。</p>
+<p><strong>2. SMB 账号</strong></p>
+<p><code>smbpasswd -a mdftp</code> 建好了 passdb 账号并 <code>-e</code> 启用。选 <code>mdftp</code> 是因为它主组就是 <code>docs</code>、和 FTP 上传走同一身份，省掉再加组。<strong>密码暂时 <code>[REDACTED]</code></strong>，仅用于这次联调，请你自己执行 <code>smbpasswd mdftp</code> 改掉。</p>
+<p><strong>3. 服务与端口</strong></p>
+<p><code>systemctl enable --now smb nmb</code>，两个服务都已 enabled + active，139/445（含 IPv6）正常监听。</p>
+<p>Windows 端直接 <code>\\192.168.7.130\share</code>，账号 <code>mdftp</code> + 上面那个密码即可；第一次连上后建议先传一个文件，看 <code>ll</code> 是否是 <code>-rw-rw-r-- ... docs</code></p>
+<h2 id="12-git-github-actions-cloudflare-pages">12. 阶段九：git → GitHub Actions → Cloudflare Pages<a class="headerlink" href="#12-git-github-actions-cloudflare-pages" title="Permanent link">&para;</a></h2>
+<p>前置：GitHub 仓库、Cloudflare 账号、Pages 项目。</p>
+<ol>
+<li><strong>本机初始化并推送</strong></li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo
+git<span class="w"> </span>init<span class="w"> </span>-b<span class="w"> </span>main
+git<span class="w"> </span>add<span class="w"> </span>-A<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"init: mkdocs site"</span>
+git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:&lt;user&gt;/&lt;repo&gt;.git
+git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+
+<ol>
+<li><strong>仓库内 workflow</strong>（<code>.github/workflows/deploy-cloudflare.yml</code>）</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build &amp; Deploy</span>
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">deploy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v5</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{</span><span class="nt"> python-version</span><span class="p">:</span><span class="w"> </span><span class="s">'3.11'</span><span class="w"> </span><span class="p p-Indicator">}</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pip install -r requirements.txt</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mkdocs build --strict</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloudflare/wrangler-action@v3</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">apiToken</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.CLOUDFLARE_API_TOKEN }}</span>
+<span class="w">          </span><span class="nt">accountId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.CLOUDFLARE_ACCOUNT_ID }}</span>
+<span class="w">          </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pages deploy ./site --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}</span>
+</code></pre></div>
+
+<ol>
+<li>
+<p><strong>三个 secret</strong>：<code>CLOUDFLARE_API_TOKEN</code>（Pages:Edit）、<code>CLOUDFLARE_ACCOUNT_ID</code>、<code>CLOUDFLARE_PROJECT_NAME</code>。</p>
+</li>
+<li>
+<p><strong>自动推送（可选）</strong>：不想手敲 git 就用 <code>git-sync-loop.sh</code>——定时 <code>add/commit/push</code>，配合 deploy key（<code>config/ssh/</code> 下的只读私钥挂进容器）。</p>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">构建失败先看 strict</p>
+<p>CI 用 <code>--strict</code>：任何断链、缺图都会让 Action 红。本地先跑同一条命令，能省一轮来回。</p>
+</div>
+<h2 id="13">13. 日常运维速查<a class="headerlink" href="#13" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>需求</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>看服务状态</td>
+<td><code>systemctl status mkdocs-serve ftp-share --no-pager</code></td>
+</tr>
+<tr>
+<td>重启站点</td>
+<td><code>systemctl restart mkdocs-serve</code></td>
+</tr>
+<tr>
+<td>实时日志</td>
+<td><code>journalctl -u mkdocs-serve -f</code></td>
+</tr>
+<tr>
+<td>改 FTP 密码</td>
+<td><code>sudo sed -i 's\|^FTP_PASS=.*\|FTP_PASS=新密码\|' /etc/ftp-share.env &amp;&amp; sudo systemctl restart ftp-share</code></td>
+</tr>
+<tr>
+<td>手动构建检查</td>
+<td><code>cd /srv/mkdocs/repo &amp;&amp; ../.venv/bin/python -m mkdocs build --strict</code></td>
+</tr>
+<tr>
+<td>新增文档</td>
+<td>FTP 传 md 到 <code>docs/</code>，等 5-10 秒刷新首页</td>
+</tr>
+<tr>
+<td>备份</td>
+<td><code>tar czf /backup/docs-$(date +%F).tar.gz -C /srv/mkdocs/repo docs mkdocs.yml hooks</code></td>
+</tr>
+<tr>
+<td>安全评分</td>
+<td><code>systemd-analyze security mkdocs-serve ftp-share</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="14">14. 故障排查总表<a class="headerlink" href="#14" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>build --strict</code> 报 <code>not found among documentation files</code></td>
+<td>图片不在 <code>docs_dir</code> 内</td>
+<td>移到 <code>docs/images/</code>，正文写 <code>images/x.png</code></td>
+</tr>
+<tr>
+<td><code>The "awesome-pages" plugin is not installed</code></td>
+<td>装插件后没重启 serve</td>
+<td><code>systemctl restart mkdocs-serve</code></td>
+</tr>
+<tr>
+<td>侧栏为空/重复</td>
+<td>同时写了 <code>nav</code> 和 awesome-pages</td>
+<td>删掉 <code>nav</code></td>
+</tr>
+<tr>
+<td>站点 502/无响应</td>
+<td>单元启动失败</td>
+<td><code>journalctl -u mkdocs-serve -n 40</code></td>
+</tr>
+<tr>
+<td>端口被占</td>
+<td>旧进程或改了端口</td>
+<td><code>ss -lntp \| grep :8000</code></td>
+</tr>
+<tr>
+<td>FTP 能登录但列不出目录</td>
+<td>被动模式地址/端口不对</td>
+<td>设 <code>FTP_MASQUERADE</code> 为本机局域网 IP，放行 21200-21210</td>
+</tr>
+<tr>
+<td>FTP 上传后站点没变</td>
+<td>文件不在 <code>docs/</code>，或不是 <code>.md</code></td>
+<td>传进 <code>docs/</code>，确认后缀</td>
+</tr>
+<tr>
+<td>FTP 写入 permission denied</td>
+<td>目录丢了 setgid</td>
+<td><code>chgrp -R docs repo &amp;&amp; find repo -type d -exec chmod 2775 {} +</code></td>
+</tr>
+<tr>
+<td>中文名乱码</td>
+<td>客户端编码</td>
+<td>服务端已设 <code>encoding="utf8"</code>；用 FileZilla 复核</td>
+</tr>
+<tr>
+<td><code>550 SIZE not allowed in ASCII mode</code></td>
+<td>客户端未发 <code>TYPE I</code></td>
+<td>ftplib 脚本先 <code>voidcmd("TYPE I")</code>，资源管理器无影响</td>
+</tr>
+<tr>
+<td>Actions 红</td>
+<td>strict 构建失败或缺 secret</td>
+<td>本地跑同命令；检查三个 secret 名</td>
+</tr>
+<tr>
+<td>Cloudflare 404</td>
+<td>项目名/分支不匹配</td>
+<td>核对 <code>CLOUDFLARE_PROJECT_NAME</code> 与 Pages 生产分支</td>
+</tr>
+</tbody>
+</table>
+<h2 id="15">15. 已知限制与后续<a class="headerlink" href="#15" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>FTP 明文</strong>：仅限内网。要加密就上 FTPS（pyftpdlib <code>TLS_FTPHandler</code> + 自签证书）或改用 SFTP。</li>
+<li><strong>Material 9.8.x EOL 提示</strong>：2027-05-05 后需迁移 Zensical 或换主题，构建暂不受影响。</li>
+<li><strong><code>serve</code> 是开发服务器</strong>：小团队内网够用；对外高并发应 <code>build</code> 后交给 Nginx 静态托管。</li>
+<li><strong>首页表格是全量列表</strong>：文档过千条时建议 hook 里加分页或只列目录级索引。</li>
+<li><strong>单机无高可用</strong>：需要多副本就把 repo 放进 git，任意机器 clone + 一键脚本即可重建。</li>
+</ul>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.sections", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1144 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://192.168.7.130:8000/1.0/ansible/%E4%BD%BF%E7%94%A8ansible%E5%AE%89%E8%A3%85AnsibleGalaxy%E7%9A%84roles/">
+      
+      
+        <link rel="prev" href="../kejilion%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E7%AE%B1/">
+      
+      
+        <link rel="next" href="../%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85docker/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>使用ansible安装Ansible Galaxy的roles - 运维知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ansibleansible-galaxyroles" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="运维知识库" class="md-header__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            运维知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              使用ansible安装Ansible Galaxy的roles
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到明亮模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到明亮模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗黑模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到暗黑模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到跟随系统"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到跟随系统" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  使用指南
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  标签
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../ansible%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+          
+  
+  
+  Ansible
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ops/docker/" class="md-tabs__link">
+          
+  
+  
+  Ops
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="运维知识库" class="md-nav__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    运维知识库
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ansible
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ansible
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ansible%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ansible基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kejilion%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E7%AE%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kejilion脚本工具箱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible安装Ansible Galaxy的roles
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible安装Ansible Galaxy的roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-ansible-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 浏览 Ansible Galaxy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible批量安装docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7pssh%E5%92%8Cansible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化工具pssh和ansible
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ops
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ops
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-ansible-galaxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 浏览 Ansible Galaxy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../tags/#tag:ansible" class="md-tag">ansible</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../tags/#tag:role" class="md-tag">role</a>
+      
+    
+  </nav>
+
+
+
+<h1 id="ansibleansible-galaxyroles">使用ansible安装Ansible Galaxy的roles<a class="headerlink" href="#ansibleansible-galaxyroles" title="Permanent link">&para;</a></h1>
+<p>书接上回</p>
+<p><font style="color:rgb(38, 38, 38);">https://www.yuque.com/xianzhou-eiffx/aklhoc/vsz13ega7edlk67l?singleDoc# 《ansible基础》</font></p>
+<p><font style="color:rgb(38, 38, 38);">在安装好以上环境后</font></p>
+<p>Ansible Galaxy 是 Ansible 的一个社区平台，你可以在上面找到、下载、分享和使用由其他用户创建的 Ansible Role。Role 是一种将任务、处理器、变量和文件组织在一起的方式，便于重用和分享 Ansible 配置。</p>
+<p><font style="color:rgb(38, 38, 38);">要使用 Ansible Galaxy 里面的内容，你可以按照以下步骤操作：</font></p>
+<h3 id="1-ansible-galaxy"><font style="color:rgb(38, 38, 38);">1. 浏览 Ansible Galaxy</font><a class="headerlink" href="#1-ansible-galaxy" title="Permanent link">&para;</a></h3>
+<p><font style="color:rgb(38, 38, 38);">首先，访问 </font><a href="https://galaxy.ansible.com/">Ansible Galaxy</a><font style="color:rgb(38, 38, 38);"> 网站。在这里，你可以搜索你感兴趣的 Role，阅读它们的描述、README 文件、评分和评论，以及查看它们的源代码。</font></p>
+<h1 id="1nginx"><font style="color:rgb(38, 38, 38);">一.案例1，给所有主机安装nginx</font><a class="headerlink" href="#1nginx" title="Permanent link">&para;</a></h1>
+<h3 id="2-role"><font style="color:rgb(38, 38, 38);">2. 安装 Role</font><a class="headerlink" href="#2-role" title="Permanent link">&para;</a></h3>
+<p><font style="color:rgb(38, 38, 38);">找到你想要使用的 Role 后，你可以通过 Ansible Galaxy CLI（命令行界面）或者通过 Galaxy 网站的 UI 来安装它。这里介绍使用 CLI 的方法：</font></p>
+<ul>
+<li><strong>通过 Ansible Galaxy CLI 安装 Role</strong><font style="color:rgb(38, 38, 38);">首先，确保你的系统上已经安装了 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;ansible-galaxy&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 命令。然后，你可以使用以下命令来安装 Role：</font></li>
+</ul>
+<div class="codehilite"><pre><span></span><code>ansible-galaxy<span class="w"> </span>install<span class="w"> </span>&lt;username&gt;.&lt;rolename&gt;
+</code></pre></div>
+
+<p><font style="color:rgb(38, 38, 38);">其中 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;&lt;username&gt;&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 是 Role 作者的用户名，</font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;&lt;rolename&gt;&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 是 Role 的名称。例如，如果你想要安装一个名为 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;geerlingguy.nginx&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 的 Role，你可以运行：</font></p>
+<div class="codehilite"><pre><span></span><code>ansible-galaxy<span class="w"> </span>install<span class="w"> </span>geerlingguy.nginx
+</code></pre></div>
+
+<p><font style="color:rgb(38, 38, 38);">Role 将会被安装到你的 Ansible 环境中的 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;roles&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 目录下（默认情况下是当前工作目录下的 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;roles&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 子目录）。</font></p>
+<h3 id="3-role"><font style="color:rgb(38, 38, 38);">3. 使用 Role</font><a class="headerlink" href="#3-role" title="Permanent link">&para;</a></h3>
+<p><font style="color:rgb(38, 38, 38);">安装完 Role 后，你可以在你的 Ansible Playbook 中引用它。创建一个新的 Playbook 文件（例如 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;site.yml&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);">），然后在其中使用 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;roles&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 关键字来包含 Role：</font></p>
+<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
+<span class="w">  </span><span class="nt">roles</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geerlingguy.nginx</span>
+</code></pre></div>
+
+<p><font style="color:rgb(38, 38, 38);">这个 Playbook 将会在所有主机上应用 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;geerlingguy.nginx&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> Role。</font></p>
+<h3 id="4-playbook"><font style="color:rgb(38, 38, 38);">4. 运行 Playbook</font><a class="headerlink" href="#4-playbook" title="Permanent link">&para;</a></h3>
+<p><font style="color:rgb(38, 38, 38);">最后，使用 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;ansible-playbook&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 命令来运行你的 Playbook：</font></p>
+<div class="codehilite"><pre><span></span><code>ansible-playbook<span class="w"> </span>site.yaml
+</code></pre></div>
+
+<p><font style="color:rgb(38, 38, 38);">根据你的 Role 和 Playbook 的配置，Ansible 将会在被控制节点上执行相应的任务。</font></p>
+<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ansible-galaxy install geerlingguy.nginx</span>
+-<span class="w"> </span>downloading<span class="w"> </span>role<span class="w"> </span><span class="s1">'nginx'</span>,<span class="w"> </span>owned<span class="w"> </span>by<span class="w"> </span>geerlingguy
+-<span class="w"> </span>downloading<span class="w"> </span>role<span class="w"> </span>from<span class="w"> </span>https://github.com/geerlingguy/ansible-role-nginx/archive/3.2.0.tar.gz
+-<span class="w"> </span>extracting<span class="w"> </span>geerlingguy.nginx<span class="w"> </span>to<span class="w"> </span>/root/.ansible/roles/geerlingguy.nginx
+-<span class="w"> </span>geerlingguy.nginx<span class="w"> </span><span class="o">(</span><span class="m">3</span>.2.0<span class="o">)</span><span class="w"> </span>was<span class="w"> </span>installed<span class="w"> </span>successfully
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># vim site.yaml </span>
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ansible-playbook site.yml</span>
+ERROR!<span class="w"> </span>the<span class="w"> </span>playbook:<span class="w"> </span>site.yml<span class="w"> </span>could<span class="w"> </span>not<span class="w"> </span>be<span class="w"> </span>found
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ls</span>
+ible-galaxy<span class="w"> </span>info<span class="w"> </span>acandid.httpd<span class="w">  </span>nginx<span class="w">  </span>site.yaml
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># cat site.yaml </span>
+-<span class="w"> </span>hosts:<span class="w"> </span>all
+<span class="w">  </span>roles:
+<span class="w">    </span>-<span class="w"> </span>geerlingguy.nginx
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ansible-galaxy list</span>
+<span class="c1"># /root/.ansible/roles</span>
+-<span class="w"> </span>geerlingguy.nginx,<span class="w"> </span><span class="m">3</span>.2.0
+<span class="c1"># /usr/share/ansible/roles</span>
+<span class="c1"># /etc/ansible/roles</span>
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ansible-playbook site.yaml</span>
+
+PLAY<span class="w"> </span><span class="o">[</span>all<span class="o">]</span><span class="w"> </span>****************************************************************************************
+
+TASK<span class="w"> </span><span class="o">[</span>Gathering<span class="w"> </span>Facts<span class="o">]</span><span class="w"> </span>****************************************************************************
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>Include<span class="w"> </span>OS-specific<span class="w"> </span>variables.<span class="o">]</span><span class="w"> </span>*****************************************
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>Define<span class="w"> </span>nginx_user.<span class="o">]</span><span class="w"> </span>*****************************************************
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>include_tasks<span class="o">]</span><span class="w"> </span>**********************************************************
+included:<span class="w"> </span>/root/.ansible/roles/geerlingguy.nginx/tasks/setup-RedHat.yml<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="m">172</span>.16.120.249,<span class="w"> </span><span class="m">172</span>.16.120.250,<span class="w"> </span><span class="m">172</span>.16.120.248
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>Enable<span class="w"> </span>nginx<span class="w"> </span>repo.<span class="o">]</span><span class="w"> </span>*****************************************************
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>Ensure<span class="w"> </span>nginx<span class="w"> </span>is<span class="w"> </span>installed.<span class="o">]</span><span class="w"> </span>*********************************************
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>include_tasks<span class="o">]</span><span class="w"> </span>**********************************************************
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>include_tasks<span class="o">]</span><span class="w"> </span>**********************************************************
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>include_tasks<span class="o">]</span><span class="w"> </span>**********************************************************
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>include_tasks<span class="o">]</span><span class="w"> </span>**********************************************************
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>include_tasks<span class="o">]</span><span class="w"> </span>**********************************************************
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>include_tasks<span class="o">]</span><span class="w"> </span>**********************************************************
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>Remove<span class="w"> </span>default<span class="w"> </span>nginx<span class="w"> </span>vhost<span class="w"> </span>config<span class="w"> </span>file<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>configured<span class="o">)</span>.<span class="o">]</span><span class="w"> </span>****************
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+skipping:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>Ensure<span class="w"> </span>nginx_vhost_path<span class="w"> </span>exists.<span class="o">]</span><span class="w"> </span>****************************************
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>Add<span class="w"> </span>managed<span class="w"> </span>vhost<span class="w"> </span>config<span class="w"> </span>files.<span class="o">]</span><span class="w"> </span>****************************************
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>Remove<span class="w"> </span>managed<span class="w"> </span>vhost<span class="w"> </span>config<span class="w"> </span>files.<span class="o">]</span><span class="w"> </span>*************************************
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>Remove<span class="w"> </span>legacy<span class="w"> </span>vhosts.conf<span class="w"> </span>file.<span class="o">]</span><span class="w"> </span>****************************************
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>Copy<span class="w"> </span>nginx<span class="w"> </span>configuration<span class="w"> </span><span class="k">in</span><span class="w"> </span>place.<span class="o">]</span><span class="w"> </span>*************************************
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>Ensure<span class="w"> </span>nginx<span class="w"> </span>service<span class="w"> </span>is<span class="w"> </span>running<span class="w"> </span>as<span class="w"> </span>configured.<span class="o">]</span><span class="w"> </span>*************************
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+
+RUNNING<span class="w"> </span>HANDLER<span class="w"> </span><span class="o">[</span>geerlingguy.nginx<span class="w"> </span>:<span class="w"> </span>reload<span class="w"> </span>nginx<span class="o">]</span><span class="w"> </span>************************************************
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.249<span class="o">]</span>
+
+PLAY<span class="w"> </span>RECAP<span class="w"> </span>****************************************************************************************
+<span class="m">172</span>.16.120.248<span class="w">             </span>:<span class="w"> </span><span class="nv">ok</span><span class="o">=</span><span class="m">11</span><span class="w">   </span><span class="nv">changed</span><span class="o">=</span><span class="m">5</span><span class="w">    </span><span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">failed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">skipped</span><span class="o">=</span><span class="m">9</span><span class="w">    </span><span class="nv">rescued</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">ignored</span><span class="o">=</span><span class="m">0</span><span class="w">   </span>
+<span class="m">172</span>.16.120.249<span class="w">             </span>:<span class="w"> </span><span class="nv">ok</span><span class="o">=</span><span class="m">11</span><span class="w">   </span><span class="nv">changed</span><span class="o">=</span><span class="m">4</span><span class="w">    </span><span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">failed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">skipped</span><span class="o">=</span><span class="m">9</span><span class="w">    </span><span class="nv">rescued</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">ignored</span><span class="o">=</span><span class="m">0</span><span class="w">   </span>
+<span class="m">172</span>.16.120.250<span class="w">             </span>:<span class="w"> </span><span class="nv">ok</span><span class="o">=</span><span class="m">11</span><span class="w">   </span><span class="nv">changed</span><span class="o">=</span><span class="m">5</span><span class="w">    </span><span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">failed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">skipped</span><span class="o">=</span><span class="m">9</span><span class="w">    </span><span class="nv">rescued</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">ignored</span><span class="o">=</span><span class="m">0</span><span class="w">   </span>
+
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># </span>
+</code></pre></div>
+
+<p><img alt="1733234344697-689c3f16-b09f-4c95-8075-634ba8db0338.png" src="../img/rcSPgtsGI-NZGdEv/1733234344697-689c3f16-b09f-4c95-8075-634ba8db0338-176000.png" /></p>
+<h5 id="font-stylecolorrgb6-6-7geerlingguynginxfont-nginx-nginx-nginx-nginx"><font style="color:rgb(6, 6, 7);">这些任务展示了 </font><code>&lt;font style="color:rgb(6, 6, 7);"&gt;geerlingguy.nginx&lt;/font&gt;</code><font style="color:rgb(6, 6, 7);"> 角色的主要功能，包括配置 Nginx 用户、管理虚拟主机配置文件、复制 Nginx 配置文件以及确保 Nginx 服务正确运行。通过这些任务，你可以自动化 Nginx 的安装和配置过程。</font><a class="headerlink" href="#font-stylecolorrgb6-6-7geerlingguynginxfont-nginx-nginx-nginx-nginx" title="Permanent link">&para;</a></h5>
+<h1 id="2node2database17216120250mysql">二.案例2，给node2（database）服务器（172.16.120.250）安装mysql<a class="headerlink" href="#2node2database17216120250mysql" title="Permanent link">&para;</a></h1>
+<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ansible-galaxy install geerlingguy.mysql</span>
+-<span class="w"> </span>downloading<span class="w"> </span>role<span class="w"> </span><span class="s1">'mysql'</span>,<span class="w"> </span>owned<span class="w"> </span>by<span class="w"> </span>geerlingguy
+-<span class="w"> </span>downloading<span class="w"> </span>role<span class="w"> </span>from<span class="w"> </span>https://github.com/geerlingguy/ansible-role-mysql/archive/4.3.4.tar.gz
+-<span class="w"> </span>extracting<span class="w"> </span>geerlingguy.mysql<span class="w"> </span>to<span class="w"> </span>/root/.ansible/roles/geerlingguy.mysql
+-<span class="w"> </span>geerlingguy.mysql<span class="w"> </span><span class="o">(</span><span class="m">4</span>.3.4<span class="o">)</span><span class="w"> </span>was<span class="w"> </span>installed<span class="w"> </span>successfully
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ls</span>
+ible-galaxy<span class="w"> </span>info<span class="w"> </span>acandid.httpd<span class="w">  </span>nginx<span class="w">  </span>site.yaml
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># vim site.yaml </span>
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># cat site.yaml </span>
+---
+-<span class="w"> </span>hosts:<span class="w"> </span>database
+<span class="w">  </span>become:<span class="w"> </span>yes
+<span class="w">  </span>roles:
+<span class="w">    </span>-<span class="w"> </span>geerlingguy.mysql
+<span class="w">  </span>vars:
+<span class="w">    </span>mysql_root_password:<span class="w"> </span><span class="s1">'Gww603397654'</span>
+<span class="w">    </span>mysql_databases:
+<span class="w">      </span>-<span class="w"> </span>name:<span class="w"> </span>testdb
+<span class="w">        </span>encoding:<span class="w"> </span>utf8
+<span class="w">        </span>collation:<span class="w"> </span>utf8_general_ci
+<span class="w">    </span>mysql_users:
+<span class="w">      </span>-<span class="w"> </span>name:<span class="w"> </span><span class="nb">test</span>
+<span class="w">        </span>password:<span class="w"> </span><span class="s1">'Gww603397654'</span>
+<span class="w">        </span>priv:<span class="w"> </span><span class="s1">'testdb.*:ALL'</span>
+<span class="w">    </span>mysql_remove_test_database:<span class="w"> </span><span class="nb">true</span>
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ansible-playbook site.yaml </span>
+changed:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.248<span class="o">]</span>
+
+PLAY<span class="w"> </span>RECAP<span class="w"> </span>****************************************************************************************
+<span class="m">172</span>.16.120.248<span class="w">             </span>:<span class="w"> </span><span class="nv">ok</span><span class="o">=</span><span class="m">35</span><span class="w">   </span><span class="nv">changed</span><span class="o">=</span><span class="m">10</span><span class="w">   </span><span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">failed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">skipped</span><span class="o">=</span><span class="m">16</span><span class="w">   </span><span class="nv">rescued</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">ignored</span><span class="o">=</span><span class="m">0</span><span class="w">   </span>
+
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># </span>
+</code></pre></div>
+
+<p><img alt="1733235037409-ee17a600-404e-4e4c-97e6-7b4fd1807981.png" src="../img/rcSPgtsGI-NZGdEv/1733235037409-ee17a600-404e-4e4c-97e6-7b4fd1807981-939633.png" /></p>
+<blockquote>
+<p>更新: 2024-12-03 22:18:35<br />
+原文: <a href="https://www.yuque.com/xianzhou-eiffx/aklhoc/ggbqdhnn8l6ewy65">https://www.yuque.com/xianzhou-eiffx/aklhoc/ggbqdhnn8l6ewy65</a></p>
+</blockquote>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

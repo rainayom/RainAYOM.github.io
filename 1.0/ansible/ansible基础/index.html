@@ -1,0 +1,2109 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://192.168.7.130:8000/1.0/ansible/ansible%E5%9F%BA%E7%A1%80/">
+      
+      
+        <link rel="prev" href="../../tags/">
+      
+      
+        <link rel="next" href="../kejilion%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E7%AE%B1/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>ansible基础 - 运维知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ansible" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="运维知识库" class="md-header__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            运维知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              ansible基础
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到明亮模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到明亮模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗黑模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到暗黑模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到跟随系统"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到跟随系统" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  使用指南
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  标签
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  Ansible
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ops/docker/" class="md-tabs__link">
+          
+  
+  
+  Ops
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="运维知识库" class="md-nav__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    运维知识库
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ansible
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ansible
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ansible基础
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ansible基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 准备工作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ansible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 安装 Ansible
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 配置 SSH 免密登录
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 配置 SSH 免密登录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成 SSH 密钥对（如果尚未生成）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        将 SSH 公钥复制到所有被控制节点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ansible-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 配置 Ansible 主机清单 (inventory)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ansible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 验证 Ansible 配置
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ansible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 执行基本的 Ansible 操作（常用模块）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 执行基本的 Ansible 操作（常用模块）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. 运行一个简单的命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-yumservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. 安装软件包yum和service模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. 拷贝文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-playbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. 执行 playbook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5查看各节点负载
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6用户模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7文件模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#68" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8收集模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#69cron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.9cron定时任务模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#610-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.10 shell模块（万能模块）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7role-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.role-角色扮演
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.role-角色扮演">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1简介
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2准备目录结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3编写任务
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4准备配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5编写变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6编写处理程序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#77" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.7编写剧本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#78" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.8实施
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#79" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.9测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kejilion%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E7%AE%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kejilion脚本工具箱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8ansible%E5%AE%89%E8%A3%85AnsibleGalaxy%E7%9A%84roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible安装Ansible Galaxy的roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible批量安装docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7pssh%E5%92%8Cansible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化工具pssh和ansible
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ops
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ops
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. 准备工作
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-ansible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. 安装 Ansible
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. 配置 SSH 免密登录
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 配置 SSH 免密登录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        生成 SSH 密钥对（如果尚未生成）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssh_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        将 SSH 公钥复制到所有被控制节点
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ansible-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. 配置 Ansible 主机清单 (inventory)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ansible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. 验证 Ansible 配置
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-ansible" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. 执行基本的 Ansible 操作（常用模块）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 执行基本的 Ansible 操作（常用模块）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. 运行一个简单的命令
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-yumservice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. 安装软件包yum和service模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. 拷贝文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-playbook" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. 执行 playbook
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5查看各节点负载
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6用户模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#67" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.7文件模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#68" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.8收集模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#69cron" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.9cron定时任务模块
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#610-shell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.10 shell模块（万能模块）
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7role-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.role-角色扮演
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.role-角色扮演">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1简介
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2准备目录结构
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3编写任务
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4准备配置文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5编写变量
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6编写处理程序
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#77" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.7编写剧本
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#78" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.8实施
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#79" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.9测试
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <a href="../../tags/#tag:ansible" class="md-tag">ansible</a>
+      
+    
+      
+      
+      
+      
+        <a href="../../tags/#tag:自动化" class="md-tag">自动化</a>
+      
+    
+  </nav>
+
+
+
+<h1 id="ansible">ansible基础<a class="headerlink" href="#ansible" title="Permanent link">&para;</a></h1>
+<p>1.软件介绍</p>
+<p>环境准备，密码都是Gww603397654</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><font style="color:rgb(38, 38, 38);">主机名</font><font style="color:rgb(38, 38, 38);">   </font></th>
+<th style="text-align: center;"><font style="color:rgb(38, 38, 38);">系统</font></th>
+<th style="text-align: center;"><font style="color:rgb(38, 38, 38);">IP地址</font><font style="color:rgb(38, 38, 38);">   </font></th>
+<th style="text-align: center;"><font style="color:rgb(38, 38, 38);">角色</font><font style="color:rgb(38, 38, 38);">   </font></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><font style="color:rgb(38, 38, 38);">control</font><font style="color:rgb(38, 38, 38);">   </font></td>
+<td style="text-align: center;"><font style="color:rgb(38, 38, 38);">centos7.9</font></td>
+<td style="text-align: center;"><font style="color:rgb(38, 38, 38);">172.16.120.249   </font></td>
+<td style="text-align: center;"><font style="color:rgb(38, 38, 38);">控制节点（manager）</font><font style="color:rgb(38, 38, 38);">   </font></td>
+</tr>
+<tr>
+<td style="text-align: center;"><font style="color:rgb(38, 38, 38);">node1</font><font style="color:rgb(38, 38, 38);">   </font></td>
+<td style="text-align: center;"><font style="color:rgb(38, 38, 38);">centos7.9</font></td>
+<td style="text-align: center;"><font style="color:rgb(38, 38, 38);">172.16.120.250   </font></td>
+<td style="text-align: center;"><font style="color:rgb(38, 38, 38);">被控制节点（web2）</font><font style="color:rgb(38, 38, 38);">   </font></td>
+</tr>
+<tr>
+<td style="text-align: center;"><font style="color:rgb(38, 38, 38);">node2</font><font style="color:rgb(38, 38, 38);">   </font></td>
+<td style="text-align: center;"><font style="color:rgb(38, 38, 38);">centos7.9</font></td>
+<td style="text-align: center;"><font style="color:rgb(38, 38, 38);">172.16.120.248   </font></td>
+<td style="text-align: center;"><font style="color:rgb(38, 38, 38);">被控制节点（database）</font></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="1733225853414-d91d07e8-379d-4683-a634-a2a65d16908b.png" src="../img/lJS0snt6g-_yo2o9/1733225853414-d91d07e8-379d-4683-a634-a2a65d16908b-768523.png" /></p>
+<p>在这三台服务器上使用 Ansible 来学习自动化操作是一个很好的实践。下面我将指导你如何使用这三台 CentOS 7.9 服务器配置并执行基础的 Ansible 操作。</p>
+<h3 id="1">1. <strong>准备工作</strong><a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>首先，确保你的所有服务器都可以相互通信，并且能够通过 SSH 登录。根据你提供的 IP 地址，它们应该能够互相访问。</p>
+<p>修改三台服务器的主机名。便于后期查看</p>
+<div class="codehilite"><pre><span></span><code>sudo<span class="w"> </span>hostnamectl<span class="w"> </span>set-hostname<span class="w"> </span>&lt;新的主机名&gt;
+</code></pre></div>
+
+<p><font style="color:rgb(31, 35, 41);"></font></p>
+<h3 id="2-ansible">2. <strong>安装 Ansible</strong><a class="headerlink" href="#2-ansible" title="Permanent link">&para;</a></h3>
+<p>在 <strong>控制节点 (control)</strong> 上安装 Ansible：</p>
+<div class="codehilite"><pre><span></span><code>sudo<span class="w"> </span>yum<span class="w"> </span>update<span class="w"> </span>-y
+sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>epel-release<span class="w"> </span>-y
+sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>ansible<span class="w"> </span>-y
+</code></pre></div>
+
+<p>通过运行 <code>ansible --version</code> 验证 Ansible 是否安装成功。</p>
+<div class="codehilite"><pre><span></span><code>ansible<span class="w"> </span>--version
+</code></pre></div>
+
+<h3 id="3-ssh">3. <strong>配置 SSH 免密登录</strong><a class="headerlink" href="#3-ssh" title="Permanent link">&para;</a></h3>
+<p>为了让 Ansible 能够无密码地管理所有节点，你需要在控制节点上为 Ansible 配置 SSH 密钥对。</p>
+<h4 id="ssh">生成 SSH 密钥对（如果尚未生成）<a class="headerlink" href="#ssh" title="Permanent link">&para;</a></h4>
+<p>在 <strong>控制节点 (control)</strong> 上执行以下命令：</p>
+<div class="codehilite"><pre><span></span><code>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa
+</code></pre></div>
+
+<p>按提示操作，一般直接按回车即可。</p>
+<h4 id="ssh_1">将 SSH 公钥复制到所有被控制节点<a class="headerlink" href="#ssh_1" title="Permanent link">&para;</a></h4>
+<p>使用 <code>ssh-copy-id</code> 将公钥复制到 <code>node1</code> 和 <code>node2</code> 上，分别执行以下命令：</p>
+<div class="codehilite"><pre><span></span><code>ssh-copy-id<span class="w"> </span><span class="m">172</span>.16.120.250
+ssh-copy-id<span class="w"> </span><span class="m">172</span>.16.120.248
+ssh-copy-id<span class="w"> </span><span class="m">172</span>.16.120.249
+</code></pre></div>
+
+<p>输入每台服务器的密码（你提供的密码是 <code>Gww603397654</code>）以完成 SSH 免密登录配置。</p>
+<p>你可以通过运行以下命令测试免密登录是否成功：</p>
+<div class="codehilite"><pre><span></span><code>ssh<span class="w"> </span><span class="m">172</span>.16.120.250
+ssh<span class="w"> </span><span class="m">172</span>.16.120.248
+ssh<span class="w"> </span><span class="m">172</span>.16.120.249
+</code></pre></div>
+
+<p>如果你能够直接登录而不输入密码，则说明免密登录配置成功。</p>
+<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>~<span class="w"> </span><span class="c1"># ssh 172.16.120.250</span>
+Last<span class="w"> </span>login:<span class="w"> </span>Tue<span class="w"> </span>Dec<span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">19</span>:58:11<span class="w"> </span><span class="m">2024</span><span class="w"> </span>from<span class="w"> </span><span class="m">110</span>.184.149.83
+
+Welcome<span class="w"> </span>to<span class="w"> </span>Alibaba<span class="w"> </span>Cloud<span class="w"> </span>Elastic<span class="w"> </span>Compute<span class="w"> </span>Service<span class="w"> </span>!
+
+<span class="o">[</span>root@node1<span class="w"> </span>~<span class="o">]</span><span class="c1"># exit</span>
+登出
+Connection<span class="w"> </span>to<span class="w"> </span><span class="m">172</span>.16.120.250<span class="w"> </span>closed.
+root@control<span class="w"> </span>~<span class="w"> </span><span class="c1"># ssh 172.16.120.248</span>
+Last<span class="w"> </span>login:<span class="w"> </span>Tue<span class="w"> </span>Dec<span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">19</span>:58:42<span class="w"> </span><span class="m">2024</span><span class="w"> </span>from<span class="w"> </span><span class="m">110</span>.184.149.83
+
+Welcome<span class="w"> </span>to<span class="w"> </span>Alibaba<span class="w"> </span>Cloud<span class="w"> </span>Elastic<span class="w"> </span>Compute<span class="w"> </span>Service<span class="w"> </span>!
+
+<span class="o">[</span>root@node2<span class="w"> </span>~<span class="o">]</span><span class="c1"># exit</span>
+登出
+Connection<span class="w"> </span>to<span class="w"> </span><span class="m">172</span>.16.120.248<span class="w"> </span>closed.
+root@control<span class="w"> </span>~<span class="w"> </span><span class="c1"># </span>
+root@control<span class="w"> </span>~<span class="w"> </span><span class="c1"># ssh 172.16.120.249</span>
+Last<span class="w"> </span>login:<span class="w"> </span>Tue<span class="w"> </span>Dec<span class="w">  </span><span class="m">3</span><span class="w"> </span><span class="m">19</span>:59:55<span class="w"> </span><span class="m">2024</span><span class="w"> </span>from<span class="w"> </span><span class="m">110</span>.184.149.83
+
+Welcome<span class="w"> </span>to<span class="w"> </span>Alibaba<span class="w"> </span>Cloud<span class="w"> </span>Elastic<span class="w"> </span>Compute<span class="w"> </span>Service<span class="w"> </span>!
+
+root@control<span class="w"> </span>~<span class="w"> </span><span class="c1"># exit</span>
+登出
+Connection<span class="w"> </span>to<span class="w"> </span><span class="m">172</span>.16.120.249<span class="w"> </span>closed.
+root@control<span class="w"> </span>~<span class="w"> </span><span class="c1"># </span>
+</code></pre></div>
+
+<h3 id="4-ansible-inventory">4. <strong>配置 Ansible 主机清单 (inventory)</strong><a class="headerlink" href="#4-ansible-inventory" title="Permanent link">&para;</a></h3>
+<p>Ansible 使用一个清单文件来定义所有受管理节点的 IP 地址和主机名。你需要在 <strong>控制节点 (control)</strong> 上创建一个清单文件。</p>
+<p>编辑 <code>/etc/ansible/hosts</code> 文件（如果文件不存在，可以创建它）：</p>
+<div class="codehilite"><pre><span></span><code>sudo<span class="w"> </span>vim<span class="w"> </span>/etc/ansible/hosts
+</code></pre></div>
+
+<p>将以下内容添加到文件中：</p>
+<div class="codehilite"><pre><span></span><code><span class="na">[all</span><span class="o">:</span><span class="s">vars]</span>
+<span class="na">ansible_user</span><span class="o">=</span><span class="s">root</span>
+<span class="c1">#ansible_ssh_pass=Gww603397654  这里可以不写密码</span>
+<span class="na">ansible_become</span><span class="o">=</span><span class="s">true</span>
+
+<span class="na">[control]</span>
+<span class="na">172.16.120.249</span>
+
+<span class="na">[nodes]</span>
+<span class="na">172.16.120.250</span>
+<span class="na">172.16.120.248</span>
+
+<span class="na">[web]</span>
+<span class="na">172.16.120.250</span>
+
+<span class="na">[database]</span>
+<span class="na">172.16.120.248</span>
+</code></pre></div>
+
+<p>这个文件定义了两个组：<code>web</code> 和 <code>database</code>，分别包含 <code>node1</code> 和 <code>node2</code> 的 IP 地址。</p>
+<h3 id="5-ansible">5. <strong>验证 Ansible 配置</strong><a class="headerlink" href="#5-ansible" title="Permanent link">&para;</a></h3>
+<p>现在，你可以通过运行 <code>ansible</code> 命令来测试连接是否成功。首先测试控制节点是否能够成功连接到所有被控制节点：</p>
+<div class="codehilite"><pre><span></span><code>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>ping
+</code></pre></div>
+
+<p>如果一切设置正确，你应该看到类似下面的输出，表示所有节点的连接成功：</p>
+<div class="codehilite"><pre><span></span><code><span class="m">172</span>.16.120.249<span class="w"> </span><span class="p">|</span><span class="w"> </span>SUCCESS<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>&gt;&gt;
+pong
+<span class="m">172</span>.16.120.250<span class="w"> </span><span class="p">|</span><span class="w"> </span>SUCCESS<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>&gt;&gt;
+pong
+<span class="m">172</span>.16.120.248<span class="w"> </span><span class="p">|</span><span class="w"> </span>SUCCESS<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>&gt;&gt;
+pong
+</code></pre></div>
+
+<h3 id="6-ansible">6. <strong>执行基本的 Ansible 操作（</strong><strong><font style="color:#DF2A3F;">常用模块</font></strong><strong>）</strong><a class="headerlink" href="#6-ansible" title="Permanent link">&para;</a></h3>
+<p>接下来，你可以尝试一些基本的 Ansible 操作。</p>
+<p><font style="color:#DF2A3F;">详细的模块学习可以参考</font></p>
+<p><a href="https://blog.csdn.net/FWT975959/article/details/138420460?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=ansible%E5%9F%BA%E7%A1%80&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-4-138420460.142^v100^pc_search_result_base6&amp;spm=1018.2226.3001.4187">【小菜鸟之---Ansible基础详解】-CSDN博客</a></p>
+<h4 id="61">6.1. <strong>运行一个简单的命令</strong><a class="headerlink" href="#61" title="Permanent link">&para;</a></h4>
+<p>使用 <code>ansible</code> 命令来执行一个简单的操作，比如获取 <code>node1</code> 和 <code>node2</code> 的主机名：</p>
+<div class="codehilite"><pre><span></span><code>ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span><span class="nb">command</span><span class="w"> </span>-a<span class="w"> </span><span class="s2">"hostname"</span>
+</code></pre></div>
+
+<p>这将会在所有节点上运行 <code>hostname</code> 命令，显示各节点的主机名。</p>
+<h4 id="62-yumservice">6.2. <strong>安装软件包yum和</strong><font style="color:rgb(40, 105, 201);background-color:rgb(253, 253, 253);">service模块</font><a class="headerlink" href="#62-yumservice" title="Permanent link">&para;</a></h4>
+<p>可以使用 Ansible 的 <code>yum</code> 模块来安装软件包。例如，安装 <code>httpd</code>（Apache Web 服务器）：</p>
+<div class="codehilite"><pre><span></span><code>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>yum<span class="w"> </span>-a<span class="w"> </span><span class="s2">"name=httpd state=present"</span>
+</code></pre></div>
+
+<p>这个命令将在 <code>web</code> 组中的所有节点上安装 Apache Web 服务器。如果需要，你可以验证安装是否成功：</p>
+<div class="codehilite"><pre><span></span><code>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s2">"name=httpd state=started"</span>
+</code></pre></div>
+
+<p>这将确保 Apache 服务启动并运行。</p>
+<p>其他命令</p>
+<div class="codehilite"><pre><span></span><code>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s1">'name=httpd state=started enabled=yes'</span><span class="w">   </span><span class="c1">####开机自启动</span>
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s1">'name=httpd state=stoped'</span><span class="w">  </span><span class="c1">###停止</span>
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>service<span class="w"> </span>-a<span class="w"> </span><span class="s1">'name=httpd state=restarted'</span><span class="w">  </span><span class="c1">####重启</span>
+</code></pre></div>
+
+<p><img alt="1733228090177-f22c25a7-3ac2-4449-9880-780117c4091c.png" src="../img/lJS0snt6g-_yo2o9/1733228090177-f22c25a7-3ac2-4449-9880-780117c4091c-668499.png" /><img alt="1733228099301-a5e9afe8-3e68-40ad-b371-60703f2d4263.png" src="../img/lJS0snt6g-_yo2o9/1733228099301-a5e9afe8-3e68-40ad-b371-60703f2d4263-668790.png" /></p>
+<h4 id="63">6.3. <strong>拷贝文件</strong><a class="headerlink" href="#63" title="Permanent link">&para;</a></h4>
+<p>使用 <code>copy</code> 模块将文件从控制节点复制到被控制节点。例如，将一个本地文件复制到 <code>node1</code>：</p>
+<div class="codehilite"><pre><span></span><code>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>copy<span class="w"> </span>-a<span class="w"> </span><span class="s2">"src=/path/to/local/file dest=/path/to/remote/file"</span>
+</code></pre></div>
+
+<p>另外如果是想从远程机器拿文件到控制端可以使用下面的命令</p>
+<div class="codehilite"><pre><span></span><code>ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>fetch<span class="w"> </span>-a<span class="w"> </span><span class="s1">'src=/tmp/1.txt dest=root'</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>/<span class="w"> </span><span class="c1"># ls</span>
+bin<span class="w">   </span>dev<span class="w">  </span>home<span class="w">  </span>lib64<span class="w">       </span>media<span class="w">  </span>opt<span class="w">   </span>root<span class="w">  </span>sbin<span class="w">  </span>sys<span class="w">  </span>usr
+boot<span class="w">  </span>etc<span class="w">  </span>lib<span class="w">   </span>lost+found<span class="w">  </span>mnt<span class="w">    </span>proc<span class="w">  </span>run<span class="w">   </span>srv<span class="w">   </span>tmp<span class="w">  </span>var
+root@control<span class="w"> </span>/<span class="w"> </span><span class="c1"># cd /home</span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># ls</span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># touch 1.txt</span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># ls</span>
+<span class="m">1</span>.txt
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># ansible web -m copy -a "src=/home/1.txt dest=/home"</span>
+<span class="m">172</span>.16.120.250<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">CHANGED</span><span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="s2">"ansible_facts"</span>:<span class="w"> </span><span class="o">{</span>
+<span class="w">        </span><span class="s2">"discovered_interpreter_python"</span>:<span class="w"> </span><span class="s2">"/usr/bin/python"</span>
+<span class="w">    </span><span class="o">}</span>,<span class="w"> </span>
+<span class="w">    </span><span class="s2">"changed"</span>:<span class="w"> </span>true,<span class="w"> </span>
+<span class="w">    </span><span class="s2">"checksum"</span>:<span class="w"> </span><span class="s2">"da39a3ee5e6b4b0d3255bfef95601890afd80709"</span>,<span class="w"> </span>
+<span class="w">    </span><span class="s2">"dest"</span>:<span class="w"> </span><span class="s2">"/home/1.txt"</span>,<span class="w"> </span>
+<span class="w">    </span><span class="s2">"gid"</span>:<span class="w"> </span><span class="m">0</span>,<span class="w"> </span>
+<span class="w">    </span><span class="s2">"group"</span>:<span class="w"> </span><span class="s2">"root"</span>,<span class="w"> </span>
+<span class="w">    </span><span class="s2">"md5sum"</span>:<span class="w"> </span><span class="s2">"d41d8cd98f00b204e9800998ecf8427e"</span>,<span class="w"> </span>
+<span class="w">    </span><span class="s2">"mode"</span>:<span class="w"> </span><span class="s2">"0644"</span>,<span class="w"> </span>
+<span class="w">    </span><span class="s2">"owner"</span>:<span class="w"> </span><span class="s2">"root"</span>,<span class="w"> </span>
+<span class="w">    </span><span class="s2">"size"</span>:<span class="w"> </span><span class="m">0</span>,<span class="w"> </span>
+<span class="w">    </span><span class="s2">"src"</span>:<span class="w"> </span><span class="s2">"/root/.ansible/tmp/ansible-tmp-1733228354.96-23809-115754000292483/source"</span>,<span class="w"> </span>
+<span class="w">    </span><span class="s2">"state"</span>:<span class="w"> </span><span class="s2">"file"</span>,<span class="w"> </span>
+<span class="w">    </span><span class="s2">"uid"</span>:<span class="w"> </span><span class="m">0</span>
+<span class="o">}</span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># </span>
+</code></pre></div>
+
+<h4 id="64-playbook">6.4. <strong>执行 playbook</strong><a class="headerlink" href="#64-playbook" title="Permanent link">&para;</a></h4>
+<p>你还可以编写 Ansible Playbook 来自动化更复杂的任务。首先，创建一个简单的 playbook 文件 <code>example.yml</code>：</p>
+<div class="codehilite"><pre><span></span><code><span class="nn">---</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install and start Apache on web nodes</span>
+<span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">web</span>
+<span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">tasks</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install httpd</span>
+<span class="w">      </span><span class="nt">yum</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Start httpd service</span>
+<span class="w">      </span><span class="nt">service</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">httpd</span>
+<span class="w">        </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">started</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># ansible-playbook example.yml --list-hosts</span>
+<span class="c1">#列出主机</span>
+playbook:<span class="w"> </span>example.yml
+
+<span class="w">  </span>play<span class="w"> </span><span class="c1">#1 (web): Install and start Apache on web nodes  TAGS: []</span>
+<span class="w">    </span>pattern:<span class="w"> </span><span class="o">[</span>u<span class="s1">'web'</span><span class="o">]</span>
+<span class="w">    </span>hosts<span class="w"> </span><span class="o">(</span><span class="m">1</span><span class="o">)</span>:
+<span class="w">      </span><span class="m">172</span>.16.120.250
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># ansible-playbook example.yml --list-tasks</span>
+<span class="c1">#列出任务</span>
+playbook:<span class="w"> </span>example.yml
+
+<span class="w">  </span>play<span class="w"> </span><span class="c1">#1 (web): Install and start Apache on web nodes  TAGS: []</span>
+<span class="w">    </span>tasks:
+<span class="w">      </span>Install<span class="w"> </span>httpd<span class="w">     </span>TAGS:<span class="w"> </span><span class="o">[]</span>
+<span class="w">      </span>Start<span class="w"> </span>httpd<span class="w"> </span>service<span class="w">       </span>TAGS:<span class="w"> </span><span class="o">[]</span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># </span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># ansible-playbook example.yml --syntax-check</span>
+<span class="c1">#检查语法</span>
+playbook:<span class="w"> </span>example.yml
+</code></pre></div>
+
+<p>然后运行这个 playbook：</p>
+<div class="codehilite"><pre><span></span><code>ansible-playbook<span class="w"> </span>example.yml
+</code></pre></div>
+
+<p>这个 playbook 会在所有 <code>web</code> 节点上安装并启动 Apache 服务。</p>
+<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># ansible-playbook example.yml</span>
+
+PLAY<span class="w"> </span><span class="o">[</span>Install<span class="w"> </span>and<span class="w"> </span>start<span class="w"> </span>Apache<span class="w"> </span>on<span class="w"> </span>web<span class="w"> </span>nodes<span class="o">]</span><span class="w"> </span>******************************************************
+
+TASK<span class="w"> </span><span class="o">[</span>Gathering<span class="w"> </span>Facts<span class="o">]</span><span class="w"> </span>****************************************************************************
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>Install<span class="w"> </span>httpd<span class="o">]</span><span class="w"> </span>******************************************************************************
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+
+TASK<span class="w"> </span><span class="o">[</span>Start<span class="w"> </span>httpd<span class="w"> </span>service<span class="o">]</span><span class="w"> </span>************************************************************************
+ok:<span class="w"> </span><span class="o">[</span><span class="m">172</span>.16.120.250<span class="o">]</span>
+
+PLAY<span class="w"> </span>RECAP<span class="w"> </span>****************************************************************************************
+<span class="m">172</span>.16.120.250<span class="w">             </span>:<span class="w"> </span><span class="nv">ok</span><span class="o">=</span><span class="m">3</span><span class="w">    </span><span class="nv">changed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">unreachable</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">failed</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">skipped</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">rescued</span><span class="o">=</span><span class="m">0</span><span class="w">    </span><span class="nv">ignored</span><span class="o">=</span><span class="m">0</span><span class="w">   </span>
+</code></pre></div>
+
+<h4 id="65">6.5查看各节点负载<a class="headerlink" href="#65" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># ansible all -a "uptime"</span>
+<span class="m">172</span>.16.120.248<span class="w"> </span><span class="p">|</span><span class="w"> </span>CHANGED<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>&gt;&gt;
+<span class="w"> </span><span class="m">20</span>:23:54<span class="w"> </span>up<span class="w"> </span><span class="m">53</span><span class="w"> </span>min,<span class="w">  </span><span class="m">3</span><span class="w"> </span>users,<span class="w">  </span>load<span class="w"> </span>average:<span class="w"> </span><span class="m">0</span>.04,<span class="w"> </span><span class="m">0</span>.07,<span class="w"> </span><span class="m">0</span>.05
+<span class="m">172</span>.16.120.250<span class="w"> </span><span class="p">|</span><span class="w"> </span>CHANGED<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>&gt;&gt;
+<span class="w"> </span><span class="m">20</span>:23:54<span class="w"> </span>up<span class="w"> </span><span class="m">53</span><span class="w"> </span>min,<span class="w">  </span><span class="m">3</span><span class="w"> </span>users,<span class="w">  </span>load<span class="w"> </span>average:<span class="w"> </span><span class="m">0</span>.53,<span class="w"> </span><span class="m">0</span>.30,<span class="w"> </span><span class="m">0</span>.22
+<span class="m">172</span>.16.120.249<span class="w"> </span><span class="p">|</span><span class="w"> </span>CHANGED<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>&gt;&gt;
+<span class="w"> </span><span class="m">20</span>:23:54<span class="w"> </span>up<span class="w"> </span><span class="m">26</span><span class="w"> </span>min,<span class="w">  </span><span class="m">3</span><span class="w"> </span>users,<span class="w">  </span>load<span class="w"> </span>average:<span class="w"> </span><span class="m">0</span>.09,<span class="w"> </span><span class="m">0</span>.11,<span class="w"> </span><span class="m">0</span>.07
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># </span>
+</code></pre></div>
+
+<h4 id="66">6.6用户模块<a class="headerlink" href="#66" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>（1）创建用户
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>user<span class="w"> </span>-a<span class="w"> </span><span class="s1">'name=test state=present'</span>
+
+（2）修改密码
+
+生成加密密码
+
+<span class="o">[</span>root@ansible<span class="w"> </span>~<span class="o">]</span><span class="c1"># echo '123456' |openssl passwd -1 stdin</span>
+<span class="nv">$1$bYfCvrIS$YnSldRWGYs3</span>/DQTgFUH.9.
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>user<span class="w"> </span>-a<span class="w"> </span><span class="s1">'name=test password="$1$bYfCvrIS$YnSldRWGYs3/DQTgFUH.9." append=yes'</span><span class="w"> </span>
+<span class="c1">###append表示追加，这个参数告诉 Ansible 如果用户 test 已经存在，则追加信息而不是替换现有的用户信息。如果设置为 no，则每次运行命令时都会替换用户密码</span>
+（3）修改shell
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>user<span class="w"> </span>-a<span class="w"> </span><span class="s1">'name=test shell=/sbin/nologin append=yes'</span>
+<span class="c1">#/sbin/nologin 是一个特殊的 shell，它不允许用户登录系统。这通常用于限制某些用户只能通过特定服务（如某些守护进程）与系统交互，而不允许直接登录。</span>
+（4）删除用户
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>user<span class="w"> </span>-a<span class="w"> </span><span class="s1">'name=test state=absent'</span>
+</code></pre></div>
+
+<h4 id="67">6.7文件模块<a class="headerlink" href="#67" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>copy模块，src<span class="o">(</span>管理机器上<span class="w"> </span><span class="o">)</span><span class="w">  </span>dest<span class="o">(</span>目标机器上<span class="o">)</span>
+
+file专门用于在远程机器上，关于文件的所有操作
+file<span class="w">  </span>src<span class="o">(</span>目标机器上的文件<span class="o">)</span><span class="w">   </span>dest<span class="o">(</span>目标机器上的文件<span class="o">)</span><span class="w">  </span>
+
+file模块主要用于创建文件、目录数据，以及对现有的文件、目录权限进行修改
+
+创建文件
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>file<span class="w"> </span>-a<span class="w"> </span><span class="s1">'path=/tmp/666.txt mode=777 state=touch'</span>
+
+删除文件
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>file<span class="w"> </span>-a<span class="w"> </span><span class="s1">'path=/tmp/666.txt state=absent'</span>
+
+创建文件夹
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>file<span class="w"> </span>-a<span class="w"> </span><span class="s1">'path=/tmp/test mode=777 state=directory'</span>
+
+删除文件夹
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>file<span class="w"> </span>-a<span class="w"> </span><span class="s1">'path=/tmp/test state=absent'</span>
+</code></pre></div>
+
+<h4 id="68">6.8收集模块<a class="headerlink" href="#68" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>查询所有信息，内容很多，将会显示web服务器172.16.120.250的硬件信息。
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>setup
+
+filter可以过滤出想要的信息，比如下面的过滤出地址
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>setup<span class="w"> </span>-a<span class="w"> </span><span class="s1">'filter=ansible_all_ipv4_addresses'</span>
+</code></pre></div>
+
+<h4 id="69cron">6.9cron定时任务模块<a class="headerlink" href="#69cron" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>ansible创建定时任务
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>cron<span class="w"> </span>-a<span class="w"> </span><span class="s1">'name="sync time from ntpserver" minute="*/10" job="/usr/sbin/ntpdate 172.17.0.1 &amp;&gt;/dev/null"'</span>
+
+ansible删除定时任务
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>cron<span class="w"> </span>-a<span class="w"> </span><span class="s1">'name="sync time from ntpserver" minute="*/10" job="/usr/sbin/ntpdate 172.17.0.1 &amp;&gt;/dev/null" state=absent'</span>
+
+<span class="c1">#为所有目标主机设置一个每5分钟运行一次的cron任务，任务名称为ntp aliyun，执行的命令为ntpdate -u ntp.aliyun.com，用于从阿里云的NTP服务器同步时间。</span>
+
+ansible<span class="w"> </span>all<span class="w"> </span>-m<span class="w"> </span>cron<span class="w"> </span>-a<span class="w"> </span><span class="s2">"name='ntp aliyun' minute='*/5' job='ntpdate -u ntp.aliyun.com'"</span>
+</code></pre></div>
+
+<h4 id="610-shell">6.10 shell模块（万能模块）<a class="headerlink" href="#610-shell" title="Permanent link">&para;</a></h4>
+<p>解决command模块无法识别的一些命令</p>
+<div class="codehilite"><pre><span></span><code>shell模块直接调用shell指令批量在节点上执行
+
+以下是删除节点上的/tmp/vmware-root*<span class="w"> </span>文件夹的一个例子
+
+ansible<span class="w"> </span>web<span class="w"> </span>-m<span class="w"> </span>shell<span class="w"> </span>-a<span class="w"> </span><span class="s1">'rm -rf /tmp/vmware-root*'</span>
+
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># ansible web -m shell -a "date '+%F %T' &gt; /tmp/date.log"</span>
+<span class="m">172</span>.16.120.250<span class="w"> </span><span class="p">|</span><span class="w"> </span>CHANGED<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>&gt;&gt;
+<span class="c1">#远程获取时间信息，且写入到文件中</span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># ansible web -m shell -a 'cat /tmp/date.log'</span>
+<span class="m">172</span>.16.120.250<span class="w"> </span><span class="p">|</span><span class="w"> </span>CHANGED<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>&gt;&gt;
+<span class="m">2024</span>-12-04<span class="w"> </span><span class="m">16</span>:23:46
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># </span>
+
+通过一条命令，做如下事情
+
+-<span class="w"> </span>创建文件夹
+-<span class="w"> </span>生成sh脚本文件<span class="o">(</span>查看主机名<span class="o">)</span>
+-<span class="w"> </span>赋予脚本可执行权限
+-<span class="w"> </span>执行脚本
+-<span class="w"> </span>忽略warning信息
+
+ansible<span class="w"> </span>web<span class="w">  </span>-m<span class="w"> </span>shell<span class="w">  </span>-a<span class="w"> </span><span class="s2">"mkdir /0224/;echo 'hostname' &gt; /0224/hostname.sh;chmod +x /0224/hostname.sh;/0224/hostname.sh;  warn=false"</span>
+</code></pre></div>
+
+<h3 id="7role-">7.role-角色扮演<a class="headerlink" href="#7role-" title="Permanent link">&para;</a></h3>
+<h4 id="71">7.1简介<a class="headerlink" href="#71" title="Permanent link">&para;</a></h4>
+<p><font style="color:rgb(77, 77, 77);">roles是在ansible中，playbook的目录组织结构。</font></p>
+<p><font style="color:rgb(77, 77, 77);">将代码或文件进行模块化，成为roles的文件目录组织结构。</font></p>
+<p><font style="color:rgb(77, 77, 77);">易读，代码可重用，层次清晰。</font></p>
+<p><font style="color:#DF2A3F;">目标是：通过role远程部署nginx并配置</font></p>
+<p><img alt="1733230493235-11a0552d-1c39-4f62-8379-560f6893224d.png" src="../img/lJS0snt6g-_yo2o9/1733230493235-11a0552d-1c39-4f62-8379-560f6893224d-137205.png" /></p>
+<h4 id="72"><font style="color:rgb(77, 77, 77);">7.2准备目录结构</font><a class="headerlink" href="#72" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># yum install -y tree</span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># mkdir -p roles/nginx/{files,handlers,tasks,templates,vars}</span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># touch roles/site.yaml</span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># touch roles/nginx/files/index.html</span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># echo 123456789 &gt;&gt; roles/nginx/files/index.html</span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># touch roles/nginx/{handlers,tasks,vars}/main.yaml</span>
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># tree roles/</span>
+roles/
+├──<span class="w"> </span>nginx
+│<span class="w">   </span>├──<span class="w"> </span>files
+│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>index.html
+│<span class="w">   </span>├──<span class="w"> </span>handlers
+│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>main.yaml
+│<span class="w">   </span>├──<span class="w"> </span>tasks
+│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>main.yaml
+│<span class="w">   </span>├──<span class="w"> </span>templates
+│<span class="w">   </span>└──<span class="w"> </span>vars
+│<span class="w">       </span>└──<span class="w"> </span>main.yaml
+└──<span class="w"> </span>site.yaml
+
+<span class="m">6</span><span class="w"> </span>directories,<span class="w"> </span><span class="m">5</span><span class="w"> </span>files
+root@control<span class="w"> </span>/home<span class="w"> </span><span class="c1"># </span>
+</code></pre></div>
+
+<h4 id="73">7.3编写任务<a class="headerlink" href="#73" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>/home/roles/nginx/vars<span class="w"> </span><span class="c1"># cd /home/roles/nginx/vars</span>
+root@control<span class="w"> </span>/home/roles/nginx/vars<span class="w"> </span><span class="c1"># ls</span>
+main.yaml
+root@control<span class="w"> </span>/home/roles/nginx/vars<span class="w"> </span><span class="c1"># </span>
+root@control<span class="w"> </span>/home/roles/nginx/vars<span class="w"> </span><span class="c1"># vim main.yaml </span>
+root@control<span class="w"> </span>/home/roles/nginx/vars<span class="w"> </span><span class="c1"># cat main.yaml </span>
+---<span class="w"> </span>
+-<span class="w"> </span>name:<span class="w"> </span>install<span class="w"> </span>epel-release<span class="w"> </span>package
+<span class="w">  </span>yum:<span class="w"> </span><span class="nv">name</span><span class="o">=</span>epel-release<span class="w"> </span><span class="nv">state</span><span class="o">=</span>latest
+
+-<span class="w"> </span>name:<span class="w"> </span>install<span class="w"> </span>nginx
+<span class="w">  </span>yum:<span class="w"> </span><span class="nv">name</span><span class="o">=</span>nginx<span class="w"> </span><span class="nv">state</span><span class="o">=</span>latest
+
+-<span class="w"> </span>name:<span class="w"> </span>copy<span class="w"> </span>index.html
+<span class="w">  </span>copy:<span class="w"> </span><span class="nv">src</span><span class="o">=</span>/home/roles/nginx/files/index.html<span class="w"> </span><span class="nv">dest</span><span class="o">=</span>/usr/share/nginx/html/index.html
+<span class="c1">#这里注意把路径改成自己的实际路径</span>
+-<span class="w"> </span>name:<span class="w"> </span>copy<span class="w"> </span>nginx<span class="w"> </span>conf
+<span class="w">  </span>template:<span class="w"> </span><span class="nv">src</span><span class="o">=</span>nginx.conf.j2<span class="w"> </span><span class="nv">dest</span><span class="o">=</span>/etc/nginx/nginx.conf
+<span class="w">  </span>notify:<span class="w"> </span>restart<span class="w"> </span>nginx
+
+-<span class="w"> </span>name:<span class="w"> </span>start<span class="w"> </span>nginx
+<span class="w">  </span>service:<span class="w"> </span><span class="nv">name</span><span class="o">=</span>nginx<span class="w"> </span><span class="nv">state</span><span class="o">=</span>started<span class="w"> </span><span class="nv">enabled</span><span class="o">=</span>yes
+root@control<span class="w"> </span>/home/roles/nginx/vars<span class="w"> </span><span class="c1"># </span>
+</code></pre></div>
+
+<h4 id="74">7.4准备配置文件<a class="headerlink" href="#74" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>/home/roles/nginx/vars<span class="w"> </span><span class="c1"># yum install nginx -y &amp;&amp; cp -rp /etc/nginx/nginx.conf /home/roles/nginx/templates/nginx.conf.j2</span>
+</code></pre></div>
+
+<h4 id="75">7.5编写变量<a class="headerlink" href="#75" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>vim<span class="w"> </span>/home/roles/nginx/templates/nginx.conf.j2
+worker_processor<span class="w"> </span><span class="o">{{</span><span class="w"> </span>ansible_processor_cores<span class="w"> </span><span class="o">}}</span><span class="w">    </span><span class="c1">######调用已知内部变量</span>
+
+<span class="o">[</span>root@ansible<span class="w"> </span>vars<span class="o">]</span><span class="c1"># cat main.yaml    ####自定义变量</span>
+worker_connections:<span class="w"> </span><span class="m">10234</span>
+</code></pre></div>
+
+<h4 id="76"><font style="color:rgb(79, 79, 79);">7.6编写处理程序</font><a class="headerlink" href="#76" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ansible handlers</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">main</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span>
+<span class="c1">---</span>
+<span class="o">-</span><span class="w"> </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">restart</span><span class="w"> </span><span class="n">nginx</span>
+<span class="w">  </span><span class="nl">service</span><span class="p">:</span><span class="w"> </span><span class="n">name</span><span class="o">=</span><span class="n">nginx</span><span class="w"> </span><span class="k">state</span><span class="o">=</span><span class="n">restarted</span>
+</code></pre></div>
+
+<h4 id="77"><font style="color:rgb(79, 79, 79);">7.7编写剧本</font><a class="headerlink" href="#77" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ansible roles</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">site</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span>
+<span class="o">-</span><span class="w"> </span><span class="nl">hosts</span><span class="p">:</span><span class="w"> </span><span class="n">web</span>
+<span class="w">  </span><span class="nl">roles</span><span class="p">:</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">nginx</span>
+</code></pre></div>
+
+<h4 id="78"><font style="color:rgb(79, 79, 79);">7.8实施</font><a class="headerlink" href="#78" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>ansible-playbook<span class="w"> </span>site.yaml<span class="w"> </span>--syntax-check<span class="w">      </span><span class="c1">####检查语法错误</span>
+ansible-playbook<span class="w"> </span>site.yaml<span class="w">     </span><span class="c1">####执行剧本</span>
+</code></pre></div>
+
+<p><font style="color:#DF2A3F;">注意：以上yaml文件到对应的路径下修改，而不是改一个yaml，</font></p>
+<p><font style="color:#DF2A3F;">至此，目录树里面的配置都改完了</font></p>
+<h4 id="79">7.9测试<a class="headerlink" href="#79" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="n">root</span><span class="p">@</span><span class="n">control</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">roles</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">ls</span>
+<span class="n">nginx</span><span class="w">  </span><span class="n">site</span><span class="p">.</span><span class="n">yaml</span>
+<span class="n">root</span><span class="p">@</span><span class="n">control</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">roles</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">ansible</span><span class="o">-</span><span class="n">playbook</span><span class="w"> </span><span class="n">site</span><span class="p">.</span><span class="n">yaml</span>
+
+<span class="n">PLAY</span><span class="w"> </span><span class="p">[</span><span class="n">web</span><span class="p">]</span><span class="w"> </span><span class="o">****************************************************************************************</span>
+
+<span class="n">TASK</span><span class="w"> </span><span class="p">[</span><span class="n">Gathering</span><span class="w"> </span><span class="n">Facts</span><span class="p">]</span><span class="w"> </span><span class="o">****************************************************************************</span>
+<span class="nl">ok</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">172.16.120.250</span><span class="p">]</span>
+
+<span class="n">TASK</span><span class="w"> </span><span class="p">[</span><span class="n">nginx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">epel</span><span class="o">-</span><span class="k">release</span><span class="w"> </span><span class="n">package</span><span class="p">]</span><span class="w"> </span><span class="o">*******************************************************</span>
+<span class="nl">ok</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">172.16.120.250</span><span class="p">]</span>
+
+<span class="n">TASK</span><span class="w"> </span><span class="p">[</span><span class="n">install</span><span class="w"> </span><span class="n">nginx</span><span class="p">]</span><span class="w"> </span><span class="o">******************************************************************************</span>
+<span class="nl">ok</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">172.16.120.250</span><span class="p">]</span>
+
+<span class="n">TASK</span><span class="w"> </span><span class="p">[</span><span class="n">nginx</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">copy</span><span class="w"> </span><span class="n">index</span><span class="p">.</span><span class="n">html</span><span class="p">]</span><span class="w"> </span><span class="o">********************************************************************</span>
+<span class="nl">ok</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">172.16.120.250</span><span class="p">]</span>
+
+<span class="n">TASK</span><span class="w"> </span><span class="p">[</span><span class="k">copy</span><span class="w"> </span><span class="n">nginx</span><span class="w"> </span><span class="n">conf</span><span class="p">]</span><span class="w"> </span><span class="o">****************************************************************************</span>
+<span class="nl">ok</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">172.16.120.250</span><span class="p">]</span>
+
+<span class="n">TASK</span><span class="w"> </span><span class="p">[</span><span class="n">start</span><span class="w"> </span><span class="n">nginx</span><span class="p">]</span><span class="w"> </span><span class="o">********************************************************************************</span>
+<span class="nl">changed</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mf">172.16.120.250</span><span class="p">]</span>
+
+<span class="n">PLAY</span><span class="w"> </span><span class="n">RECAP</span><span class="w"> </span><span class="o">****************************************************************************************</span>
+<span class="mf">172.16.120.250</span><span class="w">             </span><span class="o">:</span><span class="w"> </span><span class="n">ok</span><span class="o">=</span><span class="mi">6</span><span class="w">    </span><span class="n">changed</span><span class="o">=</span><span class="mi">1</span><span class="w">    </span><span class="n">unreachable</span><span class="o">=</span><span class="mi">0</span><span class="w">    </span><span class="n">failed</span><span class="o">=</span><span class="mi">0</span><span class="w">    </span><span class="n">skipped</span><span class="o">=</span><span class="mi">0</span><span class="w">    </span><span class="n">rescued</span><span class="o">=</span><span class="mi">0</span><span class="w">    </span><span class="n">ignored</span><span class="o">=</span><span class="mi">0</span><span class="w">   </span>
+
+<span class="n">root</span><span class="p">@</span><span class="n">control</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">roles</span><span class="w"> </span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<p><img alt="1733232615949-242a4298-0cbe-4f2d-a68c-8aeec1208053.png" src="../img/lJS0snt6g-_yo2o9/1733232615949-242a4298-0cbe-4f2d-a68c-8aeec1208053-180264.png" /></p>
+<p><img alt="1733232628112-d20033ae-f3fc-48da-88ba-f429d7c18319.png" src="../img/lJS0snt6g-_yo2o9/1733232628112-d20033ae-f3fc-48da-88ba-f429d7c18319-246793.png" /></p>
+<p>基础语法</p>
+<p><img alt="1733213299461-2fc310cc-5ce8-47f2-a74d-92d795f19e32.png" src="../img/lJS0snt6g-_yo2o9/1733213299461-2fc310cc-5ce8-47f2-a74d-92d795f19e32-672388.png" /></p>
+<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ansible web -m shell -a 'ls /opt'</span>
+<span class="m">172</span>.16.120.250<span class="w"> </span><span class="p">|</span><span class="w"> </span>CHANGED<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>&gt;&gt;
+
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ansible web -m shell -a 'systemctl status nginx'</span>
+<span class="m">172</span>.16.120.250<span class="w"> </span><span class="p">|</span><span class="w"> </span>CHANGED<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nv">rc</span><span class="o">=</span><span class="m">0</span><span class="w"> </span>&gt;&gt;
+●<span class="w"> </span>nginx.service<span class="w"> </span>-<span class="w"> </span>The<span class="w"> </span>nginx<span class="w"> </span>HTTP<span class="w"> </span>and<span class="w"> </span>reverse<span class="w"> </span>proxy<span class="w"> </span>server
+<span class="w">   </span>Loaded:<span class="w"> </span>loaded<span class="w"> </span><span class="o">(</span>/usr/lib/systemd/system/nginx.service<span class="p">;</span><span class="w"> </span>enabled<span class="p">;</span><span class="w"> </span>vendor<span class="w"> </span>preset:<span class="w"> </span>disabled<span class="o">)</span>
+<span class="w">   </span>Active:<span class="w"> </span>active<span class="w"> </span><span class="o">(</span>running<span class="o">)</span><span class="w"> </span>since<span class="w"> </span>二<span class="w"> </span><span class="m">2024</span>-12-03<span class="w"> </span><span class="m">21</span>:25:37<span class="w"> </span>CST<span class="p">;</span><span class="w"> </span>7min<span class="w"> </span>ago
+<span class="w">  </span>Process:<span class="w"> </span><span class="m">2708</span><span class="w"> </span><span class="nv">ExecStart</span><span class="o">=</span>/usr/sbin/nginx<span class="w"> </span><span class="o">(</span><span class="nv">code</span><span class="o">=</span>exited,<span class="w"> </span><span class="nv">status</span><span class="o">=</span><span class="m">0</span>/SUCCESS<span class="o">)</span>
+<span class="w">  </span>Process:<span class="w"> </span><span class="m">2704</span><span class="w"> </span><span class="nv">ExecStartPre</span><span class="o">=</span>/usr/sbin/nginx<span class="w"> </span>-t<span class="w"> </span><span class="o">(</span><span class="nv">code</span><span class="o">=</span>exited,<span class="w"> </span><span class="nv">status</span><span class="o">=</span><span class="m">0</span>/SUCCESS<span class="o">)</span>
+<span class="w">  </span>Process:<span class="w"> </span><span class="m">2702</span><span class="w"> </span><span class="nv">ExecStartPre</span><span class="o">=</span>/usr/bin/rm<span class="w"> </span>-f<span class="w"> </span>/run/nginx.pid<span class="w"> </span><span class="o">(</span><span class="nv">code</span><span class="o">=</span>exited,<span class="w"> </span><span class="nv">status</span><span class="o">=</span><span class="m">0</span>/SUCCESS<span class="o">)</span>
+<span class="w"> </span>Main<span class="w"> </span>PID:<span class="w"> </span><span class="m">2710</span><span class="w"> </span><span class="o">(</span>nginx<span class="o">)</span>
+<span class="w">   </span>CGroup:<span class="w"> </span>/system.slice/nginx.service
+<span class="w">           </span>├─2710<span class="w"> </span>nginx:<span class="w"> </span>master<span class="w"> </span>process<span class="w"> </span>/usr/sbin/ngin
+<span class="w">           </span>└─2711<span class="w"> </span>nginx:<span class="w"> </span>worker<span class="w"> </span>proces
+
+12月<span class="w"> </span><span class="m">03</span><span class="w"> </span><span class="m">21</span>:25:37<span class="w"> </span>node1<span class="w"> </span>systemd<span class="o">[</span><span class="m">1</span><span class="o">]</span>:<span class="w"> </span>Starting<span class="w"> </span>The<span class="w"> </span>nginx<span class="w"> </span>HTTP<span class="w"> </span>and<span class="w"> </span>reverse<span class="w"> </span>proxy<span class="w"> </span>server...
+12月<span class="w"> </span><span class="m">03</span><span class="w"> </span><span class="m">21</span>:25:37<span class="w"> </span>node1<span class="w"> </span>nginx<span class="o">[</span><span class="m">2704</span><span class="o">]</span>:<span class="w"> </span>nginx:<span class="w"> </span>the<span class="w"> </span>configuration<span class="w"> </span>file<span class="w"> </span>/etc/nginx/nginx.conf<span class="w"> </span>syntax<span class="w"> </span>is<span class="w"> </span>ok
+12月<span class="w"> </span><span class="m">03</span><span class="w"> </span><span class="m">21</span>:25:37<span class="w"> </span>node1<span class="w"> </span>nginx<span class="o">[</span><span class="m">2704</span><span class="o">]</span>:<span class="w"> </span>nginx:<span class="w"> </span>configuration<span class="w"> </span>file<span class="w"> </span>/etc/nginx/nginx.conf<span class="w"> </span><span class="nb">test</span><span class="w"> </span>is<span class="w"> </span>successful
+12月<span class="w"> </span><span class="m">03</span><span class="w"> </span><span class="m">21</span>:25:37<span class="w"> </span>node1<span class="w"> </span>systemd<span class="o">[</span><span class="m">1</span><span class="o">]</span>:<span class="w"> </span>Started<span class="w"> </span>The<span class="w"> </span>nginx<span class="w"> </span>HTTP<span class="w"> </span>and<span class="w"> </span>reverse<span class="w"> </span>proxy<span class="w"> </span>server.
+root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># </span>
+</code></pre></div>
+
+<blockquote>
+<p>更新: 2024-12-04 16:37:24<br />
+原文: <a href="https://www.yuque.com/xianzhou-eiffx/aklhoc/vsz13ega7edlk67l">https://www.yuque.com/xianzhou-eiffx/aklhoc/vsz13ega7edlk67l</a></p>
+</blockquote>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
