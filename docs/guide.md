@@ -662,3 +662,105 @@ $G archive --format=tar.gz --prefix=mkdocs-ops-docs-1.0.0/ -o /tmp/mkdocs-ops-do
 ```
 
 再到 GitHub → Releases → Draft a new release，选 tag `v1.0.0`，上传该 tar.gz 作为源码包。
+
+## 19. 阶段十三：自动/定时推送
+
+### 19.1 三种做法对比
+
+| 方案 | 触发方式 | 延迟 | 适用 |
+| --- | --- | --- | --- |
+| systemd timer（本文采用） | 定时轮询 `git status` | 最长 5 分钟 | 无人值守的小型文档站，零外部依赖 |
+| systemd path unit（inotify） | 文件一变立刻触发 | 秒级 | 想即时生效，但一次编辑可能触发多次构建 |
+| GitHub Actions | push 后云端构建再部署 | 云端 1～2 分钟 | 多人协作；需把 Pages 源改成 GitHub Actions |
+
+注意：本机到 `github.com` 的 HTTPS 被墙，Actions 的 `checkout` 反而跑不通；而且 Pages 现在是「branch 模式」，推送 `gh-pages` 后 GitHub 自己会构建，不需要再上一套 Actions。
+
+### 19.2 生效链路
+
+```text
+docs/*.md 改动
+   └─ mkdocs-autopush.service（每 5 分钟）
+        ├─ git add -A + commit
+        ├─ git push origin main          # 源码留痕
+        └─ mike deploy 1.0 latest
+             ├─ 重建 site/ 并写入 gh-pages
+             └─ git push origin gh-pages
+                  └─ GitHub Pages 收到 gh-pages 更新，约 1 分钟重建
+                       └─ https://rainayom.github.io/ 生效
+```
+
+### 19.3 脚本与单元
+
+`/srv/mkdocs/repo/autopush.sh`（关键点）：
+
+- `flock -n 9` 单实例，定时器与手工触发不会撞车；
+- 先看 `git status --porcelain`，没有改动就不 commit，避免空提交；
+- 再比 `origin/main..main` 的提交数，只有领先才 push；
+- 最后固定跑 `mike deploy --update-aliases 1.0 latest` + `set-default` + `push gh-pages`；
+- 全部以 `mkdocs` 身份执行（`User=mkdocs`、`HOME=/var/lib/mkdocs`），否则 git 会报可疑所有权。
+
+`/etc/systemd/system/mkdocs-autopush.service`：
+
+```ini
+[Service]
+Type=oneshot
+User=mkdocs
+Group=docs
+WorkingDirectory=/srv/mkdocs/repo
+Environment=HOME=/var/lib/mkdocs
+Environment=PATH=/srv/mkdocs/.venv/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/srv/mkdocs/repo/autopush.sh
+TimeoutStartSec=300
+```
+
+`/etc/systemd/system/mkdocs-autopush.timer`：
+
+```ini
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+AccuracySec=30s
+Unit=mkdocs-autopush.service
+```
+
+### 19.4 启用与验收
+
+```bash
+install -m 755 -o mkdocs -g docs autopush.sh /srv/mkdocs/repo/autopush.sh
+install -m 644 mkdocs-autopush.service /etc/systemd/system/
+install -m 644 mkdocs-autopush.timer   /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable --now mkdocs-autopush.timer
+
+systemctl list-timers mkdocs-autopush.timer --no-pager   # 看下次触发时间
+systemctl start mkdocs-autopush.service                  # 立即同步一次
+journalctl -u mkdocs-autopush.service -n 20 --no-pager    # 看本次日志
+```
+
+验收标准：`journalctl` 出现「推送 gh-pages / 完成」；`git log --oneline -1` 有 `auto:` 开头的提交；等 1 分钟后刷新站点能看到新内容。
+
+### 19.5 想更快就换事件驱动
+
+把定时器换成 path unit，文件一改就推（示例）：
+
+```ini
+# /etc/systemd/system/mkdocs-autopush.path
+[Path]
+PathModified=/srv/mkdocs/repo/docs
+Unit=mkdocs-autopush.service
+
+[Install]
+WantedBy=paths.target
+```
+
+代价：保存一次文档会连触发多次构建，建议在脚本里加 `sleep 5` 做去抖。多数场景 5 分钟轮询已经够用。
+
+### 19.6 常见故障
+
+| 现象 | 原因 | 处理 |
+| --- | --- | --- |
+| 定时器到点但没提交 | 脚本没执行权限 / 单元里 User 不对 | `ls -l autopush.sh`、`journalctl -u mkdocs-autopush` |
+| `dubious ownership` | 用 root 跑了 git | 单元必须 `User=mkdocs`，别手工 sudo 跑 |
+| 推 `gh-pages` 报权限拒绝 | 部署密钥没勾写权限 | Deploy key 上补勾 Allow write access |
+| 站点没变化 | Pages 还在构建 / 缓存 | 看 Actions 里 pages build，等 1～2 分钟再刷 |
+| 提交里混进垃圾文件 | `.gitignore` 不全 | 补 `*.bak*`、`*.swp`、`site/`、`.venv/` |
