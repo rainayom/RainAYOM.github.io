@@ -466,3 +466,199 @@ jobs:
 - **`serve` 是开发服务器**：小团队内网够用；对外高并发应 `build` 后交给 Nginx 静态托管。
 - **首页表格是全量列表**：文档过千条时建议 hook 里加分页或只列目录级索引。
 - **单机无高可用**：需要多副本就把 repo 放进 git，任意机器 clone + 一键脚本即可重建。
+
+## 16. 阶段十：Samba 共享（Windows 直连 docs 目录）
+
+### 16.1 权限模型
+
+目标：仓库目录由 `mkdocs` 写、`docs` 组共享，Windows 端用 `mdftp` 账号直接拖文件进来，落地后必须满足「文件 664、目录 2775、属组 docs」，这样 mkdocs 构建才不会被权限挡住。
+
+| 层级 | 归属 | 权限 |
+| --- | --- | --- |
+| `/srv/mkdocs/repo/docs` | `mkdocs:docs` | `2775`（setgid） |
+| 新建子目录 | 继承 | `2775` |
+| 新建文件 | 继承 | `0664` |
+
+### 16.2 smb.conf 片段
+
+```ini
+[share]
+   comment = Linux SMB share
+   path = /srv/mkdocs/repo/docs/
+   browseable = yes
+   read only = no
+   valid users = @docs
+   write list = @docs
+   force group = docs
+   create mask = 0664
+   directory mask = 2775
+```
+
+三个容易踩的点：
+
+1. `browsable` 是拼写错误，Samba 只认 `browseable`。
+2. 模板里的 `valid users = your_username` 是占位符，必须换成真实账号或 `@组`，否则 `pdbedit -L` 为空时一律 `NT_STATUS_LOGON_FAILURE`。
+3. 不要用 `inherit permissions = yes`：源文件带属主可执行位时，落地会变成 `-rwxrw-r--`；显式掩码才稳。
+
+### 16.3 账号
+
+```bash
+groupadd -f docs
+usermod -aG docs mkdocs
+smbpasswd -a mdftp        # 口令自行设定，不要写进任何文档
+smbpasswd -e mdftp
+pdbedit -L                # 确认 passdb 里能列出账号
+```
+
+### 16.4 启停与端口
+
+```bash
+systemctl enable --now smb nmb
+systemctl status smb --no-pager | head -5
+ss -lntp | grep -E ':445|:139'
+```
+
+本机 SELinux 为 Disabled、firewalld 未启用（启用会挡 SSH），因此不需要额外放行；若开了 firewalld，需 `firewall-cmd --permanent --add-service=samba && firewall-cmd --reload`。
+
+### 16.5 端到端验证
+
+```bash
+smbclient //127.0.0.1/share -U mdftp%'口令' -c 'mkdir t1; mkdir t1/t2; put docs/guide.md t1/g.md; ls t1'
+# 期望：t1、t1/t2 为 2775，t1/g.md 为 664，属主 mdftp:docs
+rm -rf /srv/mkdocs/repo/docs/t1
+```
+
+### 16.6 Windows 访问
+
+1. 资源管理器地址栏输入 `\\192.168.7.130\share`。
+2. 账号填 `mdftp`，口令填你设的那个；首次会提示“不安全连接”，选允许。
+3. 直接拖拽 `.md` 到对应子目录，刷新 `http://192.168.7.130:8000/` 即可看到热重载。
+4. 需要盘符时：`net use Z: \\192.168.7.130\share /user:mdftp 口令`。
+5. 传完确认编码：Windows 记事本可能写成 GBK 或 CRLF，务必存 UTF-8（LF）。
+
+## 17. 阶段十一：Git → 部署密钥 → 推送 GitHub
+
+### 17.1 为什么走 SSH 而不是 HTTPS
+
+实测该主机访问 `https://github.com` 与 `git info/refs` 全部超时（curl 000/28），但 22 端口可达、`ssh -T git@github.com` 能建连。因此推送统一走 SSH + **Deploy Key**：只授予单个仓库的写权限，比个人 PAT 的权限面小得多。
+
+### 17.2 仓库初始化
+
+```bash
+cd /srv/mkdocs/repo
+git init -b main
+git config user.name  mkdocs
+git config user.email mkdocs@vm7.130
+printf 'site/\n.venv/\n__pycache__/\n*.pyc\n*.bak*\n*.swp\n' >> .gitignore
+git add -A && git commit -m "初始化：Material 主题 + 亮暗自动 + 标签"
+```
+
+仓库属主必须是 `mkdocs`，用 root 直接执行 git 会报“可疑的仓库所有权（dubious ownership）”，统一这样跑：
+
+```bash
+G="runuser -u mkdocs -- env HOME=/var/lib/mkdocs git -C /srv/mkdocs/repo"
+```
+
+### 17.3 生成部署密钥
+
+```bash
+ssh-keygen -t ed25519 -f /root/.ssh/github_deploy -N "" -C "mkdocs@$(hostname) mike deploy"
+cat /root/.ssh/github_deploy.pub
+```
+
+### 17.4 GitHub 侧添加
+
+Settings → Deploy keys → Add deploy key：
+
+- Title：`vm7.130-mike-push`
+- Key：粘贴上面的 `.pub` 全文
+- **勾选 Allow write access**（mike 要推 `gh-pages`，只读不够）
+
+> 删库重建后同一把密钥会报 `Key is already in use`，直接重新 `ssh-keygen` 生成一把新的即可。
+
+### 17.5 VM 侧 SSH 配置
+
+mike 以 `mkdocs` 用户运行，所以密钥与 config 都要放到 `mkdocs` 能读的位置：
+
+```bash
+install -d -m 700 -o mkdocs -g docs /var/lib/mkdocs/.ssh
+install -m 600 -o mkdocs -g docs /root/.ssh/github_deploy /var/lib/mkdocs/.ssh/github_deploy
+cat > /var/lib/mkdocs/.ssh/config <<'EOF'
+Host github.com
+  HostName github.com
+  User git
+  IdentityFile ~/.ssh/github_deploy
+  IdentitiesOnly yes
+  StrictHostKeyChecking accept-new
+EOF
+chown mkdocs:docs /var/lib/mkdocs/.ssh/config
+chmod 600 /var/lib/mkdocs/.ssh/config
+runuser -u mkdocs -- env HOME=/var/lib/mkdocs ssh -T git@github.com
+# 期望输出：Hi <user>/<repo>! You've successfully authenticated...
+```
+
+### 17.6 关联 remote 与推送
+
+```bash
+$G remote add origin git@github.com:rainayom/RainAYOM.github.io.git
+$G push -u origin main
+$G push origin gh-pages
+```
+
+分支模型：
+
+| 分支 | 内容 | 谁用 |
+| --- | --- | --- |
+| `main` | 源码：`mkdocs.yml`、`docs/`、`hooks/`、`deploy.sh` | 你编辑 |
+| `gh-pages` | mike 生成的静态站点 | GitHub Pages 只读它 |
+
+### 17.7 mike 的两个必要设置
+
+```yaml
+plugins:
+  - mike:
+      version_selector: true
+      alias_type: redirect
+```
+
+- 只写 `extra.version.provider: mike` 不会出下拉框，Material 模板判断的是 `config.plugins.mike`。
+- `alias_type` 默认 `symlink`，GitHub Pages 不解析符号链接，必须改 `redirect`。
+
+部署命令固定带环境变量（否则找不到 mkdocs / HOME 不对）：
+
+```bash
+runuser -u mkdocs -- env PATH=/srv/mkdocs/.venv/bin:/usr/local/bin:/usr/bin:/bin HOME=/var/lib/mkdocs \
+  /srv/mkdocs/.venv/bin/mike deploy --update-aliases 1.0 latest
+runuser -u mkdocs -- env PATH=/srv/mkdocs/.venv/bin:/usr/local/bin:/usr/bin:/bin HOME=/var/lib/mkdocs \
+  /srv/mkdocs/.venv/bin/mike set-default latest
+```
+
+### 17.8 明文口令进过历史怎么办
+
+只删文件不够：`git log -S '<口令>'` 还能翻出旧提交，强推后 GitHub 仍可能按 SHA 返回游离对象（实测旧提交 API 仍是 200，只有删除重建后才变 422）。彻底清除的可靠做法是**删库重建 + 重新推送**，并在清完后立刻更换真实口令（`smbpasswd`），因为历史清干净不等于口令失效。
+
+## 18. 阶段十二：GitHub Pages 与 Release
+
+### 18.1 Pages 配置
+
+Settings → Pages → Source 选 **Deploy from a branch** → Branch `gh-pages` → 目录 `/ (root)` → Save。新建的空库默认挂在 `main`，必须手动改成 `gh-pages`，否则 Pages 会把源码当 Jekyll 站点渲染。
+
+### 18.2 访问验收
+
+| 地址 | 期望 |
+| --- | --- |
+| `https://rainayom.github.io/` | 200，1 秒后跳 `latest/` |
+| `/latest/` | 200，再跳 `/1.0/` |
+| `/1.0/` | 200，`<title>运维知识库</title>` |
+| `/1.0/tags/` | 200（标签索引） |
+| `/versions.json` | 200，版本选择器数据源 |
+
+### 18.3 打 Release
+
+```bash
+$G tag -a v1.0.0 -m "运维知识库 v1.0.0"
+$G push origin v1.0.0
+$G archive --format=tar.gz --prefix=mkdocs-ops-docs-1.0.0/ -o /tmp/mkdocs-ops-docs-1.0.0.tar.gz v1.0.0
+```
+
+再到 GitHub → Releases → Draft a new release，选 tag `v1.0.0`，上传该 tar.gz 作为源码包。
