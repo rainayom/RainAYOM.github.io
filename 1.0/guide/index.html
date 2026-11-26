@@ -1033,6 +1033,100 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. 阶段十四：右侧目录缺失修复 + 新文档自动打标签
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="20. 阶段十四：右侧目录缺失修复 + 新文档自动打标签">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#201" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.1 现象
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#202" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.2 根因
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#203" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.3 处理办法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#204" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.4 让标签自动跟上
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#205" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.5 权限要点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#206" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.6 验收
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#207" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.7 常见故障
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1134,7 +1228,7 @@
   <span class="md-ellipsis">
     
   
-    云计算课程摘要
+    linux文档目录摘要
   
 
     
@@ -2372,6 +2466,100 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#20" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20. 阶段十四：右侧目录缺失修复 + 新文档自动打标签
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="20. 阶段十四：右侧目录缺失修复 + 新文档自动打标签">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#201" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.1 现象
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#202" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.2 根因
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#203" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.3 处理办法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#204" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.4 让标签自动跟上
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#205" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.5 权限要点
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#206" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.6 验收
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#207" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.7 常见故障
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3481,6 +3669,148 @@ journalctl<span class="w"> </span>-u<span class="w"> </span>mkdocs-autopush.serv
 <td>提交里混进垃圾文件</td>
 <td><code>.gitignore</code> 不全</td>
 <td>补 <code>*.bak*</code>、<code>*.swp</code>、<code>site/</code>、<code>.venv/</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="20">20. 阶段十四：右侧目录缺失修复 + 新文档自动打标签<a class="headerlink" href="#20" title="Permanent link">&para;</a></h2>
+<h3 id="201">20.1 现象<a class="headerlink" href="#201" title="Permanent link">&para;</a></h3>
+<p><code>http://192.168.7.130:8000/Linux基础教程/</code> 下的 12 篇 md 全部能打开，但<strong>右侧目录栏永远空白</strong>；同时这批文档不出现在 <code>/tags/</code> 标签页。</p>
+<h3 id="202">20.2 根因<a class="headerlink" href="#202" title="Permanent link">&para;</a></h3>
+<p>Material 的目录模板 <code>partials/toc.html</code> 有这样一段：</p>
+<div class="codehilite"><pre><span></span><code><span class="cp">{%</span> <span class="k">set</span> <span class="nv">toc</span> <span class="o">=</span> <span class="nv">page.toc</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">set</span> <span class="nv">first</span> <span class="o">=</span> <span class="nv">toc</span> <span class="o">|</span> <span class="nf">first</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">if</span> <span class="nv">first</span> <span class="k">and</span> <span class="nv">first.level</span> <span class="o">==</span> <span class="m">1</span> <span class="cp">%}</span>
+<span class="x">  </span><span class="cp">{%</span> <span class="k">set</span> <span class="nv">toc</span> <span class="o">=</span> <span class="nv">first.children</span> <span class="cp">%}</span>
+<span class="cp">{%</span> <span class="k">endif</span> <span class="cp">%}</span>
+</code></pre></div>
+
+<p>即：<strong>如果正文第一个标题是 H1，右侧目录只显示它的下级标题</strong>。</p>
+<p>而这批文档是 Typora/语雀导出的，结构是「一个文章标题 H1 + 若干同级 <code># 一、xxx</code> H1」，等于第一个 H1 下面什么都没有 → <code>first.children</code> 为空 → 目录标签渲染出来但里面没有条目。</p>
+<p>另一种情况是文件里只有 1 个 H1、完全没有 H2，那也是空目录（<code>0、linux文档目录摘要.md</code> 就属于这种，属正常）。</p>
+<p>源码里还能看到两处 Typora 痕迹：行尾是 CRLF、正文有一行字面 <code>[TOC]</code>（MkDocs 的 toc 扩展会把它替换成内嵌目录，所以不报错，但位置和右侧目录重复）。</p>
+<h3 id="203">20.3 处理办法<a class="headerlink" href="#203" title="Permanent link">&para;</a></h3>
+<p>规矩只有一条：<strong>一篇文档只能有一个 H1（页面标题），其余标题按层级往下排</strong>。</p>
+<p>仓库里放了两个不改内容语义的脚本：</p>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>作用</th>
+<th>用法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tools/fix_headings.py</code></td>
+<td>第一个 H1 保留，其余标题统一降一级（H1→H2、H2→H3…最深 H6）；顺带 CRLF→LF；跳过 front matter 与代码块里的 <code>#</code></td>
+<td><code>python3 tools/fix_headings.py docs/Linux基础教程</code></td>
+</tr>
+<tr>
+<td><code>tools/autotag.py</code></td>
+<td>没有 <code>tags</code> 的文档自动补 front matter，标签取文档所在的一级目录名（根目录文档记「通用」）；幂等，<code>docs/tags.md</code> 跳过</td>
+<td><code>python3 tools/autotag.py docs</code></td>
+</tr>
+</tbody>
+</table>
+<p>两个脚本都支持 <code>--dry-run</code> 先看要改哪些文件：</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo
+runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> </span>--<span class="w"> </span>/srv/mkdocs/.venv/bin/python<span class="w"> </span>tools/fix_headings.py<span class="w"> </span>docs/Linux基础教程<span class="w"> </span>--dry-run
+</code></pre></div>
+
+<p>实测这批文档 12 篇里 11 篇需要降级（<code>8、Linux系统用户与组管理.md</code> 最多，28 处；<code>/etc/shadow</code> 配置块里的 <code>#</code> 注释因为在代码块内，原样保留）。</p>
+<p>执行完的效果：</p>
+<div class="codehilite"><pre><span></span><code># Linux系统基础设置与命令行      &lt;- 页面标题，唯一 H1
+## 一、系统基本操作              &lt;- 右侧目录第一层
+### 1、登录界面
+### 2、桌面
+</code></pre></div>
+
+<h3 id="204">20.4 让标签自动跟上<a class="headerlink" href="#204" title="Permanent link">&para;</a></h3>
+<p><code>autopush.sh</code> 在每次同步前会先跑一遍 <code>autotag.py</code>：</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 0) 新文档自动补标签（幂等：已带 tags 的文件不动，无新文件时几毫秒返回）</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">"</span><span class="nv">$VENV</span><span class="s2">/bin/python"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$ROOT</span><span class="s2">/tools/autotag.py"</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="s2">"</span><span class="nv">$VENV</span><span class="s2">/bin/python"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ROOT</span><span class="s2">/tools/autotag.py"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ROOT</span><span class="s2">/docs"</span><span class="w"> </span>&gt;/tmp/autotag.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>log<span class="w"> </span><span class="s2">"autotag 执行失败，详见 /tmp/autotag.log"</span>
+<span class="w">  </span><span class="k">elif</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span><span class="s1">'新增标签 0 个'</span><span class="w"> </span>/tmp/autotag.log<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span>log<span class="w"> </span><span class="s2">"标签无需补全"</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span>log<span class="w"> </span><span class="s2">"已为新文档补标签：</span><span class="k">$(</span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">'^\[tag\]'</span><span class="w"> </span>/tmp/autotag.log<span class="k">)</span><span class="s2"> 个"</span>
+<span class="w">  </span><span class="k">fi</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<p>所以往 <code>docs/Linux基础教程/</code> 里再丢一篇 md，5 分钟内会自动：补 <code>tags: Linux基础教程</code> → 提交 main → <code>mike deploy 1.0 latest</code> → 推 gh-pages → Pages 更新，标签页与版本站同时刷新。</p>
+<h3 id="205">20.5 权限要点<a class="headerlink" href="#205" title="Permanent link">&para;</a></h3>
+<p>通过 SMB 上传的文件属主是 Samba 账号（<code>mdftp</code>），但目录里若混有 root 属主文件，<code>mkdocs</code> 身份构建时可能读不动、后续也无法由 mkdocs 改写。统一归位：</p>
+<div class="codehilite"><pre><span></span><code><span class="nv">D</span><span class="o">=</span>/srv/mkdocs/repo/docs/Linux基础教程
+chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w"> </span><span class="s2">"</span><span class="nv">$D</span><span class="s2">"</span>
+find<span class="w"> </span><span class="s2">"</span><span class="nv">$D</span><span class="s2">"</span><span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-exec<span class="w"> </span>chmod<span class="w"> </span><span class="m">2775</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
+find<span class="w"> </span><span class="s2">"</span><span class="nv">$D</span><span class="s2">"</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-exec<span class="w"> </span>chmod<span class="w"> </span><span class="m">0664</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
+</code></pre></div>
+
+<h3 id="206">20.6 验收<a class="headerlink" href="#206" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>检查点</th>
+<th>命令</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>右侧目录有条目</td>
+<td>打开页面，右侧栏</td>
+<td>出现「一、系统基本操作 / 1、登录界面…」</td>
+</tr>
+<tr>
+<td>构建产物里有 TOC</td>
+<td><code>grep -c 'data-md-component="toc"' site/Linux基础教程/*/index.html</code></td>
+<td>各页 ≥1</td>
+</tr>
+<tr>
+<td>标签收录</td>
+<td>打开 <code>/tags/</code></td>
+<td>出现「Linux基础教程」，链接 12 篇</td>
+</tr>
+<tr>
+<td>版本站同步</td>
+<td><code>https://rainayom.github.io/1.0/Linux%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/</code></td>
+<td>页面正常、目录可见</td>
+</tr>
+</tbody>
+</table>
+<p>已实测：<code>4、Linux系统基础设置与命令行</code> 右侧目录 11 条、<code>8、Linux系统用户与组管理</code> 4 条（其余是代码块内的注释，本来就不该进目录）。</p>
+<h3 id="207">20.7 常见故障<a class="headerlink" href="#207" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>目录还是空</td>
+<td>该页只有一个 H1</td>
+<td>补 H2 小节，或接受空目录</td>
+</tr>
+<tr>
+<td>目录层级过深</td>
+<td>标题层级本来就 4～5 层</td>
+<td><code>mkdocs.yml</code> 加 <code>toc_depth: 2-3</code> 截断</td>
+</tr>
+<tr>
+<td>标签页没有新目录</td>
+<td>没跑 autotag / 文档已有 tags 但混写</td>
+<td>手工跑 <code>tools/autotag.py docs</code> 看输出</td>
+</tr>
+<tr>
+<td><code>tools/*.py</code> 报 Permission denied</td>
+<td>属主是 root</td>
+<td><code>chown mkdocs:docs tools/*.py</code></td>
 </tr>
 </tbody>
 </table>
