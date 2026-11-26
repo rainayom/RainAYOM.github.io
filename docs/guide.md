@@ -375,7 +375,7 @@ vim /etc/samba.smb.conf
 
 **2. SMB 账号**
 
-`smbpasswd -a mdftp` 建好了 passdb 账号并 `-e` 启用。选 `mdftp` 是因为它主组就是 `docs`、和 FTP 上传走同一身份，省掉再加组。**密码暂时 `[REDACTED]`**，仅用于这次联调，请你自己执行 `smbpasswd mdftp` 改掉。
+`smbpasswd -a mdftp` 建好了 passdb 账号并 `-e` 启用。选 `mdftp` 是因为它主组就是 `docs`、和 FTP 上传走同一身份，省掉再加组。**密码在部署时自行设定（文档不留明文）**，仅用于这次联调，请你自己执行 `smbpasswd mdftp` 改掉。
 
 **3. 服务与端口**
 
@@ -383,7 +383,7 @@ vim /etc/samba.smb.conf
 
 
 
-Windows 端直接 `\\192.168.7.130\share`，账号 `mdftp` + 上面那个密码即可；第一次连上后建议先传一个文件，看 `ll` 是否是 `-rw-rw-r-- ... docs`
+Windows 端直接 `\\192.168.7.130\share`，账号 `mdftp` + 你设定的密码即可；第一次连上后建议先传一个文件，看 `ll` 是否是 `-rw-rw-r-- ... docs`
 
 ## 12. 阶段九：git → GitHub Actions → Cloudflare Pages
 

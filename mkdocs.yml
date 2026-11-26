@@ -36,6 +36,7 @@ plugins:
   - tags
   - mike:
       version_selector: true
+      alias_type: redirect
 hooks:
   - hooks/index_listing.py
 markdown_extensions:
