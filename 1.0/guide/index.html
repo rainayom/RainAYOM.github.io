@@ -930,6 +930,89 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 阶段十三：自动/定时推送
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19. 阶段十三：自动/定时推送">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#191" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.1 三种做法对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#192" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.2 生效链路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#193" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.3 脚本与单元
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#194" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.4 启用与验收
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#195" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.5 想更快就换事件驱动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#196" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.6 常见故障
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1780,6 +1863,89 @@
     <span class="md-ellipsis">
       
         18.3 打 Release
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19. 阶段十三：自动/定时推送
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="19. 阶段十三：自动/定时推送">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#191" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.1 三种做法对比
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#192" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.2 生效链路
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#193" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.3 脚本与单元
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#194" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.4 启用与验收
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#195" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.5 想更快就换事件驱动
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#196" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        19.6 常见故障
       
     </span>
   </a>
@@ -2767,6 +2933,142 @@ runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> 
 </code></pre></div>
 
 <p>再到 GitHub → Releases → Draft a new release，选 tag <code>v1.0.0</code>，上传该 tar.gz 作为源码包。</p>
+<h2 id="19">19. 阶段十三：自动/定时推送<a class="headerlink" href="#19" title="Permanent link">&para;</a></h2>
+<h3 id="191">19.1 三种做法对比<a class="headerlink" href="#191" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>触发方式</th>
+<th>延迟</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>systemd timer（本文采用）</td>
+<td>定时轮询 <code>git status</code></td>
+<td>最长 5 分钟</td>
+<td>无人值守的小型文档站，零外部依赖</td>
+</tr>
+<tr>
+<td>systemd path unit（inotify）</td>
+<td>文件一变立刻触发</td>
+<td>秒级</td>
+<td>想即时生效，但一次编辑可能触发多次构建</td>
+</tr>
+<tr>
+<td>GitHub Actions</td>
+<td>push 后云端构建再部署</td>
+<td>云端 1～2 分钟</td>
+<td>多人协作；需把 Pages 源改成 GitHub Actions</td>
+</tr>
+</tbody>
+</table>
+<p>注意：本机到 <code>github.com</code> 的 HTTPS 被墙，Actions 的 <code>checkout</code> 反而跑不通；而且 Pages 现在是「branch 模式」，推送 <code>gh-pages</code> 后 GitHub 自己会构建，不需要再上一套 Actions。</p>
+<h3 id="192">19.2 生效链路<a class="headerlink" href="#192" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>docs/*.md 改动
+   └─ mkdocs-autopush.service（每 5 分钟）
+        ├─ git add -A + commit
+        ├─ git push origin main          # 源码留痕
+        └─ mike deploy 1.0 latest
+             ├─ 重建 site/ 并写入 gh-pages
+             └─ git push origin gh-pages
+                  └─ GitHub Pages 收到 gh-pages 更新，约 1 分钟重建
+                       └─ https://rainayom.github.io/ 生效
+</code></pre></div>
+
+<h3 id="193">19.3 脚本与单元<a class="headerlink" href="#193" title="Permanent link">&para;</a></h3>
+<p><code>/srv/mkdocs/repo/autopush.sh</code>（关键点）：</p>
+<ul>
+<li><code>flock -n 9</code> 单实例，定时器与手工触发不会撞车；</li>
+<li>先看 <code>git status --porcelain</code>，没有改动就不 commit，避免空提交；</li>
+<li>再比 <code>origin/main..main</code> 的提交数，只有领先才 push；</li>
+<li>最后固定跑 <code>mike deploy --update-aliases 1.0 latest</code> + <code>set-default</code> + <code>push gh-pages</code>；</li>
+<li>全部以 <code>mkdocs</code> 身份执行（<code>User=mkdocs</code>、<code>HOME=/var/lib/mkdocs</code>），否则 git 会报可疑所有权。</li>
+</ul>
+<p><code>/etc/systemd/system/mkdocs-autopush.service</code>：</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[Service]</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">oneshot</span>
+<span class="na">User</span><span class="o">=</span><span class="s">mkdocs</span>
+<span class="na">Group</span><span class="o">=</span><span class="s">docs</span>
+<span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/srv/mkdocs/repo</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">HOME=/var/lib/mkdocs</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">PATH=/srv/mkdocs/.venv/bin:/usr/local/bin:/usr/bin:/bin</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/srv/mkdocs/repo/autopush.sh</span>
+<span class="na">TimeoutStartSec</span><span class="o">=</span><span class="s">300</span>
+</code></pre></div>
+
+<p><code>/etc/systemd/system/mkdocs-autopush.timer</code>：</p>
+<div class="codehilite"><pre><span></span><code><span class="k">[Timer]</span>
+<span class="na">OnBootSec</span><span class="o">=</span><span class="s">2min</span>
+<span class="na">OnUnitActiveSec</span><span class="o">=</span><span class="s">5min</span>
+<span class="na">AccuracySec</span><span class="o">=</span><span class="s">30s</span>
+<span class="na">Unit</span><span class="o">=</span><span class="s">mkdocs-autopush.service</span>
+</code></pre></div>
+
+<h3 id="194">19.4 启用与验收<a class="headerlink" href="#194" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>install<span class="w"> </span>-m<span class="w"> </span><span class="m">755</span><span class="w"> </span>-o<span class="w"> </span>mkdocs<span class="w"> </span>-g<span class="w"> </span>docs<span class="w"> </span>autopush.sh<span class="w"> </span>/srv/mkdocs/repo/autopush.sh
+install<span class="w"> </span>-m<span class="w"> </span><span class="m">644</span><span class="w"> </span>mkdocs-autopush.service<span class="w"> </span>/etc/systemd/system/
+install<span class="w"> </span>-m<span class="w"> </span><span class="m">644</span><span class="w"> </span>mkdocs-autopush.timer<span class="w">   </span>/etc/systemd/system/
+systemctl<span class="w"> </span>daemon-reload
+systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>mkdocs-autopush.timer
+
+systemctl<span class="w"> </span>list-timers<span class="w"> </span>mkdocs-autopush.timer<span class="w"> </span>--no-pager<span class="w">   </span><span class="c1"># 看下次触发时间</span>
+systemctl<span class="w"> </span>start<span class="w"> </span>mkdocs-autopush.service<span class="w">                  </span><span class="c1"># 立即同步一次</span>
+journalctl<span class="w"> </span>-u<span class="w"> </span>mkdocs-autopush.service<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span><span class="w"> </span>--no-pager<span class="w">    </span><span class="c1"># 看本次日志</span>
+</code></pre></div>
+
+<p>验收标准：<code>journalctl</code> 出现「推送 gh-pages / 完成」；<code>git log --oneline -1</code> 有 <code>auto:</code> 开头的提交；等 1 分钟后刷新站点能看到新内容。</p>
+<h3 id="195">19.5 想更快就换事件驱动<a class="headerlink" href="#195" title="Permanent link">&para;</a></h3>
+<p>把定时器换成 path unit，文件一改就推（示例）：</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># /etc/systemd/system/mkdocs-autopush.path</span>
+<span class="k">[Path]</span>
+<span class="na">PathModified</span><span class="o">=</span><span class="s">/srv/mkdocs/repo/docs</span>
+<span class="na">Unit</span><span class="o">=</span><span class="s">mkdocs-autopush.service</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">paths.target</span>
+</code></pre></div>
+
+<p>代价：保存一次文档会连触发多次构建，建议在脚本里加 <code>sleep 5</code> 做去抖。多数场景 5 分钟轮询已经够用。</p>
+<h3 id="196">19.6 常见故障<a class="headerlink" href="#196" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>定时器到点但没提交</td>
+<td>脚本没执行权限 / 单元里 User 不对</td>
+<td><code>ls -l autopush.sh</code>、<code>journalctl -u mkdocs-autopush</code></td>
+</tr>
+<tr>
+<td><code>dubious ownership</code></td>
+<td>用 root 跑了 git</td>
+<td>单元必须 <code>User=mkdocs</code>，别手工 sudo 跑</td>
+</tr>
+<tr>
+<td>推 <code>gh-pages</code> 报权限拒绝</td>
+<td>部署密钥没勾写权限</td>
+<td>Deploy key 上补勾 Allow write access</td>
+</tr>
+<tr>
+<td>站点没变化</td>
+<td>Pages 还在构建 / 缓存</td>
+<td>看 Actions 里 pages build，等 1～2 分钟再刷</td>
+</tr>
+<tr>
+<td>提交里混进垃圾文件</td>
+<td><code>.gitignore</code> 不全</td>
+<td>补 <code>*.bak*</code>、<code>*.swp</code>、<code>site/</code>、<code>.venv/</code></td>
+</tr>
+</tbody>
+</table>
 
 
 
