@@ -1,0 +1,2549 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://rainayom.github.io/1.0/Linux%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/5%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86/">
+      
+      
+        <link rel="prev" href="../4%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%A1%8C/">
+      
+      
+        <link rel="next" href="../6%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7%E7%9A%84%E4%BD%9C%E7%94%A8/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Linux系统文件与目录管理 - 运维知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="运维知识库" class="md-header__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            运维知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux系统文件与目录管理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到明亮模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到明亮模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗黑模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到暗黑模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到跟随系统"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到跟随系统" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  使用指南
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  标签
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../0%E3%80%81linux%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95%E6%91%98%E8%A6%81/" class="md-tabs__link">
+          
+  
+  
+  Linux基础教程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ansible/ansible%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+          
+  
+  
+  Ansible
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ops/docker/" class="md-tabs__link">
+          
+  
+  
+  Ops
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="运维知识库" class="md-nav__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    运维知识库
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux基础教程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux基础教程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0%E3%80%81linux%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95%E6%91%98%E8%A6%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    云计算课程摘要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linix操作系统磁盘管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1%E3%80%81Linux%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2%E3%80%81CentOS7%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CentOS7安装教程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3%E3%80%81VMware%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMware虚拟机操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%A1%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统基础设置与命令行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统文件与目录管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7%E7%9A%84%E4%BD%9C%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux中的特殊符号的作用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%A3%80%E7%B4%A2%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统文件与目录内容检索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%94%A8%E6%88%B7%E4%B8%8E%E7%BB%84%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux用户与组管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ansible
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ansible
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/ansible%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ansible基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/kejilion%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E7%AE%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kejilion脚本工具箱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E4%BD%BF%E7%94%A8ansible%E5%AE%89%E8%A3%85AnsibleGalaxy%E7%9A%84roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible安装Ansible Galaxy的roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible批量安装docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7pssh%E5%92%8Cansible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化工具pssh和ansible
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ops
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ops
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="linux">Linux系统文件与目录管理<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#linux">Linux系统文件与目录管理</a></li>
+<li><a href="#linux_1">一、Linux系统目录结构</a><ul>
+<li><a href="#1">1、查看目录结构命令</a></li>
+<li><a href="#2">2、目录结构操作使用方法</a><ul>
+<li><a href="#21">2.1、绝对路径</a></li>
+<li><a href="#22">2.2、相对路径</a></li>
+</ul>
+</li>
+<li><a href="#3">3、目录结构中重要文件数据</a><ul>
+<li><a href="#31">3.1、网卡地址信息配置文件</a></li>
+<li><a href="#32">3.2、网络域名服务配置文件</a></li>
+<li><a href="#33">3.3、网络本地解析配置文件</a></li>
+<li><a href="#34">3.4、开机自动运行脚本或命令文件</a></li>
+<li><a href="#35">3.5、系统运行状况日志文件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_1">二、文件与目录操作命令</a><ul>
+<li><a href="#1_1">1、打印工作目录命令</a></li>
+<li><a href="#2_1">2、目录切换命令</a></li>
+<li><a href="#3_1">3、目录内容查看命令</a></li>
+<li><a href="#4">4、文件查看命令</a><ul>
+<li><a href="#41cat">4.1、cat命令</a></li>
+<li><a href="#42more">4.2、more命令</a></li>
+<li><a href="#43less">4.3、less命令</a></li>
+<li><a href="#44head">4.4、head命令</a></li>
+<li><a href="#45tail">4.5、tail命令</a></li>
+<li><a href="#46nl">4.6、nl命令</a></li>
+</ul>
+</li>
+<li><a href="#5">5、创建目录命令</a></li>
+<li><a href="#6">6、创建文件命令</a><ul>
+<li><a href="#61touch">6.1、touch命令</a></li>
+<li><a href="#62echo">6.2、echo命令</a></li>
+</ul>
+</li>
+<li><a href="#7">7、文件或目录复制命令</a></li>
+<li><a href="#8">8、文件或目录移动命令</a></li>
+<li><a href="#9">9、文件或目录删除命令</a></li>
+<li><a href="#10">10、别名命令</a></li>
+<li><a href="#11">11、文件属性查看命令</a></li>
+<li><a href="#12">12、目录结构查看命令</a></li>
+<li><a href="#13dd">13、dd命令</a></li>
+<li><a href="#14">14、链接命令</a></li>
+<li><a href="#15file">15、file命令</a></li>
+</ul>
+</li>
+<li><a href="#vim">三、VIM编辑器</a><ul>
+<li><a href="#1vim">1、VIM操作模式</a><ul>
+<li><a href="#11_1">1.1、命令模式</a></li>
+<li><a href="#12_1">1.2、插入模式</a></li>
+<li><a href="#13">1.3、末行模式</a></li>
+<li><a href="#14_1">1.4、视图模式</a></li>
+<li><a href="#15">1.5、视图快模式</a></li>
+</ul>
+</li>
+<li><a href="#2vim">2、vim高级用法</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="linux_1">一、Linux系统目录结构<a class="headerlink" href="#linux_1" title="Permanent link">&para;</a></h1>
+<p><img alt="" src="../5%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86.assets/%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" /></p>
+<table>
+<thead>
+<tr>
+<th>目录</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bin</td>
+<td>命令，二进制文件的存放目录</td>
+</tr>
+<tr>
+<td>boot</td>
+<td>系统引导程序及系统内核目录</td>
+</tr>
+<tr>
+<td>dev</td>
+<td>设备、光驱、硬盘目录</td>
+</tr>
+<tr>
+<td>etc</td>
+<td>存放系统或服务的配置文件目录</td>
+</tr>
+<tr>
+<td>home</td>
+<td>普通用户的家目录</td>
+</tr>
+<tr>
+<td>lib</td>
+<td>库文件存放目录</td>
+</tr>
+<tr>
+<td>lib64</td>
+<td>库文件存放目录(64位)</td>
+</tr>
+<tr>
+<td>lost+found</td>
+<td>磁盘、文件系统损坏、断电、存放临时文件目录</td>
+</tr>
+<tr>
+<td>mnt</td>
+<td>临时的挂载点目录</td>
+</tr>
+<tr>
+<td>opt</td>
+<td>三方软件安装目录</td>
+</tr>
+<tr>
+<td>proc</td>
+<td>虚拟目录，显示内存中信息</td>
+</tr>
+<tr>
+<td>root</td>
+<td>超级用户的家目录</td>
+</tr>
+<tr>
+<td>sbin</td>
+<td>超级命令，二进制文件的存放目录，只有root用户能够使用的命令</td>
+</tr>
+<tr>
+<td>selinux</td>
+<td>selinux及其配置文件存放目录</td>
+</tr>
+<tr>
+<td>sys</td>
+<td>虚拟目录，显示内存信息</td>
+</tr>
+<tr>
+<td>tmp</td>
+<td>临时文件的存放目录</td>
+</tr>
+<tr>
+<td>usr</td>
+<td>存放用户程序目录</td>
+</tr>
+<tr>
+<td>var</td>
+<td>系统日志目录</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1">1、查看目录结构命令<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1">#安装</span>
+yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>tree
+tree<span class="w"> </span>目标目录
+</code></pre></div>
+
+<h2 id="2">2、目录结构操作使用方法<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<p>在对目录结构进行操作管理时，可有三种方法对目录进行操作管理：</p>
+<ul>
+<li>采用绝对路径方式进行操作管理</li>
+<li>采用相对路径方式进行操作管理</li>
+<li>采用设备挂载方式进行操作管理</li>
+</ul>
+<h3 id="21">2.1、绝对路径<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<p>表示从根路径开始，进入指定的路径中或子目录中，获取指定的数据资源信息。</p>
+<div class="codehilite"><pre><span></span><code><span class="x">#采用绝对路径方式进入到network-scripts目录中</span>
+<span class="x">[root@kang ~]# cd /etc/sysconfig/network-scripts/</span>
+</code></pre></div>
+
+<p>说明：采用绝对路径的方式切换目录可以更有效地保证操作的准确度。</p>
+<h3 id="22">2.2、相对路径<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p>表示从当前路径开始，进入指定的路径中或子目录中，获取指定的数据资源信息。</p>
+<div class="codehilite"><pre><span></span><code><span class="x">#采用相对路径方式进入到network-scripts目录中</span>
+<span class="x">[root@kang ~]# cd /etc/sysconfig/</span>
+<span class="x">[root@kang sysconfig]# cd network-scripts/</span>
+</code></pre></div>
+
+<p>说明：采用相对路径的方式切换目录可以提升操作效率。</p>
+<h2 id="3">3、目录结构中重要文件数据<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1、网卡地址信息配置文件<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<p>/etc/sysconfig/network-scripts/ifcfg-ens33</p>
+<p>说明：  网卡文件名称结尾的数字编号n，即为第n+1块网卡信息，ens33表示第一块网卡，ens34则表示第二块网卡，以此类推；  </p>
+<h3 id="32">3.2、网络域名服务配置文件<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<p>/etc/resolve.conf</p>
+<p>说明：此文件中配置信息，也会影响主机和外网域名地址信息进行通讯。</p>
+<h3 id="33">3.3、网络本地解析配置文件<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<p>/etc/hosts</p>
+<p>说明：此文件中配置信息，主要用于测试访问指定网站服务器，以及可以利用域名地址和其他服务器建立通讯。</p>
+<h3 id="34">3.4、开机自动运行脚本或命令文件<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<p>/etc/rc.local</p>
+<p>说明：此文件中配置信息主要编写系统命令和脚本加载信息，主要用于让指定命令或脚本在系统启动后自动运行。</p>
+<h3 id="35">3.5、系统运行状况日志文件<a class="headerlink" href="#35" title="Permanent link">&para;</a></h3>
+<p>/var/log/messages</p>
+<p>说明：此文件中产生信息，为系统或某些服务运行状态信息，会有正常运行状态输出信息，也会有错误输出信息，珠澳用于排错使用。</p>
+<h1 id="_1">二、文件与目录操作命令<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="1_1">1、打印工作目录命令<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h2>
+<p>pwd 命令来查看”当前工作目录“的完整路径。 简单得说，每当你在终端进行操作时，你都会有一个当前工作目录。在不太确定当前位置时，就会使用 pwd 来判定当前目录在文件系统内的确切位置。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nb">pwd</span><span class="w"> </span><span class="o">[</span>选项<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-P</td>
+<td>显示出实际路径，而非使用连接。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2_1">2、目录切换命令<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h2>
+<p>cd 命令可以说是 Linux 中最基本的命令语句，其他的命令语句要进行操作，都是建立在使用 cd 命令上的。</p>
+<p>语法：</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="o">[</span>目录名<span class="o">]</span>
+</code></pre></div>
+
+<p>选项：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cd</td>
+<td>返回当前登录用户的家目录</td>
+</tr>
+<tr>
+<td>cd ..</td>
+<td>返回上级目录</td>
+</tr>
+<tr>
+<td>cd ~</td>
+<td>返回当前登录用户的家目录</td>
+</tr>
+<tr>
+<td>cd  -</td>
+<td>返回上次跳转到当前目录的目录</td>
+</tr>
+<tr>
+<td>cd /path</td>
+<td>切换到指定目录</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3_1">3、目录内容查看命令<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h2>
+<p>ls 命令是 linux 下最常用的命令。ls 命令就是 list 的缩写 缺省下 ls 用来打印出当前目录的清单，如果 ls 指定其他目录，那么就会显示指定目录里的文件及文件夹清单。 通过 ls 命令不仅可以查看 linux 文件夹包含的文件 而且可以查看文件权限(包括目录、文件夹、文件权限) 查看目录信息等等。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>ls<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span><span class="o">[</span>FILE<span class="o">]</span>...
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a, --all</td>
+<td>显示所有文件（包括以 . 开头的隐藏文件）</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>使用详细列表格式显示文件或目录的详细信息</td>
+</tr>
+<tr>
+<td>-h, --human-readable</td>
+<td>使用人类可读的格式显示文件大小（例如 1K、2M）</td>
+</tr>
+<tr>
+<td>-r, --reverse</td>
+<td>以相反的顺序列出文件</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>按照修改时间（最新的文件在前）排序</td>
+</tr>
+<tr>
+<td>-S</td>
+<td>按照文件大小排序</td>
+</tr>
+<tr>
+<td>-d, --directory</td>
+<td>显示目录本身，而非目录下的文件列表</td>
+</tr>
+<tr>
+<td>-i, --inode</td>
+<td>显示每个文件的 inode 号</td>
+</tr>
+<tr>
+<td>--color=auto</td>
+<td>自动根据文件类型显示不同的颜色</td>
+</tr>
+<tr>
+<td>-R, --recursive</td>
+<td>递归列出目录及其子目录中的文件</td>
+</tr>
+<tr>
+<td>-k，--block-size=1K</td>
+<td>以 k 字节的形式表示文件的大小。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4">4、文件查看命令<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41cat">4.1、cat命令<a class="headerlink" href="#41cat" title="Permanent link">&para;</a></h3>
+<p>cat 命令的用途是连接文件或标准输入并打印。这个命令常用来显示文件内容，或者将几个文件连接起来显示，或者从标准输入读取内容并显示，它常与重定向符号配合使用。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>cat<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件<span class="o">]</span>...
+</code></pre></div>
+
+<p><strong>功能：</strong></p>
+<ul>
+<li>一次显示整个文件:cat filename</li>
+<li>从键盘创建一个文件:cat &gt; filename 只能创建新文件,不能编辑已有文件. </li>
+<li>将几个文件合并为一个文件:cat file1 file2 &gt; file3</li>
+</ul>
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-n</td>
+<td>显示行号。</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示不可打印的字符。</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>在输出的行尾添加制表符和换行符。</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>在输出的行尾添加空格而不是制表符和换行符。</td>
+</tr>
+<tr>
+<td>-A</td>
+<td>类似于 -v 和 -e，但只显示不可打印的字符和行尾的空格。</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>仅显示每行的第一个非空格字符。</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>按行分割文件，并将每一行分别发送到标准输出。</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>仅显示当前行的行号。</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>在输出的行尾添加回车符和换行符。</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>在连续的空白字符中输出一个空格。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42more">4.2、more命令<a class="headerlink" href="#42more" title="Permanent link">&para;</a></h3>
+<p>用于逐页查看文本文件内容的命令。当需要查看大型文件时，more 命令能够按页显示文件内容，允许用户逐页浏览文件内容。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>more<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件名<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>操作：</strong></p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空格键</td>
+<td>向下翻动一页。</td>
+</tr>
+<tr>
+<td>Enter键</td>
+<td>向下翻动一行。</td>
+</tr>
+<tr>
+<td>q</td>
+<td>退出 more 命令。</td>
+</tr>
+<tr>
+<td>/pattern</td>
+<td>在文件中搜索指定的模式（pattern）。</td>
+</tr>
+<tr>
+<td>:n</td>
+<td>跳转到第 n 行。</td>
+</tr>
+<tr>
+<td>:f</td>
+<td>显示文件名和当前行号。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43less">4.3、less命令<a class="headerlink" href="#43less" title="Permanent link">&para;</a></h3>
+<p>看文本文件内容的命令，类似于 more 命令，但提供了更多的功能和操作选项。less 命令可以让用户在文件中进行搜索、前后翻页、跳转到指定行等操作。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>less<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件名<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>操作：</strong></p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空格键</td>
+<td>向下滚动一屏。</td>
+</tr>
+<tr>
+<td>Page Up 或 b</td>
+<td>向上滚动一屏。</td>
+</tr>
+<tr>
+<td>Page Down 或 空格键</td>
+<td>向下滚动一屏。</td>
+</tr>
+<tr>
+<td>/pattern</td>
+<td>在文件中搜索指定模式（pattern）。</td>
+</tr>
+<tr>
+<td>n</td>
+<td>找到下一个匹配的搜索结果。</td>
+</tr>
+<tr>
+<td>N</td>
+<td>找到上一个匹配的搜索结果。</td>
+</tr>
+<tr>
+<td>g</td>
+<td>跳转到文件的起始处。</td>
+</tr>
+<tr>
+<td>G</td>
+<td>跳转到文件的末尾。</td>
+</tr>
+<tr>
+<td>q</td>
+<td>退出 less 命令。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="44head">4.4、head命令<a class="headerlink" href="#44head" title="Permanent link">&para;</a></h3>
+<p>head 命令用于显示文件的开头部分，默认情况下显示文件的前 10 行内容。head 命令在查看文件的头部信息时非常有用，尤其适合用于快速查看文件的开头几行内容。</p>
+<p><strong>语法:</strong></p>
+<div class="codehilite"><pre><span></span><code>head<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件名<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-q</td>
+<td>隐藏文件名</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示文件名</td>
+</tr>
+<tr>
+<td>-c&lt;字节&gt;</td>
+<td>显示字节数</td>
+</tr>
+<tr>
+<td>-n&lt;行数&gt;</td>
+<td>显示的行数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="45tail">4.5、tail命令<a class="headerlink" href="#45tail" title="Permanent link">&para;</a></h3>
+<p>tail 命令用于查看文件的尾部内容，默认情况下显示文件的最后 10 行。tail 命令在查看日志文件或需要关注文件末尾信息时非常有用。。使用 tail -f 选项可以实时监控文件的变化，这对于监控系统日志或等待文件尾部的特定信息非常方便。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>tail<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件名<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-f</td>
+<td>循环读取</td>
+</tr>
+<tr>
+<td>-q</td>
+<td>不显示处理信息</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示详细的处理信息</td>
+</tr>
+<tr>
+<td>-c&lt;数目&gt;</td>
+<td>显示的字节数</td>
+</tr>
+<tr>
+<td>-n&lt;行数&gt;</td>
+<td>显示行数</td>
+</tr>
+</tbody>
+</table>
+<h3 id="46nl">4.6、nl命令<a class="headerlink" href="#46nl" title="Permanent link">&para;</a></h3>
+<p>nl 命令是 Linux 和类 Unix 系统中的一个用于将文本文件中的行号添加到内容的命令。它主要用于向文本文件中的每一行添加行号，便于阅读和查找</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>nl<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>file<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-b</td>
+<td>指定要将行号添加到的行。</td>
+</tr>
+<tr>
+<td>-b a</td>
+<td>添加行号到非空行。</td>
+</tr>
+<tr>
+<td>-b t</td>
+<td>添加行号到所有行。</td>
+</tr>
+<tr>
+<td>-b n</td>
+<td>不添加行号到任何行。</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>设置行号的开始值。</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>指定行号字段的宽度。</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>设置行号与文本之间的分隔符。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<ol>
+<li>将行号添加到文件中的所有行，并将行号输出到标准输出：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>nl<span class="w"> </span>file.txt
+</code></pre></div>
+
+<ol>
+<li>将行号添加到文件中的非空行，并使用制表符作为分隔符：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>nl<span class="w"> </span>-b<span class="w"> </span>a<span class="w"> </span>-s<span class="w"> </span><span class="s1">$'\t'</span><span class="w"> </span>file.txt
+</code></pre></div>
+
+<ol>
+<li>将行号添加到文件中的所有行，从指定的行号开始：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>nl<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span><span class="w"> </span>file.txt
+</code></pre></div>
+
+<ol>
+<li>设置行号字段的宽度为 3 个字符，并将行号添加到所有行：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>nl<span class="w"> </span>-w<span class="w"> </span><span class="m">3</span><span class="w"> </span>file.txt
+</code></pre></div>
+
+<h2 id="5">5、创建目录命令<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>mkdir 命令用来创建指定的名称的目录，要求创建目录的用户在当前目录中具有写权限，并且指定的目录名不能是当前目录中已有的目录。如果需要创建多级目录，可以使用通配符 * 或多个目录名。还支持使用{}来进行创建多个目录。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>mkdir<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>目录名
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-p</td>
+<td>递归创建目录，如果父目录不存在也会创建。</td>
+</tr>
+<tr>
+<td>-m</td>
+<td>设置新目录的权限。</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示详细信息，包括正在创建的目录和已使用的文件系统类型。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6">6、创建文件命令<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61touch">6.1、touch命令<a class="headerlink" href="#61touch" title="Permanent link">&para;</a></h3>
+<p>用于创建一个新的空文件或修改现有文件的时间戳。它的全称是 "touch file"，即触摸文件。 </p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>touch<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span>...<span class="w"> </span>文件...
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-a 或 --time=access</td>
+<td>如果文件不存在，创建一个新文件。同时更新访问时间和修改时间。</td>
+</tr>
+<tr>
+<td>-m 或 --time=modify</td>
+<td>仅更新文件的修改时间。</td>
+</tr>
+<tr>
+<td>-t 或 --time=date</td>
+<td>使用指定的日期和时间更新文件的访问和修改时间。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62echo">6.2、echo命令<a class="headerlink" href="#62echo" title="Permanent link">&para;</a></h3>
+<p>用于在终端输出指定的文本内容。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>文本内容
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-n</td>
+<td>在输出内容后不换行。</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>启用转义字符的解析。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="7">7、文件或目录复制命令<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<p>cp命令用来复制文件和目录的命令</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>cp<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>destination
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i（交互式）</td>
+<td>如果在目标位置存在一个文件且该文件会 被覆盖时，cp命令会询问用户是否继续。</td>
+</tr>
+<tr>
+<td>-n（不覆盖）</td>
+<td>在目标位置存在文件时，不会覆盖该文件，即不会进行复制操作。</td>
+</tr>
+<tr>
+<td>-r或-R（递归）</td>
+<td>用于复制目录以及目录内所有子目录和文件。</td>
+</tr>
+<tr>
+<td>-p（保留属性）</td>
+<td>复制文件的同时保留源文件的属性如权限和时间戳。</td>
+</tr>
+<tr>
+<td>-v（详细模式）</td>
+<td>显示详细的复制过程信息。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8">8、文件或目录移动命令<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<p>mv命令用来移动文件或目录，或者重命名文件和目录的命令。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>mv<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>destination
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i（交互式）</td>
+<td>如果移动或重命名目标位置已存在且会覆盖时，mv 命令会询问用户是否继续。</td>
+</tr>
+<tr>
+<td>-n（不覆盖）</td>
+<td>在目标位置存在文件时，不会覆盖该文件，即不会进行移动或重命名操作。</td>
+</tr>
+<tr>
+<td>-v（详细模式）</td>
+<td>显示详细的移动或重命名过程信息。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="9">9、文件或目录删除命令<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<p>rm命令用于删除文件的命令。它的全称是 "remove"，意思是 "删除"。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>rm<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>file<span class="w"> </span>...
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i 或 --interactive</td>
+<td>在删除之前，显示每个文件是否确认删除。</td>
+</tr>
+<tr>
+<td>-f 或 --force</td>
+<td>强制删除，即使文件正在被使用，或者存在打开的文件描述符。</td>
+</tr>
+<tr>
+<td>-r 或 --recursive</td>
+<td>递归地删除目录及其内容。</td>
+</tr>
+<tr>
+<td>-v 或 --verbose</td>
+<td>详细模式，显示删除的每个文件。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="10">10、别名命令<a class="headerlink" href="#10" title="Permanent link">&para;</a></h2>
+<p>用于创建或显示当前目录下的别名。别名是一种用户定义的命令或函数，可以用来简化复杂的命令序列。使用unalias name可以删除一个别名。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="nb">command</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-p</td>
+<td>显示当前目录下的所有已定义的别名列表。</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>删除指定的别名。</td>
+</tr>
+<tr>
+<td>-r 或 --recursive</td>
+<td>递归地删除目录及其内容中的所有别名。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="11">11、文件属性查看命令<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
+<p>stat 命令是 Unix 和 Linux 系统中的一个实用程序，用于显示关于文件的状态信息。stat 命令提供比 ls -l 更详细的文件信息，包括文件的大小、创建时间、最后访问时间、最后修改时间等。 </p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>stat<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>file
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c 或 --format</td>
+<td>指定输出信息的格式。</td>
+</tr>
+<tr>
+<td>-f 或 --file-system</td>
+<td>显示文件系统级别的。</td>
+</tr>
+<tr>
+<td>-t 或 --terse</td>
+<td>以更紧凑的方式显示输出信息。</td>
+</tr>
+<tr>
+<td>--all 或 -a</td>
+<td>显示所有可用的信息。</td>
+</tr>
+<tr>
+<td>--dereference</td>
+<td>跟随符号链接。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="12">12、目录结构查看命令<a class="headerlink" href="#12" title="Permanent link">&para;</a></h2>
+<p>tree 命令是一个用于以树状结构显示目录及其内容的实用程序，常用于显示文件系统的层次结构。tree 命令会递归地列出指定目录下的所有子目录和文件，并以树的形式展示它们之间的关系。 </p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>tree<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>directory<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-L</td>
+<td>指定要显示的层级深度。</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>只显示目录，不显示文件。</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>显示完整路径。</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>显示所有文件和目录，包括隐藏的。</td>
+</tr>
+<tr>
+<td>-I</td>
+<td>排除符合模式的文件或目录。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="13dd">13、dd命令<a class="headerlink" href="#13dd" title="Permanent link">&para;</a></h2>
+<p>用于复制文件和转换数据。它用于将源文件复制到目标文件，或者用于在目标文件上进行数据转换。 </p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>dd<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>输出选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>输入选项<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>if=filename</td>
+<td>指定输入文件。</td>
+</tr>
+<tr>
+<td>of=filename</td>
+<td>指定输出文件。</td>
+</tr>
+<tr>
+<td>bs=size</td>
+<td>指定块大小。</td>
+</tr>
+<tr>
+<td>count=num</td>
+<td>指定要复制的块数。</td>
+</tr>
+<tr>
+<td>conv=参数</td>
+<td>进行数据转换，例如tec进行techeus格式转换，auto允许尽可能多的转换（这对于大量数据是安全的）。</td>
+</tr>
+<tr>
+<td>skip=num</td>
+<td>跳过第一个num块。</td>
+</tr>
+<tr>
+<td>status=progress</td>
+<td>显示进度信息。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="14">14、链接命令<a class="headerlink" href="#14" title="Permanent link">&para;</a></h2>
+<p>ln 命令用于在文件系统中创建链接（links）。链接分为两种类型：硬链接（hard link）和符号链接（symbolic link）。</p>
+<p>硬链接（hard link）：</p>
+<ul>
+<li>硬链接是文件系统中的一个目录条目，它指向另一个文件的数据块。</li>
+<li>硬链接和原始文件共享同一个 inode，因此对文件的修改会影响到所有硬链接。 </li>
+<li>硬链接不能跨越文件系统边界。 </li>
+</ul>
+<p>符号链接（symbolic link）： </p>
+<ul>
+<li>符号链接是一个特殊的文件，其内容是指向另一个文件的路径。 </li>
+<li>符号链接和原始文件不共享 inode，因此删除原始文件后，符号链接仍然存在，但无法访问。 </li>
+<li>符号链接可以跨越文件系统边界。</li>
+</ul>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>ln<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>destination
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-s 或 --symbolic</td>
+<td>创建符号链接而不是硬链接。</td>
+</tr>
+<tr>
+<td>-f 或 --force</td>
+<td>如果目标文件已存在，则覆盖它。</td>
+</tr>
+<tr>
+<td>-i 或 --interactive</td>
+<td>在覆盖目标文件之前询问用户。</td>
+</tr>
+<tr>
+<td>-p 或 --preserve</td>
+<td>保留源文件的属性，如权限和时间戳。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="15file">15、file命令<a class="headerlink" href="#15file" title="Permanent link">&para;</a></h2>
+<p>在UNIX和Linux系统中，<code>file</code>命令用于确定文件的类型或属性。它可以提供有关文件的内容、文件系统类型、文件权限等信息。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>file<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>文件名
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-b</code></td>
+<td>以二进制形式输出文件类型信息。</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>仅显示文件类型，不显示其他信息。</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>以人类可读的格式显示文件类型。</td>
+</tr>
+<tr>
+<td><code>-L</code></td>
+<td>对符号链接进行特殊处理，查看链接指向的真实文件。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<h1 id="vim">三、VIM编辑器<a class="headerlink" href="#vim" title="Permanent link">&para;</a></h1>
+<h3 id="1vim">1、VIM操作模式<a class="headerlink" href="#1vim" title="Permanent link">&para;</a></h3>
+<h4 id="11_1">1.1、命令模式<a class="headerlink" href="#11_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>G</td>
+<td>跳转到文件末尾</td>
+</tr>
+<tr>
+<td>gg</td>
+<td>返回文件首行</td>
+</tr>
+<tr>
+<td>home键或者^</td>
+<td>跳到首字符</td>
+</tr>
+<tr>
+<td>end键或者$</td>
+<td>跳到尾字符</td>
+</tr>
+<tr>
+<td>yy</td>
+<td>单行复制</td>
+</tr>
+<tr>
+<td>nyy</td>
+<td>n行复制</td>
+</tr>
+<tr>
+<td>P</td>
+<td>将光标移动到想要粘贴位置的上一行</td>
+</tr>
+<tr>
+<td>p</td>
+<td>将光标移动到想要粘贴位置的下一行</td>
+</tr>
+<tr>
+<td>u</td>
+<td>撤销操作，注意：进行保存且退出后无效</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>单行删除</td>
+</tr>
+<tr>
+<td>ndd</td>
+<td>n行删除</td>
+</tr>
+<tr>
+<td>D</td>
+<td>从所在行的光标处删除到末尾</td>
+</tr>
+<tr>
+<td>r</td>
+<td>替换某一个字符</td>
+</tr>
+<tr>
+<td>del键</td>
+<td>光标所在字符的后一个字符</td>
+</tr>
+<tr>
+<td>/关键字</td>
+<td>根据关键字查找，n：上翻；N：下翻</td>
+</tr>
+<tr>
+<td>ZZ</td>
+<td>保存且退出</td>
+</tr>
+</tbody>
+</table>
+<h4 id="12_1">1.2、插入模式<a class="headerlink" href="#12_1" title="Permanent link">&para;</a></h4>
+<p>作用：进行文件内容编辑</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>进入插入模式，在当前光标的后一个字符插入</td>
+</tr>
+<tr>
+<td>o</td>
+<td>在当前光标的下一行插入</td>
+</tr>
+<tr>
+<td>i</td>
+<td>在当前光标所在字符插入，返回命令模式时会将光标迁移一个字符</td>
+</tr>
+<tr>
+<td>A</td>
+<td>在光标所在行的尾字符后插入</td>
+</tr>
+<tr>
+<td>I（大写i）</td>
+<td>在光标所在行的首字符插入</td>
+</tr>
+<tr>
+<td>O</td>
+<td>在当前光标的上一行插入</td>
+</tr>
+<tr>
+<td>ESC(按键)</td>
+<td>返回命令模式</td>
+</tr>
+</tbody>
+</table>
+<h4 id="13">1.3、末行模式<a class="headerlink" href="#13" title="Permanent link">&para;</a></h4>
+<p>作用：保存、退出及字符串替换</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:w</td>
+<td>保存</td>
+</tr>
+<tr>
+<td>:q</td>
+<td>不保存退出</td>
+</tr>
+<tr>
+<td>:wq或:x</td>
+<td>保存退出</td>
+</tr>
+<tr>
+<td>!</td>
+<td>强制</td>
+</tr>
+<tr>
+<td>:X-&gt;输入密码-&gt;:wq</td>
+<td>设置密码并保存退出</td>
+</tr>
+<tr>
+<td>:X-&gt;回车两次-&gt;:wq<br>或者 :set key=""-&gt;:wq</td>
+<td>取消密码</td>
+</tr>
+<tr>
+<td>:set  nu</td>
+<td>设置行号</td>
+</tr>
+<tr>
+<td>:set nonu</td>
+<td>取消行号</td>
+</tr>
+<tr>
+<td>:nohl</td>
+<td>取消高亮</td>
+</tr>
+<tr>
+<td>:行号</td>
+<td>跳转到指定行</td>
+</tr>
+<tr>
+<td>:%s/keyword/neword/</td>
+<td>全文替换,首个匹配替换,当包含路径时,#替换/作为匹配符号</td>
+</tr>
+<tr>
+<td>:%s/keyword/neword/g</td>
+<td>全文替换,所有匹配替换,当包含路径时,#替换/作为匹配符号</td>
+</tr>
+<tr>
+<td>:指定行号s/keyword/neword/</td>
+<td>指定行替换,首个匹配替换,当包含路径时,#替换/作为匹配符号</td>
+</tr>
+<tr>
+<td>:指定行号s/keyword/neword/g</td>
+<td>指定行替换,所有匹配替换,当包含路径时,#替换/作为匹配符号</td>
+</tr>
+<tr>
+<td>:起始行号,结束行号s/keyword/neword/</td>
+<td>范围替换,首个匹配替换,当包含路径时,#替换/作为匹配符号</td>
+</tr>
+<tr>
+<td>:起始行号,结束行号s/keyword/neword/g</td>
+<td>范围替换,所有匹配替换,当包含路径时,#替换/作为匹配符号</td>
+</tr>
+</tbody>
+</table>
+<h4 id="14_1">1.4、视图模式<a class="headerlink" href="#14_1" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v</td>
+<td>进行行选中</td>
+</tr>
+</tbody>
+</table>
+<h4 id="15">1.5、视图快模式<a class="headerlink" href="#15" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ctrl + v</td>
+<td>进行列选中</td>
+</tr>
+<tr>
+<td>选中要删除的“#”，按del</td>
+<td>批量删除注释</td>
+</tr>
+<tr>
+<td>选中要添加的列，输入 大写i ，输入#，按两次ESC</td>
+<td>批量增加注释</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2vim">2、vim高级用法<a class="headerlink" href="#2vim" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:r！command</td>
+<td>将命令结果插入文件，command命令的结果插入光标下一行</td>
+</tr>
+<tr>
+<td>:nr! command</td>
+<td>将命令结果插入文件，command命令的结果插入n行后</td>
+</tr>
+<tr>
+<td>:m,n! command</td>
+<td>使用页面内容作为输入，command以m,n之间的行作为标准输入，<br>标准输出会代替m，n之间的行. 注意这个操作似乎是不可用ctrl+r撤销的。要谨慎使用。</td>
+</tr>
+<tr>
+<td>:! /bin/bash</td>
+<td>暂时离开vim来执行命令，使用完sh后exit又可以返回vim</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

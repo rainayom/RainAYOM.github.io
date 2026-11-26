@@ -1,0 +1,2181 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://rainayom.github.io/1.0/Linux%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/4%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%A1%8C/">
+      
+      
+        <link rel="prev" href="../3%E3%80%81VMware%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%93%8D%E4%BD%9C/">
+      
+      
+        <link rel="next" href="../5%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Linux系统基础设置与命令行 - 运维知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="运维知识库" class="md-header__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            运维知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux系统基础设置与命令行
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到明亮模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到明亮模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗黑模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到暗黑模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到跟随系统"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到跟随系统" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  使用指南
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  标签
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../0%E3%80%81linux%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95%E6%91%98%E8%A6%81/" class="md-tabs__link">
+          
+  
+  
+  Linux基础教程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ansible/ansible%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+          
+  
+  
+  Ansible
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ops/docker/" class="md-tabs__link">
+          
+  
+  
+  Ops
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="运维知识库" class="md-nav__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    运维知识库
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux基础教程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux基础教程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0%E3%80%81linux%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95%E6%91%98%E8%A6%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    云计算课程摘要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linix操作系统磁盘管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1%E3%80%81Linux%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2%E3%80%81CentOS7%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CentOS7安装教程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3%E3%80%81VMware%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMware虚拟机操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统基础设置与命令行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统文件与目录管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7%E7%9A%84%E4%BD%9C%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux中的特殊符号的作用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%A3%80%E7%B4%A2%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统文件与目录内容检索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%94%A8%E6%88%B7%E4%B8%8E%E7%BB%84%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux用户与组管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ansible
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ansible
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/ansible%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ansible基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/kejilion%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E7%AE%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kejilion脚本工具箱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E4%BD%BF%E7%94%A8ansible%E5%AE%89%E8%A3%85AnsibleGalaxy%E7%9A%84roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible安装Ansible Galaxy的roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible批量安装docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7pssh%E5%92%8Cansible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化工具pssh和ansible
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ops
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ops
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="linux">Linux系统基础设置与命令行<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#linux">Linux系统基础设置与命令行</a></li>
+<li><a href="#_1">一、系统基本操作</a><ul>
+<li><a href="#1">1、登录界面</a></li>
+<li><a href="#2">2、桌面</a></li>
+<li><a href="#3">3、任务栏</a></li>
+<li><a href="#4">4、中文输入法设置</a></li>
+<li><a href="#5">5、设置终端打开快捷键</a></li>
+<li><a href="#6">6、终端操作</a><ul>
+<li><a href="#61">6.1、登录显示</a><ul>
+<li><a href="#_2">普通用户</a></li>
+<li><a href="#root">超级管理员用户root</a></li>
+<li><a href="#_3">目录切换后</a></li>
+</ul>
+</li>
+<li><a href="#62">6.2、快捷键</a></li>
+<li><a href="#63">6.3、个性化设置</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_4">二、命令行基础</a><ul>
+<li><a href="#1_1">1、命令语法</a></li>
+<li><a href="#2_1">2、命令类型</a></li>
+<li><a href="#3type">3、type命令</a></li>
+<li><a href="#4_1">4、命令补齐</a></li>
+<li><a href="#5_1">5、命令帮助</a><ul>
+<li><a href="#51help">5.1、help</a></li>
+<li><a href="#52-help">5.2、--help</a></li>
+<li><a href="#53man">5.3、man</a></li>
+<li><a href="#54info">5.4、info</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_5">三、系统基本操作命令</a><ul>
+<li><a href="#1_2">1、路径类型</a></li>
+<li><a href="#2_2">2、操作命令</a></li>
+</ul>
+</li>
+<li><a href="#_6">四、系统信息查看与修改</a><ul>
+<li><a href="#1_3">1、主机名管理</a></li>
+<li><a href="#2_3">2、时间管理</a><ul>
+<li><a href="#21">2.1、系统时间管理</a></li>
+<li><a href="#22">2.2、硬件时间管理</a></li>
+</ul>
+</li>
+<li><a href="#3_1">3、显示输出系统信息</a><ul>
+<li><a href="#31uname">3.1、uname命令</a></li>
+<li><a href="#32">3.2、显示系统版本</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#linux100">五、Linux系统常用的100条命令</a></li>
+</ul>
+</div>
+<h1 id="_1">一、系统基本操作<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="1">1、登录界面<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>一个普通用户</li>
+<li>未列出，自由的输入用户名进行登录</li>
+</ul>
+<h2 id="2">2、桌面<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>主文件夹，家目录</li>
+<li>回收站</li>
+<li>光驱，加载镜像光盘，默认导入镜像文件后自动挂载</li>
+</ul>
+<h2 id="3">3、任务栏<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>应用程序，常用的工具</li>
+<li>位置</li>
+<li>家目录</li>
+<li>光驱</li>
+<li>网络访问</li>
+<li>时间和日期</li>
+<li>关机按钮</li>
+<li>网络设置</li>
+<li>账户设置</li>
+<li>设置按钮</li>
+<li>锁屏按钮</li>
+<li>关机按钮</li>
+</ul>
+<h2 id="4">4、中文输入法设置<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<p>关机按钮-&gt;设置-&gt;language-&gt;输入源的+号-&gt;汉语(中国)-&gt;pinyin</p>
+<p><img alt="" src="../4%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%A1%8C.assets/1.png" /></p>
+<h2 id="5">5、设置终端打开快捷键<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<p>关机按钮-&gt;设置-&gt;设备-&gt;keyboard-&gt;下滑到底-&gt;+号</p>
+<ul>
+<li>名称:terminal</li>
+<li>命令:/usr/bin/gnome-terminal</li>
+<li>快捷键:win+r</li>
+</ul>
+<h2 id="6">6、终端操作<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1、登录显示<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<h4 id="_2">普通用户<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>zhx@localhost<span class="w"> </span>~<span class="o">]</span>$
+<span class="o">[</span>username@hostname<span class="w"> </span>homeDirectory（~）<span class="o">]</span>$
+</code></pre></div>
+
+<h4 id="root">超级管理员用户root<a class="headerlink" href="#root" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1">#</span>
+<span class="o">[</span>username@hostname<span class="w"> </span>homeDirectory（~）<span class="o">]</span><span class="c1">#</span>
+</code></pre></div>
+
+<h4 id="_3">目录切换后<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>username@hostname<span class="w"> </span>当前目录名称<span class="o">]</span><span class="c1">#|$</span>
+</code></pre></div>
+
+<h3 id="62">6.2、快捷键<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>操作目标</th>
+<th>快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>复制</td>
+<td>ctrl+shift +c</td>
+</tr>
+<tr>
+<td>鼠标操作</td>
+<td>选中要复制的内容，按压鼠标滚轮</td>
+</tr>
+<tr>
+<td>粘贴</td>
+<td>ctrl+shift +v</td>
+</tr>
+<tr>
+<td>剪切</td>
+<td>ctrl+shift +x</td>
+</tr>
+<tr>
+<td>撤销</td>
+<td>ctrl+z</td>
+</tr>
+<tr>
+<td>打断操作</td>
+<td>ctrl + c</td>
+</tr>
+<tr>
+<td>放大</td>
+<td>ctrl + shift + =</td>
+</tr>
+<tr>
+<td>缩小</td>
+<td>ctrl +</td>
+</tr>
+<tr>
+<td>清楚屏幕内容</td>
+<td>ctrl + l（小写L）或者clear命令</td>
+</tr>
+<tr>
+<td>在同一终端下打开多个子标签</td>
+<td>ctrl + shift +t</td>
+</tr>
+<tr>
+<td>在同一终端下切换多个子标签</td>
+<td>alt + 键盘横排数字</td>
+</tr>
+<tr>
+<td>退出终端</td>
+<td>exit</td>
+</tr>
+</tbody>
+</table>
+<h3 id="63">6.3、个性化设置<a class="headerlink" href="#63" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>背景</p>
+</li>
+<li>
+<p>编辑</p>
+</li>
+<li>
+<p>首选项</p>
+</li>
+<li>
+<p>颜色</p>
+</li>
+<li>
+<p>字体</p>
+</li>
+<li>编辑</li>
+<li>首选项</li>
+<li>文本</li>
+</ul>
+<h1 id="_4">二、命令行基础<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<h2 id="1_1">1、命令语法<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>命令字<span class="w">  </span><span class="o">[</span>选项<span class="o">]</span><span class="w">  </span><span class="o">[</span>参数1<span class="o">]</span><span class="w">  </span><span class="o">[</span>参数2<span class="o">]</span><span class="w"> </span>....
+</code></pre></div>
+
+<ul>
+<li>选项可以有多个</li>
+<li>参数也可以有多个</li>
+</ul>
+<h2 id="2_1">2、命令类型<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>内部命令：集成于shell解释器之内的命令，运行速度更快，也称为内嵌命令</li>
+<li>外部命令：集成于shell解释器之外的命令，能够完成特定功能的脚本文件或二进制程序文件</li>
+</ul>
+<h2 id="3type">3、type命令<a class="headerlink" href="#3type" title="Permanent link">&para;</a></h2>
+<ul>
+<li>作用</li>
+<li>
+<p>查看命令的类型</p>
+</li>
+<li>
+<p>语法</p>
+</li>
+<li>type 需要查看的命令字</li>
+</ul>
+<h2 id="4_1">4、命令补齐<a class="headerlink" href="#4_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>随便输入字母</li>
+<li>按两次tab</li>
+<li>输入到指定字母后没有其他命令则会补齐</li>
+</ul>
+<h2 id="5_1">5、命令帮助<a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h2>
+<h3 id="51help">5.1、help<a class="headerlink" href="#51help" title="Permanent link">&para;</a></h3>
+<p>查看指定的内部命令帮助信息</p>
+<h3 id="52-help">5.2、--help<a class="headerlink" href="#52-help" title="Permanent link">&para;</a></h3>
+<p>查看指定的外部命令帮助信息</p>
+<h3 id="53man">5.3、man<a class="headerlink" href="#53man" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>space</td>
+<td>向下翻屏</td>
+</tr>
+<tr>
+<td>b</td>
+<td>向上翻屏</td>
+</tr>
+<tr>
+<td>enter</td>
+<td>向下翻行</td>
+</tr>
+<tr>
+<td>k</td>
+<td>向上翻行</td>
+</tr>
+<tr>
+<td>G</td>
+<td>跳转最后</td>
+</tr>
+<tr>
+<td>1G|gg</td>
+<td>跳转第一行</td>
+</tr>
+<tr>
+<td>q</td>
+<td>退出</td>
+</tr>
+<tr>
+<td>/关键字</td>
+<td>搜索<br>n:根据关键字向下查找<br>N:根据关键字向上查找</td>
+</tr>
+</tbody>
+</table>
+<h3 id="54info">5.4、info<a class="headerlink" href="#54info" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tab</td>
+<td>节点之间跳转</td>
+</tr>
+<tr>
+<td>enter</td>
+<td>进入某一个节点页面</td>
+</tr>
+<tr>
+<td>n</td>
+<td>跳转下一个节点</td>
+</tr>
+<tr>
+<td>p</td>
+<td>跳转上一个节点</td>
+</tr>
+<tr>
+<td>u</td>
+<td>跳转上一级节点</td>
+</tr>
+<tr>
+<td>q</td>
+<td>退出</td>
+</tr>
+</tbody>
+</table>
+<h1 id="_5">三、系统基本操作命令<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h1>
+<h2 id="1_2">1、路径类型<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>绝对路径：每次都从/出发</li>
+<li>相对路径：从当前位置出发</li>
+</ul>
+<h2 id="2_2">2、操作命令<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1">#查看主机名</span>
+hostname
+--n
+
+<span class="c1">#查看网卡参数，默认网卡名称：ens33</span>
+ifconfig<span class="w"> </span><span class="c1">#只查看已启用网卡</span>
+ip<span class="w"> </span>a<span class="w"> </span><span class="c1">#查看所有网卡，包括未启用的</span>
+<span class="c1">#查看指定网卡参数</span>
+ifconfig<span class="w">  </span>网卡名称
+
+<span class="c1">#查看CPU信息</span>
+cat<span class="w"> </span>/proc/cpuinfo
+lscpu
+
+<span class="c1">#查看内存信息</span>
+cat<span class="w"> </span>/proc/meminfo
+lsmem<span class="w"> </span><span class="c1">#查看物理内存</span>
+<span class="c1">#查看内存的使用情况</span>
+free<span class="w"> </span>-m
+
+<span class="c1">#查看磁盘使用情况</span>
+df<span class="w"> </span>-Th
+<span class="c1">#关机命令</span>
+poweroff
+shutdown<span class="w"> </span>now
+init<span class="w"> </span><span class="m">0</span>
+<span class="c1">#重启命令</span>
+reboot
+shutdown<span class="w"> </span>-r
+init<span class="w"> </span><span class="m">6</span>
+<span class="c1">#切换目录</span>
+<span class="nb">cd</span>
+<span class="c1">#查看目录内容</span>
+dir
+ls
+<span class="c1">#查看文件内容</span>
+cat
+<span class="c1">#打印所处目录的绝对路径</span>
+<span class="nb">pwd</span>
+</code></pre></div>
+
+<h1 id="_6">四、系统信息查看与修改<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h1>
+<h2 id="1_3">1、主机名管理<a class="headerlink" href="#1_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>临时修改，重启失效</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>hostname<span class="w">  </span>new_hostname
+</code></pre></div>
+
+<ul>
+<li>刷新</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>bash
+</code></pre></div>
+
+<ul>
+<li>永久修改</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>hostnamectl<span class="w"> </span>set-hostname<span class="w">  </span>new_hostname
+</code></pre></div>
+
+<ul>
+<li>配置文件修改，重启生效</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>vim<span class="w"> </span>/etc/hostname
+</code></pre></div>
+
+<h2 id="2_3">2、时间管理<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1、系统时间管理<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<p><strong>date命令</strong></p>
+<p>用于显示或设置系统的日期和时间。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>date<span class="w">  </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>+格式<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>d, date=STRING</code></td>
+<td>根据字符串计算并显示日期和时间。</td>
+</tr>
+<tr>
+<td><code>f, file=FILE</code></td>
+<td>从文件中读取日期和时间。</td>
+</tr>
+<tr>
+<td><code>r, reference=FILE</code></td>
+<td>根据文件的修改时间显示日期和时间。</td>
+</tr>
+<tr>
+<td><code>s, set=STRING</code></td>
+<td>设置日期和时间。</td>
+</tr>
+<tr>
+<td><code>t, time=STRING</code></td>
+<td>根据时间字符串设置日期。</td>
+</tr>
+<tr>
+<td><code>u, utc, universal</code></td>
+<td>显示或设置UTC时间。</td>
+</tr>
+<tr>
+<td><code>+FORMAT</code></td>
+<td>按照格式字符串输出日期和时间。</td>
+</tr>
+<tr>
+<td>date -d @秒数</td>
+<td>将秒数显示为时间格式，原点为计算机元年时间，即：1970年1月1日 8点</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22">2.2、硬件时间管理<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p><strong>hwclock命令</strong></p>
+<p>现在硬件bios中的时间</p>
+<p><strong>时间同步</strong></p>
+<div class="codehilite"><pre><span></span><code>hwclock<span class="w"> </span>-w
+</code></pre></div>
+
+<h2 id="3_1">3、显示输出系统信息<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h2>
+<h3 id="31uname">3.1、uname命令<a class="headerlink" href="#31uname" title="Permanent link">&para;</a></h3>
+<p>用于显示系统信息，包括操作系统名称、主机名、内核版本等。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>uname<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>uname</code></td>
+<td>显示系统内核名称。</td>
+</tr>
+<tr>
+<td><code>-a</code></td>
+<td>显示所有系统信息，包括操作系统名称、内核版本、主机名、架构等。</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td>显示操作系统名称。</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>显示主机名。</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>显示内核版本号。</td>
+</tr>
+<tr>
+<td><code>-m</code></td>
+<td>显示系统架构。</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td>显示处理器类型。</td>
+</tr>
+<tr>
+<td><code>-o</code></td>
+<td>显示操作系统发行商。</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>显示硬件平台信息。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32">3.2、显示系统版本<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>cat<span class="w"> </span>/etc/redhat-release
+<span class="c1">#RedHat系列特有</span>
+cat<span class="w"> </span>/etc/centos-release
+<span class="c1">#所有Linux系统都有</span>
+cat<span class="w"> </span>/etc/os-release
+</code></pre></div>
+
+<h1 id="linux100">五、Linux系统常用的100条命令<a class="headerlink" href="#linux100" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用及案例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ls</td>
+<td>列出当前目录中的文件和子目录。</td>
+</tr>
+<tr>
+<td>pwd</td>
+<td>显示当前工作目录的路径。</td>
+</tr>
+<tr>
+<td>cd</td>
+<td>切换目录，例如：cd /path/to/directory。</td>
+</tr>
+<tr>
+<td>touch</td>
+<td>创建空文件，例如：touch filename.txt。</td>
+</tr>
+<tr>
+<td>mkdir</td>
+<td>创建新目录，例如：mkdir new_directory。</td>
+</tr>
+<tr>
+<td>rmdir</td>
+<td>删除空目录，例如：rmdir directory_name。</td>
+</tr>
+<tr>
+<td>rm</td>
+<td>删除文件或目录，例如：rm file.txt 或 rm -r directory。</td>
+</tr>
+<tr>
+<td>cp</td>
+<td>复制文件或目录，例如：cp source_file destination 或 cp -r source_directory destination。</td>
+</tr>
+<tr>
+<td>mv</td>
+<td>移动文件或目录，也可用于重命名文件，例如：mv source destination。</td>
+</tr>
+<tr>
+<td>cat</td>
+<td>查看文件内容，例如：cat filename.txt。</td>
+</tr>
+<tr>
+<td>less</td>
+<td>逐页查看文件内容，例如：less filename.txt。</td>
+</tr>
+<tr>
+<td>more</td>
+<td>逐页查看文件内容，但不能向前翻页，只能向下滚动，例如：more filename.txt。</td>
+</tr>
+<tr>
+<td>head</td>
+<td>显示文件的前几行，默认为前 10 行，例如：head filename.txt。</td>
+</tr>
+<tr>
+<td>tail</td>
+<td>显示文件的最后几行，默认为最后 10 行，例如：tail filename.txt。</td>
+</tr>
+<tr>
+<td>grep</td>
+<td>在文件中搜索文本，例如：grep “pattern” filename.txt。</td>
+</tr>
+<tr>
+<td>find</td>
+<td>在文件系统中查找文件，例如：find /path/to/search -name “filename”。</td>
+</tr>
+<tr>
+<td>ps</td>
+<td>显示当前进程的信息，例如：ps aux。</td>
+</tr>
+<tr>
+<td>top</td>
+<td>动态显示系统资源使用情况和进程信息。</td>
+</tr>
+<tr>
+<td>kill</td>
+<td>终止进程，例如：kill process_id。</td>
+</tr>
+<tr>
+<td>shutdown</td>
+<td>关闭或重启系统，例如：shutdown -h now（立即关机）或 shutdown -r now（立即重启）。</td>
+</tr>
+<tr>
+<td>ifconfig</td>
+<td>显示网络接口的配置信息。</td>
+</tr>
+<tr>
+<td>ping</td>
+<td>测试与远程主机的网络连接，例如：ping google.com。</td>
+</tr>
+<tr>
+<td>netstat</td>
+<td>显示网络统计信息，例如：netstat -tuln。</td>
+</tr>
+<tr>
+<td>yum</td>
+<td>CentOS 7 的包管理器，用于安装、更新和删除软件包。</td>
+</tr>
+<tr>
+<td>rpm</td>
+<td>安装和管理 RPM 软件包，例如：rpm -i package.rpm。</td>
+</tr>
+<tr>
+<td>systemctl</td>
+<td>管理系统服务，例如：systemctl start service_name 或 systemctl stop service_name。</td>
+</tr>
+<tr>
+<td>firewall-cmd</td>
+<td>管理防火墙规则，例如：firewall-cmd --zone=public --add-port=80/tcp --permanent。</td>
+</tr>
+<tr>
+<td>useradd</td>
+<td>创建新用户，例如：useradd username。</td>
+</tr>
+<tr>
+<td>passwd</td>
+<td>更改用户密码，例如：passwd username。</td>
+</tr>
+<tr>
+<td>userdel</td>
+<td>删除用户，例如：userdel username。</td>
+</tr>
+<tr>
+<td>groupadd</td>
+<td>创建新用户组，例如：groupadd groupname。</td>
+</tr>
+<tr>
+<td>usermod</td>
+<td>修改用户属性，例如：usermod -aG groupname username。</td>
+</tr>
+<tr>
+<td>chown</td>
+<td>更改文件或目录的所有者，例如：chown user:group file_or_directory。</td>
+</tr>
+<tr>
+<td>chmod</td>
+<td>更改文件或目录的权限，例如：chmod 755 filename。</td>
+</tr>
+<tr>
+<td>df</td>
+<td>显示磁盘空间使用情况。</td>
+</tr>
+<tr>
+<td>du</td>
+<td>显示目录的磁盘使用情况，例如：du -sh directory_name。</td>
+</tr>
+<tr>
+<td>date</td>
+<td>显示系统日期和时间。</td>
+</tr>
+<tr>
+<td>cal</td>
+<td>显示日历，例如：cal 2023。</td>
+</tr>
+<tr>
+<td>tar</td>
+<td>创建和解压 tar 归档文件，例如：tar -zxvf archive.tar.gz。</td>
+</tr>
+<tr>
+<td>zip/unzip</td>
+<td>压缩和解压 ZIP 文件。</td>
+</tr>
+<tr>
+<td>ssh</td>
+<td>使用 SSH 连接到远程主机，例如：ssh username@hostname。</td>
+</tr>
+<tr>
+<td>scp</td>
+<td>通过 SSH 复制文件，例如：scp file.txt remote_username@remote_host:/remote/directory。</td>
+</tr>
+<tr>
+<td>wget</td>
+<td>下载文件或内容，例如：wget URL。</td>
+</tr>
+<tr>
+<td>curl</td>
+<td>发送 HTTP 请求，例如：curl -I URL。</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>显示或设置主机名。</td>
+</tr>
+<tr>
+<td>history</td>
+<td>显示命令历史记录。</td>
+</tr>
+<tr>
+<td>who</td>
+<td>显示当前登录用户。</td>
+</tr>
+<tr>
+<td>shutdown</td>
+<td>关闭或重启系统，例如：shutdown -h now（立即关机）或 shutdown -r now（立即重启）。</td>
+</tr>
+<tr>
+<td>reboot</td>
+<td>重启系统，例如：reboot。</td>
+</tr>
+<tr>
+<td>exit</td>
+<td>退出当前终端会话。</td>
+</tr>
+<tr>
+<td>grep</td>
+<td>在文件中搜索文本，例如：grep “pattern” filename.txt。</td>
+</tr>
+<tr>
+<td>find</td>
+<td>在文件系统中查找文件，例如：find /path/to/search -name “filename”。</td>
+</tr>
+<tr>
+<td>ps</td>
+<td>显示当前进程的信息，例如：ps aux。</td>
+</tr>
+<tr>
+<td>top</td>
+<td>动态显示系统资源使用情况和进程信息。</td>
+</tr>
+<tr>
+<td>kill</td>
+<td>终止进程，例如：kill process_id。</td>
+</tr>
+<tr>
+<td>shutdown</td>
+<td>关闭或重启系统，例如：shutdown -h now（立即关机）或 shutdown -r now（立即重启）。</td>
+</tr>
+<tr>
+<td>ifconfig</td>
+<td>显示网络接口的配置信息。</td>
+</tr>
+<tr>
+<td>ping</td>
+<td>测试与远程主机的网络连接，例如：ping google.com。</td>
+</tr>
+<tr>
+<td>netstat</td>
+<td>显示网络统计信息，例如：netstat -tuln。</td>
+</tr>
+<tr>
+<td>yum</td>
+<td>CentOS 7 的包管理器，用于安装、更新和删除软件包。</td>
+</tr>
+<tr>
+<td>rpm</td>
+<td>安装和管理 RPM 软件包，例如：rpm -i package.rpm。</td>
+</tr>
+<tr>
+<td>systemctl</td>
+<td>管理系统服务，例如：systemctl start service_name 或 systemctl stop service_name。</td>
+</tr>
+<tr>
+<td>firewall-cmd</td>
+<td>管理防火墙规则，例如：firewall-cmd --zone=public --add-port=80/tcp --permanent。</td>
+</tr>
+<tr>
+<td>useradd</td>
+<td>创建新用户，例如：useradd username。</td>
+</tr>
+<tr>
+<td>passwd</td>
+<td>更改用户密码，例如：passwd username。</td>
+</tr>
+<tr>
+<td>userdel</td>
+<td>删除用户，例如：userdel username。</td>
+</tr>
+<tr>
+<td>groupadd</td>
+<td>创建新用户组，例如：groupadd groupname。</td>
+</tr>
+<tr>
+<td>usermod</td>
+<td>修改用户属性，例如：usermod -aG groupname username。</td>
+</tr>
+<tr>
+<td>chown</td>
+<td>更改文件或目录的所有者，例如：chown user:group file_or_directory。</td>
+</tr>
+<tr>
+<td>chmod</td>
+<td>更改文件或目录的权限，例如：chmod 755 filename。</td>
+</tr>
+<tr>
+<td>df</td>
+<td>显示磁盘空间使用情况。</td>
+</tr>
+<tr>
+<td>du</td>
+<td>显示目录的磁盘使用情况，例如：du -sh directory_name。</td>
+</tr>
+<tr>
+<td>date</td>
+<td>显示系统日期和时间。</td>
+</tr>
+<tr>
+<td>cal</td>
+<td>显示日历，例如：cal 2023。</td>
+</tr>
+<tr>
+<td>tar</td>
+<td>创建和解压 tar 归档文件，例如：tar -zxvf archive.tar.gz。</td>
+</tr>
+<tr>
+<td>zip/unzip</td>
+<td>压缩和解压 ZIP 文件。</td>
+</tr>
+<tr>
+<td>ssh</td>
+<td>使用 SSH 连接到远程主机，例如：ssh username@hostname。</td>
+</tr>
+<tr>
+<td>scp</td>
+<td>通过 SSH 复制文件，例如：scp file.txt remote_username@remote_host:/remote/directory。</td>
+</tr>
+<tr>
+<td>wget</td>
+<td>下载文件或内容，例如：wget URL。</td>
+</tr>
+<tr>
+<td>curl</td>
+<td>发送 HTTP 请求，例如：curl -I URL。</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>显示或设置主机名。</td>
+</tr>
+<tr>
+<td>history</td>
+<td>显示命令历史记录。</td>
+</tr>
+<tr>
+<td>who</td>
+<td>显示当前登录用户。</td>
+</tr>
+<tr>
+<td>shutdown</td>
+<td>关闭或重启系统，例如：shutdown -h now（立即关机）或 shutdown -r now（立即重启）。</td>
+</tr>
+<tr>
+<td>reboot</td>
+<td>重启系统，例如：reboot。</td>
+</tr>
+<tr>
+<td>exit</td>
+<td>退出当前终端会话。</td>
+</tr>
+<tr>
+<td>sed</td>
+<td>流编辑器，用于处理文本流，例如：sed ‘s/old_text/new_text/’ filename.txt。</td>
+</tr>
+<tr>
+<td>awk</td>
+<td>文本处理工具，用于从文本文件中提取和处理数据。</td>
+</tr>
+<tr>
+<td>diff</td>
+<td>比较文件和目录的差异，例如：diff file1.txt file2.txt。</td>
+</tr>
+<tr>
+<td>ln</td>
+<td>创建链接（符号链接或硬链接），例如：ln -s source_file link_name。</td>
+</tr>
+<tr>
+<td>ssh-keygen</td>
+<td>生成 SSH 密钥对。</td>
+</tr>
+<tr>
+<td>df</td>
+<td>显示磁盘使用情况，例如：df -h（以人类可读的格式显示）。</td>
+</tr>
+<tr>
+<td>free</td>
+<td>显示系统内存使用情况。</td>
+</tr>
+<tr>
+<td>uptime</td>
+<td>显示系统的运行时间和平均负载。</td>
+</tr>
+<tr>
+<td>whoami</td>
+<td>显示当前登录用户的用户名。</td>
+</tr>
+<tr>
+<td>whatis</td>
+<td>显示命令的简短描述，例如：whatis command。</td>
+</tr>
+<tr>
+<td>man</td>
+<td>查看命令的手册页，例如：man command。</td>
+</tr>
+<tr>
+<td>df</td>
+<td>显示文件系统的磁盘使用情况。</td>
+</tr>
+<tr>
+<td>ln</td>
+<td>创建文件链接，例如：ln -s source_file link_name。</td>
+</tr>
+<tr>
+<td>ncdu</td>
+<td>使用 ncurses 界面显示磁盘使用情况，需要额外安装。</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

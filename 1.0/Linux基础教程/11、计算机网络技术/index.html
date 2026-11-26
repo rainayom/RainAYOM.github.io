@@ -1,0 +1,2170 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://rainayom.github.io/1.0/Linux%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/11%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/">
+      
+      
+        <link rel="prev" href="../10%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/">
+      
+      
+        <link rel="next" href="../1%E3%80%81Linux%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>计算机网络技术 - 运维知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="运维知识库" class="md-header__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            运维知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              计算机网络技术
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到明亮模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到明亮模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗黑模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到暗黑模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到跟随系统"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到跟随系统" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  使用指南
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  标签
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../0%E3%80%81linux%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95%E6%91%98%E8%A6%81/" class="md-tabs__link">
+          
+  
+  
+  Linux基础教程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ansible/ansible%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+          
+  
+  
+  Ansible
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ops/docker/" class="md-tabs__link">
+          
+  
+  
+  Ops
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="运维知识库" class="md-nav__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    运维知识库
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux基础教程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux基础教程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0%E3%80%81linux%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95%E6%91%98%E8%A6%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    云计算课程摘要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linix操作系统磁盘管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1%E3%80%81Linux%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2%E3%80%81CentOS7%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CentOS7安装教程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3%E3%80%81VMware%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMware虚拟机操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%A1%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统基础设置与命令行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统文件与目录管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7%E7%9A%84%E4%BD%9C%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux中的特殊符号的作用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%A3%80%E7%B4%A2%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统文件与目录内容检索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%94%A8%E6%88%B7%E4%B8%8E%E7%BB%84%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux用户与组管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ansible
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ansible
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/ansible%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ansible基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/kejilion%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E7%AE%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kejilion脚本工具箱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E4%BD%BF%E7%94%A8ansible%E5%AE%89%E8%A3%85AnsibleGalaxy%E7%9A%84roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible安装Ansible Galaxy的roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible批量安装docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7pssh%E5%92%8Cansible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化工具pssh和ansible
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ops
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ops
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="_1">计算机网络技术<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#_1">计算机网络技术</a></li>
+<li><a href="#_2">一、网络概述</a><ul>
+<li><a href="#1">1、网络的概念</a></li>
+<li><a href="#2">2、网络发展史</a></li>
+<li><a href="#3">3、网络的四要素：</a></li>
+<li><a href="#4">4、网络功能</a></li>
+<li><a href="#5">5、网络类型</a></li>
+<li><a href="#6">6、网络协议与标准</a></li>
+<li><a href="#7">7、网络中常见概念</a></li>
+<li><a href="#8">8、网络拓扑结构</a></li>
+</ul>
+</li>
+<li><a href="#_3">二、网络模型</a><ul>
+<li><a href="#1_1">1、分层思想</a><ul>
+<li><a href="#11">1.1、概述</a></li>
+<li><a href="#12">1.2、核心理念</a></li>
+</ul>
+</li>
+<li><a href="#2osi">2、OSI七层模型</a></li>
+<li><a href="#3tcpip">3、TCP/IP五层模型</a></li>
+<li><a href="#3_1">3、数据的封装与解封装过程</a><ul>
+<li><a href="#31pud">3.1、PUD</a></li>
+<li><a href="#32">3.2、数据封装与解封装过程</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#ip">三、IP地址</a><ul>
+<li><a href="#1_2">1、进制转换</a><ul>
+<li><a href="#11_1">1.1、数制介绍</a></li>
+<li><a href="#12_1">1.2、十进制</a></li>
+<li><a href="#13">1.3、二进制</a></li>
+<li><a href="#14">1.4、八进制</a></li>
+<li><a href="#15">1.5、十六进制</a></li>
+</ul>
+</li>
+<li><a href="#2ip">2、IP地址定义</a></li>
+<li><a href="#3ip">3、IP地址组成部分</a></li>
+<li><a href="#4ip">4、IP地址分类</a><ul>
+<li><a href="#a">A类地址</a></li>
+<li><a href="#b">B类地址</a></li>
+<li><a href="#c">C类地址</a></li>
+<li><a href="#de">D、E类地址</a></li>
+</ul>
+</li>
+<li><a href="#5_1">5、地址划分</a><ul>
+<li><a href="#_4">私网地址范围</a></li>
+<li><a href="#_5">特殊地址</a></li>
+</ul>
+</li>
+<li><a href="#6_1">6、相关概念</a><ul>
+<li><a href="#61">6.1、网络地址</a></li>
+<li><a href="#62">6.2、广播地址</a></li>
+<li><a href="#63">6.3、子网掩码</a></li>
+<li><a href="#64">6.4、网段</a></li>
+<li><a href="#65">6.5、网关</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="_2">一、网络概述<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<h2 id="1">1、网络的概念<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<p>两个不在同一地理位置的主机，通过传输介质和通信协议，实现通信和资源共享。</p>
+<h2 id="2">2、网络发展史<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>计算机网络发展的第一个阶段（60年代）</p>
+</li>
+<li>
+<p>标志性的事件：ARPANET</p>
+</li>
+<li>
+<p>关键技术：分组交换</p>
+</li>
+<li>
+<p>计算机网络发展的第二个阶段（70-80年代）</p>
+</li>
+<li>
+<p>标志性的事件：NSFNet</p>
+</li>
+<li>
+<p>关键技术：TCP/IP</p>
+</li>
+<li>
+<p>计算机网络发展的第三个阶段（90年代）</p>
+</li>
+<li>
+<p>标志性的事件：浏览器Mosaic</p>
+</li>
+<li>
+<p>关键技术：Web技术</p>
+</li>
+</ul>
+<h2 id="3">3、网络的四要素：<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>传输介质：同轴线缆，光纤，双绞线，无线电波等</li>
+<li>通信协议：设备之间的语言，比如——eigrp，rip，OSPF，is-is，BGP，TCP，ip，ppp等</li>
+<li>资源：数据，图片，视频，音频</li>
+<li>终端：手机，笔记本，平板，台式机等</li>
+</ul>
+<h2 id="4">4、网络功能<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>数据通信</li>
+<li>资源共享</li>
+<li>增加可靠性</li>
+<li>提高系统处理能力</li>
+</ul>
+<h2 id="5">5、网络类型<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>WAN（Wide Area Network）广域网（外部网络）</p>
+</li>
+<li>
+<p>范围：几十到几千千米 </p>
+</li>
+<li>
+<p>作用:用于连接远距离的计算机网络</p>
+</li>
+<li>
+<p>典型应用:Internet，MAN(Metropolitan Area Network)</p>
+</li>
+<li>
+<p>LAN(Local Area Network)局域网（内部网络）</p>
+</li>
+<li>
+<p>范围：1km左右 </p>
+</li>
+<li>
+<p>作用:用于连接较短距离内的计算机</p>
+</li>
+<li>
+<p>典型应用:企业网,校园网</p>
+</li>
+</ul>
+<h2 id="6">6、网络协议与标准<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>协议</p>
+</li>
+<li>
+<p>语法</p>
+<ul>
+<li>多个对象之间协商的一个接口对象</li>
+</ul>
+</li>
+<li>
+<p>语义</p>
+<ul>
+<li>解释控制信息每个部分的意义。它规定了需要发出何种控制信息，以及完成的动作与做出什么样的响应。</li>
+</ul>
+</li>
+<li>
+<p>同步</p>
+<ul>
+<li>以多字节或多比特组成的数据块为传送单位，仅在帧的起始处同步，帧内维持固定的时钟。</li>
+</ul>
+</li>
+<li>
+<p>标准</p>
+</li>
+</ul>
+<p>​   大家一致认同的协议</p>
+<h2 id="7">7、网络中常见概念<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>概念</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>主机</td>
+<td>也称端系统，上任何一种能够连接网络的设备。</td>
+</tr>
+<tr>
+<td>2</td>
+<td>通信链路</td>
+<td>由物理链路（同轴电缆、双绞线、光纤等）连接到一起组成的一种物理通路。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>路由器</td>
+<td>和链路层交换机一样，都属于交换机，主要用于转发数据。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>分组</td>
+<td>当一台端系统向另外一台端系统发送数据时，通常会将数据进行分片，然后为每段加上首部字节，从而形成分组。这些分组通过网络发送到端系统，然后再进行数据处理。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>路径</td>
+<td>一个分组所经历的一系列通信链路和分组交换机称为通过这个网络的路径。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>因特网服务商</td>
+<td>ISP。网络运营商，联通、移动等。</td>
+</tr>
+<tr>
+<td>7</td>
+<td>网络协议</td>
+<td>计算机网络中为进行数据交换而建立的规则、标准或者约定。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>IP</td>
+<td>网际协议。规定了路由器和端系统之间发送和接收的分组格式。</td>
+</tr>
+<tr>
+<td>9</td>
+<td>TCP/IP协议簇</td>
+<td>以TCP、IP协议为主的一系列协议。ICMP协议、ARP协议、UDP协议、DNS协议、SMTP协议等。</td>
+</tr>
+<tr>
+<td>10</td>
+<td>套接字接口</td>
+<td>指的就是socket接口，规定了端系统之间通过因特网进行数据交换的方式。</td>
+</tr>
+<tr>
+<td>11</td>
+<td>协议</td>
+<td>协议定义了两个以上通信实体之间交换报文格式和顺序所遵从的标准。</td>
+</tr>
+<tr>
+<td>12</td>
+<td>丢包</td>
+<td>在计算机网络中是指分组出现丢失的现象。</td>
+</tr>
+<tr>
+<td>13</td>
+<td>吞吐量</td>
+<td>单位时间内成功传输数据的数量。</td>
+</tr>
+<tr>
+<td>14</td>
+<td>IP地址</td>
+<td>网络协议地址，在互联网中唯一标识主机的一种地址。每台入网的设备都有一个IP地址，又分为内网IP和公网IP。</td>
+</tr>
+<tr>
+<td>15</td>
+<td>端口号</td>
+<td>在同一台主机内，端口号用于标识不同应用程序进程。</td>
+</tr>
+<tr>
+<td>16</td>
+<td>URI</td>
+<td>uniform resource identifier，统一资源标识符。</td>
+</tr>
+<tr>
+<td>17</td>
+<td>URL</td>
+<td>uniform resource locator，统一资源定位符，URI的子集。</td>
+</tr>
+<tr>
+<td>18</td>
+<td>HTML</td>
+<td>hyper text markup language，超文本标记语言。一种用于创建网页的标准标记语言，通过一系列标签将网络上的文档格式统一，使分散的Internet资源连接为一个逻辑整体。</td>
+</tr>
+<tr>
+<td>19</td>
+<td>web页面</td>
+<td>web page，由页面上的很多对象组成。</td>
+</tr>
+<tr>
+<td>20</td>
+<td>web服务器</td>
+<td>web server，可以向浏览器等web客户端提供文档，也可以放置网站文件、数据文件，供全世界浏览和下载。主流的有Apache、Nginx、IIS。</td>
+</tr>
+<tr>
+<td>21</td>
+<td>webservice</td>
+<td>一种跨编程语言和操作系统平台的远程调用技术。</td>
+</tr>
+<tr>
+<td>22</td>
+<td>CDN</td>
+<td>content delivery network，内容分发网络。应用了http协议里的缓存和代理技术，代替源站响应客户端的请求。CDN是构建在现有网络基础之上的网络，它依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。</td>
+</tr>
+<tr>
+<td>23</td>
+<td>WAF</td>
+<td>一种应用程序保护系统，它是一种通过执行一系列针对HTTP/ HTTPS的安全策略来专门为Web应用提供保护的一款产品，它是应用层面的防火墙，专门检测HTTP流量，是防护 Web 应用的安全技术。</td>
+</tr>
+<tr>
+<td>24</td>
+<td>HTTP</td>
+<td>hypertext transfer protocol，超文本传输协议。是一个在计算机世界里专门在两点之间传输文字、图片、音频、视频等超文本数据的约定和规范。</td>
+</tr>
+<tr>
+<td>25</td>
+<td>SMTP协议</td>
+<td>提供电子邮件服务的协议。主要用于系统之间的邮件新仙尼传递，并提供有关来信的通知。</td>
+</tr>
+<tr>
+<td>26</td>
+<td>DNS协议</td>
+<td>用于把人类易于记忆的网络地址名称映射为主机能够识别的IP地址。</td>
+</tr>
+<tr>
+<td>27</td>
+<td>TELNET协议</td>
+<td>远程登录协议，允许用户（Telnet客户端）通过一个协商过程来与一个远程设备进行通信，它为用户提供了在本地计算机上完成远程主机工作的能力。</td>
+</tr>
+<tr>
+<td>28</td>
+<td>SSH协议</td>
+<td>SSH是一种建立在应用层上的安全加密协议。因为TELNET在主机和远程主机的发送数据包的过程中是明文传输，未经任何安全加密，容易被网上不法分子嗅到数据包来搞事情。为了数据的安全性，一般会用SSH进行远程登录。</td>
+</tr>
+<tr>
+<td>29</td>
+<td>FTP协议</td>
+<td>文件传输协议，是应用层协议之一。包括FTP服务器和FTP客户端。用户可以使用FTP客户端通过FTP协议访问位于FTP服务器上的资源。FTP协议传输效率很高，一般用来传输大文件。</td>
+</tr>
+<tr>
+<td>30</td>
+<td>单向数据传输</td>
+<td>数据的流向只能是单向的，也就是从发送端到接收端。</td>
+</tr>
+<tr>
+<td>31</td>
+<td>双向数据传输</td>
+<td>数据流向是双向的，又叫全双工通信。</td>
+</tr>
+<tr>
+<td>32</td>
+<td>面向连接的</td>
+<td>指应用进程在向另一个应用进程发送数据前，需要先进行握手，即它们必须先互相发送预备报文段，用来建立确保数据传输的参数。</td>
+</tr>
+<tr>
+<td>33</td>
+<td>三次握手</td>
+<td>TCP连接的建立需要经过三个报文段的发送，这种连接的建立过程被称为三次握手。</td>
+</tr>
+<tr>
+<td>34</td>
+<td>四次挥手</td>
+<td>TCP断开连接需要经过四个报文段的发送，这种断开过程是四次挥手。</td>
+</tr>
+<tr>
+<td>35</td>
+<td>IPv4</td>
+<td>网际协议的第四个版本，使用32位的地址。</td>
+</tr>
+<tr>
+<td>36</td>
+<td>IPv6</td>
+<td>网际协议的第六个版本，IPv6的地址长度为128位。IPv6的使用，解决了网络资源地址数量的问题，也解决了多种接入设备连入互联网的障碍。</td>
+</tr>
+<tr>
+<td>37</td>
+<td>接口</td>
+<td>主机和物理链路之间的边界。</td>
+</tr>
+<tr>
+<td>38</td>
+<td>ARP协议</td>
+<td>一种解决地址问题的协议。通过IP位线索，可以定位下一个用来接受数据的网络设备的MAC地址。如果目标主机和主机不在同一个链路上时，可以通过ARP查找下一条路由的地址。ARP只适用于IPv4。</td>
+</tr>
+<tr>
+<td>39</td>
+<td>RARP</td>
+<td>将ARP反过来，通过MAC地址定位IP地址的一种协议。</td>
+</tr>
+<tr>
+<td>40</td>
+<td>代理ARP</td>
+<td>用于解决ARP包被路由器隔离的情况，通过代理ARP可以实现将ARP请求转发给临近的网段。</td>
+</tr>
+<tr>
+<td>41</td>
+<td>ICMP协议</td>
+<td>Internet报文控制协议。如果在IP通信过程中由于某个IP包由于某种原因未能到达目标主机，那么将会发送ICMP消息，ICMP实际上是IP的一部分。</td>
+</tr>
+<tr>
+<td>42</td>
+<td>DHCP协议</td>
+<td>一种动态主机配置协议。使用DHCP就能实现自动设置IP地址、统一管理IP地址分配，实现即插即用。</td>
+</tr>
+<tr>
+<td>43</td>
+<td>NAT协议</td>
+<td>网络地址转换协议。指所有本地地址的主机在接入网络时，都需要在NAT路由器上将其转换成全球IP地址，才能和其他主机进行通信。</td>
+</tr>
+<tr>
+<td>44</td>
+<td>IP隧道</td>
+<td>由路由器把网络层协议封装到另一个协议中从而跨过网络传输到另外一个路由器的过程。</td>
+</tr>
+<tr>
+<td>45</td>
+<td>单播</td>
+<td>1对1发送信号。例如早期的固定电话。</td>
+</tr>
+<tr>
+<td>46</td>
+<td>广播</td>
+<td>主机和与他连接的所有端系统相连，主机将信号发送给所有的端系统。</td>
+</tr>
+<tr>
+<td>47</td>
+<td>多播</td>
+<td>与广播类似，不同在于多播需要限定在某一组主机作为接收端。</td>
+</tr>
+<tr>
+<td>48</td>
+<td>任播</td>
+<td>在特定的多台主机中选出一个接收端的通信方式。</td>
+</tr>
+<tr>
+<td>49</td>
+<td>IGP</td>
+<td>内部网关协议，一般用于企业内部自己搭建的路由自治系统。</td>
+</tr>
+<tr>
+<td>50</td>
+<td>EGP</td>
+<td>外部网关协议，通常用于在网络主机之间相互交换路由信息。</td>
+</tr>
+<tr>
+<td>51</td>
+<td>MPLS</td>
+<td>一种标记交换技术，会对每个IP数据包都设定一个标记，然后根据这个标记进行转发。</td>
+</tr>
+<tr>
+<td>52</td>
+<td>MAC协议</td>
+<td>媒体访问控制协议，规定了帧在链路上传输的规则。</td>
+</tr>
+<tr>
+<td>53</td>
+<td>以太网</td>
+<td>以太网是一种当今最普遍的局域网技术，它规定了物理层的连线、电子信号和MAC协议的内容。</td>
+</tr>
+<tr>
+<td>54</td>
+<td>VLAN</td>
+<td>虚拟局域网是一组逻辑上的设备和用户，这些设备和用户并不受物理位置的限制，可以根据功能、部门及应用等因素将他们组织起来，相互之间的通信就好像它们在同一个网段中一样，所以称为虚拟局域网。</td>
+</tr>
+<tr>
+<td>55</td>
+<td>基站</td>
+<td>无线网络的基础设施。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="8">8、网络拓扑结构<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>
+<p>星型拓扑</p>
+</li>
+<li>
+<p>优点</p>
+<ul>
+<li>
+<p>易于实现</p>
+</li>
+<li>
+<p>易于网络扩展</p>
+</li>
+<li>
+<p>易于故障排查</p>
+</li>
+</ul>
+</li>
+<li>
+<p>缺点</p>
+<ul>
+<li>
+<p>中心节点压力大</p>
+</li>
+<li>
+<p>组网成本较高</p>
+</li>
+</ul>
+</li>
+<li>
+<p>网型拓扑</p>
+</li>
+<li>
+<p>各个节点至少与其他两个节点相连</p>
+</li>
+<li>
+<p>可靠性高、组网成本也高</p>
+</li>
+</ul>
+<h1 id="_3">二、网络模型<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h1>
+<h2 id="1_1">1、分层思想<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1、概述<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>分层思想的核心理念是将复杂的系统或问题划分为多个独立的、相互关联的层级，每个层级有不同的功能和责任。这种分层的方式可以使系统或问题更具结构化和可管理性，简化设计和实施过程，并提高系统或问题的可扩展性和互操作性。</p>
+<h3 id="12">1.2、核心理念<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<ul>
+<li>模块化：将系统或问题划分为多个模块或层级，每个层级负责特定的功能，模块之间相互独立但也相互关联。这样可以降低复杂度，使系统设计更加清晰和可扩展。</li>
+<li>抽象性：每个层级都对其他层级提供特定的抽象接口，屏蔽了底层实现的复杂性，使各层级之间的交互更加简化和统一。这样可以提高代码的可维护性和可重用性。</li>
+<li>松耦合：每个层级之间通过抽象接口进行交互，层级之间的耦合度尽可能地降低，使得各个层级可以独立地进行修改和演变。这样可以使系统更具灵活性和可扩展性。</li>
+<li>可替换性：由于每个层级之间的耦合度较低，所以可以灵活地替换或添加新的功能层级，而不需要对其他层级进行修改。这样可以使系统更容易适应变化的需求和技术。</li>
+</ul>
+<h2 id="2osi">2、OSI七层模型<a class="headerlink" href="#2osi" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>应用层</strong></li>
+</ol>
+<p>Application Layer</p>
+<ul>
+<li>作用</li>
+</ul>
+<p>应用层为用户提供网络应用和服务，如电子邮件、文件传输、远程登录等。应用层负责处理高层应用程序之间的通信，满足用户的需求，提供与用户的接口</p>
+<ul>
+<li>数据封装与解封装过程</li>
+</ul>
+<p>在发送端，应用层会将数据分割成合适的格式，如HTTP请求或SMTP邮件等。接收端则根据应用层的首部信息，将数据还原为原始格式。这就是应用层的解封装过程。</p>
+<ol>
+<li><strong>表示层</strong></li>
+</ol>
+<p>Presentation Layer</p>
+<ul>
+<li>作用</li>
+</ul>
+<p>表示层负责处理数据的表示方式。它将数据从应用程序格式转换为网络格式，并提供数据压缩、加密等服务。表示层还会根据不同的应用需求，对数据进行分组或分割。定义传递信息的语法和语义，编码和解码、压缩解压缩、加密解密</p>
+<ul>
+<li>数据封装与解封装过程</li>
+</ul>
+<p>在发送端，表示层会对数据进行必要的处理，如分割、压缩、加密等。接收端则需要根据表示层的首部信息，将数据还原为原始格式。这就是表示层的解封装过程。</p>
+<ol>
+<li><strong>会话层</strong></li>
+</ol>
+<p>Session Layer</p>
+<ul>
+<li>作用</li>
+</ul>
+<p>会话层负责建立、管理和终止会话。它会为会话分配唯一的会话标识符，以确保会话的完整性和可靠性。会话层还负责处理会话之间的数据交换和同步。建立用户间的会话关系</p>
+<ul>
+<li>数据封装与解封装过程</li>
+</ul>
+<p>在发送端，会话层会为数据添加一些会话控制信息，如会话标识符、状态等。接收端则通过识别这些信息，将它们从数据中提取出来，并传递给下一层。这就是会话层的解封装过程。</p>
+<ol>
+<li><strong>传输层</strong></li>
+</ol>
+<p>Transport Layer</p>
+<ul>
+<li>作用</li>
+</ul>
+<p>传输层为应用层提供端到端的数据传输服务。它负责将数据分割成更小的单元，如TCP或UDP数据段，并确保它们按照正确的顺序传输到目的地。传输层还负责处理流量控制和错误恢复等问题。用户进程间的通信，承上启下</p>
+<ul>
+<li>数据封装与解封装过程</li>
+</ul>
+<p>在发送端，传输层将为数据添加TCP或UDP的首部，包含序列号、确认号等信息。接收端则通过识别这些信息，将它们从数据段中提取出来，并传递给下一层。这就是传输层的解封装过程。</p>
+<ol>
+<li><strong>网络层</strong></li>
+</ol>
+<p>Network Layer</p>
+<ul>
+<li>作用</li>
+</ul>
+<p>网络层负责在整个网络中选择和定位传输路径，处理分组的传输和路由问题。它主要负责IP地址的解析和路由信息的获取，以便将数据从一个网络传输到另一个网络。数据包封装结构，源和目的方的逻辑地址（IP地址），根据包头的逻辑地址选路</p>
+<ul>
+<li>数据封装与解封装过程</li>
+</ul>
+<p>网络层会将数据分割成更小的单元，如IP数据包，并为每个数据包添加一些额外的信息，如IP地址、校验和等。接收端则通过识别这些信息，将它们从数据包中提取出来，并传递给下一层。这个过程就是网络层的解封装过程。</p>
+<ol>
+<li><strong>数据链路层</strong></li>
+</ol>
+<p>Data Link Layer</p>
+<ul>
+<li>作用</li>
+</ul>
+<p>数据链路层负责在相邻节点之间提供可靠的数据传输服务。它负责将原始的比特流组成一个个数据帧，并提供流控制和错误检测功能。在数据封装和解封装过程中，数据链路层主要负责添加和删除数据帧的首部和尾部。数据帧封装结构，源和目的方的物理地址（MAC），数据校验功能</p>
+<ul>
+<li>数据封装与解封装过程</li>
+</ul>
+<p>在发送端，数据链路层将数据分割成多个数据帧，并为每个数据帧添加首部和尾部。这些首部和尾部包含了用于传输控制和错误检测的信息。接收端则通过识别这些首部和尾部，将它们从数据帧中提取出来，并传递给下一层。这就是数据链路层的解封装过程。</p>
+<ol>
+<li><strong>物理层</strong></li>
+</ol>
+<p>Physical Layer</p>
+<ul>
+<li>作用</li>
+</ul>
+<p>物理层负责在计算机之间传输原始的比特流。它定义了电气、光学和物理接口的特性，以及数据在传输媒介上的传输方式。在数据封装和解封装过程中，物理层主要负责比特流的传输和接收。如何使用物理信号来表示数据1和0，数据传输是否可同时在两个方向上进行，通信双方如何建立和中止连接，物理接口特性</p>
+<ul>
+<li>数据封装与解封装过程</li>
+</ul>
+<p>在发送端，物理层将比特流添加到数据帧的首部，形成一个新的数据单元。这个过程就是数据封装。在接收端，物理层将这个数据单元的首部移除，并传递给下一层。这就是数据解封装。</p>
+<h2 id="3tcpip">3、TCP/IP五层模型<a class="headerlink" href="#3tcpip" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>应用层</strong></li>
+</ol>
+<p>协议</p>
+<ul>
+<li>HTTP | HTTPS</li>
+<li>超文本传输协议</li>
+<li>检测端口号 80/tcp | 443/tcp</li>
+<li>FTP</li>
+<li>文件传输协议</li>
+<li>检测端口号21/TCP</li>
+<li>TFTP</li>
+<li>简单文件传输协议</li>
+<li>检测端口号69/UDP</li>
+<li>DNS</li>
+<li>域名解析协议</li>
+<li>检测端口号 53/UDP</li>
+<li>SMTP</li>
+<li>邮件传输协议</li>
+<li>
+<p>检测端口号25/TCP</p>
+</li>
+<li>
+<p><strong>传输层</strong></p>
+</li>
+</ul>
+<p>协议</p>
+<ul>
+<li>TCP</li>
+<li>传输控制协议</li>
+<li>UDP</li>
+<li>
+<p>用户数据报协议</p>
+</li>
+<li>
+<p><strong>网络层</strong></p>
+</li>
+</ul>
+<p>协议</p>
+<ul>
+<li>ICMP</li>
+<li>控制报文协议</li>
+<li>用于在IP主机、路由器之间传递控制消息。控制消息是指网络通不通、主机是否可达、路由是否可用等网络本身的消息。（ping命令）</li>
+<li>IGMP</li>
+<li>Internet 组管理协议</li>
+<li>组播协议</li>
+<li>运行在主机和组播路由器之间</li>
+<li>ARP</li>
+<li>地址解析协议</li>
+<li>根据网络层IP数据包包头中的IP地址信息解析出目标硬件地址（MAC地址）信息，以保证通信的顺利进行。</li>
+<li>RARP</li>
+<li>反向地址转换协议</li>
+<li>RARP发出要反向解析的物理地址并希望返回其对应的IP地址，应答包括由能够提供所需信息的RARP服务器发出的IP地址。</li>
+<li>IP</li>
+<li>代表所有协议</li>
+<li>RIP</li>
+<li>
+<p>动态路由协议</p>
+</li>
+<li>
+<p><strong>数据链路层</strong></p>
+</li>
+</ul>
+<p>协议</p>
+<ul>
+<li>以太网（Ethernet）</li>
+<li>无线局域网（Wi-Fi）</li>
+<li>
+<p>点对点协议（PPP）</p>
+</li>
+<li>
+<p><strong>物理层</strong></p>
+</li>
+</ul>
+<p>协议</p>
+<ul>
+<li>以太网（Ethernet）</li>
+<li>无线局域网（Wi-Fi）</li>
+<li>光纤通道（Fibre Channel）</li>
+</ul>
+<h2 id="3_1">3、数据的封装与解封装过程<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h2>
+<h3 id="31pud">3.1、PUD<a class="headerlink" href="#31pud" title="Permanent link">&para;</a></h3>
+<p><img alt="258cf2bcaaf642f28ee1c4413a5af2e3" src="../11%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF.assets/258cf2bcaaf642f28ee1c4413a5af2e3.png" /></p>
+<h3 id="32">3.2、数据封装与解封装过程<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<p><img alt="1569555-20190719143102140-194109939" src="../11%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF.assets/1569555-20190719143102140-194109939.jpg" /></p>
+<p><img alt="4ec2d5628535e5ddf09120212e40cee9cf1b621f" src="../11%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF.assets/4ec2d5628535e5ddf09120212e40cee9cf1b621f.png" /></p>
+<h1 id="ip">三、IP地址<a class="headerlink" href="#ip" title="Permanent link">&para;</a></h1>
+<h2 id="1_2">1、进制转换<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h2>
+<h3 id="11_1">1.1、数制介绍<a class="headerlink" href="#11_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>数制：计数的方法，指用一组固定的符号和统一的规则来表示数值的方法</li>
+<li>数位：指数字符号在一个数中所处的位置</li>
+<li>基数：指在某种进位计数制中，数位上所能使用的数字符号的个数</li>
+<li>位权：指在某种进位计数制中，数位所代表的大小，即处在某一位上的“1”所表示的数值的大小</li>
+</ul>
+<h3 id="12_1">1.2、十进制<a class="headerlink" href="#12_1" title="Permanent link">&para;</a></h3>
+<p>十进制数制系统包括 10 个数字：  </p>
+<p>0、1、2、3、4、5、6、7、8、9 </p>
+<p>十进制数的特点是逢十进一</p>
+<p>十进制数（Decimal number）表示</p>
+<p>(1010)10，1010D</p>
+<p>（236 ）10</p>
+<p>2    3    6</p>
+<p>百位  十位  个位</p>
+<h3 id="13">1.3、二进制<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<p>二进制这个词的意思是基于两个数字 </p>
+<p>0、1</p>
+<p>二进制数的特点是逢二进一</p>
+<p>二进制数（Binary number）：</p>
+<p>(1010)2，1010B</p>
+<p>假设8位2进制数每位都是1</p>
+<p>128 64 32 16 8 4 2 1</p>
+<p>（10001011）2</p>
+<p>从左至右每一位数的计算为2的n-1次方</p>
+<p>每一位数的代表数字 为  128 0 0 0 8 0  2 1</p>
+<p>转为十进制  最后计算结果为 所有数相加</p>
+<p>1+2+8+128=139</p>
+<p>计算机底层</p>
+<p>IP地址</p>
+<p>....</p>
+<h3 id="14">1.4、八进制<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
+<p>八进制数制系统包括 8个数字：  </p>
+<p>0、1、2、3、4、5、6、7</p>
+<p>八进制数的特点是逢八进一</p>
+<p>八进制数（octal numera）</p>
+<p>（1010）8  1010o</p>
+<p>（13241）8</p>
+<p>从左至右每一位数的计算为  8^n-1 * 基数</p>
+<p>.....  512<em>x  64</em>x  8<em>x  1</em>x</p>
+<p>每一位数的代表数字 为4096<em>1  512</em>3  64<em>2  8</em>4  1*1</p>
+<p>转为十进制  最后计算结果为 所有数相加</p>
+<p>4096+1536+128+32+1=5793</p>
+<h3 id="15">1.5、十六进制<a class="headerlink" href="#15" title="Permanent link">&para;</a></h3>
+<p>十六进制数制系统包括16个数字：  </p>
+<p>0、1、2、3、4、5、6、7、8、9、A、B、C、D、E、F</p>
+<p>代表0、1、2、3、4、5、6、7、8、9、10、11、12、13、14、15</p>
+<p>十六进制数的特点是逢十六进一</p>
+<p>十六进制数（Hexadecimal number）：</p>
+<p>(1010)16，1010H</p>
+<p>（1B2）16</p>
+<p>从左至右每一位数的计算为  16^n-1 * 基数</p>
+<p>...4096<em>x  256</em>x  16<em>x  1</em>x</p>
+<p>每一位数的代表数字 256<em>1  16</em>11  1*2</p>
+<p>转为十进制  最后计算结果为 所有数相加</p>
+<p>256+176+2=464</p>
+<h2 id="2ip">2、IP地址定义<a class="headerlink" href="#2ip" title="Permanent link">&para;</a></h2>
+<ul>
+<li>主机唯一的标识，保证主机间正常通信 （同一局域网下）</li>
+<li>一种网络编码，用来确定网络中一个节点</li>
+<li>IP地址由32位二进制（32bit）组成</li>
+</ul>
+<h2 id="3ip">3、IP地址组成部分<a class="headerlink" href="#3ip" title="Permanent link">&para;</a></h2>
+<ul>
+<li>网络部分（NETWORK）</li>
+<li>确定网络范围</li>
+<li>主机部分（HOST）</li>
+<li>确定主机位置</li>
+</ul>
+<h2 id="4ip">4、IP地址分类<a class="headerlink" href="#4ip" title="Permanent link">&para;</a></h2>
+<p>IP地址分为A、B、C、D、E五类，每一类有不同的划分规则</p>
+<table>
+<thead>
+<tr>
+<th><strong>地址类型</strong></th>
+<th><strong>地址范围</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A类</td>
+<td>0.0.0.0~127.255.255.255</td>
+</tr>
+<tr>
+<td>B类</td>
+<td>128.0.0.0~191.255.255.255</td>
+</tr>
+<tr>
+<td>C类</td>
+<td>192.0.0.0~223.255.255.255</td>
+</tr>
+<tr>
+<td>D类</td>
+<td>不常见忽略</td>
+</tr>
+<tr>
+<td>E类</td>
+<td>不常见忽略</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a">A类地址<a class="headerlink" href="#a" title="Permanent link">&para;</a></h3>
+<p>A类地址范围为0.0.0.0~127.255.255.255，A类地址网络位固定为前8位。</p>
+<p>网络位为2^7=128，网络位=2^可变网络位，A类地址首位不能变所以可变网络位为7位。</p>
+<p>主机位为2^24=16777216，主机位=2^可变主机位，A类地址24位都可变所以可变主机位为24位</p>
+<p>可用主机位为2^24-2=16777214，可用主机位=2^可变主机位-2，减2的原因是由于主机号全位0定义为网段地址，主机号全位0定义为广播地址不可随便使用。</p>
+<h3 id="b">B类地址<a class="headerlink" href="#b" title="Permanent link">&para;</a></h3>
+<p>B类地址范围为128.0.0.0~191.255.255.255，B类地址网络位固定前16位     </p>
+<p>网络位为2^14=16384，网络位=2^可变网络位，B类地址前2位不能变所以可变网络位为14位。</p>
+<p>主机位为2^16=65536，主机位=2^可变主机位，B类地址16位都可变所以可变主机位为16位</p>
+<p>可用主机位为2^16-2=65534，可用主机位=2^可变主机位-2，减2的原因是由于主机号全位0定义为网段地址，主机号全位0定义为广播地址不可随便使用。</p>
+<h3 id="c">C类地址<a class="headerlink" href="#c" title="Permanent link">&para;</a></h3>
+<p>C类地址范围为192.0.0.0~223.255.255.255，C类地址网络位固定前24位     </p>
+<p>网络位为2^21=2097152，网络位=2^可变网络位，C类地址前3位不能变所以可变网络位为21位。</p>
+<p>主机位为2^8=256，主机位=2^可变主机位，C类地址8位都可变所以可变主机位为8位</p>
+<p>可用主机位为2^8-2=254，可用主机位=2^可变主机位-2，减2的原因是由于主机号全位0定义为网段地址，主机号全位0定义为广播地址不可随便使用。</p>
+<h3 id="de">D、E类地址<a class="headerlink" href="#de" title="Permanent link">&para;</a></h3>
+<p>D、E类地址不常用，只要知晓D类地址用于组播，E类地址用于科学研究即可。</p>
+<h2 id="5_1">5、地址划分<a class="headerlink" href="#5_1" title="Permanent link">&para;</a></h2>
+<p>地址划分按使用范围划分为2类，一类为公网地址，一类为私网地址。</p>
+<ul>
+<li>公网地址：收取费用，全球可达且IPV4地址已用完。</li>
+<li>私网地址：不收费，小范围内随便使用。</li>
+</ul>
+<h3 id="_4">私网地址范围<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th><strong>私网地址范围</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.0.0.0~10.255.255.255</td>
+</tr>
+<tr>
+<td>172.16.0.0~172.31.255.255</td>
+</tr>
+<tr>
+<td>192.168.0.0~192.168.255.255</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">特殊地址<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>特殊地址</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.0.0.0</td>
+<td>可以表示任意IP地址</td>
+</tr>
+<tr>
+<td>255.255.255.255</td>
+<td>广播地址，多用于服务寻找ip</td>
+</tr>
+<tr>
+<td>127.0.0.0~127.255.255.255</td>
+<td>回环地址、本机地址，指代本机地址</td>
+</tr>
+<tr>
+<td>169.254.X.X</td>
+<td>微软保留地址，无ip时会分配到这段地址。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6_1">6、相关概念<a class="headerlink" href="#6_1" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1、网络地址<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<ul>
+<li>网络ID</li>
+<li>用来标识一个网络的符号</li>
+<li>当前网络范围内的最小IP地址</li>
+<li>不能用于网络通信</li>
+</ul>
+<h3 id="62">6.2、广播地址<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<ul>
+<li>用于将数据包从一个网络中的所有主机传递到另一个网络中的所有主机。</li>
+<li>当前网络范围内的最大IP地址</li>
+<li>不能用于网络通信</li>
+</ul>
+<h3 id="63">6.3、子网掩码<a class="headerlink" href="#63" title="Permanent link">&para;</a></h3>
+<ul>
+<li>用来确定IP的网络地址</li>
+<li>32个二进制数</li>
+<li>对应IP地址的网络部分用1表示 </li>
+<li>对应IP地址的主机部分用0表示 </li>
+<li>IP地址和子网掩码作逻辑“与”运算得到网络地址</li>
+<li>0和任何数相与都等于0</li>
+<li>
+<p>1和任何数相与都等于任何数本身 </p>
+</li>
+<li>
+<p>A、B、C三类有类地址的默认子网掩码：</p>
+</li>
+<li>
+<p>A类：255.0.0.0或者/8</p>
+</li>
+<li>
+<p>B类：255.255.0.0或者/16</p>
+</li>
+<li>
+<p>C类：255.255.255.0或者/24</p>
+</li>
+</ul>
+<h3 id="64">6.4、网段<a class="headerlink" href="#64" title="Permanent link">&para;</a></h3>
+<ul>
+<li>网络中一组连续的IP地址。</li>
+<li>通常以IP地址和子网掩码的形式来表示。</li>
+<li>网段是网络划分和管理的基本单位，可以用于划分局域网和子网。</li>
+</ul>
+<h3 id="65">6.5、网关<a class="headerlink" href="#65" title="Permanent link">&para;</a></h3>
+<ul>
+<li>连接不同网络之间的一个网络节点，即两个或多个网络的交汇处</li>
+<li>负责将数据包转发到目标网络</li>
+<li>网关通常是一台路由器，具有路由选择、地址转换等功能。</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

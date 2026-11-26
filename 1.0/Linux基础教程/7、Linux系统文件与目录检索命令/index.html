@@ -1,0 +1,2181 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://rainayom.github.io/1.0/Linux%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/7%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%A3%80%E7%B4%A2%E5%91%BD%E4%BB%A4/">
+      
+      
+        <link rel="prev" href="../6%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7%E7%9A%84%E4%BD%9C%E7%94%A8/">
+      
+      
+        <link rel="next" href="../8%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%94%A8%E6%88%B7%E4%B8%8E%E7%BB%84%E7%AE%A1%E7%90%86/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Linux系统文件与目录内容检索 - 运维知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="运维知识库" class="md-header__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            运维知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux系统文件与目录内容检索
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到明亮模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到明亮模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗黑模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到暗黑模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到跟随系统"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到跟随系统" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  使用指南
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  标签
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../0%E3%80%81linux%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95%E6%91%98%E8%A6%81/" class="md-tabs__link">
+          
+  
+  
+  Linux基础教程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ansible/ansible%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+          
+  
+  
+  Ansible
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ops/docker/" class="md-tabs__link">
+          
+  
+  
+  Ops
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="运维知识库" class="md-nav__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    运维知识库
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux基础教程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux基础教程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0%E3%80%81linux%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95%E6%91%98%E8%A6%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    云计算课程摘要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linix操作系统磁盘管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1%E3%80%81Linux%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2%E3%80%81CentOS7%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CentOS7安装教程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3%E3%80%81VMware%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMware虚拟机操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%A1%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统基础设置与命令行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统文件与目录管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7%E7%9A%84%E4%BD%9C%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux中的特殊符号的作用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统文件与目录内容检索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%94%A8%E6%88%B7%E4%B8%8E%E7%BB%84%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux用户与组管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../9%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ansible
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ansible
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/ansible%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ansible基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/kejilion%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E7%AE%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kejilion脚本工具箱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E4%BD%BF%E7%94%A8ansible%E5%AE%89%E8%A3%85AnsibleGalaxy%E7%9A%84roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible安装Ansible Galaxy的roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible批量安装docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7pssh%E5%92%8Cansible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化工具pssh和ansible
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ops
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ops
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="linux">Linux系统文件与目录内容检索<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#linux">Linux系统文件与目录内容检索</a></li>
+<li><a href="#shell">一、Shell中的正则表达式</a><ul>
+<li><a href="#1">1、正则表达式组成</a></li>
+<li><a href="#2">2、基本正则表达式元字符</a></li>
+<li><a href="#3">3、扩展正则表达式元字符</a></li>
+<li><a href="#4">4、表示次数</a></li>
+<li><a href="#5">5、位置锚定</a></li>
+<li><a href="#6">6、分组或其他</a></li>
+</ul>
+</li>
+<li><a href="#_1">二、文件和目录内容检索处理命令</a><ul>
+<li><a href="#1grep">1、grep筛选</a></li>
+<li><a href="#2sort">2、sort排序</a></li>
+<li><a href="#3uniq">3、uniq去重</a></li>
+<li><a href="#4tr">4、tr转换</a></li>
+<li><a href="#5cut">5、cut切割</a></li>
+<li><a href="#6which">6、which命令</a></li>
+<li><a href="#7whereis">7、whereis命令</a></li>
+<li><a href="#8diff">8、diff命令</a></li>
+</ul>
+</li>
+<li><a href="#_2">三、文件与目录归档压缩命令</a><ul>
+<li><a href="#1tar">1、tar命令</a></li>
+<li><a href="#2zip">2、zip命令</a></li>
+<li><a href="#3gzip">3、gzip命令</a></li>
+<li><a href="#4bzip2">4、bzip2命令</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="shell">一、Shell中的正则表达式<a class="headerlink" href="#shell" title="Permanent link">&para;</a></h1>
+<p>正则表达式,又称正规表达式、常规表达式</p>
+<p>使用字符串来描述、匹配一系列符合某个规则的字符串</p>
+<h2 id="1">1、正则表达式组成<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>普通字符</li>
+<li>大小写字母、数字、标点符号及一些其他符号</li>
+<li>元字符 </li>
+<li>在正则表达式中具有特殊意义的专用字符</li>
+</ul>
+<p>正则表达式包括基本正则表达式和扩展正则表达式</p>
+<h2 id="2">2、基本正则表达式元字符<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.</td>
+<td>匹配任意单个字符，可以是一个汉字</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配前面子表达式0次或者多次</td>
+</tr>
+<tr>
+<td>[ ]</td>
+<td>匹配指定范围内的任意单个字符</td>
+</tr>
+<tr>
+<td>[^]</td>
+<td>匹配指定范围外的任意单个字符</td>
+</tr>
+<tr>
+<td>\转义字符</td>
+<td>用于取消特殊符号的含义</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>匹配前面的子表达式n次</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>匹配前面的子表达式不少于n次</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>匹配前面的子表达式n到m次</td>
+</tr>
+<tr>
+<td>[:alnum:]</td>
+<td>字母和数字</td>
+</tr>
+<tr>
+<td>[:alpha:]</td>
+<td>代表任何英文大小写字符，即A-Z a-z</td>
+</tr>
+<tr>
+<td>[:lower:]</td>
+<td>小写字母</td>
+</tr>
+<tr>
+<td>[:upper:]</td>
+<td>大写字母</td>
+</tr>
+<tr>
+<td>[:blank:]</td>
+<td>空白字符（空格和制表符）</td>
+</tr>
+<tr>
+<td>[:space:]</td>
+<td>包括空格、制表符（水平和垂直）、换行符、回车符等各种类型的空白</td>
+</tr>
+<tr>
+<td>[:cntrl:]</td>
+<td>不可打印的控制字符（退格、删除、警铃...）</td>
+</tr>
+<tr>
+<td>[:digit:]</td>
+<td>十进制数</td>
+</tr>
+<tr>
+<td>[:xdigit:]</td>
+<td>十六进制</td>
+</tr>
+<tr>
+<td>[:graph:]</td>
+<td>可打印的非空白字符</td>
+</tr>
+<tr>
+<td>[:print:]</td>
+<td>可打印字符</td>
+</tr>
+<tr>
+<td>[:punct:]</td>
+<td>标点符号</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配单词构成部分，等价于[:alnum:]</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配非单词构成部分，等价于[^[:alnum:]]</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任何非空白字符，等价于[^ \ f \ n \ r \ t \ v]</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任何空白字符，包括空格，制表符，换页符等等，等价于[ \ f \ n \ r \ t \v ]</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：</strong>egrep、awk使用{n}、{n,}、{n,m}匹配时“{}”前不用加“\”</p>
+<h2 id="3">3、扩展正则表达式元字符<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<p>支持的工具：egrep、awk 或 grep -E 和 sed -r</p>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+</td>
+<td>匹配前面子表达式1次以上</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面子表达式0次或者1次</td>
+</tr>
+<tr>
+<td>()</td>
+<td>将括号中的字符串作为一个整体</td>
+</tr>
+<tr>
+<td>|</td>
+<td>以或的方式匹配字条串</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4">4、表示次数<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>匹配前面的字符任意次，包括0次，贪婪模式:尽可能长的匹配</td>
+</tr>
+<tr>
+<td>.*</td>
+<td>任意长度的任意字符</td>
+</tr>
+<tr>
+<td>\?</td>
+<td>匹配其前面的字符出现0次或1次</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配其前面的字符出现最少1次</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>匹配前面的字符n次</td>
+</tr>
+<tr>
+<td>{m,n}</td>
+<td>匹配前面的字符至少m次，至多n次</td>
+</tr>
+<tr>
+<td>{,n}</td>
+<td>匹配前面的字符至多n次</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>匹配前面的字符至少n次</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5">5、位置锚定<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>元字符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>行首锚定，用于模式的最左侧</td>
+</tr>
+<tr>
+<td>$</td>
+<td>行尾锚定，用于模式的最右侧</td>
+</tr>
+<tr>
+<td>^APATTERN$</td>
+<td>用于模式匹配整行(单独一行)</td>
+</tr>
+<tr>
+<td>^$</td>
+<td>空行</td>
+</tr>
+<tr>
+<td>^[[:sapce:]]</td>
+<td>空白行</td>
+</tr>
+<tr>
+<td>\&lt; 或 \b</td>
+<td>词首锚定，用于单词模式的左侧（连续的数字，字母，下划线都算单词内部）</td>
+</tr>
+<tr>
+<td>&gt; 或 \b</td>
+<td>词尾锚定，用于单词模式的右侧</td>
+</tr>
+<tr>
+<td>&lt;PATTERN&gt;</td>
+<td>匹配整个单词</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6">6、分组或其他<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<p>分组:( )将多个字符捆绑在一起，当作一个整体处理，如:(root)+</p>
+<p>后向引用:分组括号中的模式匹配到的内容会被正则表达式引擎记录于内部的变量中，这些变量的命名方式为:\1，\2，13,...</p>
+<p>\1表示从左侧起第一个左括号以及与之匹配右括号之间的模式所匹配到的字符</p>
+<h1 id="_1">二、文件和目录内容检索处理命令<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="1grep">1、grep筛选<a class="headerlink" href="#1grep" title="Permanent link">&para;</a></h2>
+<p>在文本中查找指定的字符串所在的行。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>grep<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>file
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-i</td>
+<td>忽略大小写。</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>反转匹配，只显示不匹配的行。</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>计数，只输出匹配行的数量。</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>显示匹配行及其行号。</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>只输出包含匹配字符串的文件名。</td>
+</tr>
+<tr>
+<td>-L</td>
+<td>只输出不包含匹配字符串的文件名。</td>
+</tr>
+<tr>
+<td>-q</td>
+<td>静默模式，不输出任何匹配信息。</td>
+</tr>
+<tr>
+<td>-E</td>
+<td>使用扩展正则表达式。</td>
+</tr>
+<tr>
+<td>-o</td>
+<td>只输出匹配到的部分，而不是整行内容。</td>
+</tr>
+<tr>
+<td>-A [NUM]</td>
+<td>打印匹配行和之后的[NUM]行。</td>
+</tr>
+<tr>
+<td>--B [NUM]</td>
+<td>打印匹配行和之前的[NUM]行。</td>
+</tr>
+<tr>
+<td>-C [NUM] 或 --context=[NUM]</td>
+<td>打印匹配行及其前后的[NUM]行。</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>显示匹配行及其行号。</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>使用Perl正则表达式。</td>
+</tr>
+<tr>
+<td>-r 或 --recursive</td>
+<td>递归搜索目录中的文件。</td>
+</tr>
+<tr>
+<td>-R 或 --text</td>
+<td>将二进制文件当作文本文件处理。</td>
+</tr>
+<tr>
+<td>-s 或 --no-messages</td>
+<td>不显示错误信息。</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>反转匹配，只显示不匹配的行。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2sort">2、sort排序<a class="headerlink" href="#2sort" title="Permanent link">&para;</a></h2>
+<p>以行对文件进行排序</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-f</td>
+<td>忽略大小写，会将小写字母都转换为大写字母来进行比较</td>
+</tr>
+<tr>
+<td>-b</td>
+<td>忽略每行前面的空格</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>按照数字进行排序</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>反向排序</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>等同于uniq，表示相同的数据仅显示一行</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>指定字段分隔符，默认使用[Tab]键分隔</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>指定排序字段</td>
+</tr>
+<tr>
+<td>-o&lt;输出文件&gt;</td>
+<td>将排序后的结果转存至指定文件</td>
+</tr>
+<tr>
+<td>-h</td>
+<td></td>
+</tr>
+<tr>
+<td>友好显示</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="3uniq">3、uniq去重<a class="headerlink" href="#3uniq" title="Permanent link">&para;</a></h2>
+<p><code>uniq</code> 是 Unix 和类 Unix 系统中的命令，用于从排序的文本数据中去除重复行，仅保留唯一的行。它通常与 <code>sort</code> 命令结合使用，因为 <code>uniq</code> 只能删除相邻的重复行。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>uniq<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>input_file<span class="w"> </span><span class="o">[</span>output_file<span class="o">]]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>进行计数，并删除文件中重复出现的行</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>仅显示连续的重复行</td>
+</tr>
+<tr>
+<td>-u</td>
+<td>仅显示出现一次的行</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>忽略大小写</td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<ol>
+<li>删除输入文件中的重复行：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>sort<span class="w"> </span>input.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq
+</code></pre></div>
+
+<ol>
+<li>仅显示重复的行：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>sort<span class="w"> </span>input.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-d
+</code></pre></div>
+
+<ol>
+<li>忽略大小写进行比较：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>sort<span class="w"> </span>-i<span class="w"> </span>input.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-i
+</code></pre></div>
+
+<h2 id="4tr">4、tr转换<a class="headerlink" href="#4tr" title="Permanent link">&para;</a></h2>
+<p><code>tr</code> 命令是 Unix 和类 Unix 系统中的一个用于字符转换或删除的实用程序。<code>tr</code> 命令通常用于处理文本数据，例如删除特定字符、替换字符、转换大小写等操作。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>tr<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>set1<span class="w"> </span>set2
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>保留字符集1的字符，其他的字符用（包括换行符\n）字符集2替换</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>删除所有属于字符集1的字符</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>将重复出现的字符串压缩为一个字符串；用字符集2 替换 字符集1</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>字符集2 替换 字符集1，不加选项同结果</td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<ol>
+<li>将文本中的大写字母转换为小写字母：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"HELLO"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">'A-Z'</span><span class="w"> </span><span class="s1">'a-z'</span>
+</code></pre></div>
+
+<ol>
+<li>删除文本中的空格：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"hello world"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">' '</span>
+</code></pre></div>
+
+<ol>
+<li>将文本中的特定字符替换为另一个字符：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"abc-"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">'1-3'</span><span class="w"> </span><span class="s1">'X-Y'</span>
+</code></pre></div>
+
+<ol>
+<li>压缩重复字符：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"foo     bar"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">' '</span>
+</code></pre></div>
+
+<ol>
+<li>去掉空白符：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"hello\tworld"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'[:space:]'</span>
+</code></pre></div>
+
+<h2 id="5cut">5、cut切割<a class="headerlink" href="#5cut" title="Permanent link">&para;</a></h2>
+<p><code>cut</code> 是 Unix 和类 Unix 系统中的命令，用于根据指定的字符分隔符从输入中提取字段。<code>cut</code> 命令用于处理文本文件，通常与管道 (<code>|</code>) 和其他命令一起使用，以进一步处理和分析文本数据。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>cut<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>field-spec<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-f</td>
+<td>通过指定哪一个字段进行提取。cut命令使用“TAB”作为默认的字段分割符</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>“TAB”是默认的分隔符，使用此选项可更改为其他的分隔符</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>以字符为单位进行分割</td>
+</tr>
+<tr>
+<td>- -complement</td>
+<td>用于排除所指定的字段</td>
+</tr>
+<tr>
+<td>- -output-delimiter</td>
+<td>更改输出内容的分隔符</td>
+</tr>
+<tr>
+<td>-s</td>
+<td>跳过空白字段</td>
+</tr>
+<tr>
+<td>-b, -B</td>
+<td>仅打印非空白的字段。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<p>以下是使用 <code>cut</code> 命令的一些示例： </p>
+<ol>
+<li>提取指定范围内的字段：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">':'</span><span class="w"> </span>-f<span class="w"> </span><span class="m">1</span>-3<span class="w"> </span>file.txt
+</code></pre></div>
+
+<ol>
+<li>使用制表符作为分隔符提取字段：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">$'\t'</span><span class="w"> </span>-f<span class="w"> </span><span class="m">1</span><span class="w"> </span>file.txt
+</code></pre></div>
+
+<ol>
+<li>提取指定文件中的所有字段：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f<span class="w"> </span>*<span class="w"> </span>file.txt
+</code></pre></div>
+
+<ol>
+<li>仅提取非空白字段：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>cut<span class="w"> </span>-b<span class="w"> </span>file.txt
+</code></pre></div>
+
+<ol>
+<li>使用通配符提取多个字段：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f<span class="w"> </span>field1,field2,field3<span class="w"> </span>file.txt
+</code></pre></div>
+
+<h2 id="6which">6、which命令<a class="headerlink" href="#6which" title="Permanent link">&para;</a></h2>
+<p><code>which</code> 命令在 Unix 和类 Unix 系统中用于查找一个命令的完整路径。当您输入一个命令名称时，<code>which</code> 命令会告诉您该命令位于哪个文件系统中。<code>which</code> 命令通常用于确认命令是否存在于系统 PATH 中，或者用于在脚本中获取命令的确切路径。如果您想要查找的命令不存在于 PATH 中，<code>which</code> 命令将不会返回任何输出。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>which<span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-a</code> 或 <code>--all</code></td>
+<td>打印所有匹配的命令路径，而不仅仅是第一个匹配的。</td>
+</tr>
+<tr>
+<td><code>-p</code> 或 <code>--print-path</code></td>
+<td>除了命令名称外，还打印出完整的路径。</td>
+</tr>
+<tr>
+<td><code>-v</code> 或 <code>--version</code></td>
+<td>打印 <code>which</code> 命令的版本信息。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<h2 id="7whereis">7、whereis命令<a class="headerlink" href="#7whereis" title="Permanent link">&para;</a></h2>
+<p><code>whereis</code> 命令在 Unix 和类 Unix 系统中用于查找二进制文件、源代码文件和手册页的位置。它搜索默认的文件系统路径来确定指定命令的相关文件。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>whereis<span class="w"> </span><span class="o">[</span>-bms<span class="o">]</span><span class="w"> </span><span class="o">[</span>-u<span class="o">]</span><span class="w"> </span><span class="o">[</span>-f<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-L<span class="o">]</span><span class="w"> </span><span class="o">[</span>-M<span class="o">]</span><span class="w"> </span><span class="o">[</span>-S<span class="o">]</span><span class="w"> </span><span class="o">[</span>-version<span class="o">]</span><span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-b</code> 或 <code>--binary</code></td>
+<td>只查找二进制文件。</td>
+</tr>
+<tr>
+<td><code>-m</code> 或 <code>--manual</code></td>
+<td>只查找手册页。</td>
+</tr>
+<tr>
+<td><code>-s</code> 或 <code>--source</code></td>
+<td>只查找源代码文件。</td>
+</tr>
+<tr>
+<td><code>-u</code> 或 <code>--usage</code></td>
+<td>打印使用说明。</td>
+</tr>
+<tr>
+<td><code>-f</code> 或 <code>--follow</code></td>
+<td>跟随符号链接。</td>
+</tr>
+<tr>
+<td><code>-h</code> 或 <code>--help</code></td>
+<td>打印帮助信息。</td>
+</tr>
+<tr>
+<td><code>L</code> 或 <code>--logical</code></td>
+<td>搜索逻辑路径，不包含物理符号链接。</td>
+</tr>
+<tr>
+<td><code>-M</code> 或 <code>--physical</code></td>
+<td>搜索物理路径，不包含逻辑符号链接。</td>
+</tr>
+<tr>
+<td><code>-S</code> 或 <code>--size</code></td>
+<td>只查找指定大小的文件。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<h2 id="8diff">8、diff命令<a class="headerlink" href="#8diff" title="Permanent link">&para;</a></h2>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>diff<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>文件1<span class="w"> </span>文件2
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-q</code> 或 <code>--quiet</code></td>
+<td>只输出文件差异的文件名，不显示详细差异。</td>
+</tr>
+<tr>
+<td><code>-c</code> 或 <code>--context</code></td>
+<td>以语境方式显示差异，默认显示3个字符的上下文。</td>
+</tr>
+<tr>
+<td><code>-u</code> 或 <code>--unified</code></td>
+<td>以统一的方式显示差异，这是默认模式，显示共同的祖先与当前文件之间的差异。</td>
+</tr>
+<tr>
+<td><code>-a</code> 或 <code>--text</code></td>
+<td>比较文本文件，忽略文件的格式差异。</td>
+</tr>
+<tr>
+<td><code>-b</code> 或 <code>--ignore-space-change</code></td>
+<td>忽略空白的差异（空格、制表符等）。</td>
+</tr>
+<tr>
+<td><code>-B</code> 或 <code>--ignore-space-at-eol</code></td>
+<td>忽略每行末尾的空白差异。</td>
+</tr>
+<tr>
+<td><code>-i</code> 或 <code>--ignore-case</code></td>
+<td>忽略大小写差异。</td>
+</tr>
+<tr>
+<td><code>-D</code> 或 <code>--horizontal-split</code></td>
+<td>以水平分割的方式显示差异。</td>
+</tr>
+<tr>
+<td><code>-E</code> 或 <code>--sideby-side</code></td>
+<td>以并排的方式显示差异。</td>
+</tr>
+<tr>
+<td><code>-l</code> 或 <code>--from-file</code></td>
+<td>只显示文件2相对于文件1的差异。</td>
+</tr>
+<tr>
+<td><code>-r</code> 或 <code>--recursive</code></td>
+<td>递归地比较目录。</td>
+</tr>
+<tr>
+<td><code>-N</code> 或 <code>--new-file</code></td>
+<td>当文件2是文件1不存在的文件时，只显示文件2的内容。</td>
+</tr>
+<tr>
+<td><code>-x</code> 或 <code>--exclude</code></td>
+<td>跳过指定模式的文件。</td>
+</tr>
+<tr>
+<td><code>-X</code> 或 <code>--exclude-from</code></td>
+<td>从指定的文件中读取排除模式。</td>
+</tr>
+<tr>
+<td><code>--from-file=FILE</code></td>
+<td>同 <code>-l</code>，指定比较的基准文件。</td>
+</tr>
+<tr>
+<td><code>--horizontalsplit</code></td>
+<td>同 <code>-D</code>，以水平分割的方式显示差异。</td>
+</tr>
+<tr>
+<td><code>--left-column</code></td>
+<td>只显示左侧列的差异。</td>
+</tr>
+<tr>
+<td><code>--no-dereference</code></td>
+<td>不解析符号链接。</td>
+</tr>
+<tr>
+<td><code>--old-file</code></td>
+<td>当文件1是文件2不存在的文件时，只显示文件1的内容。</td>
+</tr>
+<tr>
+<td><code>--recursive</code></td>
+<td>同 <code>-r</code>，递归地比较目录。</td>
+</tr>
+<tr>
+<td><code>--right-column</code></td>
+<td>只显示右侧列的差异。</td>
+</tr>
+<tr>
+<td><code>--speed-large-files</code></td>
+<td>用于大文件，减少内存使用。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<h1 id="_2">三、文件与目录归档压缩命令<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h1>
+<h2 id="1tar">1、tar命令<a class="headerlink" href="#1tar" title="Permanent link">&para;</a></h2>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<h2 id="2zip">2、zip命令<a class="headerlink" href="#2zip" title="Permanent link">&para;</a></h2>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<h2 id="3gzip">3、gzip命令<a class="headerlink" href="#3gzip" title="Permanent link">&para;</a></h2>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<h2 id="4bzip2">4、bzip2命令<a class="headerlink" href="#4bzip2" title="Permanent link">&para;</a></h2>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2057 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://rainayom.github.io/1.0/Linux%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/9%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+      
+      
+        <link rel="prev" href="../8%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%94%A8%E6%88%B7%E4%B8%8E%E7%BB%84%E7%AE%A1%E7%90%86/">
+      
+      
+        <link rel="next" href="../../ansible/ansible%E5%9F%BA%E7%A1%80/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
+    
+    
+      
+        <title>Linux权限管理 - 运维知识库</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#linux" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="运维知识库" class="md-header__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            运维知识库
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Linux权限管理
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到明亮模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到明亮模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到暗黑模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到暗黑模式" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="切换到跟随系统"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="切换到跟随系统" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../guide/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  使用指南
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../tags/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  标签
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../0%E3%80%81linux%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95%E6%91%98%E8%A6%81/" class="md-tabs__link">
+          
+  
+  
+  Linux基础教程
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ansible/ansible%E5%9F%BA%E7%A1%80/" class="md-tabs__link">
+          
+  
+  
+  Ansible
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../ops/docker/" class="md-tabs__link">
+          
+  
+  
+  Ops
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="运维知识库" class="md-nav__button md-logo" aria-label="运维知识库" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    运维知识库
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    首页
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tags/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    标签
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux基础教程
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux基础教程
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0%E3%80%81linux%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95%E6%91%98%E8%A6%81/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    云计算课程摘要
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linix操作系统磁盘管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11%E3%80%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    计算机网络技术
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1%E3%80%81Linux%E4%B9%8B%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    操作系统架构
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2%E3%80%81CentOS7%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CentOS7安装教程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3%E3%80%81VMware%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VMware虚拟机操作
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E5%9F%BA%E7%A1%80%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%91%BD%E4%BB%A4%E8%A1%8C/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统基础设置与命令行
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统文件与目录管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7%E7%9A%84%E4%BD%9C%E7%94%A8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux中的特殊符号的作用
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E4%B8%8E%E7%9B%AE%E5%BD%95%E6%A3%80%E7%B4%A2%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux系统文件与目录内容检索
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../8%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E7%94%A8%E6%88%B7%E4%B8%8E%E7%BB%84%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux用户与组管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ansible
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ansible
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/ansible%E5%9F%BA%E7%A1%80/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ansible基础
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/kejilion%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7%E7%AE%B1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    kejilion脚本工具箱
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E4%BD%BF%E7%94%A8ansible%E5%AE%89%E8%A3%85AnsibleGalaxy%E7%9A%84roles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible安装Ansible Galaxy的roles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E4%BD%BF%E7%94%A8ansible%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用ansible批量安装docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ansible/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7pssh%E5%92%8Cansible/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    自动化工具pssh和ansible
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ops
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Ops
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Docker 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ops/nginx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nginx 运维
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="linux">Linux权限管理<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h1>
+<div class="toc">
+<ul>
+<li><a href="#linux">Linux权限管理</a></li>
+<li><a href="#_1">一、普通权限</a><ul>
+<li><a href="#1">1、概述</a><ul>
+<li><a href="#11">1.1、权限类型</a></li>
+<li><a href="#12">1.2、文件访问者的分类</a></li>
+<li><a href="#13">1.3、文件类型</a></li>
+</ul>
+</li>
+<li><a href="#2">2、普通权限管理命令</a><ul>
+<li><a href="#21chmod">2.1、chmod命令</a><ul>
+<li><a href="#_2">权限模式</a><ul>
+<li><a href="#1ugoa-">1、符号模式（ugoa+/-权限）</a></li>
+<li><a href="#2_1">2、八进制语法</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#22chown">2.2、chown命令</a><ul>
+<li><a href="#_3">基本使用格式</a></li>
+</ul>
+</li>
+<li><a href="#23umask">2.3、umask命令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_4">二、特殊权限</a><ul>
+<li><a href="#1_1">1、概述</a><ul>
+<li><a href="#_5">权限类型</a></li>
+<li><a href="#suid">SUID权限</a></li>
+<li><a href="#sgid">SGID权限</a></li>
+<li><a href="#sbid">SBID权限</a></li>
+</ul>
+</li>
+<li><a href="#2_2">2、案例</a><ul>
+<li><a href="#21suid">2.1、SUID权限</a></li>
+<li><a href="#22sgid">2.2、SGID权限</a></li>
+<li><a href="#23sbit">2.3、SBIT权限</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#acl">三、ACL权限</a><ul>
+<li><a href="#1_2">1、概述</a></li>
+<li><a href="#2_3">2、管理命令</a><ul>
+<li><a href="#21setfacl">2.1、setfacl命令</a></li>
+<li><a href="#22getfacl">2.2、getfacl命令</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="_1">一、普通权限<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<p>在多用户计算机系统的管理中，权限是指某个特点的用户具有特定的系统资源使用权力，像是文件夹、特定系统指令的使用或存储量的限制。</p>
+<h2 id="1">1、概述<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1、权限类型<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<ul>
+<li>可读用<code>r</code>表示（read）：
+   有了可读权限，就可以读取文件的内容</li>
+<li>可写用<code>w</code>表示（write）：
+   有了可写权限，就可以在文件中写入或删除内容</li>
+<li>可执行用<code>x</code>表示（execute）：
+   有了可执行权限，就可以执行该文件</li>
+<li><code>-</code>表示没有某个权限</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>权限的排列方式</th>
+<th>Linux下表示</th>
+<th>二进制表示</th>
+<th>八进制表示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>只读</td>
+<td>r--</td>
+<td>100</td>
+<td>4</td>
+</tr>
+<tr>
+<td>只可写</td>
+<td>-w-</td>
+<td>010</td>
+<td>2</td>
+</tr>
+<tr>
+<td>只可执行</td>
+<td>--x</td>
+<td>001</td>
+<td>1</td>
+</tr>
+<tr>
+<td>可写可写</td>
+<td>rw-</td>
+<td>110</td>
+<td>6</td>
+</tr>
+<tr>
+<td>可读可执行</td>
+<td>r-x</td>
+<td>101</td>
+<td>5</td>
+</tr>
+<tr>
+<td>可写可执行</td>
+<td>-wx</td>
+<td>011</td>
+<td>3</td>
+</tr>
+<tr>
+<td>可读可写可执行</td>
+<td>rwx</td>
+<td>111</td>
+<td>7</td>
+</tr>
+<tr>
+<td>空权限</td>
+<td>---</td>
+<td>000</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12">1.2、文件访问者的分类<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p>对于一个文件或目录，在Linux中有三种角色：</p>
+<ul>
+<li><strong>文件的所有者</strong>：<code>u</code>（user）</li>
+<li><strong>文件所有者的所属组</strong>：<code>g</code>（group）</li>
+<li><strong>其他用户</strong>：<code>o</code>（others）</li>
+</ul>
+<h3 id="13">1.3、文件类型<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<p>在Linux中，文件有如下几种类型：</p>
+<ul>
+<li><code>d</code>：文件夹</li>
+<li><code>-</code>：普通文件</li>
+<li><code>l</code>：软链接（类似Windows的快捷方式）</li>
+<li><code>b</code>：块设备文件（例如硬盘、光驱等）</li>
+<li><code>p</code>：管道文件</li>
+<li><code>c</code>：字符设备文件（例如屏幕等串口设备）</li>
+<li><code>s</code>：套接口文件</li>
+</ul>
+<h2 id="2">2、普通权限管理命令<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21chmod">2.1、chmod命令<a class="headerlink" href="#21chmod" title="Permanent link">&para;</a></h3>
+<p>Linux chmod（英文全拼：change mode）命令是控制用户对文件的权限的命令。</p>
+<p>chmod (change mode) 是 Linux 系统中用于更改文件或目录权限的命令，它控制着文件所有者、所属组和其他用户对文件的访问权限。</p>
+<p>只有文件所有者和超级用户可以修改文件或目录的权限。</p>
+<p>Linux/Unix 的文件调用权限分为三级 : 文件所有者（Owner）、用户组（Group）、其它用户（Other Users）。</p>
+<p><img alt="img" src="../9%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86.assets/file-permissions-rwx-17807382974122.jpg" /></p>
+<hr />
+<p>可以使用绝对模式（八进制数字模式），符号模式指定文件的权限。</p>
+<p><img alt="img" src="../9%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86.assets/rwx-standard-unix-permission-bits-17807383301834.png" /></p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>chmod<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>权限模式<span class="w"> </span>文件...
+chmod<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>--reference<span class="o">=</span>参考文件<span class="w"> </span>文件...
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>若该文件权限确实已经更改，才显示其更改动作</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>若该文件权限无法被更改也不要显示错误讯息</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示权限变更的详细资料</td>
+</tr>
+<tr>
+<td>-R</td>
+<td>对目前目录下的所有文件与子目录进行相同的权限变更(即以递归的方式逐个变更)</td>
+</tr>
+<tr>
+<td>--help</td>
+<td>显示辅助说明</td>
+</tr>
+<tr>
+<td>--version</td>
+<td>显示版本</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_2">权限模式<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<h5 id="1ugoa-">1、符号模式（ugoa+/-权限）<a class="headerlink" href="#1ugoa-" title="Permanent link">&para;</a></h5>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">ugoa...</span><span class="o">][</span><span class="n">[+-=</span><span class="o">][</span><span class="n">rwxX</span><span class="o">]</span><span class="p">...</span><span class="err">]</span><span class="o">[</span><span class="n">,...</span><span class="o">]</span>
+</code></pre></div>
+
+<p>其中：</p>
+<ul>
+<li>u 表示该文件的拥有者，g 表示与该文件的拥有者属于同一个群体(group)者，o 表示其他以外的人，a 表示这三者皆是。</li>
+<li>+ 表示增加权限、- 表示取消权限、= 表示唯一设定权限。</li>
+<li>r 表示可读取，w 表示可写入，x 表示可执行，X 表示只有当该文件是个子目录或者该文件已经被设定过为可执行。</li>
+</ul>
+<p>使用符号模式可以设置多个项目：who（用户类型），operator（操作符）和 permission（权限），每个项目的设置可以用逗号隔开。</p>
+<p>命令 chmod 将修改 who 指定的用户类型对文件的访问权限，用户类型由一个或者多个字母在 who 的位置来说明，如 who 的符号模式表所示:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">who</th>
+<th style="text-align: left;">用户类型</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>u</code></td>
+<td style="text-align: left;">user</td>
+<td style="text-align: left;">文件所有者</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>g</code></td>
+<td style="text-align: left;">group</td>
+<td style="text-align: left;">文件所有者所在组</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>o</code></td>
+<td style="text-align: left;">others</td>
+<td style="text-align: left;">所有其他用户</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>a</code></td>
+<td style="text-align: left;">all</td>
+<td style="text-align: left;">所有用户, 相当于 <em>ugo</em></td>
+</tr>
+</tbody>
+</table>
+<p>operator 的符号模式表:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Operator</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>+</code></td>
+<td style="text-align: left;">为指定的用户类型增加权限</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>-</code></td>
+<td style="text-align: left;">去除指定用户类型的权限</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>=</code></td>
+<td style="text-align: left;">设置指定用户权限的设置，即将用户类型的所有权限重新设置</td>
+</tr>
+</tbody>
+</table>
+<p>权限类型:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">模式</th>
+<th style="text-align: left;">名字</th>
+<th style="text-align: left;">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>r</code></td>
+<td style="text-align: left;">读</td>
+<td style="text-align: left;">设置为可读权限</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>w</code></td>
+<td style="text-align: left;">写</td>
+<td style="text-align: left;">设置为可写权限</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>x</code></td>
+<td style="text-align: left;">执行权限</td>
+<td style="text-align: left;">设置为可执行权限</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>X</code></td>
+<td style="text-align: left;">特殊执行权限</td>
+<td style="text-align: left;">只有当文件为目录文件，或者其他类型的用户有可执行权限时，才将文件权限设置可执行</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>s</code></td>
+<td style="text-align: left;">setuid/gid</td>
+<td style="text-align: left;">当文件被执行时，根据who参数指定的用户类型设置文件的setuid或者setgid权限</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>t</code></td>
+<td style="text-align: left;">粘贴位</td>
+<td style="text-align: left;">设置粘贴位，只有超级用户可以设置该位，只有文件所有者u可以使用该位</td>
+</tr>
+</tbody>
+</table>
+<h5 id="2_1">2、八进制语法<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h5>
+<p>chmod 命令可以使用八进制数来指定权限。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">数字</th>
+<th style="text-align: left;">权限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">读(r)</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">写(w)</td>
+</tr>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">执行(x)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>组合方式</strong>:</p>
+<ul>
+<li>所有者权限(第一位)</li>
+<li>组权限(第二位)</li>
+<li>其他用户权限(第三位)</li>
+</ul>
+<p><strong>常用组合</strong>:</p>
+<ul>
+<li>755: <code>rwxr-xr-x</code></li>
+<li>644: <code>rw-r--r--</code></li>
+<li>700: <code>rwx------</code></li>
+</ul>
+<p>文件或目录的权限位是由 9 个权限位来控制，每三位为一组，它们分别是文件所有者（User）的读、写、执行，用户组（Group）的读、写、执行以及其它用户（Other）的读、写、执行。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">#</th>
+<th style="text-align: left;">权限</th>
+<th style="text-align: left;">rwx</th>
+<th style="text-align: left;">二进制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">读 + 写 + 执行</td>
+<td style="text-align: left;">rwx</td>
+<td style="text-align: left;">111</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">读 + 写</td>
+<td style="text-align: left;">rw-</td>
+<td style="text-align: left;">110</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">读 + 执行</td>
+<td style="text-align: left;">r-x</td>
+<td style="text-align: left;">101</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">只读</td>
+<td style="text-align: left;">r--</td>
+<td style="text-align: left;">100</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">写 + 执行</td>
+<td style="text-align: left;">-wx</td>
+<td style="text-align: left;">011</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">只写</td>
+<td style="text-align: left;">-w-</td>
+<td style="text-align: left;">010</td>
+</tr>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">只执行</td>
+<td style="text-align: left;">--x</td>
+<td style="text-align: left;">001</td>
+</tr>
+<tr>
+<td style="text-align: left;">0</td>
+<td style="text-align: left;">无</td>
+<td style="text-align: left;">---</td>
+<td style="text-align: left;">000</td>
+</tr>
+</tbody>
+</table>
+<p>例如， 765 将这样解释：</p>
+<ul>
+<li>所有者的权限用数字表达：属主的那三个权限位的数字加起来的总和。如 rwx ，也就是 4+2+1 ，应该是 7。</li>
+<li>用户组的权限用数字表达：属组的那个权限位数字的相加的总和。如 rw- ，也就是 4+2+0 ，应该是 6。</li>
+<li>其它用户的权限数字表达：其它用户权限位的数字相加的总和。如 r-x ，也就是 4+0+1 ，应该是 5。</li>
+</ul>
+<p><strong>案例：</strong></p>
+<p>将文件 file1.txt 设为所有人皆可读取 :</p>
+<div class="codehilite"><pre><span></span><code>chmod ugo+r file1.txt
+</code></pre></div>
+
+<p>将文件 file1.txt 设为所有人皆可读取 :</p>
+<div class="codehilite"><pre><span></span><code>chmod a+r file1.txt
+</code></pre></div>
+
+<p>将文件 file1.txt 与 file2.txt 设为该文件拥有者，与其所属同一个群体者可写入，但其他以外的人则不可写入 :</p>
+<div class="codehilite"><pre><span></span><code>chmod ug+w,o-w file1.txt file2.txt
+</code></pre></div>
+
+<p>为 ex1.py 文件拥有者增加可执行权限:</p>
+<div class="codehilite"><pre><span></span><code>chmod u+x ex1.py
+</code></pre></div>
+
+<p>将目前目录下的所有文件与子目录皆设为任何人可读取 :</p>
+<div class="codehilite"><pre><span></span><code>chmod -R a+r *
+</code></pre></div>
+
+<p>此外chmod也可以用数字来表示权限如 :</p>
+<div class="codehilite"><pre><span></span><code>chmod 777 file
+</code></pre></div>
+
+<p>语法为：</p>
+<div class="codehilite"><pre><span></span><code>chmod abc file
+</code></pre></div>
+
+<p>其中a,b,c各为一个数字，分别表示User、Group、及Other的权限。</p>
+<p>r=4，w=2，x=1</p>
+<ul>
+<li>若要 rwx 属性则 4+2+1=7；</li>
+<li>若要 rw- 属性则 4+2=6；</li>
+<li>若要 r-x 属性则 4+1=5。</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>chmod a=rwx file
+</code></pre></div>
+
+<p>和</p>
+<div class="codehilite"><pre><span></span><code>chmod 777 file
+</code></pre></div>
+
+<p>效果相同</p>
+<div class="codehilite"><pre><span></span><code>chmod ug=rwx,o=x file
+</code></pre></div>
+
+<p>和</p>
+<div class="codehilite"><pre><span></span><code>chmod 771 file
+</code></pre></div>
+
+<p>效果相同</p>
+<p>若用 <strong>chmod 4755 filename</strong> 可使此程序具有 root 的权限。</p>
+<h3 id="22chown">2.2、chown命令<a class="headerlink" href="#22chown" title="Permanent link">&para;</a></h3>
+<p>Linux chown（英文全拼：<strong>change owner</strong>）命令用于设置文件所有者和文件关联组的命令。</p>
+<p>Linux/Unix 是多人多工操作系统，所有的文件皆有拥有者。利用 chown 将指定文件的拥有者改为指定的用户或组，用户可以是用户名或者用户 ID，组可以是组名或者组 ID，文件是以空格分开的要改变权限的文件列表，支持通配符。</p>
+<p>chown 需要超级用户 <strong>root</strong> 的权限才能执行此命令，非超级用户如需要设置关联组可能需要使用 <a href="https://www.runoob.com/linux/linux-comm-chgrp.html">chgrp</a> 命令。</p>
+<p><strong>使用权限</strong> : root</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>chown<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>所有者<span class="o">[</span>:组<span class="o">]</span><span class="w"> </span>文件...
+chown<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>--reference<span class="o">=</span>参考文件<span class="w"> </span>文件...
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-R, --recursive</td>
+<td>递归更改目录及其子目录中所有文件的所有者</td>
+</tr>
+<tr>
+<td>-v, --verbose</td>
+<td>显示详细操作信息</td>
+</tr>
+<tr>
+<td>-c, --changes</td>
+<td>只显示实际发生更改的文件</td>
+</tr>
+<tr>
+<td>-h, --no-dereference</td>
+<td>影响符号链接本身，而不是链接指向的文件</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_3">基本使用格式<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p><strong>1. 只更改所有者</strong></p>
+<div class="codehilite"><pre><span></span><code>chown username filename
+chown john file.txt
+</code></pre></div>
+
+<p><strong>2. 同时更改所有者和组</strong></p>
+<div class="codehilite"><pre><span></span><code>chown username:groupname filename
+chown john:developers script.sh
+</code></pre></div>
+
+<p><strong>3. 只更改组（所有者前留空）</strong></p>
+<div class="codehilite"><pre><span></span><code>chown :groupname filename
+chown :staff document.txt
+</code></pre></div>
+
+<p><strong>4. 使用数字ID</strong></p>
+<div class="codehilite"><pre><span></span><code>chown 1000:1000 filename    # 用户ID 1000，组ID 1000
+chown 1001 filename         # 只更改用户ID
+</code></pre></div>
+
+<p><strong>案例：</strong></p>
+<p>把 /var/run/httpd.pid 的所有者设置 root：</p>
+<div class="codehilite"><pre><span></span><code><span class="n">chown</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">httpd</span><span class="o">.</span><span class="n">pid</span>
+</code></pre></div>
+
+<p>将文件 file1.txt 的拥有者设为 runoob，群体的使用者 runoobgroup :</p>
+<div class="codehilite"><pre><span></span><code>chown runoob:runoobgroup file1.txt
+</code></pre></div>
+
+<p>将当前前目录下的所有文件与子目录的拥有者皆设为 runoob，群体的使用者 runoobgroup:</p>
+<div class="codehilite"><pre><span></span><code>chown -R runoob:runoobgroup *
+</code></pre></div>
+
+<p>把 /home/runoob 的关联组设置为 512 （关联组ID），不改变所有者：</p>
+<div class="codehilite"><pre><span></span><code>chown :512 /home/runoob
+</code></pre></div>
+
+<h3 id="23umask">2.3、umask命令<a class="headerlink" href="#23umask" title="Permanent link">&para;</a></h3>
+<p>umask可用来设定[权限掩码]。[权限掩码]是由3个八进制的数字所组成，将现有的存取权限减掉权限掩码后，即可产生建立文件时预设的权限。</p>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="nb">umask</span><span class="w"> </span><span class="o">[</span>-S<span class="o">][</span>权限掩码<span class="o">]</span>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-S</td>
+<td>以文字的方式来表示权限掩码。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<p>使用指令"umask"查看当前权限掩码，则输入下面的命令：</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span><span class="nb">umask</span><span class="w">                         </span><span class="c1">#获取当前权限掩码 </span>
+</code></pre></div>
+
+<p>执行上面的指令后，输出信息如下：</p>
+<div class="codehilite"><pre><span></span><code><span class="m">0022</span>
+</code></pre></div>
+
+<p>接下来，使用指令"mkdir"创建一个目录，并使用指令"ls"获取该目录的详细信息，输入命令如下：</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>mkdir<span class="w"> </span>test1<span class="w">                       </span><span class="c1">#创建目录  </span>
+$<span class="w"> </span>ls<span class="w"> </span>–d<span class="w"> </span>–l<span class="w"> </span>test1/<span class="w">                   </span><span class="c1">#显示目录的详细信息  </span>
+</code></pre></div>
+
+<p>执行上面的命令后，将显示新创建目录的详细信息，如下所示：</p>
+<div class="codehilite"><pre><span></span><code>drwxr-xr-x<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">4096</span><span class="w">  </span>6月<span class="w"> </span>6日<span class="w"> </span><span class="m">17</span>:39<span class="w"> </span>test1/
+</code></pre></div>
+
+<p>上面的输出信息中，"drwxr-xr-x"="777-022=755"。</p>
+<h1 id="_4">二、特殊权限<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h1>
+<h2 id="1_1">1、概述<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h2>
+<p>在linux系统中，我们熟知有rwx三种权限，对应所有者，同组用户，其他用户三种用户的权限，一般而言，这三种权限已经能够满足需求，但是针对一些特殊情况，还需要有三种特殊权限来完善文件权限的管理。</p>
+<h3 id="_5">权限类型<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<h3 id="suid">SUID权限<a class="headerlink" href="#suid" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p>set UID，第3位上表现为s。</p>
+</li>
+<li>
+<p>如果该属主权限位上有执行权限，则会显示（小写）s。</p>
+</li>
+<li>
+<p>如果该属主权限位上没有执行权限，则会显示（大写）S。</p>
+</li>
+<li>
+<p>只要一个命令文件在属主权限位上的x变成s的话，那么其它用户在执行这个命令文件时，就会以该命令文件的属主用户身份去执行。</p>
+</li>
+<li>suid仅对二进制可执行程序有效，其它文件或目录无效。</li>
+</ul>
+<h3 id="sgid">SGID权限<a class="headerlink" href="#sgid" title="Permanent link">&para;</a></h3>
+<ul>
+<li>set GID，第6位上表现为s。</li>
+<li>如果该属组权限位上有执行权限，则会显示（小写）s。</li>
+<li>如果该属组权限位上没有执行权限，则会显示（大写）S。</li>
+<li>SGID改变的是执行者的所属组，可以对可执行文件和目录设置。一般情况下是设置给目录使用的，通过对目录设置SGID属性，可以使得访问在该目录下创建的所有文件的所有权，都继承原目录的所有者，而非创建者。因为一旦有用户进入到该目录下，由于具有SGID权限，进入目录后的用户就会变成该目录的所有者，在该目录下创建的所有文件，都以该目录的所有者的身份创建。</li>
+</ul>
+<h3 id="sbid">SBID权限<a class="headerlink" href="#sbid" title="Permanent link">&para;</a></h3>
+<ul>
+<li>SBID权限同样只对目录有效，在权限位的最低位表现为t。</li>
+<li>如果该其它用户权限位上有执行权限，则会显示（小写）t。</li>
+<li>如果该其它用户权限位上没有执行权限，则会显示（大写）T。</li>
+<li>通过对目录设置SBID权限，并且该目录的权限为777，则所有用户可以在该目录下都可以创建文件，并且文件所有者是自己。但是在SBID权限的目录下，只有root和文件的所有者才能删除该文件，即使文件的属性为777也不能被其他用户删除。</li>
+<li>sticky目录表现在others 的 x 位，用（小写）t 表示，没有执行权限时（大写）T，一个目录即使使得它的权限为“777” ，如果设置了粘滞位，除了目录的属主和“root”用户有权限删除，其它用户都不允许删除。</li>
+</ul>
+<h2 id="2_2">2、案例<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h2>
+<h3 id="21suid">2.1、SUID权限<a class="headerlink" href="#21suid" title="Permanent link">&para;</a></h3>
+<p><strong>如果普通用户在使用passwd命令时，是以root用户身份去执行的话，那普通用户是不是可以修改其它用户的密码？</strong>
+答：是不可以的，因为在passwd命令中，存在一种判断，此判断会在执行passwd命令时去判断执行的用户时是root还是普通用户，如果是普通用户，那么只能使用passwd命令，后面不可加上参数，如果是root用户，后面才可加上其它参数（参数就是用户）。那么普通用户就无法进行修改其它用户的密码。</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>root@centos7<span class="w"> </span>~<span class="o">]</span><span class="c1"># useradd hello   #创建一个用户</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>~<span class="o">]</span><span class="c1"># passwd hello    #设置它的密码</span>
+更改用户<span class="w"> </span>hello<span class="w"> </span>的密码<span class="w"> </span>。
+新的<span class="w"> </span>密码：
+重新输入新的<span class="w"> </span>密码：
+passwd：所有的身份验证令牌已经成功更新。
+<span class="o">[</span>root@centos7<span class="w"> </span>~<span class="o">]</span><span class="c1"># ll /bin/passwd    #查看passwd命令权限</span>
+-rwsr-xr-x.<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">27832</span><span class="w"> </span>6月<span class="w">  </span><span class="m">10</span><span class="w"> </span><span class="m">2014</span><span class="w"> </span>/bin/passwd
+
+<span class="o">[</span>root@centos7<span class="w"> </span>~<span class="o">]</span><span class="c1"># su hello     #切换到hello用户  </span>
+<span class="o">[</span>hello@centos7<span class="w"> </span>root<span class="o">]</span>$<span class="w"> </span>passwd<span class="w">    </span><span class="c1">#修改密码</span>
+更改用户<span class="w"> </span>hello<span class="w"> </span>的密码<span class="w"> </span>。
+为<span class="w"> </span>hello<span class="w"> </span>更改<span class="w"> </span>STRESS<span class="w"> </span>密码。
+（当前）UNIX<span class="w"> </span>密码：
+新的<span class="w"> </span>密码：
+重新输入新的密码：
+passwd：所有的身份验证令牌已经成功更新。<span class="w">   </span><span class="c1">#可以成功修改</span>
+
+<span class="o">[</span>hello@centos7<span class="w"> </span>root<span class="o">]</span>$<span class="w"> </span>su<span class="w"> </span>root<span class="w">    </span><span class="c1">#返回root用户</span>
+密码：
+<span class="o">[</span>root@centos7<span class="w"> </span>~<span class="o">]</span><span class="c1"># chmod u-s /bin/passwd   #修改passwd的权限，去掉suid权限</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>~<span class="o">]</span><span class="c1"># ll /bin/passwd</span>
+-rwxr-xr-x.<span class="w"> </span><span class="m">1</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">27832</span><span class="w"> </span>6月<span class="w">  </span><span class="m">10</span><span class="w"> </span><span class="m">2014</span><span class="w"> </span>/bin/passwd<span class="w">   </span><span class="c1">#发现s变成了x</span>
+
+<span class="o">[</span>root@centos7<span class="w"> </span>~<span class="o">]</span><span class="c1"># su hello   #再切换到hello用户</span>
+<span class="o">[</span>hello@centos7<span class="w"> </span>root<span class="o">]</span>$<span class="w"> </span>passwd<span class="w">   </span><span class="c1">#修改密码</span>
+更改用户<span class="w"> </span>hello<span class="w"> </span>的密码<span class="w"> </span>。
+为<span class="w"> </span>hello<span class="w"> </span>更改<span class="w"> </span>STRESS<span class="w"> </span>密码。
+（当前）UNIX<span class="w"> </span>密码：
+新的<span class="w"> </span>密码：
+重新输入新的<span class="w"> </span>密码：<span class="w"> </span>
+passwd:<span class="w"> </span>鉴定令牌操作错误<span class="w">    </span><span class="c1">#密码无法进行修改</span>
+</code></pre></div>
+
+<h3 id="22sgid">2.2、SGID权限<a class="headerlink" href="#22sgid" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>root@centos7<span class="w"> </span>opt<span class="o">]</span><span class="c1"># mkdir ydq   #创建目录</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>opt<span class="o">]</span><span class="c1"># ll</span>
+总用量<span class="w"> </span><span class="m">0</span>
+drwxr-xr-x.<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">6</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">00</span>:23<span class="w"> </span>ydq<span class="w">   </span><span class="c1">#查看权限</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>opt<span class="o">]</span><span class="c1"># chmod 777 ydq   #查看权限为777</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>opt<span class="o">]</span><span class="c1"># ll</span>
+总用量<span class="w"> </span><span class="m">0</span>
+drwxrwxrwx.<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">6</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">00</span>:23<span class="w"> </span>ydq<span class="w">   </span><span class="c1">#权限已修改</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>opt<span class="o">]</span><span class="c1"># cd ydq   #进入到cd目录</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>ydq<span class="o">]</span><span class="c1"># mkdir aaa  #创建aaa文件</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>ydq<span class="o">]</span><span class="c1"># ll</span>
+总用量<span class="w"> </span><span class="m">0</span>
+drwxr-xr-x.<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">6</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">00</span>:23<span class="w"> </span>aaa<span class="w">  </span><span class="c1">#可以看到aaa文件的属主和数组都是root</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>ydq<span class="o">]</span><span class="c1"># su hello    #切换hello用户</span>
+<span class="o">[</span>hello@centos7<span class="w"> </span>ydq<span class="o">]</span>$<span class="w"> </span>mkdir<span class="w"> </span>bbb<span class="w">   </span><span class="c1">#创建bbb目录</span>
+<span class="o">[</span>hello@centos7<span class="w"> </span>ydq<span class="o">]</span>$<span class="w"> </span>ll
+总用量<span class="w"> </span><span class="m">0</span>
+drwxr-xr-x.<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w">  </span>root<span class="w">  </span><span class="m">6</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">00</span>:23<span class="w"> </span>aaa
+drwxrwxr-x.<span class="w"> </span><span class="m">2</span><span class="w"> </span>hello<span class="w"> </span>hello<span class="w"> </span><span class="m">6</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">00</span>:24<span class="w"> </span>bbb<span class="w">  </span><span class="c1">#可以看到bbb文件的属主和属组都是hello文件</span>
+<span class="o">[</span>hello@centos7<span class="w"> </span>ydq<span class="o">]</span>$<span class="w"> </span><span class="nb">exit</span><span class="w">  </span><span class="c1">#返回root用户</span>
+<span class="nb">exit</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>ydq<span class="o">]</span><span class="c1"># cd ../   #返回上一级</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>opt<span class="o">]</span><span class="c1"># chmod g+s ydq   #将ydq目录增加sgid</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>opt<span class="o">]</span><span class="c1"># ll</span>
+总用量<span class="w"> </span><span class="m">0</span>
+drwxrwsrwx.<span class="w"> </span><span class="m">4</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">28</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">00</span>:24<span class="w"> </span>ydq<span class="w">   </span><span class="c1">#属组的权限已增加了s</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>opt<span class="o">]</span><span class="c1"># cd ydq   #进入ydq目录</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>ydq<span class="o">]</span><span class="c1"># su hello   #切换hello用户</span>
+<span class="o">[</span>hello@centos7<span class="w"> </span>ydq<span class="o">]</span>$<span class="w"> </span>mkdir<span class="w"> </span>ccc<span class="w">    </span><span class="c1">#创建目录ccc</span>
+<span class="o">[</span>hello@centos7<span class="w"> </span>ydq<span class="o">]</span>$<span class="w"> </span>ll
+总用量<span class="w"> </span><span class="m">0</span>
+drwxr-xr-x.<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w">  </span>root<span class="w">  </span><span class="m">6</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">00</span>:23<span class="w"> </span>aaa
+drwxrwxr-x.<span class="w"> </span><span class="m">2</span><span class="w"> </span>hello<span class="w"> </span>hello<span class="w"> </span><span class="m">6</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">00</span>:24<span class="w"> </span>bbb
+drwxrwsr-x.<span class="w"> </span><span class="m">2</span><span class="w"> </span>hello<span class="w"> </span>root<span class="w">  </span><span class="m">6</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">00</span>:25<span class="w"> </span>ccc<span class="w">   </span><span class="c1">#ccc的属组用户已变为跟ydq目录一致的用户</span>
+</code></pre></div>
+
+<h3 id="23sbit">2.3、SBIT权限<a class="headerlink" href="#23sbit" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>root@centos7<span class="w"> </span>opt<span class="o">]</span><span class="c1"># ll    #查看权限</span>
+总用量<span class="w"> </span><span class="m">0</span>
+drwxrwxrwx.<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">6</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:27<span class="w"> </span>yude<span class="w">   </span><span class="c1">#权限为777</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>opt<span class="o">]</span><span class="c1"># chmod o+t yude   #增加sticky bit权限</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>opt<span class="o">]</span><span class="c1"># ll   #查看权限</span>
+总用量<span class="w"> </span><span class="m">0</span>
+drwxrwxrwt.<span class="w"> </span><span class="m">2</span><span class="w"> </span>root<span class="w"> </span>root<span class="w"> </span><span class="m">6</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:27<span class="w"> </span>yude<span class="w">   </span><span class="c1">#其它用户上权限多了sticky bit权限</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>opt<span class="o">]</span><span class="c1"># cd yude  #进入到yude目录下面</span>
+
+<span class="o">[</span>root@centos7<span class="w"> </span>yude<span class="o">]</span><span class="c1"># su hello    #切换hello用户</span>
+<span class="o">[</span>hello@centos7<span class="w"> </span>yude<span class="o">]</span>$<span class="w"> </span>touch<span class="w"> </span>bbb<span class="w">    </span><span class="c1">#创建一个文件</span>
+<span class="o">[</span>hello@centos7<span class="w"> </span>yude<span class="o">]</span>$<span class="w"> </span>ll<span class="w">    </span><span class="c1">#查看文件，文件正常创建</span>
+总用量<span class="w"> </span><span class="m">0</span>
+-rw-rw-r--.<span class="w"> </span><span class="m">1</span><span class="w"> </span>hello<span class="w"> </span>hello<span class="w"> </span><span class="m">0</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:39<span class="w"> </span>bbb<span class="w">    </span>
+
+<span class="o">[</span>hello@centos7<span class="w"> </span>yude<span class="o">]</span>$<span class="w"> </span><span class="nb">exit</span><span class="w">   </span><span class="c1">#退出当前用户</span>
+<span class="nb">exit</span>
+<span class="o">[</span>root@centos7<span class="w"> </span>yude<span class="o">]</span><span class="c1"># su ydq    #切换到ydq用户</span>
+<span class="o">[</span>ydq@centos7<span class="w"> </span>yude<span class="o">]</span>$<span class="w"> </span>ll
+总用量<span class="w"> </span><span class="m">0</span>
+-rw-rw-r--.<span class="w"> </span><span class="m">1</span><span class="w"> </span>hello<span class="w"> </span>hello<span class="w"> </span><span class="m">0</span><span class="w"> </span>5月<span class="w">  </span><span class="m">17</span><span class="w"> </span><span class="m">09</span>:39<span class="w"> </span>bbb<span class="w">   </span><span class="c1">#可以查看到hello用户创建的文件</span>
+<span class="o">[</span>ydq@centos7<span class="w"> </span>yude<span class="o">]</span>$<span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>./bbb<span class="w">   </span><span class="c1">#进行删除bbb文件</span>
+rm:<span class="w"> </span>无法删除<span class="s2">"./bbb"</span>:<span class="w"> </span>不允许的操作<span class="w">     </span><span class="c1">#无法进行删除</span>
+</code></pre></div>
+
+<h1 id="acl">三、ACL权限<a class="headerlink" href="#acl" title="Permanent link">&para;</a></h1>
+<h2 id="1_2">1、概述<a class="headerlink" href="#1_2" title="Permanent link">&para;</a></h2>
+<p>读、写、执行权限是用户操作文件、目录的权限。ACL权限也是用户对文件是否有读、写、执行的权限。目录或文件的所有者、所属组、其他人的权限都已经设定，但是如果想要让新用户对文件、目录有不同的权限（不同于所有者、所属组、其他人的权限），为了满足这种特殊的需求，需要对用户单独设置ACL权限。是否支持ACL权限，不是文件支持也不是用户支持，而是文件所在的分区是否支持ACL权限。</p>
+<p>查看分区ACL权限是否开启dumpe2fs</p>
+<div class="codehilite"><pre><span></span><code>dumpe2fs<span class="w"> </span>-h<span class="w"> </span>分区
+</code></pre></div>
+
+<h2 id="2_3">2、管理命令<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h2>
+<h3 id="21setfacl">2.1、setfacl命令<a class="headerlink" href="#21setfacl" title="Permanent link">&para;</a></h3>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+<h3 id="22getfacl">2.2、getfacl命令<a class="headerlink" href="#22getfacl" title="Permanent link">&para;</a></h3>
+<p><strong>语法：</strong></p>
+<div class="codehilite"><pre><span></span><code>
+</code></pre></div>
+
+<p><strong>选项：</strong></p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>案例：</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "search.suggest", "content.code.copy"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "version": {"alias": true, "default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
