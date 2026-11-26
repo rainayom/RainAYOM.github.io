@@ -1,0 +1,12 @@
+[Unit]
+Description=每 5 分钟检查 MkDocs 文档改动并推送 GitHub Pages
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+AccuracySec=30s
+Persistent=false
+Unit=mkdocs-autopush.service
+
+[Install]
+WantedBy=timers.target

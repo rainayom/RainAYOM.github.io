@@ -1,0 +1,20 @@
+[Unit]
+Description=MkDocs 文档自动提交并发布到 GitHub Pages
+Documentation=https://rainayom.github.io/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+User=mkdocs
+Group=docs
+WorkingDirectory=/srv/mkdocs/repo
+Environment=HOME=/var/lib/mkdocs
+Environment=PATH=/srv/mkdocs/.venv/bin:/usr/local/bin:/usr/bin:/bin
+Environment=ROOT=/srv/mkdocs/repo
+Environment=VENV=/srv/mkdocs/.venv
+Environment=VERSION=1.0
+Environment=ALIAS=latest
+ExecStart=/srv/mkdocs/repo/autopush.sh
+TimeoutStartSec=300
+Nice=10
