@@ -1,5 +1,5 @@
 site_name: 运维知识库
-site_url: http://192.168.7.130:8001/
+site_url: https://rainayom.github.io/
 docs_dir: docs
 site_dir: site
 theme:
