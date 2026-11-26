@@ -871,3 +871,27 @@ find "$D" -type f -exec chmod 0664 {} +
 | 目录层级过深 | 标题层级本来就 4～5 层 | `mkdocs.yml` 加 `toc_depth: 2-3` 截断 |
 | 标签页没有新目录 | 没跑 autotag / 文档已有 tags 但混写 | 手工跑 `tools/autotag.py docs` 看输出 |
 | `tools/*.py` 报 Permission denied | 属主是 root | `chown mkdocs:docs tools/*.py` |
+
+### 20.8 目录首页（章节索引）
+
+`/Linux基础教程/` 原来直接 404，因为该目录没有 `index.md`。现在：
+
+1. `hooks/index_listing.py` 新增标记 `<!-- SECTION-LIST -->`：在**任意目录的 `index.md`** 里写这个标记，构建时自动列出该目录（含子目录）下所有 md，带标题与相对链接；
+2. `docs/Linux基础教程/index.md` 用了这个标记，正文只写一句简介 + `## 文档列表`。
+
+```markdown
+---
+tags:
+  - Linux基础教程
+---
+
+# Linux 基础教程
+
+本目录是从 Linux 入门到日常运维的系统化笔记，按章节顺序阅读即可。
+
+## 文档列表
+
+<!-- SECTION-LIST -->
+```
+
+再往这个目录丢新 md，标题会自动出现在列表里，`tags` 也会由 `tools/autotag.py` 补；两件事都在 autopush 一次循环内完成。
