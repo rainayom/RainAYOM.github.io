@@ -1,0 +1,49 @@
+site_name: 运维知识库
+site_url: http://192.168.7.130:8000/
+docs_dir: docs
+site_dir: site
+theme:
+  name: material
+  language: zh
+  palette:
+    # 自动模式：交给操作系统决定（9.5.0+）
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: 切换到明亮模式
+    # 明亮模式
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切换到暗黑模式
+    # 暗黑模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切换到跟随系统
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - search.suggest
+    - content.code.copy
+plugins:
+  - search
+  - awesome-pages
+  - tags
+hooks:
+  - hooks/index_listing.py
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+
+extra:
+  version:
+    provider: mike
+    default: latest
+    alias: true
