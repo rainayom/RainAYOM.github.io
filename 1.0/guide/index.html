@@ -286,7 +286,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../Linux%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/0%E3%80%81linux%E6%96%87%E6%A1%A3%E7%9B%AE%E5%BD%95%E6%91%98%E8%A6%81/" class="md-tabs__link">
+        <a href="../Linux%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-tabs__link">
           
   
   
@@ -1122,6 +1122,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#208" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.8 目录首页（章节索引）
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1213,6 +1224,34 @@
 
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Linux%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux 基础教程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -2555,6 +2594,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#208" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        20.8 目录首页（章节索引）
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3814,6 +3864,27 @@ find<span class="w"> </span><span class="s2">"</span><span class="nv">$D</span><
 </tr>
 </tbody>
 </table>
+<h3 id="208">20.8 目录首页（章节索引）<a class="headerlink" href="#208" title="Permanent link">&para;</a></h3>
+<p><code>/Linux基础教程/</code> 原来直接 404，因为该目录没有 <code>index.md</code>。现在：</p>
+<ol>
+<li><code>hooks/index_listing.py</code> 新增标记 <code>&lt;!-- SECTION-LIST --&gt;</code>：在<strong>任意目录的 <code>index.md</code></strong> 里写这个标记，构建时自动列出该目录（含子目录）下所有 md，带标题与相对链接；</li>
+<li><code>docs/Linux基础教程/index.md</code> 用了这个标记，正文只写一句简介 + <code>## 文档列表</code>。</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>---
+tags:
+<span class="gu">  - Linux基础教程</span>
+<span class="gu">---</span>
+
+<span class="gh"># Linux 基础教程</span>
+
+本目录是从 Linux 入门到日常运维的系统化笔记，按章节顺序阅读即可。
+
+<span class="gu">## 文档列表</span>
+
+&lt;!-- SECTION-LIST --&gt;
+</code></pre></div>
+
+<p>再往这个目录丢新 md，标题会自动出现在列表里，<code>tags</code> 也会由 <code>tools/autotag.py</code> 补；两件事都在 autopush 一次循环内完成。</p>
 
 
 
