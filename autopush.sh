@@ -25,6 +25,17 @@ flock -n 9 || { log "已有实例在运行，跳过本次"; exit 0; }
 
 cd "$ROOT"
 
+# 0) 新文档自动补标签（幂等：已带 tags 的文件不动，无新文件时几毫秒返回）
+if [[ -x "$VENV/bin/python" && -f "$ROOT/tools/autotag.py" ]]; then
+  if ! "$VENV/bin/python" "$ROOT/tools/autotag.py" "$ROOT/docs" >/tmp/autotag.log 2>&1; then
+    log "autotag 执行失败，详见 /tmp/autotag.log"
+  elif grep -q '新增标签 0 个' /tmp/autotag.log; then
+    log "标签无需补全"
+  else
+    log "已为新文档补标签：$(grep -c '^\[tag\]' /tmp/autotag.log) 个"
+  fi
+fi
+
 # 1) 有无改动
 if [[ -n "$(git status --porcelain)" ]]; then
   log "检测到改动，提交中"

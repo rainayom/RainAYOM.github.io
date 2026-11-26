@@ -764,3 +764,110 @@ WantedBy=paths.target
 | 推 `gh-pages` 报权限拒绝 | 部署密钥没勾写权限 | Deploy key 上补勾 Allow write access |
 | 站点没变化 | Pages 还在构建 / 缓存 | 看 Actions 里 pages build，等 1～2 分钟再刷 |
 | 提交里混进垃圾文件 | `.gitignore` 不全 | 补 `*.bak*`、`*.swp`、`site/`、`.venv/` |
+
+---
+
+## 20. 阶段十四：右侧目录缺失修复 + 新文档自动打标签
+
+### 20.1 现象
+
+`http://192.168.7.130:8000/Linux基础教程/` 下的 12 篇 md 全部能打开，但**右侧目录栏永远空白**；同时这批文档不出现在 `/tags/` 标签页。
+
+### 20.2 根因
+
+Material 的目录模板 `partials/toc.html` 有这样一段：
+
+```jinja
+{% set toc = page.toc %}
+{% set first = toc | first %}
+{% if first and first.level == 1 %}
+  {% set toc = first.children %}
+{% endif %}
+```
+
+即：**如果正文第一个标题是 H1，右侧目录只显示它的下级标题**。
+
+而这批文档是 Typora/语雀导出的，结构是「一个文章标题 H1 + 若干同级 `# 一、xxx` H1」，等于第一个 H1 下面什么都没有 → `first.children` 为空 → 目录标签渲染出来但里面没有条目。
+
+另一种情况是文件里只有 1 个 H1、完全没有 H2，那也是空目录（`0、linux文档目录摘要.md` 就属于这种，属正常）。
+
+源码里还能看到两处 Typora 痕迹：行尾是 CRLF、正文有一行字面 `[TOC]`（MkDocs 的 toc 扩展会把它替换成内嵌目录，所以不报错，但位置和右侧目录重复）。
+
+### 20.3 处理办法
+
+规矩只有一条：**一篇文档只能有一个 H1（页面标题），其余标题按层级往下排**。
+
+仓库里放了两个不改内容语义的脚本：
+
+| 脚本 | 作用 | 用法 |
+| --- | --- | --- |
+| `tools/fix_headings.py` | 第一个 H1 保留，其余标题统一降一级（H1→H2、H2→H3…最深 H6）；顺带 CRLF→LF；跳过 front matter 与代码块里的 `#` | `python3 tools/fix_headings.py docs/Linux基础教程` |
+| `tools/autotag.py` | 没有 `tags` 的文档自动补 front matter，标签取文档所在的一级目录名（根目录文档记「通用」）；幂等，`docs/tags.md` 跳过 | `python3 tools/autotag.py docs` |
+
+两个脚本都支持 `--dry-run` 先看要改哪些文件：
+
+```bash
+cd /srv/mkdocs/repo
+runuser -u mkdocs -- /srv/mkdocs/.venv/bin/python tools/fix_headings.py docs/Linux基础教程 --dry-run
+```
+
+实测这批文档 12 篇里 11 篇需要降级（`8、Linux系统用户与组管理.md` 最多，28 处；`/etc/shadow` 配置块里的 `#` 注释因为在代码块内，原样保留）。
+
+执行完的效果：
+
+```text
+# Linux系统基础设置与命令行      <- 页面标题，唯一 H1
+## 一、系统基本操作              <- 右侧目录第一层
+### 1、登录界面
+### 2、桌面
+```
+
+### 20.4 让标签自动跟上
+
+`autopush.sh` 在每次同步前会先跑一遍 `autotag.py`：
+
+```bash
+# 0) 新文档自动补标签（幂等：已带 tags 的文件不动，无新文件时几毫秒返回）
+if [[ -x "$VENV/bin/python" && -f "$ROOT/tools/autotag.py" ]]; then
+  if ! "$VENV/bin/python" "$ROOT/tools/autotag.py" "$ROOT/docs" >/tmp/autotag.log 2>&1; then
+    log "autotag 执行失败，详见 /tmp/autotag.log"
+  elif grep -q '新增标签 0 个' /tmp/autotag.log; then
+    log "标签无需补全"
+  else
+    log "已为新文档补标签：$(grep -c '^\[tag\]' /tmp/autotag.log) 个"
+  fi
+fi
+```
+
+所以往 `docs/Linux基础教程/` 里再丢一篇 md，5 分钟内会自动：补 `tags: Linux基础教程` → 提交 main → `mike deploy 1.0 latest` → 推 gh-pages → Pages 更新，标签页与版本站同时刷新。
+
+### 20.5 权限要点
+
+通过 SMB 上传的文件属主是 Samba 账号（`mdftp`），但目录里若混有 root 属主文件，`mkdocs` 身份构建时可能读不动、后续也无法由 mkdocs 改写。统一归位：
+
+```bash
+D=/srv/mkdocs/repo/docs/Linux基础教程
+chown -R mkdocs:docs "$D"
+find "$D" -type d -exec chmod 2775 {} +
+find "$D" -type f -exec chmod 0664 {} +
+```
+
+### 20.6 验收
+
+| 检查点 | 命令 | 期望 |
+| --- | --- | --- |
+| 右侧目录有条目 | 打开页面，右侧栏 | 出现「一、系统基本操作 / 1、登录界面…」 |
+| 构建产物里有 TOC | `grep -c 'data-md-component="toc"' site/Linux基础教程/*/index.html` | 各页 ≥1 |
+| 标签收录 | 打开 `/tags/` | 出现「Linux基础教程」，链接 12 篇 |
+| 版本站同步 | `https://rainayom.github.io/1.0/Linux%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/` | 页面正常、目录可见 |
+
+已实测：`4、Linux系统基础设置与命令行` 右侧目录 11 条、`8、Linux系统用户与组管理` 4 条（其余是代码块内的注释，本来就不该进目录）。
+
+### 20.7 常见故障
+
+| 现象 | 原因 | 处理 |
+| --- | --- | --- |
+| 目录还是空 | 该页只有一个 H1 | 补 H2 小节，或接受空目录 |
+| 目录层级过深 | 标题层级本来就 4～5 层 | `mkdocs.yml` 加 `toc_depth: 2-3` 截断 |
+| 标签页没有新目录 | 没跑 autotag / 文档已有 tags 但混写 | 手工跑 `tools/autotag.py docs` 看输出 |
+| `tools/*.py` 报 Permission denied | 属主是 root | `chown mkdocs:docs tools/*.py` |
