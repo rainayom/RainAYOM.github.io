@@ -1337,15 +1337,32 @@ extra_javascript:
 
 ### 25.3 主题按钮：三态（跟随系统 / 暗 / 亮），只显示图标
 
-页眉这枚按钮不再是"明/暗"两态，而是按 Material 的原始语义做成三态轮换，顺序是「跟随系统 → 暗 → 亮」：
+页眉这枚按钮不是"明/暗"两态，而是按 Material 的原始语义做成三态轮换，顺序是「跟随系统 → 暗 → 亮」：
 
-| 状态 | 图标（对应参考图 2/3/4） | 行为 |
+| 状态 | 图标（与参考图 2/3/4 完全一致） | 行为 |
 | --- | --- | --- |
-| `auto` 跟随系统 | 圆 + 月光 | 读 `prefers-color-scheme` 决定 `default` / `slate`，系统换主题时页面跟着换 |
-| `slate` 暗黑 | 月牙 + 十字星 | 固定 `data-md-color-scheme="slate"` |
-| `default` 明亮 | 太阳 + 八道光芒 | 固定 `data-md-color-scheme="default"` |
+| `auto` 跟随系统 | `theme-light-dark`：日 + 月，中间一条对角线分隔 | 读 `prefers-color-scheme` 决定 `default` / `slate`，系统换主题时页面跟着换 |
+| `slate` 暗黑 | `weather-night`：月牙 + 两颗星 | 固定 `data-md-color-scheme="slate"` |
+| `default` 明亮 | `white-balance-sunny`：太阳 + 八道光芒 | 固定 `data-md-color-scheme="default"` |
 
-按钮里只放图标、不显示文字（中文说明放在 `title` 与 `aria-label` 里），状态写 `localStorage.mdgh.siteTheme`，首次访问默认就是 `auto`：
+三枚图标不自绘，直接内联 Material 官方图标文件里的 `<path>`，保证跟参考图一模一样。图标本体在 venv 里：
+
+```bash
+/srv/mkdocs/.venv/lib/python*/site-packages/material/templates/.icons/material/
+  theme-light-dark.svg   weather-night.svg   white-balance-sunny.svg
+```
+
+取出来只保留 `path d`，塞进脚本常量即可（`fill="currentColor"`，尺寸统一 20px）：
+
+```javascript
+var THEME_ICONS = {
+  auto:  '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5..."/></svg>',
+  slate: '<svg ...><path d="m17.75 4.09-2.53 1.94.91 3.06..."/></svg>',
+  default:'<svg ...><path d="m3.55 19.09 1.41 1.41 1.8-1.79..."/></svg>'
+};
+```
+
+按钮只放图标、不显示文字（中文说明放 `title` 与 `aria-label`），状态写 `localStorage.mdgh.siteTheme`，首次访问默认就是 `auto`：
 
 ```javascript
 var MODE_NEXT = { auto: "slate", slate: "default", default: "auto" };
@@ -1360,8 +1377,6 @@ function applyMode(mode, remember) {
 
 "跟随系统"要真的跟着走：除了 `matchMedia('(prefers-color-scheme: dark)').addEventListener('change')`，还补了 `visibilitychange` 和 `focus` 两个兜底，切回前台时再核对一次，避免颜色停留在旧状态。
 
-> 一个坑：最早想直接复用 Material `palette` 里 `<label>` 的 svg 当图标，结果明亮态取到的是另一套字形（渲染出来是个「A」）。现在三枚图标改成自绘，既对应参考图，也不依赖被隐藏的 palette 表单。
-
 #### 25.3.1 页眉只留一个放大镜
 
 Material 原生搜索按钮（`label.md-header__button[for="__search"]`）和居中胶囊功能重复，除了 CSS 隐藏，还在 JS 里直接把节点移除：
@@ -1373,7 +1388,36 @@ var nodes = document.querySelectorAll(
 [].forEach.call(nodes, function (el) { el && el.parentNode && el.parentNode.removeChild(el); });
 ```
 
-这样无论浏览器缓存新旧、窗口宽窄，页眉都只有一个搜索入口。窄屏（≤960px）下主题按钮与代码主题按钮都收成圆形图标，宽屏才显示「代码主题：xxx」文字，不会出现"宽屏还是窄屏样式"的错位感。
+这样无论浏览器缓存新旧、窗口宽窄，页眉都只有一个搜索入口。窄屏（≤960px）下主题按钮与代码主题按钮都收成纯图标，宽屏才显示「代码主题：xxx」文字，不会出现"宽屏还是窄屏样式"的错位感。
+
+#### 25.3.2 按钮不带框
+
+页眉三个图标按钮（主题、代码主题、窄屏搜索）一律去掉描边和底色，只留图标本身，反馈靠 hover 的浅色底：
+
+```css
+.mui-theme,
+.mui-code-btn {
+  border: 0 !important;
+  background: transparent !important;
+  height: 2rem;
+  border-radius: 6px;
+}
+
+.mui-theme:hover,
+.mui-code-btn:hover {
+  background: rgba(255, 255, 255, .15) !important;
+}
+```
+
+窄屏下搜索按钮同样去框（宽屏的搜索胶囊另算，那是"输入框"外观 + 半透明底，跟图标按钮区分开）：
+
+```css
+@media screen and (max-width: 960px) {
+  .mui-search { background: transparent !important; border: 0 !important; width: 2rem !important; }
+}
+```
+
+验收时看 `getComputedStyle` 就行：`borderTopWidth` 应为 `0px`，`backgroundColor` 应为 `rgba(0, 0, 0, 0)`；宽屏再量 `mui-search` 的 `x + width/2` 是否等于页眉中线，确认居中胶囊没被挤偏。
 
 ### 25.4 代码主题：pygments 出样式 + 一个 link 换色
 
