@@ -895,3 +895,44 @@ tags:
 ```
 
 再往这个目录丢新 md，标题会自动出现在列表里，`tags` 也会由 `tools/autotag.py` 补；两件事都在 autopush 一次循环内完成。
+
+---
+
+## 21. 阶段十五：返回顶部按钮
+
+Material 本身没有「返回顶部」，用一份 CSS + 一份原生 JS 补上，不改主题模板。
+
+### 21.1 文件
+
+| 文件 | 作用 |
+| --- | --- |
+| `docs/stylesheets/back-to-top.css` | 右下角白色胶囊样式，跟随亮/暗主题配色 |
+| `docs/javascripts/back-to-top.js` | 滚动 400px 后淡入，点击平滑回顶，支持 `prefers-reduced-motion` |
+
+### 21.2 挂进配置
+
+```yaml
+extra_css:
+  - stylesheets/back-to-top.css
+extra_javascript:
+  - javascripts/back-to-top.js
+```
+
+注意这两个 key 是**顶层**配置，不能缩进到 `extra:` 下面——`extra.version` 管的是 mike 版本选择器，两者互不相干。
+
+### 21.3 交互细节
+
+- 按钮由 JS 动态插入 `<body>`，`.md-content` 内部的任何页面（含 tags 页、章节首页）都生效，不用逐页改 md；
+- 显示阈值 400px，用 `requestAnimationFrame` 节流，避免滚动时掉帧；
+- 点击后 `window.scrollTo({ top: 0, behavior: 'smooth' })`，系统开了「减少动效」则直接跳；
+- 暗色模式用 `var(--md-default-bg-color)` 跟随主题，避免白底刺眼；
+- 宽度小于 `76.1875em` 时自动缩小并贴近边缘，不挡正文；
+- `@media print` 下隐藏，打印不出现按钮。
+
+### 21.4 验收
+
+```bash
+grep -o 'stylesheets/back-to-top.css\|javascripts/back-to-top.js' site/index.html
+```
+
+两行都能命中即为注入成功；浏览器里把页面往下滚，右下角出现胶囊按钮，点一下回到顶部。

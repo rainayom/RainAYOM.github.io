@@ -50,3 +50,8 @@ extra:
     provider: mike
     default: latest
     alias: true
+
+extra_css:
+  - stylesheets/back-to-top.css
+extra_javascript:
+  - javascripts/back-to-top.js
