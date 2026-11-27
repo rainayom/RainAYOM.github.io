@@ -95,7 +95,8 @@
 }
 
 /* Material 自带搜索开关（弹窗已在页眉中央取代它） */
-[data-md-toggle="search"] {
+[data-md-toggle="search"],
+.md-header__button[for="__search"] {
   display: none !important;
 }
 
