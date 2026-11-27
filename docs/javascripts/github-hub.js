@@ -79,6 +79,35 @@
     };
   }
 
+  /* 剪贴板：安全上下文优先用 clipboard API，HTTP 内网地址回退 execCommand */
+  async function copyText(text) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        return true;
+      }
+    } catch (e) {
+      /* 继续走兜底 */
+    }
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.top = "-1000px";
+      ta.style.left = "-1000px";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      const ok = document.execCommand("copy");
+      document.body.removeChild(ta);
+      return !!ok;
+    } catch (e) {
+      return false;
+    }
+  }
+
   /* ---------------- 设备码登录 ---------------- */
   async function deviceLogin(ui) {
     if (state.busy) return;
@@ -181,13 +210,29 @@
         a.href = url || "https://github.com/login/device";
         a.classList.remove("hidden");
         $(".ghm-copy").onclick = async () => {
-          try {
-            await navigator.clipboard.writeText(code);
-            $(".ghm-copy").textContent = "已复制";
-            setTimeout(() => ($(".ghm-copy").textContent = "复制"), 1500);
-          } catch (e) {
-            $(".ghm-copy").textContent = "复制失败";
+          const btn = $(".ghm-copy");
+          const ok = await copyText(code);
+          if (ok) {
+            btn.textContent = "已复制";
+            setTimeout(() => (btn.textContent = "复制"), 1500);
+          } else {
+            // 兜底：把代码整段选中，让用户直接 Ctrl+C
+            const el = $(".ghm-code-text");
+            const sel = window.getSelection();
+            const range = document.createRange();
+            range.selectNodeContents(el);
+            sel.removeAllRanges();
+            sel.addRange(range);
+            btn.textContent = "已选中，Ctrl+C";
+            setTimeout(() => (btn.textContent = "复制"), 3000);
           }
+        };
+        $(".ghm-code-text").onclick = () => {
+          const sel = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents($(".ghm-code-text"));
+          sel.removeAllRanges();
+          sel.addRange(range);
         };
       },
       done() {
