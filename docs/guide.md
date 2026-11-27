@@ -1735,3 +1735,68 @@ body[data-md-content-theme] .md-typeset table:not([class]) tr:nth-child(2n) {
 | 暗色组合 | slate + cyanosis 标题 `rgb(121,182,242)` | 通过 |
 | 代码主题 | 切 dracula 背景 `#282a36`、solarized-light `#fdf6e3` 且文字色随主题 | 通过 |
 | 记忆 | 刷新后主题保持 | 通过 |
+
+## 28. 站点预览改用 md-editor 默认主题：代码块等号对齐
+
+前面第 27 章把「内容主题」搬上了页眉，但站点默认还是 Material 原生观感。这一轮把默认值换成 **md-editor-v3 的默认预览主题**，并把代码块做成了和参考图一致的样子：深色卡片、左上三个圆点、右侧「语言 + 复制代码 + 折叠」，左侧带行号。
+
+### 28.1 默认内容主题 = md-editor 默认
+
+`content-themes.css` 新增 `default` 主题（`material` 退役，旧 `localStorage.mdgh.mdContentTheme=material` 会被映射到 `default`），取值直接抄编辑器构建产物里的变量：
+
+| 项 | 值 | 来源 |
+| --- | --- | --- |
+| 正文 / 标题色 | `#3f4a54` | `--md-color`（编辑器默认） |
+| 链接 / 悬停 | `#2d8cf0` / `#73d13d` | `--md-theme-link-color` / `-hover-color` |
+| 边框 | `#e6e6e6` | `--md-theme-border-color` |
+| 表格斑马纹 | `#fafafa` | `--md-theme-table-stripe-color` |
+| 行内代码 | `#3594f7` on `rgba(59,170,250,.1)`，圆角 2px | `--md-theme-code-inline-*` |
+| 标题 | 700 字重、h1 `2em`、h2 `1.6em`、h3 `1.4em`、无下边框 | `.md-editor-preview h1{font-size:2em}` |
+| 行高 | 1.7 | — |
+
+暗色另有一套（正文 `#cfd3dc`、标题 `#ffffff`、边框 `#2f3338`）。
+
+### 28.2 代码块：结构由 JS 生成，配色由代码主题给
+
+原生产物是 `<div class="codehilite"><pre><code>`，既没有语言标签也没有复制按钮。`site-ui.js` 里的 `decorateCodeBlocks()` 在页面加载后把它重排成：
+
+```html
+<div class="codehilite" data-lang="bash">
+  <div class="mdg-bar">           <!-- 32px，左上三点 10px，右侧 语言 / 复制代码 / 折叠 -->
+  <div class="mdg-body">
+    <div class="mdg-ln">1 2 3 …</div>
+    <pre><code>…</code></pre>
+  </div>
+</div>
+```
+
+几点关键取舍：
+
+- **行号不用重排 DOM**。`.mdg-ln` 与 `pre` 用同一套字体与行高（14px / 1.6 = 22.4px），`pre` 保持 `white-space: pre` 不换行，于是「第几行数字」和「第几行代码」天然对齐；长行横向滚动，不会把行号错开。
+- **复制按钮就是文字**「复制代码」，点完变「已复制」，1.4 秒复原；`navigator.clipboard` 不可用时退回 `textarea + execCommand`。
+- **折叠**按钮把 `.mdg-body` 收起来，图标随之转 90°。
+- Material 自带的图标复制按钮用 CSS 隐藏（`.md-code__nav / .md-code__button{display:none}`）。
+- 背景与文字色**不写在代码块骨架里**，仍由「代码主题」那套 pygments 样式决定；默认代码主题从 `material` 换成 `one-dark`（`#282c34` 背景 / `#a9b7c6` 前景），正好等于 md-editor 默认的 `--md-theme-code-block-*`。想回到 Material 观感，选「跟随站点」即可。
+
+### 28.3 语言标签从哪来
+
+`codehilite` 扩展不会把围栏语言写进 HTML。新增钩子 `hooks/code_lang.py`：按顺序扫描源文件里的 ``` 围栏语言，若数量与页面里 `<div class="codehilite">` 完全一致，就逐个注入 `data-lang`；数量对不上（页面混用缩进式代码块）时整体跳过，宁可不显示也不显示错。
+
+```python
+FENCE = re.compile(r"(?m)^ {0,3}(`{3,}|~{3,})([^\n]*)$")
+if html.count(marker) != len(langs):
+    return html          # 对不上就放弃注入
+```
+
+### 28.4 验收
+
+| 检查项 | 期望 | 实测 |
+| --- | --- | --- |
+| 默认内容主题 | 正文 `#3f4a54`、h1 32px/700/无边框 | 通过 |
+| 代码块底色 | `rgb(40,44,52)`，前景 `rgb(171,178,191)` | 通过 |
+| 头部 | 三点 `#ec6a5e/#f4bf4f/#61c554`，右侧语言 + 复制代码 + 折叠 | 通过（lang=`text`/`bash`） |
+| 行号 | 与代码行逐行对齐（17 行 → 17 个数字） | 通过 |
+| 复制 | 点击变「已复制」，剪贴板拿到全文 | 通过 |
+| 折叠 | 收起正文、图标旋转 | 通过 |
+| 主题互不干扰 | 切 github/vuepress 只改正文排版，代码块结构不受影响 | 通过 |
+| 布局 | 447 窄屏不溢出（块宽 400、工具区 106px） | 通过 |
