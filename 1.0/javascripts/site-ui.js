@@ -31,6 +31,19 @@
       .replace(/"/g, "&quot;");
   }
 
+  var ICON = {
+    search:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>',
+    moon:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12.3 3.1a9 9 0 1 0 8.6 11.6 7 7 0 0 1-8.6-11.6z"/></svg>',
+    sun:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M11 1.5h2v3.2h-2zm0 17.8h2v3.2h-2zM1.5 11h3.2v2H1.5zm17.8 0h3.2v2h-3.2zM4.3 2.9l1.4-1.4 2.3 2.3-1.4 1.4zm11.7 11.7 1.4-1.4 2.3 2.3-1.4 1.4zm0-12.9 1.4 1.4-2.3 2.3-1.4-1.4zM4.3 21.1l-1.4-1.4 2.3-2.3 1.4 1.4z"/></svg>',
+    code:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6z"/></svg>',
+    filter:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M4 5h16v2H4zm2 6h12v2H6zm3 6h6v2H9z"/></svg>'
+  };
+
   /* ---------------- 主题切换 ---------------- */
   function scheme() {
     return document.body.getAttribute("data-md-color-scheme") || "default";
@@ -57,8 +70,9 @@
     if (!b) return;
     var dark = scheme() === "slate";
     b.innerHTML =
-      '<span class="mui-ico">' + (dark ? "☾" : "☀") + '</span><span class="mui-theme-label">' + (dark ? "夜间" : "日间") + "</span>";
-    b.title = dark ? "当前暗黑，点击切回明亮" : "当前明亮，点击切到暗黑";
+      '<span class="mui-ico">' + (dark ? ICON.moon : ICON.sun) +
+      '</span><span class="mui-theme-label">' + (dark ? "暗黑" : "明亮") + "</span>";
+    b.title = dark ? "当前暗黑主题，点击切回明亮" : "当前明亮主题，点击切到暗黑";
   }
 
   function toggleTheme() {
@@ -118,7 +132,7 @@
     var codeWrap = document.createElement("div");
     codeWrap.className = "mui-code";
     codeWrap.innerHTML =
-      '<button class="mui-btn mui-code-btn" type="button">代码主题：<span class="mui-code-label">默认</span> ▾</button>' +
+      '<button class="mui-btn mui-code-btn" type="button"><span class="mui-ico">' + ICON.code + '</span><span class="mui-code-word">代码主题：</span><span class="mui-code-label">默认</span> ▾</button>' +
       '<ul class="mui-menu hidden">' +
       CODE_THEMES.map(function (c) {
         return '<li data-id="' + c.id + '">' + esc(c.name) + "</li>";
@@ -150,7 +164,7 @@
     searchBtn.type = "button";
     searchBtn.className = "mui-search";
     searchBtn.innerHTML =
-      '<span class="mui-search-ico">⌕</span><span class="mui-search-text">搜索文档</span>' +
+      '<span class="mui-search-ico">' + ICON.search + '</span><span class="mui-search-text">搜索文档</span>' +
       '<kbd class="mui-kbd">Ctrl+K</kbd>';
     searchBtn.addEventListener("click", openSearch);
     inner.appendChild(searchBtn);
@@ -191,11 +205,17 @@
 
   function cleanText(s) {
     return String(s || "")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&amp;/g, "&")
       .replace(/```[\s\S]*?```/g, " ")
       .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
       .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
       .replace(/<[^>]+>/g, " ")
       .replace(/&nbsp;/g, " ")
+      .replace(/\s*[=\-\+\*\/\\|<>]{2,}\s*/g, " ")
       .replace(/[\*`#>|]+/g, " ")
       .replace(/\s+/g, " ")
       .trim();
@@ -321,9 +341,9 @@
       '<div class="mui-card" role="dialog" aria-modal="true" aria-label="搜索">' +
       '<div class="mui-left">' +
       '<div class="mui-inputrow">' +
-      '<span class="mui-search-ico">⌕</span>' +
+      '<span class="mui-search-ico">' + ICON.search + "</span>" +
       '<input class="mui-input" type="search" placeholder="搜索文档…" autocomplete="off">' +
-      '<button class="mui-filterbtn" type="button" title="筛选">⚙</button>' +
+      '<button class="mui-filterbtn" type="button" title="显示/隐藏标签筛选">' + ICON.filter + "</button>" +
       "</div>" +
       '<div class="mui-results"><p class="mui-tip">正在加载…</p></div>' +
       "</div>" +
