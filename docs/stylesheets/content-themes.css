@@ -267,3 +267,44 @@ body[data-md-color-scheme="slate"][data-md-content-theme="cyanosis"] .md-typeset
   --ct-q-bg: #16212d;
   --ct-code-bg: #182634;
 }
+
+/* ---------- 0. default：md-editor-v3 默认预览主题（站点默认） ---------- */
+body[data-md-content-theme="default"] .md-typeset {
+  --ct-fg: #3f4a54;
+  --ct-h: #3f4a54;
+  --ct-h6: #727b83;
+  --ct-a: #2d8cf0;
+  --ct-a-h: #73d13d;
+  --ct-bd: #e6e6e6;
+  --ct-th: transparent;
+  --ct-stripe: #fafafa;
+  --ct-q-fg: #3f4a54;
+  --ct-q-bd: none;
+  --ct-q-bg: inherit;
+  --ct-code-bg: rgba(59, 170, 250, .1);
+  --ct-code-fg: #3594f7;
+  --ct-code-r: 2px;
+  --ct-hw: 700;
+  --ct-h1: 2em;
+  --ct-h2: 1.6em;
+  --ct-h3: 1.4em;
+  --ct-h1-bd: none;
+  --ct-h2-bd: none;
+  --ct-lh: 1.7;
+  --ct-hr-h: 1px;
+}
+
+body[data-md-color-scheme="slate"][data-md-content-theme="default"] .md-typeset {
+  --ct-fg: #cfd3dc;
+  --ct-h: #ffffff;
+  --ct-h6: #a8b1bb;
+  --ct-a: #6cb6ff;
+  --ct-a-h: #73d13d;
+  --ct-bd: #2f3338;
+  --ct-th: transparent;
+  --ct-stripe: rgba(255, 255, 255, .04);
+  --ct-q-fg: #cfd3dc;
+  --ct-code-bg: rgba(59, 170, 250, .14);
+  --ct-code-fg: #6cb6ff;
+}
+
