@@ -464,3 +464,21 @@ body[data-md-color-scheme="slate"] .mui-tag:hover {
   width: 20px;
   height: 20px;
 }
+
+/* 窄屏：搜索按钮同样只留图标，不要圆框 */
+@media screen and (max-width: 960px) {
+  .mui-search {
+    background: transparent !important;
+    border: 0 !important;
+    width: 2rem !important;
+    padding: 0 !important;
+    justify-content: center;
+  }
+  .mui-search:hover {
+    background: rgba(255, 255, 255, .15) !important;
+  }
+  .mui-search .mui-hint,
+  .mui-search .mui-kbd {
+    display: none !important;
+  }
+}
