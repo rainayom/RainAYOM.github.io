@@ -5,6 +5,8 @@
 (function () {
   "use strict";
 
+  window.__ghhRuns = (window.__ghhRuns || 0) + 1;
+
   const CLIENT_ID = "Ov23liZFcmfLX6wLHrmi";
   const OWNER = "rainayom";
   const REPO = "RainAYOM.github.io";
@@ -450,9 +452,8 @@
     }
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
-
+  // 先把对外 API 挂出去，避免 init 里任何异常导致 window.MDGitHub 缺失
+  // （edit-page.js 依赖它判断是否显示「编辑本页」）
   window.MDGitHub = {
     get token() {
       return state.token;
@@ -466,10 +467,31 @@
     login: loginModal,
     logout() {
       save("", null);
+      try {
+        renderPanel();
+      } catch (e) {
+        /* 忽略渲染异常 */
+      }
     },
     onChange(fn) {
       listeners.push(fn);
       fn({ token: state.token, user: state.user });
     },
   };
+
+  try {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", function () {
+        try {
+          init();
+        } catch (e) {
+          console.warn("[ghh] init failed", e);
+        }
+      });
+    } else {
+      init();
+    }
+  } catch (e) {
+    console.warn("[ghh] init failed", e);
+  }
 })();
