@@ -45,6 +45,18 @@ else
   log "工作区干净，无新增改动"
 fi
 
+# 1.5) 先吸收远端（PR 合并 / 网页直接提交 都会让远端领先）
+if git fetch -q origin main 2>/dev/null; then
+  behind="$(git rev-list --count main..origin/main)"
+  if [[ "$behind" -gt 0 ]]; then
+    log "远端领先 $behind 个提交，rebase 同步"
+    if ! git pull -q --rebase origin main; then
+      log "rebase 冲突，保留本地修改，本轮跳过推送"
+      exit 1
+    fi
+  fi
+fi
+
 # 2) main 是否领先远端
 if git rev-parse --verify -q origin/main >/dev/null; then
   ahead="$(git rev-list --count origin/main..main)"

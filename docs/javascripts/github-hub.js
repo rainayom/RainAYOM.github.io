@@ -98,15 +98,21 @@
       while (Date.now() < deadline) {
         await new Promise((res) => setTimeout(res, wait));
         if (ui.cancelled()) return;
-        const pr = await fetch("https://github.com/login/oauth/access_token", {
-          method: "POST",
-          headers: { Accept: "application/json", "Content-Type": "application/x-www-form-urlencoded" },
-          body:
-            "client_id=" + CLIENT_ID +
-            "&device_code=" + d.device_code +
-            "&grant_type=urn:ietf:params:oauth:grant-type:device_code",
-        });
-        const pd = await pr.json();
+        let pd;
+        try {
+          const pr = await fetch("https://github.com/login/oauth/access_token", {
+            method: "POST",
+            headers: { Accept: "application/json", "Content-Type": "application/x-www-form-urlencoded" },
+            body:
+              "client_id=" + CLIENT_ID +
+              "&device_code=" + d.device_code +
+              "&grant_type=urn:ietf:params:oauth:grant-type:device_code",
+          });
+          pd = await pr.json();
+        } catch (e) {
+          // 网络抖动/CORS 偶发失败：继续轮询，不当作授权失败
+          continue;
+        }
         if (pd.access_token) {
           const user = await (async () => {
             const old = state.token;
