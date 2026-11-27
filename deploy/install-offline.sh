@@ -70,6 +70,7 @@ rm -rf "$PREFIX/repo/site"
 cp -a "$BUNDLE_DIR/editor/dist" "$PREFIX/editor-app/dist"
 cp -a "$BUNDLE_DIR/editor/index.html" "$PREFIX/editor-app/index.html"
 cp -a "$BUNDLE_DIR/site/server/editor_server.py" "$PREFIX/editor_server.py"
+chown -R "$RUNUSER:$RUNGROUP" "$PREFIX/repo" "$PREFIX/editor-app" "$PREFIX/editor_server.py"
 
 # 3) 离线装依赖
 if [[ ! -x "$PREFIX/.venv/bin/python" ]]; then
