@@ -49,30 +49,38 @@
   /* ---------------- 主题切换：跟随系统 / 暗 / 亮 ---------------- */
   var MODE_NEXT = { auto: "slate", slate: "default", default: "auto" };
   var MODE_TEXT = { auto: "跟随系统", slate: "暗黑", default: "明亮" };
-  var paletteIcons = null;
+
+  var S = '<g stroke="currentColor" stroke-width="1.7" stroke-linecap="round">';
+  var SE = "</g>";
+
+  // 三枚图标对应图 2/3/4：自动（日+月）/ 暗（月+星）/ 亮（太阳）
+  var THEME_ICONS = {
+    auto:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">' +
+      '<circle cx="8.8" cy="12" r="4.2"/>' +
+      '<path d="M15.2 4.4a7.6 7.6 0 1 0 4.2 10.9 6.1 6.1 0 0 1-4.2-10.9z" fill="none" stroke="currentColor" stroke-width="1.5"/>' +
+      "</svg>",
+    dark:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">' +
+      '<path d="M13.4 3.4a8.7 8.7 0 1 0 6.9 13.6 6.9 6.9 0 0 1-6.9-13.6z"/>' +
+      S + '<line x1="19.4" y1="2.4" x2="19.4" y2="5.6"/><line x1="17.8" y1="4" x2="21" y2="4"/>' + SE +
+      "</svg>",
+    light:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">' +
+      '<circle cx="12" cy="12" r="4.1"/>' +
+      S +
+      '<line x1="12" y1="1.8" x2="12" y2="4.6"/><line x1="12" y1="19.4" x2="12" y2="22.2"/>' +
+      '<line x1="1.8" y1="12" x2="4.6" y2="12"/><line x1="19.4" y1="12" x2="22.2" y2="12"/>' +
+      '<line x1="4.7" y1="4.7" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.3" y2="19.3"/>' +
+      '<line x1="19.3" y1="4.7" x2="17.3" y2="6.7"/><line x1="6.7" y1="17.3" x2="4.7" y2="19.3"/>' +
+      SE +
+      "</svg>"
+  };
 
   function systemScheme() {
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "slate"
       : "default";
-  }
-
-  // 直接复用 Material palette 自带的三枚图标（自动 / 亮 / 暗），不显示文字
-  function paletteIconMap() {
-    if (paletteIcons) return paletteIcons;
-    var out = { auto: ICON.auto, light: ICON.sun, dark: ICON.moon };
-    var inputs = document.querySelectorAll('[data-md-component="palette"] input[type="radio"]');
-    [].forEach.call(inputs, function (inp) {
-      var lab = document.querySelector('label[for="' + inp.id + '"]');
-      if (!lab) return;
-      var svg = lab.querySelector("svg");
-      if (!svg) return;
-      var media = lab.getAttribute("data-md-color-media") || "";
-      var key = media === "(prefers-color-scheme)" ? "auto" : media.indexOf("light") >= 0 ? "light" : "dark";
-      out[key] = svg.outerHTML;
-    });
-    paletteIcons = out;
-    return out;
   }
 
   function currentMode() {
@@ -90,9 +98,8 @@
     var b = document.querySelector(".mui-theme");
     if (!b) return;
     var mode = currentMode();
-    var icons = paletteIconMap();
     var key = mode === "auto" ? "auto" : mode === "slate" ? "dark" : "light";
-    b.innerHTML = '<span class="mui-ico">' + (icons[key] || ICON.sun) + "</span>";
+    b.innerHTML = '<span class="mui-ico">' + THEME_ICONS[key] + "</span>";
     b.title = "主题：" + MODE_TEXT[mode] + "（点击切换）";
     b.setAttribute("aria-label", "主题：" + MODE_TEXT[mode]);
     b.setAttribute("data-mode", mode);
@@ -435,6 +442,14 @@
       if (mq.addEventListener) mq.addEventListener("change", onChange);
       else if (mq.addListener) mq.addListener(onChange);
     }
+    // 系统主题变化的兜底：回到前台 / 窗口聚焦时再核对一次
+    var resync = function () {
+      if (currentMode() === "auto") applyMode("auto", false);
+    };
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) resync();
+    });
+    window.addEventListener("focus", resync);
   }
 
   if (document.readyState === "loading") {
