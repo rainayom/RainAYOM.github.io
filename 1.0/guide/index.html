@@ -1305,6 +1305,94 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.1 页脚「上一篇 / 下一篇」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-github-oauth-device-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.2 用 GitHub 登录（OAuth Device Flow）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.3 页眉右上角个人中心
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.4 编辑入口与权限分流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235-editor_serverpy-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.5 后端鉴权（editor_server.py v2）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#236" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.6 与自动发布的关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#237" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.7 验收清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#238" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.8 故障排查
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2943,6 +3031,94 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#231" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.1 页脚「上一篇 / 下一篇」
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232-github-oauth-device-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.2 用 GitHub 登录（OAuth Device Flow）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.3 页眉右上角个人中心
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.4 编辑入口与权限分流
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235-editor_serverpy-v2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.5 后端鉴权（editor_server.py v2）
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#236" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.6 与自动发布的关系
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#237" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.7 验收清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#238" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        23.8 故障排查
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4458,6 +4634,207 @@ systemctl<span class="w"> </span>restart<span class="w"> </span>mkdocs-editor
 <td>端口被占</td>
 <td>8080 有其他服务</td>
 <td>改单元里的 <code>EDITOR_PORT</code> 并同步 <code>edit-page.js</code></td>
+</tr>
+<tr>
+<td>## 23. 协作化编辑：页脚导航、GitHub 登录、个人中心与提交审核</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>本章记录在既有站点与网页编辑器之上，叠加「读的人能切换文档、登录的人能改文档、拥有者能拍板」的一层协作能力。</p>
+<h3 id="231">23.1 页脚「上一篇 / 下一篇」<a class="headerlink" href="#231" title="Permanent link">&para;</a></h3>
+<p>Material 主题自带开关，只在 <code>mkdocs.yml</code> 的 <code>theme.features</code> 里加一行：</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">theme</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">features</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.footer</span><span class="w">      </span><span class="c1"># 页脚出现上一篇 / 下一篇</span>
+</code></pre></div>
+
+<p>顺序按 <code>nav</code>（含 hooks 自动生成的章节首页）走，不需要手写任何模板。</p>
+<h3 id="232-github-oauth-device-flow">23.2 用 GitHub 登录（OAuth Device Flow）<a class="headerlink" href="#232-github-oauth-device-flow" title="Permanent link">&para;</a></h3>
+<p>选设备码流程的原因：不需要后端保存 client secret，也不需要在 Pages 上跑服务，浏览器直连 <code>github.com</code> 即可（<code>login/device/code</code> 与 <code>login/oauth/access_token</code> 两个接口都允许跨域）。</p>
+<ol>
+<li>在 GitHub 建 OAuth App：<code>Settings → Developer settings → OAuth Apps → New OAuth App</code></li>
+<li>Application name：<code>运维知识库编辑器</code></li>
+<li>Homepage URL：<code>https://rainayom.github.io/</code></li>
+<li>Redirect URI：<code>https://rainayom.github.io/</code>（设备码流程用不到，但字段必填）</li>
+<li><strong>勾选 Enable Device Flow</strong>（不勾会直接报 <code>device_flow_disabled</code>）</li>
+<li>记下 <code>Client ID</code>（本项目为 <code>Ov23liZFcmfLX6wLHrmi</code>），写进两处前端常量。</li>
+<li>登录时序：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>浏览器 → POST https://github.com/login/device/code   {client_id, scope}
+       ← {device_code, user_code, verification_uri, interval}
+用户  → 打开 https://github.com/login/device 输入 user_code 并 Authorize
+浏览器 → GET(轮询) https://github.com/login/oauth/access_token {client_id, device_code}
+       ← {access_token}
+</code></pre></div>
+
+<p>注意几个实测坑：</p>
+<ul>
+<li><strong>授权时必须过一次 sudo 密码</strong>：GitHub 在 Authorize 页会弹 <code>Confirm access</code>，要求输入账号密码；跳过或超时会返回 <code>access_denied</code>，此时轮询拿到的是 <code>error: access_denied</code>，不是网络问题。</li>
+<li>轮询偶发 <code>Failed to fetch</code>（网络抖动/浏览器限流），代码里对单次请求异常做了 <code>continue</code>，不中断整个轮询。</li>
+<li>设备码有效期 15 分钟，<code>interval</code> 默认 5 秒，<code>slow_down</code> 时要把间隔加 5 秒。</li>
+</ul>
+<h3 id="233">23.3 页眉右上角个人中心<a class="headerlink" href="#233" title="Permanent link">&para;</a></h3>
+<p><code>docs/javascripts/github-hub.js</code> 在 <code>.md-header__inner</code> 尾部插一个胶囊（未登录显示 <code>GitHub 登录</code>，登录后显示头像 + 用户名），点开是下拉面板：</p>
+<table>
+<thead>
+<tr>
+<th>区块</th>
+<th>数据来源</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>身份</td>
+<td><code>GET /api.github.com/user</code> + <code>GET /repos/{owner}/{repo}</code></td>
+<td>显示 <code>仓库拥有者 · 可直接提交</code> 或 <code>贡献者 · 提交需审核</code></td>
+</tr>
+<tr>
+<td>我的收藏</td>
+<td><code>localStorage["mdgh.fav.&lt;login&gt;"]</code></td>
+<td>键按登录名隔离，每人一份；收藏当前页路径 + 标题，支持点击跳转、✕ 取消</td>
+</tr>
+<tr>
+<td>我的提交</td>
+<td><code>GET /api.github.com/search/issues?q=repo:...+is:pr+author:&lt;login&gt;</code></td>
+<td><code>state=open</code> → 提交审核中；<code>merged_at</code> 非空 → 审核通过；<code>closed</code> 未合并 → 已关闭</td>
+</tr>
+</tbody>
+</table>
+<p>退出登录只清 localStorage 里的 token 与身份缓存。</p>
+<p>样式在 <code>docs/stylesheets/github-hub.css</code>，跟随主题色变量（<code>--md-default-bg-color</code>、<code>--md-primary-fg-color</code>），暗色模式不用单独写；窄屏（≤60em）只留头像圆点。</p>
+<h3 id="234">23.4 编辑入口与权限分流<a class="headerlink" href="#234" title="Permanent link">&para;</a></h3>
+<p>「编辑本页」按钮现在有两个门槛，缺一不显示：</p>
+<ol>
+<li>访问地址是局域网（<code>192.168.7.130 / localhost / 127.0.0.1</code>），因为编辑器是内网服务；</li>
+<li>已用 GitHub 登录（<code>window.MDGitHub.token</code> 存在），登录后按钮自动出现、退出后自动消失。</li>
+</ol>
+<p>点击后跳 <code>http://&lt;host&gt;:8080/?url=&lt;页面路径&gt;#t=&lt;token&gt;</code>，token 放 hash 里（不进服务端日志、不参与 Referer），编辑器读到后写进自己的 localStorage 并立刻抹掉 hash。</p>
+<p>保存分两条路：</p>
+<table>
+<thead>
+<tr>
+<th>身份</th>
+<th>按钮文案</th>
+<th>动作</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>仓库拥有者 / 有 push 权限的协作者</td>
+<td>保存</td>
+<td><code>POST /api/doc</code> 直接写服务器文件</td>
+<td><code>已保存 HH:MM:SS · N 字节</code>，5 分钟内随 autopush 提交并发版</td>
+</tr>
+<tr>
+<td>其他 GitHub 用户</td>
+<td>提交审核</td>
+<td>fork → 建分支 → 提交文件 → <code>POST /repos/.../pulls</code></td>
+<td><code>已提交审核 PR #N</code>，附 PR 链接；拥有者合并后自动发版</td>
+</tr>
+</tbody>
+</table>
+<p>非拥有者的分支命名为 <code>edit/&lt;文件名净化&gt;-&lt;base36 时间戳&gt;</code>，PR 标题 <code>docs: 更新 &lt;path&gt;</code>，正文标明提交人和文件路径。</p>
+<h3 id="235-editor_serverpy-v2">23.5 后端鉴权（editor_server.py v2）<a class="headerlink" href="#235-editor_serverpy-v2" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>Authorization: Bearer &lt;github_token&gt;   ← 前端带，后端拿它去 api.github.com/user 换身份
+身份缓存 5 分钟，避免每次保存都打 API
+</code></pre></div>
+
+<table>
+<thead>
+<tr>
+<th>接口</th>
+<th>方法</th>
+<th>权限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/api/session</code>、<code>/api/me</code></td>
+<td>GET</td>
+<td>无 token 返回 <code>{auth:false, need_login:true}</code></td>
+</tr>
+<tr>
+<td><code>/api/list</code>、<code>/api/doc</code>、<code>/api/resolve</code></td>
+<td>GET</td>
+<td>任意已登录 GitHub 用户</td>
+</tr>
+<tr>
+<td><code>/api/doc</code></td>
+<td>POST</td>
+<td>仅拥有者/协作者；其他人返回 <code>403 {mode:"pr"}</code></td>
+</tr>
+</tbody>
+</table>
+<p>写文件仍然走 <code>safe_doc()</code>：<code>normpath</code> 规范化 + 必须在 <code>docs/</code> 下 + 只允许 <code>.md</code>，换行统一 LF，写后 <code>chmod 0664</code>。</p>
+<p>服务单元新增 <code>Environment=REPO_OWNER=rainayom</code>、<code>Environment=REPO_NAME=RainAYOM.github.io</code>；原来的 <code>EDITOR_USER/EDITOR_PASS</code> 口令登录已移除。</p>
+<h3 id="236">23.6 与自动发布的关系<a class="headerlink" href="#236" title="Permanent link">&para;</a></h3>
+<p>PR 合并、网页直改都会让 GitHub 上的 <code>main</code> 领先服务器本地仓库，所以 <code>autopush.sh</code> 在推送前增加一步：</p>
+<div class="codehilite"><pre><span></span><code>git<span class="w"> </span>fetch<span class="w"> </span>-q<span class="w"> </span>origin<span class="w"> </span>main
+<span class="nv">behind</span><span class="o">=</span><span class="k">$(</span>git<span class="w"> </span>rev-list<span class="w"> </span>--count<span class="w"> </span>main..origin/main<span class="k">)</span>
+<span class="o">[[</span><span class="w"> </span><span class="nv">$behind</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull<span class="w"> </span>-q<span class="w"> </span>--rebase<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+
+<p>rebase 冲突时脚本记录日志并跳过本轮推送（不覆盖远端），等人工处理。</p>
+<h3 id="237">23.7 验收清单<a class="headerlink" href="#237" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># 1. 页脚导航</span>
+curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span>md-footer__link<span class="w">       </span><span class="c1"># ≥1</span>
+
+<span class="c1"># 2. 登录接口（未带 token）</span>
+curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8080/api/session<span class="w">                       </span><span class="c1"># {"auth": false, "need_login": true}</span>
+curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s1">'%{http_code}\n'</span><span class="w"> </span>http://192.168.7.130:8080/api/list<span class="w">   </span><span class="c1"># 401</span>
+
+<span class="c1"># 3. 带 token 换成身份</span>
+curl<span class="w"> </span>-s<span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$T</span><span class="s2">"</span><span class="w"> </span>http://192.168.7.130:8080/api/session
+
+<span class="c1"># 4. 旧口令登录已失效</span>
+curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-w<span class="w"> </span><span class="s1">'%{http_code}\n'</span><span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{"password":"MdEditor@2026"}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s1">'Content-Type: application/json'</span><span class="w"> </span>http://192.168.7.130:8080/api/login<span class="w">   </span><span class="c1"># 404</span>
+</code></pre></div>
+
+<p>浏览器侧：未登录时页面没有「编辑本页」；登录后出现；页眉头像点开能看到收藏与「我的提交」状态标签。</p>
+<h3 id="238">23.8 故障排查<a class="headerlink" href="#238" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>登录报 <code>The authorization request was denied</code></td>
+<td>授权页的 sudo 密码没填/超时，或点了 Cancel</td>
+<td>重新取码，走完 <code>Confirm access</code> → <code>Authorize</code></td>
+</tr>
+<tr>
+<td>登录报 <code>Failed to fetch</code></td>
+<td>轮询请求被网络/限流打断</td>
+<td>已自动重试；仍失败就重开登录</td>
+</tr>
+<tr>
+<td><code>device_flow_disabled</code></td>
+<td>OAuth App 没勾 Enable Device Flow</td>
+<td>在应用设置里补勾</td>
+</tr>
+<tr>
+<td>非拥有者保存报「没有直接写入权限」</td>
+<td>后端判定非 owner</td>
+<td>改用「提交审核」，等拥有者合并</td>
+</tr>
+<tr>
+<td>PR 已合并但站点没更新</td>
+<td>autopush 未跑或 rebase 冲突</td>
+<td><code>journalctl -u mkdocs-autopush</code>，看 <code>/tmp/autopush.log</code></td>
+</tr>
+<tr>
+<td>页眉没有登录胶囊</td>
+<td>JS 未加载或被缓存</td>
+<td>强刷；确认 <code>extra_javascript</code> 里有 <code>javascripts/github-hub.js</code></td>
 </tr>
 </tbody>
 </table>
