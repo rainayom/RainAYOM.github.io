@@ -59,7 +59,7 @@
     
       <link rel="stylesheet" href="../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../stylesheets/site-ui.css?v=20261127s">
+      <link rel="stylesheet" href="../stylesheets/site-ui.css?v=20261127u">
     
       <link rel="stylesheet" href="../stylesheets/content-themes.css?v=20261127a">
     
@@ -1675,6 +1675,89 @@
     <span class="md-ellipsis">
       
         26.5 验收
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-md" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. 站点内容主题：网页上的 md 文档也能直接切换
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="27. 站点内容主题：网页上的 md 文档也能直接切换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.1 页眉最终形态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.2 为什么不能直接复用编辑器的主题样式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#273-content-themescss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.3 content-themes.css 的做法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#274" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.4 三个文件的分工
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#275" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.5 踩到的两个坑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#276" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.6 验收
       
     </span>
   </a>
@@ -3683,6 +3766,89 @@
     <span class="md-ellipsis">
       
         26.5 验收
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27-md" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27. 站点内容主题：网页上的 md 文档也能直接切换
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="27. 站点内容主题：网页上的 md 文档也能直接切换">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.1 页眉最终形态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.2 为什么不能直接复用编辑器的主题样式
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#273-content-themescss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.3 content-themes.css 的做法
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#274" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.4 三个文件的分工
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#275" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.5 踩到的两个坑
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#276" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        27.6 验收
       
     </span>
   </a>
@@ -6053,6 +6219,145 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 </tr>
 </tbody>
 </table>
+<h2 id="27-md">27. 站点内容主题：网页上的 md 文档也能直接切换<a class="headerlink" href="#27-md" title="Permanent link">&para;</a></h2>
+<p>前两轮页眉里只有「站点亮暗」和「代码主题（文字胶囊）」。这一轮把编辑器里的两套主题搬到了站点页眉：<strong>文档内容主题（Aa）</strong> 与 <strong>代码主题（&lt;/&gt;）</strong>，图标、尺寸、交互规则与编辑器完全一致，切换结果立刻作用到网页正文，而不是只改按钮外观。</p>
+<h3 id="271">27.1 页眉最终形态<a class="headerlink" href="#271" title="Permanent link">&para;</a></h3>
+<p>右侧工具条从右到左：搜索胶囊（居中）→ GH → <code>&lt;/&gt;</code> → <code>Aa</code> → 太阳/月亮。</p>
+<table>
+<thead>
+<tr>
+<th>控件</th>
+<th>含义</th>
+<th>取值</th>
+<th>记忆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>太阳 / 月亮</td>
+<td>站点亮暗</td>
+<td>跟随系统 → 暗 → 亮</td>
+<td><code>mdgh.siteTheme</code></td>
+</tr>
+<tr>
+<td><code>Aa</code></td>
+<td>文档内容主题</td>
+<td>默认 / github / vuepress / mk-cute / smart-blue / cyanosis</td>
+<td><code>mdgh.mdContentTheme</code></td>
+</tr>
+<tr>
+<td><code>&lt;/&gt;</code></td>
+<td>代码块配色</td>
+<td>默认 / github-dark / one-dark / dracula / monokai / nord / solarized-light / vs / xcode</td>
+<td><code>mdgh.codeTheme</code></td>
+</tr>
+</tbody>
+</table>
+<p>三枚按钮统一 <code>2rem × 2rem</code>、<code>border:0</code>、透明底、悬停浅底，中文只进 <code>title</code>/<code>aria-label</code>，不在按钮上出现文字；当前主题以右下角 <code>.28rem</code> 小色点（<code>--mui-dot</code>）提示。</p>
+<h3 id="272">27.2 为什么不能直接复用编辑器的主题样式<a class="headerlink" href="#272" title="Permanent link">&para;</a></h3>
+<p>md-editor-v3 的预览主题样式只存在于<strong>构建产物</strong> <code>dist/assets/index-*.css</code> 里，选择器形如：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="nc">md-editor</span><span class="w"> </span><span class="nt">div</span><span class="p">.</span><span class="nc">github-theme</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nv">--md-theme-color</span><span class="p">:</span><span class="w"> </span><span class="o">...</span><span class="p">;</span><span class="w"> </span><span class="nv">--md-theme-link-color</span><span class="p">:</span><span class="w"> </span><span class="o">...</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<p>作用域被锁在 <code>.md-editor</code> 里面，变量也只喂给编辑器自己的 <code>.md-editor-preview</code>；站点的正文容器是 <code>.md-typeset</code>，拿不到这些变量。所以站点这一侧改为<strong>自写一套等价样式</strong>，色值锚定编辑器里的真实取值。</p>
+<h3 id="273-content-themescss">27.3 <code>content-themes.css</code> 的做法<a class="headerlink" href="#273-content-themescss" title="Permanent link">&para;</a></h3>
+<p>一个共享骨架 + 每个主题一组变量，全部以 <code>body[data-md-content-theme="X"] .md-typeset</code> 作用域：</p>
+<ul>
+<li>骨架负责：正文颜色与行高、h1~h6 颜色/字号/下边框、链接色、引用块、<code>hr</code>、行内 <code>code</code>、表格边框/斑马纹/表头底色、图片圆角。</li>
+<li>每个主题下发 <code>--ct-*</code> 变量，明暗各一套（暗色写在 <code>body[data-md-color-scheme="slate"][data-md-content-theme="X"]</code>）。</li>
+<li><code>material</code>（默认）<strong>不设属性</strong>，整段骨架自然失效，页面回到 Material 原样。</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="nt">body</span><span class="o">[</span><span class="nt">data-md-content-theme</span><span class="o">]</span><span class="w"> </span><span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--ct-fg</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+<span class="nt">body</span><span class="o">[</span><span class="nt">data-md-content-theme</span><span class="o">]</span><span class="w"> </span><span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="nt">h1</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--ct-h1</span><span class="p">,</span><span class="w"> </span><span class="mf">1.6</span><span class="kt">rem</span><span class="p">);</span>
+<span class="w">  </span><span class="k">border-bottom</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--ct-h1-bd</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nt">body</span><span class="o">[</span><span class="nt">data-md-content-theme</span><span class="o">]</span><span class="w"> </span><span class="p">.</span><span class="nc">md-typeset</span><span class="w"> </span><span class="nt">table</span><span class="p">:</span><span class="nd">not</span><span class="o">([</span><span class="nt">class</span><span class="o">])</span><span class="w"> </span><span class="nt">tr</span><span class="p">:</span><span class="nd">nth-child</span><span class="o">(</span><span class="nt">2n</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--ct-stripe</span><span class="p">,</span><span class="w"> </span><span class="kc">transparent</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>关键取舍：<strong>块级代码不归内容主题管</strong>。<code>pre code</code> / <code>.highlight code</code> / <code>.codehilite code</code> 统一 <code>background/color: inherit</code>，配色一律交给代码主题那套 pygments 样式，避免两套规则打架。</p>
+<h3 id="274">27.4 三个文件的分工<a class="headerlink" href="#274" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docs/stylesheets/content-themes.css</code></td>
+<td>5 套内容主题 × 明暗两版，只认 <code>body[data-md-content-theme]</code></td>
+</tr>
+<tr>
+<td><code>docs/javascripts/site-ui.js</code></td>
+<td><code>MD_THEMES</code>、<code>applyMdTheme()</code> 写属性 + 色点 + 菜单 <code>.sel</code>；<code>applyCodeTheme()</code> 换 <code>link.href</code> 并写 <code>body[data-md-code-theme]</code></td>
+</tr>
+<tr>
+<td><code>docs/stylesheets/site-ui.css</code></td>
+<td>两枚图标按钮外观、下拉定位、色点；代码块继承链修正</td>
+</tr>
+</tbody>
+</table>
+<h3 id="275">27.5 踩到的两个坑<a class="headerlink" href="#275" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>代码块文字色不跟着主题走</strong>。主题 CSS 里的 <code>color</code> 写在 <code>.codehilite</code> 外层，但内层 <code>code</code> 被 Material 的 <code>.md-typeset code</code> 覆盖，实测切到 solarized-light 仍是 <code>rgb(54,70,78)</code>。加 <code>color: inherit !important</code> 后仍不对，因为 <code>pre</code> 自己也有前景色，把继承链掐断；把 <code>pre</code> 一起拉回 <code>inherit</code> 才通。</li>
+<li><strong>菜单定位</strong>。给下拉菜单加 <code>right: 0</code> 在页眉右侧会把面板甩到屏幕左侧外，站点与编辑器统一改 <code>left: 0</code>。</li>
+</ol>
+<h3 id="276">27.6 验收<a class="headerlink" href="#276" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>期望</th>
+<th>实测</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>图标一致</td>
+<td>站点与编辑器同为 <code>Aa</code> / <code>&lt;/&gt;</code>，无文字</td>
+<td>一致</td>
+</tr>
+<tr>
+<td>宽屏布局</td>
+<td>1440 下不与搜索胶囊、GH 重叠</td>
+<td>Aa x=1091 w=40，<code>&lt;/&gt;</code> x=1137 w=40，GH x=1189</td>
+</tr>
+<tr>
+<td>窄屏</td>
+<td>447 下五个控件不挤爆</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>内容主题生效</td>
+<td>切 github 标题 <code>#1f2328</code> 且带下边框</td>
+<td>35px + 0.67px 边框</td>
+</tr>
+<tr>
+<td>其它主题</td>
+<td>vuepress <code>#273849</code>、mk-cute <code>#36ace1</code>、smart-blue <code>#135ce0</code>、cyanosis <code>#2b6cb0</code></td>
+<td>均按预期变色</td>
+</tr>
+<tr>
+<td>暗色组合</td>
+<td>slate + cyanosis 标题 <code>rgb(121,182,242)</code></td>
+<td>通过</td>
+</tr>
+<tr>
+<td>代码主题</td>
+<td>切 dracula 背景 <code>#282a36</code>、solarized-light <code>#fdf6e3</code> 且文字色随主题</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>记忆</td>
+<td>刷新后主题保持</td>
+<td>通过</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -6163,7 +6468,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
       
         <script src="../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../javascripts/site-ui.js?v=20261127r"></script>
+        <script src="../javascripts/site-ui.js?v=20261127s"></script>
       
     
   </body>

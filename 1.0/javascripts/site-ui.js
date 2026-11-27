@@ -157,9 +157,11 @@
     if (!id || id === "material") {
       link.removeAttribute("href");
       link.disabled = true;
+      document.body.removeAttribute("data-md-code-theme");
     } else {
       link.disabled = false;
       link.href = siteRoot() + "stylesheets/code-themes/" + id + ".css";
+      document.body.setAttribute("data-md-code-theme", id);
     }
     var label = document.querySelector(".mui-code .mui-code-label");
     var btn = document.querySelector(".mui-code-btn");
