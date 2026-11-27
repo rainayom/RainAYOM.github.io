@@ -1675,7 +1675,7 @@ function leaveAnyway() { savedText.value = text.value; doBack() }   // 丢掉改
 | --- | --- | --- | --- |
 | 太阳 / 月亮 | 站点亮暗 | 跟随系统 → 暗 → 亮 | `mdgh.siteTheme` |
 | `Aa` | 文档内容主题 | 默认 / github / vuepress / mk-cute / smart-blue / cyanosis | `mdgh.mdContentTheme` |
-| `</>` | 代码块配色 | 默认 / github-dark / one-dark / dracula / monokai / nord / solarized-light / vs / xcode | `mdgh.codeTheme` |
+| `</>` | 代码块配色 | 默认（One Dark）/ github-dark / dracula / monokai / nord / solarized-light / vs / xcode | `mdgh.codeTheme` |
 
 三枚按钮统一 `2rem × 2rem`、`border:0`、透明底、悬停浅底，中文只进 `title`/`aria-label`，不在按钮上出现文字；当前主题以右下角 `.28rem` 小色点（`--mui-dot`）提示。
 
@@ -1776,7 +1776,7 @@ body[data-md-content-theme] .md-typeset table:not([class]) tr:nth-child(2n) {
 - **复制按钮就是文字**「复制代码」，点完变「已复制」，1.4 秒复原；`navigator.clipboard` 不可用时退回 `textarea + execCommand`。
 - **折叠**按钮把 `.mdg-body` 收起来，图标随之转 90°。
 - Material 自带的图标复制按钮用 CSS 隐藏（`.md-code__nav / .md-code__button{display:none}`）。
-- 背景与文字色**不写在代码块骨架里**，仍由「代码主题」那套 pygments 样式决定；默认代码主题从 `material` 换成 `one-dark`（`#282c34` 背景 / `#a9b7c6` 前景），正好等于 md-editor 默认的 `--md-theme-code-block-*`。想回到 Material 观感，选「跟随站点」即可。
+- 背景与文字色**不写在代码块骨架里**，仍由「代码主题」那套 pygments 样式决定；代码主题只有 pygments 那几套，默认 `one-dark`（`#282c34` 背景 / `#a9b7c6` 前景），正好等于 md-editor 默认的 `--md-theme-code-block-*`；不再提供「跟随站点」选项，空值或旧值 `material` 一律回落到 `one-dark`。
 
 ### 28.3 语言标签从哪来
 
@@ -1800,3 +1800,18 @@ if html.count(marker) != len(langs):
 | 折叠 | 收起正文、图标旋转 | 通过 |
 | 主题互不干扰 | 切 github/vuepress 只改正文排版，代码块结构不受影响 | 通过 |
 | 布局 | 447 窄屏不溢出（块宽 400、工具区 106px） | 通过 |
+
+### 28.5 代码主题不再跟随站点
+
+早先代码主题菜单的第一项是「跟随站点」，选中它等于撤掉 pygments 样式、退回 Material 自己的配色，于是同一篇文档里会出现「正文用 md-editor 默认、代码块却还是 Material」的割裂。这一版把它去掉：
+
+- 菜单只剩 8 项：`one-dark`（默认）/ github-dark / dracula / monokai / nord / solarized-light / vs / xcode。
+- `applyCodeTheme()` 的兜底改成：`!id || id === "material" || id === "default"` → `one-dark`。`<link>` 永远指向某个 pygments 样式，`body[data-md-code-theme]` 恒定有值；浏览器里存过 `material` 的老用户首次访问自动回落到默认。
+- 附带好处：`body[data-md-code-theme]` 不再可能缺席，代码块内层 `code` 的 `color: inherit` 规则一定命中，也就不会再出现「切了主题、代码文字还是 Material 灰」的情况。
+
+| 检查项 | 期望 | 实测 |
+| --- | --- | --- |
+| 菜单项 | 8 项，首项为默认 | 通过 |
+| 默认值 | `data-md-code-theme=one-dark` | 通过 |
+| 旧值兼容 | `mdgh.codeTheme=material` 刷新后仍是 one-dark | 通过 |
+| 块外观 | 底 `rgb(40,44,52)`、前景 `rgb(171,178,191)` | 通过 |
