@@ -1502,6 +1502,83 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#251" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.1 最终形态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.2 新增的三个文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-material-palette" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.3 主题按钮：接管 Material 的 palette，而不是另造一套
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#254-pygments-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.4 代码主题：pygments 出样式 + 一个 link 换色
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#255-ctrlk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.5 Ctrl+K 搜索弹窗
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#256" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.6 验收清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#257" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.7 本章故障表
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3327,6 +3404,83 @@
     <span class="md-ellipsis">
       
         24.8 本轮故障表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#251" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.1 最终形态
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.2 新增的三个文件
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-material-palette" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.3 主题按钮：接管 Material 的 palette，而不是另造一套
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#254-pygments-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.4 代码主题：pygments 出样式 + 一个 link 换色
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#255-ctrlk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.5 Ctrl+K 搜索弹窗
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#256" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.6 验收清单
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#257" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.7 本章故障表
       
     </span>
   </a>
@@ -5216,6 +5370,263 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 <td><code>Type mismatch ... categoryId (String! / ID)</code></td>
 <td>GraphQL 变量类型写错</td>
 <td>改成 <code>$c:ID!</code></td>
+</tr>
+<tr>
+<td>## 25. 站点页眉：主题/代码主题按钮与 Ctrl+K 搜索弹窗</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>第 24 章把<strong>编辑器</strong>里的主题能力补齐了，但站点上真正给人看的页面还只有 Material 原生那一个调色板开关，代码配色也只能跟着主题走。本章把两件事补到<strong>实际展示的页面</strong>上：</p>
+<ol>
+<li>页眉右侧新增两枚胶囊按钮：<strong>主题（明亮/暗黑）</strong> 与 <strong>代码主题</strong>，作用于全站所有 Markdown 正文；</li>
+<li>页眉正中换成 <strong><code>搜索文档 Ctrl+K</code></strong> 胶囊，<code>Ctrl+K</code> 唤起居中搜索弹窗，弹窗右侧是 <code>筛选 / 标签</code> 计数面板（对齐 Zensical 的交互）。</li>
+</ol>
+<h3 id="251">25.1 最终形态<a class="headerlink" href="#251" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="err">页眉（</span><span class="o">.</span><span class="n">md</span><span class="o">-</span><span class="n">header__inner</span><span class="err">）</span>
+<span class="err">├──</span><span class="w"> </span><span class="err">汉堡菜单</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">logo</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">站点标题</span>
+<span class="err">├──</span><span class="w"> </span><span class="o">.</span><span class="n">md</span><span class="o">-</span><span class="n">search</span><span class="w">           </span><span class="err">←</span><span class="w"> </span><span class="n">Material</span><span class="w"> </span><span class="err">原生搜索：</span><span class="n">display</span><span class="p">:</span><span class="n">none</span><span class="w"> </span><span class="err">隐藏</span>
+<span class="err">├──</span><span class="w"> </span><span class="p">[</span><span class="n">data</span><span class="o">-</span><span class="n">md</span><span class="o">-</span><span class="n">toggle</span><span class="o">=</span><span class="n">search</span><span class="p">]</span><span class="w"> </span><span class="err">←</span><span class="w"> </span><span class="err">原生搜索开关：同样隐藏</span>
+<span class="err">├──</span><span class="w"> </span><span class="o">.</span><span class="n">mui</span><span class="o">-</span><span class="n">search</span><span class="w">          </span><span class="err">←</span><span class="w"> </span><span class="err">新增：绝对居中，</span><span class="n">left</span><span class="p">:</span><span class="mi">50</span><span class="o">%</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">translateX</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="o">%</span><span class="p">)</span>
+<span class="err">├──</span><span class="w"> </span><span class="o">.</span><span class="n">mui</span><span class="o">-</span><span class="n">tools</span><span class="w">           </span><span class="err">←</span><span class="w"> </span><span class="err">新增：主题按钮</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">代码主题下拉</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="o">.</span><span class="n">mui</span><span class="o">-</span><span class="n">theme</span><span class="w">       </span><span class="err">→</span><span class="w"> </span><span class="err">明亮</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">暗黑</span><span class="w"> </span><span class="err">二态切换，写</span><span class="w"> </span><span class="n">localStorage</span><span class="w"> </span><span class="err">并驱动</span><span class="w"> </span><span class="n">Material</span><span class="w"> </span><span class="n">palette</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="o">.</span><span class="n">mui</span><span class="o">-</span><span class="n">code</span><span class="w">        </span><span class="err">→</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="err">个代码主题（默认</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="err">个</span><span class="w"> </span><span class="n">pygments</span><span class="w"> </span><span class="err">主题）</span>
+<span class="err">└──</span><span class="w"> </span><span class="o">.</span><span class="n">ghh</span><span class="w">                 </span><span class="err">←</span><span class="w"> </span><span class="err">已有：</span><span class="n">GitHub</span><span class="w"> </span><span class="err">个人中心胶囊</span>
+</code></pre></div>
+
+<p>页面级效果：主题切换直接改 <code>body[data-md-color-scheme]</code>，全站正文、代码块、表格、提示框一起变；代码主题切换只替换一个 <code>&lt;link id="mui-code-theme"&gt;</code> 的 <code>href</code>，全站代码块配色立刻换色，且刷新后记忆。</p>
+<h3 id="252">25.2 新增的三个文件<a class="headerlink" href="#252" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docs/javascripts/site-ui.js</code></td>
+<td>注入页眉按钮、主题/代码主题逻辑、Ctrl+K 搜索弹窗与标签筛选</td>
+</tr>
+<tr>
+<td><code>docs/stylesheets/site-ui.css</code></td>
+<td>按钮与弹窗样式；隐藏原生搜索；居中定位；移动端折叠</td>
+</tr>
+<tr>
+<td><code>hooks/tags_json.py</code></td>
+<td>构建后扫描 front matter，产出 <code>tags.json</code> 给弹窗做标签与计数</td>
+</tr>
+</tbody>
+</table>
+<p><code>mkdocs.yml</code> 三处登记（顺序很重要，<code>site-ui.js</code> 必须在 <code>github-hub.js</code> 之后，否则拿不到 <code>.ghh</code> 锚点）：</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">hooks</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks/index_listing.py</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks/tags_json.py</span>
+
+<span class="nt">extra_css</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stylesheets/site-ui.css</span>
+
+<span class="nt">extra_javascript</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">javascripts/site-ui.js?v=20261127i</span>
+</code></pre></div>
+
+<h3 id="253-material-palette">25.3 主题按钮：接管 Material 的 palette，而不是另造一套<a class="headerlink" href="#253-material-palette" title="Permanent link">&para;</a></h3>
+<p>Material 的主题真源是 <code>body[data-md-color-scheme]</code>，而它是由页眉那组 palette 单选框驱动的。自建按钮最稳的做法是<strong>替用户点那个单选框</strong>：</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">setScheme</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                 </span><span class="c1">// target: "default" | "slate"</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">inputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">'[data-md-component="palette"] input[type="radio"]'</span><span class="p">);</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">inputs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">inputs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">value</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">target</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">inputs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">checked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<span class="w">      </span><span class="nx">inputs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">Event</span><span class="p">(</span><span class="s2">"change"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">bubbles</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}));</span>
+<span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">"mdgh.siteTheme"</span><span class="p">,</span><span class="w"> </span><span class="nx">target</span><span class="p">);</span><span class="w">   </span><span class="c1">// 自己的记忆键</span>
+<span class="p">}</span>
+
+<span class="kd">function</span><span class="w"> </span><span class="nx">toggleTheme</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">setScheme</span><span class="p">(</span><span class="nx">scheme</span><span class="p">()</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">"slate"</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">"default"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">"slate"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>配套两件事：</p>
+<ul>
+<li>原生调色板开关和原生搜索开关在样式里隐藏（<code>.md-header__option { display:none }</code>、<code>[data-md-toggle="search"] { display:none }</code>），否则页眉会出现两套重复控件，也正是之前「搜索框从中间撑到右边缘」的根源；</li>
+<li>单选框只是视觉隐藏，JS 仍然可以 <code>checked + change</code>，Material 自己会完成 <code>__palette</code> 落盘与配色切换。</li>
+</ul>
+<h3 id="254-pygments-link">25.4 代码主题：pygments 出样式 + 一个 link 换色<a class="headerlink" href="#254-pygments-link" title="Permanent link">&para;</a></h3>
+<p>代码主题不碰 JavaScript 高亮逻辑，纯 CSS 覆盖。用服务器上的 pygments 为 8 个主题各生成一份：</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo/docs/stylesheets/code-themes
+<span class="nv">P</span><span class="o">=</span>/srv/mkdocs/.venv/bin/pygmentize
+<span class="k">for</span><span class="w"> </span>t<span class="w"> </span><span class="k">in</span><span class="w"> </span>github-dark<span class="w"> </span>one-dark<span class="w"> </span>dracula<span class="w"> </span>monokai<span class="w"> </span>nord<span class="w"> </span>solarized-light<span class="w"> </span>vs<span class="w"> </span>xcode<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span><span class="nv">$P</span><span class="w"> </span>-S<span class="w"> </span><span class="s2">"</span><span class="nv">$t</span><span class="s2">"</span><span class="w"> </span>-f<span class="w"> </span>html<span class="w"> </span>-a<span class="w"> </span><span class="s2">".md-typeset .codehilite"</span><span class="w"> </span>&gt;<span class="w"> </span>_tmp.css
+<span class="w">  </span><span class="o">{</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"/* 代码主题：</span><span class="nv">$t</span><span class="s2">（pygments） */"</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">".md-typeset .codehilite pre, .md-typeset .codehilite pre &gt; code, .md-typeset .codehilite code { background: transparent !important; }"</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">".md-typeset .highlight pre, .md-typeset .highlight pre &gt; code { background: transparent !important; }"</span>
+<span class="w">    </span>cat<span class="w"> </span>_tmp.css
+<span class="w">  </span><span class="o">}</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$t</span><span class="s2">.css"</span>
+<span class="w">  </span>rm<span class="w"> </span>-f<span class="w"> </span>_tmp.css
+<span class="k">done</span>
+chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w"> </span>/srv/mkdocs/repo/docs/stylesheets/code-themes
+</code></pre></div>
+
+<p>两个必须踩准的点：</p>
+<ol>
+<li><strong>锚点必须是 <code>.md-typeset .codehilite</code></strong>，不是 <code>.highlight</code>。本站 <code>markdown_extensions</code> 里配的是 <code>codehilite</code>，实际 DOM 是 <code>&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;code&gt;</code>，用 <code>.highlight</code> 生成出来一条也命中不了（实测页面里 <code>.highlight</code> 数量为 0、<code>.codehilite</code> 有 55 个）。</li>
+<li>生成物只给 <code>.codehilite</code> 上底色，<code>pre &gt; code</code> 仍带着 Material 的 <code>--md-code-bg-color</code>，所以每个文件开头要补那条 <code>background: transparent !important</code>，让底色透出到容器上。</li>
+</ol>
+<p>前台切换只要一个 <code>&lt;link&gt;</code>：</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">applyCodeTheme</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">remember</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">           </span><span class="c1">// id = "material" 表示回到默认</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">link</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"mui-code-theme"</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">createLink</span><span class="p">();</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">id</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">"material"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">link</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="s2">"href"</span><span class="p">);</span><span class="w"> </span><span class="nx">link</span><span class="p">.</span><span class="nx">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">link</span><span class="p">.</span><span class="nx">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"> </span><span class="nx">link</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">siteRoot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">"stylesheets/code-themes/"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">".css"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">remember</span><span class="p">)</span><span class="w"> </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">"mdgh.codeTheme"</span><span class="p">,</span><span class="w"> </span><span class="nx">id</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><code>siteRoot()</code> 从自己 <code>&lt;script src&gt;</code> 反推站点根，这样内网 <code>:8000</code>、mike 的 <code>/1.0/</code>、Pages 域名三种路径都能拼对 CSS 地址，不用写死绝对路径。</p>
+<h3 id="255-ctrlk">25.5 Ctrl+K 搜索弹窗<a class="headerlink" href="#255-ctrlk" title="Permanent link">&para;</a></h3>
+<p>交互按 Zensical：页眉中间一个胶囊（图标 + 「搜索文档」+ <code>Ctrl+K</code> 键帽），点开是居中卡片，左边输入框与结果列表，右边是 <code>筛选 / 标签</code> 面板（每个标签带文档计数）。</p>
+<p>数据全部走静态文件，不依赖后端：</p>
+<ul>
+<li>结果：<code>search/search_index.json</code>（Material <code>search</code> 插件本来就产出的索引）；</li>
+<li>标签：<code>tags.json</code>（本钩子生成）。</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="c1"># hooks/tags_json.py 核心</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">on_post_build</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">"docs_dir"</span><span class="p">]):</span>
+        <span class="n">dirs</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dirs</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">d</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">d</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".assets"</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".md"</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="n">FRONT</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>                     <span class="c1"># 只认 front matter</span>
+            <span class="n">tags</span> <span class="o">=</span> <span class="n">_tags_of</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">match</span> <span class="k">else</span> <span class="p">[]</span>
+            <span class="o">...</span>
+    <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s2">"tags"</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">],</span> <span class="s2">"docs"</span><span class="p">:</span> <span class="p">{</span><span class="o">...</span><span class="p">}},</span>
+              <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">"site_dir"</span><span class="p">],</span> <span class="s2">"tags.json"</span><span class="p">),</span> <span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">),</span>
+              <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+<p>产出形如：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Linux基础教程"</span><span class="p">,</span><span class="w"> </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ansible"</span><span class="p">,</span><span class="w"> </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">}],</span>
+<span class="w">  </span><span class="nt">"docs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"guide/"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"使用指南"</span><span class="p">,</span><span class="w"> </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mkdocs"</span><span class="p">,</span><span class="w"> </span><span class="s2">"部署"</span><span class="p">]}}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>写进 <code>on_post_build</code> 而不是 <code>on_page_markdown</code>，是因为 <code>site_dir</code> 在 mike 构建时是临时目录，钩子写完的 <code>tags.json</code> 会随后被 mike 一起搬进版本目录，内网与 Pages 都能取到。</p>
+<p>前端三个细节值得记一笔：</p>
+<ol>
+<li><strong>标题要另取</strong>。索引里 <code>doc.title</code> 是「小节标题」，直接取最长的一条会得到整段正文当标题（实测搜 <code>nginx</code> 第一条标题是几百字的说明）。做法是按 <code>location.split("#")[0]</code> 聚合成页面，标题优先用 <code>tags.json</code> 里的 H1；</li>
+<li><strong>摘要要清洗</strong>。索引文本是 Markdown/HTML 混合体，先解 <code>&amp;lt; &amp;gt; &amp;amp;</code> 实体、再去 <code>&lt;code&gt;</code> 之类的标签、去围栏代码块与表格竖线，最后才截 120 字并在命中词上包 <code>&lt;mark&gt;</code>；</li>
+<li><strong>标签与关键词是"与"关系</strong>。点标签不清空输入框，两者同时收窄结果；点「全部文档」清空标签。</li>
+</ol>
+<p>键盘：<code>Ctrl+K</code>（mac 上 <code>⌘K</code>）开关弹窗，<code>Esc</code> 关闭，<code>Enter</code> 跳第一条结果，<code>⌘/Ctrl+K</code> 再按一次收起。窄屏（≤960px）弹窗改为上下排布，页眉胶囊退化成只有图标的按钮，主题按钮隐藏文字只留图标，代码主题下拉暂时收起，避免页眉被挤爆。</p>
+<h3 id="256">25.6 验收清单<a class="headerlink" href="#256" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>验收方式</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>页眉两个按钮存在且可用</td>
+<td><code>.mui-theme</code> / <code>.mui-code</code> 点击后 <code>body[data-md-color-scheme]</code>、<code>#mui-code-theme.href</code> 变化</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>主题切换全站生效</td>
+<td>切暗黑后正文、代码块、提示框、表格同时变深</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>代码主题切全站生效</td>
+<td>选 monokai 后 <code>.codehilite</code> 背景 <code>rgb(39,40,34)</code>，<code>pre&gt;code</code> 透明</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>设置刷新保留</td>
+<td>重载后 <code>mdgh.siteTheme=default</code>、<code>mdgh.codeTheme=monokai</code> 仍生效</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>搜索胶囊居中</td>
+<td><code>.mui-search</code> 绝对定位 <code>left:50%</code> + <code>translateX(-50%)</code>，与右侧按钮无重叠</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>Ctrl+K 弹窗</td>
+<td>弹窗打开、输入 <code>nginx</code> 出 10 条结果、标题干净、命中词高亮</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>标签面板计数</td>
+<td>16 个标签，<code>Linux基础教程 13 / ansible 4 / 自动化 3 / docker 2 …</code></td>
+<td>通过</td>
+</tr>
+<tr>
+<td>原生搜索不再错位</td>
+<td><code>.md-search</code>、<code>[data-md-toggle=search]</code> 均为 <code>display:none</code></td>
+<td>通过</td>
+</tr>
+</tbody>
+</table>
+<h3 id="257">25.7 本章故障表<a class="headerlink" href="#257" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>根因</th>
+<th>处置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码主题选了没反应</td>
+<td>样式按 <code>.highlight</code> 生成，本站 DOM 是 <code>.codehilite</code></td>
+<td>用 <code>-a ".md-typeset .codehilite"</code> 重新生成</td>
+</tr>
+<tr>
+<td>代码块只有外框变色、块内还是原底色</td>
+<td><code>pre &gt; code</code> 带着 Material 的 <code>--md-code-bg-color</code></td>
+<td>每个主题补 <code>background: transparent !important</code></td>
+</tr>
+<tr>
+<td>搜索结果标题变成一大段正文</td>
+<td>取了索引里最长 <code>doc.title</code></td>
+<td>按页面聚合，标题改用 H1（<code>tags.json</code>）</td>
+</tr>
+<tr>
+<td>摘要里出现 <code>&amp;gt;geerlingguy &amp;lt;/font&amp;gt;</code></td>
+<td>索引文本里的 HTML 被转义</td>
+<td>先解实体再去标签，最后截断</td>
+</tr>
+<tr>
+<td>页眉出现两个放大镜</td>
+<td>原生 <code>[data-md-toggle=search]</code> 按钮没隐藏</td>
+<td>一并 <code>display:none</code></td>
+</tr>
+<tr>
+<td>搜索框撑满右侧、不居中</td>
+<td>原生 <code>.md-search__inner</code> 展开后按 flex 右对齐</td>
+<td>原生搜索整体隐藏，改用绝对居中胶囊 + 弹窗</td>
+</tr>
+<tr>
+<td>主题按钮点了没变化</td>
+<td>只改了 <code>data-md-color-scheme</code> 属性，Material 内部状态没同步</td>
+<td>改成点 palette 单选框并派发 <code>change</code></td>
+</tr>
+<tr>
+<td><code>siteRoot()</code> 拼错地址</td>
+<td>写死 <code>/stylesheets/…</code>，在 mike 的 <code>/1.0/</code> 下 404</td>
+<td>从 <code>script[src*=site-ui.js]</code> 反推站点根</td>
 </tr>
 </tbody>
 </table>
