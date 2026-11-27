@@ -1032,3 +1032,136 @@ systemctl restart mkdocs-editor
 | 保存成功但站点没变 | mkdocs serve 未 watch 到 | `systemctl restart mkdocs-serve` |
 | 打开某篇报"没有匹配到源文件" | 该页不在 docs（如标签页） | 用左上文档下拉选择 |
 | 端口被占 | 8080 有其他服务 | 改单元里的 `EDITOR_PORT` 并同步 `edit-page.js` |
+## 23. 协作化编辑：页脚导航、GitHub 登录、个人中心与提交审核
+
+本章记录在既有站点与网页编辑器之上，叠加「读的人能切换文档、登录的人能改文档、拥有者能拍板」的一层协作能力。
+
+### 23.1 页脚「上一篇 / 下一篇」
+
+Material 主题自带开关，只在 `mkdocs.yml` 的 `theme.features` 里加一行：
+
+```yaml
+theme:
+  features:
+    - navigation.footer      # 页脚出现上一篇 / 下一篇
+```
+
+顺序按 `nav`（含 hooks 自动生成的章节首页）走，不需要手写任何模板。
+
+### 23.2 用 GitHub 登录（OAuth Device Flow）
+
+选设备码流程的原因：不需要后端保存 client secret，也不需要在 Pages 上跑服务，浏览器直连 `github.com` 即可（`login/device/code` 与 `login/oauth/access_token` 两个接口都允许跨域）。
+
+1. 在 GitHub 建 OAuth App：`Settings → Developer settings → OAuth Apps → New OAuth App`
+   - Application name：`运维知识库编辑器`
+   - Homepage URL：`https://rainayom.github.io/`
+   - Redirect URI：`https://rainayom.github.io/`（设备码流程用不到，但字段必填）
+   - **勾选 Enable Device Flow**（不勾会直接报 `device_flow_disabled`）
+2. 记下 `Client ID`（本项目为 `Ov23liZFcmfLX6wLHrmi`），写进两处前端常量。
+3. 登录时序：
+
+```text
+浏览器 → POST https://github.com/login/device/code   {client_id, scope}
+       ← {device_code, user_code, verification_uri, interval}
+用户  → 打开 https://github.com/login/device 输入 user_code 并 Authorize
+浏览器 → GET(轮询) https://github.com/login/oauth/access_token {client_id, device_code}
+       ← {access_token}
+```
+
+注意几个实测坑：
+
+- **授权时必须过一次 sudo 密码**：GitHub 在 Authorize 页会弹 `Confirm access`，要求输入账号密码；跳过或超时会返回 `access_denied`，此时轮询拿到的是 `error: access_denied`，不是网络问题。
+- 轮询偶发 `Failed to fetch`（网络抖动/浏览器限流），代码里对单次请求异常做了 `continue`，不中断整个轮询。
+- 设备码有效期 15 分钟，`interval` 默认 5 秒，`slow_down` 时要把间隔加 5 秒。
+
+### 23.3 页眉右上角个人中心
+
+`docs/javascripts/github-hub.js` 在 `.md-header__inner` 尾部插一个胶囊（未登录显示 `GitHub 登录`，登录后显示头像 + 用户名），点开是下拉面板：
+
+| 区块 | 数据来源 | 说明 |
+| --- | --- | --- |
+| 身份 | `GET /api.github.com/user` + `GET /repos/{owner}/{repo}` | 显示 `仓库拥有者 · 可直接提交` 或 `贡献者 · 提交需审核` |
+| 我的收藏 | `localStorage["mdgh.fav.<login>"]` | 键按登录名隔离，每人一份；收藏当前页路径 + 标题，支持点击跳转、✕ 取消 |
+| 我的提交 | `GET /api.github.com/search/issues?q=repo:...+is:pr+author:<login>` | `state=open` → 提交审核中；`merged_at` 非空 → 审核通过；`closed` 未合并 → 已关闭 |
+
+退出登录只清 localStorage 里的 token 与身份缓存。
+
+样式在 `docs/stylesheets/github-hub.css`，跟随主题色变量（`--md-default-bg-color`、`--md-primary-fg-color`），暗色模式不用单独写；窄屏（≤60em）只留头像圆点。
+
+### 23.4 编辑入口与权限分流
+
+「编辑本页」按钮现在有两个门槛，缺一不显示：
+
+1. 访问地址是局域网（`192.168.7.130 / localhost / 127.0.0.1`），因为编辑器是内网服务；
+2. 已用 GitHub 登录（`window.MDGitHub.token` 存在），登录后按钮自动出现、退出后自动消失。
+
+点击后跳 `http://<host>:8080/?url=<页面路径>#t=<token>`，token 放 hash 里（不进服务端日志、不参与 Referer），编辑器读到后写进自己的 localStorage 并立刻抹掉 hash。
+
+保存分两条路：
+
+| 身份 | 按钮文案 | 动作 | 结果 |
+| --- | --- | --- | --- |
+| 仓库拥有者 / 有 push 权限的协作者 | 保存 | `POST /api/doc` 直接写服务器文件 | `已保存 HH:MM:SS · N 字节`，5 分钟内随 autopush 提交并发版 |
+| 其他 GitHub 用户 | 提交审核 | fork → 建分支 → 提交文件 → `POST /repos/.../pulls` | `已提交审核 PR #N`，附 PR 链接；拥有者合并后自动发版 |
+
+非拥有者的分支命名为 `edit/<文件名净化>-<base36 时间戳>`，PR 标题 `docs: 更新 <path>`，正文标明提交人和文件路径。
+
+### 23.5 后端鉴权（editor_server.py v2）
+
+```text
+Authorization: Bearer <github_token>   ← 前端带，后端拿它去 api.github.com/user 换身份
+身份缓存 5 分钟，避免每次保存都打 API
+```
+
+| 接口 | 方法 | 权限 |
+| --- | --- | --- |
+| `/api/session`、`/api/me` | GET | 无 token 返回 `{auth:false, need_login:true}` |
+| `/api/list`、`/api/doc`、`/api/resolve` | GET | 任意已登录 GitHub 用户 |
+| `/api/doc` | POST | 仅拥有者/协作者；其他人返回 `403 {mode:"pr"}` |
+
+写文件仍然走 `safe_doc()`：`normpath` 规范化 + 必须在 `docs/` 下 + 只允许 `.md`，换行统一 LF，写后 `chmod 0664`。
+
+服务单元新增 `Environment=REPO_OWNER=rainayom`、`Environment=REPO_NAME=RainAYOM.github.io`；原来的 `EDITOR_USER/EDITOR_PASS` 口令登录已移除。
+
+### 23.6 与自动发布的关系
+
+PR 合并、网页直改都会让 GitHub 上的 `main` 领先服务器本地仓库，所以 `autopush.sh` 在推送前增加一步：
+
+```bash
+git fetch -q origin main
+behind=$(git rev-list --count main..origin/main)
+[[ $behind -gt 0 ]] && git pull -q --rebase origin main
+```
+
+rebase 冲突时脚本记录日志并跳过本轮推送（不覆盖远端），等人工处理。
+
+### 23.7 验收清单
+
+```bash
+# 1. 页脚导航
+curl -s http://192.168.7.130:8000/ | grep -c md-footer__link       # ≥1
+
+# 2. 登录接口（未带 token）
+curl -s http://192.168.7.130:8080/api/session                       # {"auth": false, "need_login": true}
+curl -s -o /dev/null -w '%{http_code}\n' http://192.168.7.130:8080/api/list   # 401
+
+# 3. 带 token 换成身份
+curl -s -H "Authorization: Bearer $T" http://192.168.7.130:8080/api/session
+
+# 4. 旧口令登录已失效
+curl -s -o /dev/null -w '%{http_code}\n' -X POST -d '{"password":"MdEditor@2026"}' \
+  -H 'Content-Type: application/json' http://192.168.7.130:8080/api/login   # 404
+```
+
+浏览器侧：未登录时页面没有「编辑本页」；登录后出现；页眉头像点开能看到收藏与「我的提交」状态标签。
+
+### 23.8 故障排查
+
+| 现象 | 原因 | 处理 |
+| --- | --- | --- |
+| 登录报 `The authorization request was denied` | 授权页的 sudo 密码没填/超时，或点了 Cancel | 重新取码，走完 `Confirm access` → `Authorize` |
+| 登录报 `Failed to fetch` | 轮询请求被网络/限流打断 | 已自动重试；仍失败就重开登录 |
+| `device_flow_disabled` | OAuth App 没勾 Enable Device Flow | 在应用设置里补勾 |
+| 非拥有者保存报「没有直接写入权限」 | 后端判定非 owner | 改用「提交审核」，等拥有者合并 |
+| PR 已合并但站点没更新 | autopush 未跑或 rebase 冲突 | `journalctl -u mkdocs-autopush`，看 `/tmp/autopush.log` |
+| 页眉没有登录胶囊 | JS 未加载或被缓存 | 强刷；确认 `extra_javascript` 里有 `javascripts/github-hub.js` |
