@@ -1,0 +1,18 @@
+/* Giscus 评论区排版：与右下角悬浮按钮（编辑本页 / 返回顶部）留出空间 */
+#__comments {
+  margin-top: 2.6rem;
+}
+
+.giscus {
+  margin-bottom: 9rem;
+}
+
+.giscus-frame {
+  width: 100% !important;
+}
+
+@media (max-width: 600px) {
+  .giscus {
+    margin-bottom: 7rem;
+  }
+}
