@@ -936,3 +936,99 @@ grep -o 'stylesheets/back-to-top.css\|javascripts/back-to-top.js' site/index.htm
 ```
 
 两行都能命中即为注入成功；浏览器里把页面往下滚，右下角出现胶囊按钮，点一下回到顶部。
+
+---
+
+## 22. 阶段十六：浏览器里的 Markdown 编辑器（md-editor-v3）
+
+### 22.1 为什么这么做
+
+站点要能"边写边看"，但文档放在服务器上，有两种做法：
+
+1. 给本机开一个仓库根目录的 SMB 共享，用本地编辑器打开 —— **没有采用**，等于把 `mkdocs.yml`、`.venv`、`.git` 全暴露到网络；
+2. 把编辑器跑在服务器上，浏览器访问 —— **采用**。前端用 [md-editor-v3](https://github.com/imzbf/md-editor-v3)，后端用 Python 标准库写的零依赖小服务，只暴露 `docs/` 下的 `.md`。
+
+### 22.2 组成
+
+| 组件 | 路径 | 说明 |
+| --- | --- | --- |
+| 前端源码 | `/srv/mkdocs/editor-app` | Vue 3 + md-editor-v3，`npm run build` 产出 `dist/` |
+| 后端 | `/srv/mkdocs/editor_server.py` | 标准库 `http.server`，无第三方依赖 |
+| 服务单元 | `/etc/systemd/system/mkdocs-editor.service` | `User=mkdocs`、端口 8080 |
+| 站点按钮 | `docs/javascripts/edit-page.js`、`docs/stylesheets/edit-page.css` | 右下角「编辑本页」胶囊 |
+
+### 22.3 按钮与「返回顶部」的排布
+
+两个按钮同一套胶囊样式，靠 `bottom` 错开，不重叠：
+
+```css
+.back-to-top { right: 1.4rem; bottom: 1.6rem; }   /* 返回顶部 */
+.edit-page   { right: 1.4rem; bottom: 4.35rem; }  /* 编辑本页，位于其上方 */
+```
+
+实测位置（视口 518px 高时）：编辑本页底边 441px、返回顶部顶边 473px，中间留 32px 间隙。
+
+按钮只在局域网里出现，公网 Pages 上自动隐藏：
+
+```js
+var EDIT_HOSTS = ["192.168.7.130", "localhost", "127.0.0.1"];
+if (EDIT_HOSTS.indexOf(location.hostname) === -1) return;
+```
+
+点击后跳到 `http://192.168.7.130:8080/?url=<当前页面路径>`，后端按 URL 反查源文件（会依次尝试去掉版本前缀、补 `/index.md`、补 `.md`），所以 mike 的 `/1.0/xxx/`、`/latest/xxx/`、本地 `:8000/xxx/` 都能定位到同一篇 md。
+
+### 22.4 后端接口
+
+| 方法 | 路径 | 作用 |
+| --- | --- | --- |
+| GET | `/api/session` | 查询是否已登录 |
+| POST | `/api/login` | `{"password": "..."}`，成功种 30 天 HttpOnly Cookie |
+| GET | `/api/list` | 列出 docs 下全部 md（标题 + 相对路径） |
+| GET | `/api/doc?path=xxx.md` | 读单篇内容 |
+| GET | `/api/resolve?url=/1.0/xxx/` | 站点 URL 反查源文件 |
+| POST | `/api/doc` | `{"path": "...", "content": "..."}` 保存 |
+
+安全边界都在 `safe_doc()` 里：`normpath` 之后必须仍在 `docs/` 内、后缀必须 `.md`，穿越和写非 md 一律 400；`\r\n` 统一转 `\n`；写回后 `chmod 0664`（root 运行时顺带 chown 到 mkdocs:docs），保证 Samba 侧仍能读写。
+
+### 22.5 使用
+
+1. 站点页面右下角点「编辑本页」→ 新标签页打开编辑器，自动带出当前文档；
+2. 首次进入要登录：账号 `mdftp`，口令 `MdEditor@2026`（Cookie 会话 30 天，之后不再问）；
+3. 左边编辑、右边 Markdown 实时预览，随输入更新；`Ctrl+S` 或右上「保存」写回服务器；
+4. 保存后 `mkdocs serve`（:8000）自动重建，刷新即可看到站点效果；
+5. 5 分钟内 `mkdocs-autopush.timer` 会把改动 commit、`mike deploy` 并推到 gh-pages，GitHub Pages 同步更新。
+
+### 22.6 服务管理
+
+```bash
+systemctl status mkdocs-editor
+journalctl -u mkdocs-editor -f
+
+# 改了前端源码后重新构建
+cd /srv/mkdocs/editor-app
+runuser -u mkdocs -- env HOME=/var/lib/mkdocs PATH=/usr/bin:/bin npm run build
+systemctl restart mkdocs-editor
+```
+
+改口令：编辑单元里的 `Environment=EDITOR_PASS=...`，`systemctl daemon-reload && systemctl restart mkdocs-editor`，旧 Cookie 立刻失效（Cookie 值由账号口令哈希派生）。
+
+### 22.7 验收
+
+| 检查 | 命令 / 操作 | 期望 |
+| --- | --- | --- |
+| 端口 | `ss -lntp \| grep 8080` | python3 监听 0.0.0.0:8080 |
+| 登录接口 | `curl -s -X POST -d '{"password":"MdEditor@2026"}' http://127.0.0.1:8080/api/login` | `{"ok": true}` |
+| 未登录拦截 | `curl -s http://127.0.0.1:8080/api/session` | `{"auth": false}` |
+| 保存 | 页面点「保存」 | 顶部出现「已保存 HH:MM:SS · N 字节」 |
+| 站点按钮 | 打开任意页 | 右下角「编辑本页」在「返回顶部」上方 |
+| 公网站点 | 打开 `https://rainayom.github.io/` | 不出现「编辑本页」 |
+
+### 22.8 常见故障
+
+| 现象 | 原因 | 处理 |
+| --- | --- | --- |
+| 打开 8080 白屏 | `dist/` 不存在 | 进 `editor-app` 跑 `npm run build` |
+| 点保存提示需要登录 | Cookie 过期或换了口令 | 重新输入口令登录 |
+| 保存成功但站点没变 | mkdocs serve 未 watch 到 | `systemctl restart mkdocs-serve` |
+| 打开某篇报"没有匹配到源文件" | 该页不在 docs（如标签页） | 用左上文档下拉选择 |
+| 端口被占 | 8080 有其他服务 | 改单元里的 `EDITOR_PORT` 并同步 `edit-page.js` |

@@ -12,9 +12,16 @@
 
     var a = document.createElement("a");
     a.className = "edit-page";
+    // location.pathname 已是百分号编码，先还原成中文再编码一次，避免双重编码
+    var rawPath = location.pathname;
+    try {
+      rawPath = decodeURI(decodeURI(rawPath));
+    } catch (e) {
+      /* 保持原样 */
+    }
     a.href =
       location.protocol + "//" + location.hostname + ":" + EDIT_PORT + "/?url=" +
-      encodeURIComponent(location.pathname);
+      encodeURIComponent(rawPath);
     a.target = "_blank";
     a.rel = "noopener";
     a.title = "用 md-editor-v3 编辑本页";
