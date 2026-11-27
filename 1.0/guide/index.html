@@ -4673,7 +4673,12 @@ systemctl<span class="w"> </span>restart<span class="w"> </span>mkdocs-editor
 <ul>
 <li><strong>授权时必须过一次 sudo 密码</strong>：GitHub 在 Authorize 页会弹 <code>Confirm access</code>，要求输入账号密码；跳过或超时会返回 <code>access_denied</code>，此时轮询拿到的是 <code>error: access_denied</code>，不是网络问题。</li>
 <li>轮询偶发 <code>Failed to fetch</code>（网络抖动/浏览器限流），代码里对单次请求异常做了 <code>continue</code>，不中断整个轮询。</li>
-<li>设备码有效期 15 分钟，<code>interval</code> 默认 5 秒，<code>slow_down</code> 时要把间隔加 5 秒。</li>
+<li>
+<p>设备码有效期 15 分钟，<code>interval</code> 默认 5 秒，<code>slow_down</code> 时要把间隔加 5 秒。</p>
+</li>
+<li>
+<p><strong>内网 HTTP 页面复制不了设备码</strong>：<code>navigator.clipboard</code> 只在安全上下文（HTTPS / localhost）可用，<code>http://192.168.7.130:8000</code> 下会直接报「复制失败」。现在改成 <code>clipboard</code> 优先、<code>document.execCommand("copy")</code> 兜底，两者都失败时把代码整段选中并提示 <code>Ctrl+C</code>；弹窗打开时已经自动选中，直接按 <code>Ctrl+C</code> 也能复制。</p>
+</li>
 </ul>
 <h3 id="233">23.3 页眉右上角个人中心<a class="headerlink" href="#233" title="Permanent link">&para;</a></h3>
 <p><code>docs/javascripts/github-hub.js</code> 在 <code>.md-header__inner</code> 尾部插一个胶囊（未登录显示 <code>GitHub 登录</code>，登录后显示头像 + 用户名），点开是下拉面板：</p>
@@ -4937,9 +4942,9 @@ curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>
       
         <script src="../javascripts/back-to-top.js"></script>
       
-        <script src="../javascripts/github-hub.js?v=20261127a"></script>
+        <script src="../javascripts/github-hub.js?v=20261127b"></script>
       
-        <script src="../javascripts/edit-page.js?v=20261127a"></script>
+        <script src="../javascripts/edit-page.js?v=20261127b"></script>
       
     
   </body>
