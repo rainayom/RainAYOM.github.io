@@ -41,42 +41,65 @@
     code:
       '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6z"/></svg>',
     filter:
-      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M4 5h16v2H4zm2 6h12v2H6zm3 6h6v2H9z"/></svg>'
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M4 5h16v2H4zm2 6h12v2H6zm3 6h6v2H9z"/></svg>',
+    auto:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4 2.26 5.4 5.4 0 0 1-3.1-9.8c-.44-.06-.9-.1-1.4-.1z"/><circle cx="16.5" cy="7.5" r="4.6"/></svg>'
   };
 
-  /* ---------------- 主题切换 ---------------- */
-  function scheme() {
-    return document.body.getAttribute("data-md-color-scheme") || "default";
+  /* ---------------- 主题切换：跟随系统 / 暗 / 亮 ---------------- */
+  var MODE_NEXT = { auto: "slate", slate: "default", default: "auto" };
+  var MODE_TEXT = { auto: "跟随系统", slate: "暗黑", default: "明亮" };
+  var paletteIcons = null;
+
+  function systemScheme() {
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "slate"
+      : "default";
   }
 
-  function setScheme(target) {
+  // 直接复用 Material palette 自带的三枚图标（自动 / 亮 / 暗），不显示文字
+  function paletteIconMap() {
+    if (paletteIcons) return paletteIcons;
+    var out = { auto: ICON.auto, light: ICON.sun, dark: ICON.moon };
     var inputs = document.querySelectorAll('[data-md-component="palette"] input[type="radio"]');
-    var hit = null;
-    for (var i = 0; i < inputs.length; i++) {
-      if (inputs[i].value === target) hit = inputs[i];
-    }
-    if (hit) {
-      hit.checked = true;
-      hit.dispatchEvent(new Event("change", { bubbles: true }));
-    } else {
-      document.body.setAttribute("data-md-color-scheme", target);
-    }
-    localStorage.setItem(LS_THEME, target);
+    [].forEach.call(inputs, function (inp) {
+      var lab = document.querySelector('label[for="' + inp.id + '"]');
+      if (!lab) return;
+      var svg = lab.querySelector("svg");
+      if (!svg) return;
+      var media = lab.getAttribute("data-md-color-media") || "";
+      var key = media === "(prefers-color-scheme)" ? "auto" : media.indexOf("light") >= 0 ? "light" : "dark";
+      out[key] = svg.outerHTML;
+    });
+    paletteIcons = out;
+    return out;
+  }
+
+  function currentMode() {
+    return localStorage.getItem(LS_THEME) || "auto";
+  }
+
+  function applyMode(mode, remember) {
+    var scheme = mode === "auto" ? systemScheme() : mode;
+    document.body.setAttribute("data-md-color-scheme", scheme);
+    if (remember !== false) localStorage.setItem(LS_THEME, mode);
     paintThemeBtn();
   }
 
   function paintThemeBtn() {
     var b = document.querySelector(".mui-theme");
     if (!b) return;
-    var dark = scheme() === "slate";
-    b.innerHTML =
-      '<span class="mui-ico">' + (dark ? ICON.moon : ICON.sun) +
-      '</span><span class="mui-theme-label">' + (dark ? "暗黑" : "明亮") + "</span>";
-    b.title = dark ? "当前暗黑主题，点击切回明亮" : "当前明亮主题，点击切到暗黑";
+    var mode = currentMode();
+    var icons = paletteIconMap();
+    var key = mode === "auto" ? "auto" : mode === "slate" ? "dark" : "light";
+    b.innerHTML = '<span class="mui-ico">' + (icons[key] || ICON.sun) + "</span>";
+    b.title = "主题：" + MODE_TEXT[mode] + "（点击切换）";
+    b.setAttribute("aria-label", "主题：" + MODE_TEXT[mode]);
+    b.setAttribute("data-mode", mode);
   }
 
   function toggleTheme() {
-    setScheme(scheme() === "slate" ? "default" : "slate");
+    applyMode(MODE_NEXT[currentMode()] || "auto");
   }
 
   /* ---------------- 代码主题 ---------------- */
@@ -101,9 +124,11 @@
       link.href = siteRoot() + "stylesheets/code-themes/" + id + ".css";
     }
     var label = document.querySelector(".mui-code .mui-code-label");
+    var btn = document.querySelector(".mui-code-btn");
     for (var i = 0; i < CODE_THEMES.length; i++) {
       if (CODE_THEMES[i].id === id) {
         if (label) label.textContent = CODE_THEMES[i].name;
+        if (btn) btn.title = "代码主题：" + CODE_THEMES[i].name;
         break;
       }
     }
@@ -386,12 +411,30 @@
   });
 
   /* ---------------- 启动 ---------------- */
+  function dropNativeSearch() {
+    // 原生搜索按钮与我们的胶囊重复，直接移除（否则页眉会出现两个放大镜）
+    var nodes = document.querySelectorAll(
+      '.md-header__button[for="__search"], label[for="__search"].md-header__button'
+    );
+    [].forEach.call(nodes, function (el) {
+      if (el && el.parentNode) el.parentNode.removeChild(el);
+    });
+  }
+
   function boot() {
     buildHeaderTools();
-    var savedTheme = localStorage.getItem(LS_THEME);
-    if (savedTheme) setScheme(savedTheme);
+    dropNativeSearch();
+    applyMode(currentMode(), false);
     var savedCode = localStorage.getItem(LS_CODE) || "material";
     applyCodeTheme(savedCode, false);
+    if (window.matchMedia) {
+      var mq = window.matchMedia("(prefers-color-scheme: dark)");
+      var onChange = function () {
+        if (currentMode() === "auto") applyMode("auto", false);
+      };
+      if (mq.addEventListener) mq.addEventListener("change", onChange);
+      else if (mq.addListener) mq.addListener(onChange);
+    }
   }
 
   if (document.readyState === "loading") {
@@ -400,6 +443,10 @@
     boot();
   }
   window.addEventListener("load", function () {
-    setTimeout(buildHeaderTools, 200);
+    setTimeout(function () {
+      buildHeaderTools();
+      dropNativeSearch();
+      applyMode(currentMode(), false);
+    }, 200);
   });
 })();

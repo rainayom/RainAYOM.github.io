@@ -60,10 +60,10 @@ extra_css:
   - stylesheets/edit-page.css
   - stylesheets/github-hub.css
   - stylesheets/comments.css
-  - stylesheets/site-ui.css?v=20261127l
+  - stylesheets/site-ui.css?v=20261127m
 extra_javascript:
   - javascripts/back-to-top.js
   - javascripts/github-hub.js?v=20261127c
   - javascripts/edit-page.js?v=20261127b
   - javascripts/comments.js?v=20261127e
-  - javascripts/site-ui.js?v=20261127i
+  - javascripts/site-ui.js?v=20261127m
