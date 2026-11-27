@@ -28,6 +28,7 @@ theme:
   features:
     - navigation.tabs
     - navigation.sections
+    - navigation.footer
     - search.suggest
     - content.code.copy
 plugins:
