@@ -1335,32 +1335,45 @@ extra_javascript:
   - javascripts/site-ui.js?v=20261127i
 ```
 
-### 25.3 主题按钮：接管 Material 的 palette，而不是另造一套
+### 25.3 主题按钮：三态（跟随系统 / 暗 / 亮），只显示图标
 
-Material 的主题真源是 `body[data-md-color-scheme]`，而它是由页眉那组 palette 单选框驱动的。自建按钮最稳的做法是**替用户点那个单选框**：
+页眉这枚按钮不再是"明/暗"两态，而是按 Material 的原始语义做成三态轮换，顺序是「跟随系统 → 暗 → 亮」：
+
+| 状态 | 图标（对应参考图 2/3/4） | 行为 |
+| --- | --- | --- |
+| `auto` 跟随系统 | 圆 + 月光 | 读 `prefers-color-scheme` 决定 `default` / `slate`，系统换主题时页面跟着换 |
+| `slate` 暗黑 | 月牙 + 十字星 | 固定 `data-md-color-scheme="slate"` |
+| `default` 明亮 | 太阳 + 八道光芒 | 固定 `data-md-color-scheme="default"` |
+
+按钮里只放图标、不显示文字（中文说明放在 `title` 与 `aria-label` 里），状态写 `localStorage.mdgh.siteTheme`，首次访问默认就是 `auto`：
 
 ```javascript
-function setScheme(target) {                 // target: "default" | "slate"
-  var inputs = document.querySelectorAll('[data-md-component="palette"] input[type="radio"]');
-  for (var i = 0; i < inputs.length; i++) {
-    if (inputs[i].value === target) {
-      inputs[i].checked = true;
-      inputs[i].dispatchEvent(new Event("change", { bubbles: true }));
-      break;
-    }
-  }
-  localStorage.setItem("mdgh.siteTheme", target);   // 自己的记忆键
-}
+var MODE_NEXT = { auto: "slate", slate: "default", default: "auto" };
 
-function toggleTheme() {
-  setScheme(scheme() === "slate" ? "default" : "slate");
+function applyMode(mode, remember) {
+  var scheme = mode === "auto" ? systemScheme() : mode;   // systemScheme() 读 matchMedia
+  document.body.setAttribute("data-md-color-scheme", scheme);
+  if (remember !== false) localStorage.setItem("mdgh.siteTheme", mode);
+  paintThemeBtn();
 }
 ```
 
-配套两件事：
+"跟随系统"要真的跟着走：除了 `matchMedia('(prefers-color-scheme: dark)').addEventListener('change')`，还补了 `visibilitychange` 和 `focus` 两个兜底，切回前台时再核对一次，避免颜色停留在旧状态。
 
-- 原生调色板开关和原生搜索开关在样式里隐藏（`.md-header__option { display:none }`、`[data-md-toggle="search"] { display:none }`），否则页眉会出现两套重复控件，也正是之前「搜索框从中间撑到右边缘」的根源；
-- 单选框只是视觉隐藏，JS 仍然可以 `checked + change`，Material 自己会完成 `__palette` 落盘与配色切换。
+> 一个坑：最早想直接复用 Material `palette` 里 `<label>` 的 svg 当图标，结果明亮态取到的是另一套字形（渲染出来是个「A」）。现在三枚图标改成自绘，既对应参考图，也不依赖被隐藏的 palette 表单。
+
+#### 25.3.1 页眉只留一个放大镜
+
+Material 原生搜索按钮（`label.md-header__button[for="__search"]`）和居中胶囊功能重复，除了 CSS 隐藏，还在 JS 里直接把节点移除：
+
+```javascript
+var nodes = document.querySelectorAll(
+  '.md-header__button[for="__search"], label[for="__search"].md-header__button'
+);
+[].forEach.call(nodes, function (el) { el && el.parentNode && el.parentNode.removeChild(el); });
+```
+
+这样无论浏览器缓存新旧、窗口宽窄，页眉都只有一个搜索入口。窄屏（≤960px）下主题按钮与代码主题按钮都收成圆形图标，宽屏才显示「代码主题：xxx」文字，不会出现"宽屏还是窄屏样式"的错位感。
 
 ### 25.4 代码主题：pygments 出样式 + 一个 link 换色
 
@@ -1468,6 +1481,8 @@ def on_post_build(config):
 | 搜索结果标题变成一大段正文 | 取了索引里最长 `doc.title` | 按页面聚合，标题改用 H1（`tags.json`） |
 | 摘要里出现 `&gt;geerlingguy &lt;/font&gt;` | 索引文本里的 HTML 被转义 | 先解实体再去标签，最后截断 |
 | 页眉出现两个放大镜 | 原生 `[data-md-toggle=search]` 按钮没隐藏 | 一并 `display:none` |
+| 页眉仍有两个放大镜（缓存旧版） | 只靠 CSS 隐藏不可靠 | JS 里直接 `removeChild` 掉原生搜索按钮 |
+| 明亮态图标渲染成「A」 | 复用了 palette `label` 里另一套字形 | 三枚图标改自绘 |
 | 搜索框撑满右侧、不居中 | 原生 `.md-search__inner` 展开后按 flex 右对齐 | 原生搜索整体隐藏，改用绝对居中胶囊 + 弹窗 |
 | 主题按钮点了没变化 | 只改了 `data-md-color-scheme` 属性，Material 内部状态没同步 | 改成点 palette 单选框并派发 `change` |
 | `siteRoot()` 拼错地址 | 写死 `/stylesheets/…`，在 mike 的 `/1.0/` 下 404 | 从 `script[src*=site-ui.js]` 反推站点根 |
