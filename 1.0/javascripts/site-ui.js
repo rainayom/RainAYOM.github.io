@@ -24,8 +24,7 @@
     { id: "nord", name: "nord" },
     { id: "solarized-light", name: "solarized-light" },
     { id: "vs", name: "vs" },
-    { id: "xcode", name: "xcode" },
-    { id: "material", name: "跟随站点" }
+    { id: "xcode", name: "xcode" }
   ];
 
   function siteRoot() {
@@ -156,16 +155,11 @@
 
   function applyCodeTheme(id, remember) {
     var link = codeThemeLink();
-    if (!id || id === "material") {
-      link.removeAttribute("href");
-      link.disabled = true;
-      document.body.removeAttribute("data-md-code-theme");
-    } else {
-      link.disabled = false;
-      link.href = siteRoot() + "stylesheets/code-themes/" + id + ".css";
-      document.body.setAttribute("data-md-code-theme", id);
-    }
-    var label = document.querySelector(".mui-code .mui-code-label");
+    // 代码主题只认 pygments 那几套，空值或旧值 material 一律回到默认 one-dark
+    if (!id || id === "material" || id === "default") id = "one-dark";
+    link.disabled = false;
+    link.href = siteRoot() + "stylesheets/code-themes/" + id + ".css";
+    document.body.setAttribute("data-md-code-theme", id);
     var btn = document.querySelector(".mui-code-btn");
     for (var i = 0; i < CODE_THEMES.length; i++) {
       if (CODE_THEMES[i].id === id) {

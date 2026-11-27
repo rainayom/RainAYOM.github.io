@@ -1827,6 +1827,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#285" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.5 代码主题不再跟随站点
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3973,6 +3984,17 @@
     <span class="md-ellipsis">
       
         28.4 验收
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#285" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        28.5 代码主题不再跟随站点
       
     </span>
   </a>
@@ -6372,7 +6394,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 <tr>
 <td><code>&lt;/&gt;</code></td>
 <td>代码块配色</td>
-<td>默认 / github-dark / one-dark / dracula / monokai / nord / solarized-light / vs / xcode</td>
+<td>默认（One Dark）/ github-dark / dracula / monokai / nord / solarized-light / vs / xcode</td>
 <td><code>mdgh.codeTheme</code></td>
 </tr>
 </tbody>
@@ -6550,7 +6572,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 <li><strong>复制按钮就是文字</strong>「复制代码」，点完变「已复制」，1.4 秒复原；<code>navigator.clipboard</code> 不可用时退回 <code>textarea + execCommand</code>。</li>
 <li><strong>折叠</strong>按钮把 <code>.mdg-body</code> 收起来，图标随之转 90°。</li>
 <li>Material 自带的图标复制按钮用 CSS 隐藏（<code>.md-code__nav / .md-code__button{display:none}</code>）。</li>
-<li>背景与文字色<strong>不写在代码块骨架里</strong>，仍由「代码主题」那套 pygments 样式决定；默认代码主题从 <code>material</code> 换成 <code>one-dark</code>（<code>#282c34</code> 背景 / <code>#a9b7c6</code> 前景），正好等于 md-editor 默认的 <code>--md-theme-code-block-*</code>。想回到 Material 观感，选「跟随站点」即可。</li>
+<li>背景与文字色<strong>不写在代码块骨架里</strong>，仍由「代码主题」那套 pygments 样式决定；代码主题只有 pygments 那几套，默认 <code>one-dark</code>（<code>#282c34</code> 背景 / <code>#a9b7c6</code> 前景），正好等于 md-editor 默认的 <code>--md-theme-code-block-*</code>；不再提供「跟随站点」选项，空值或旧值 <code>material</code> 一律回落到 <code>one-dark</code>。</li>
 </ul>
 <h3 id="283">28.3 语言标签从哪来<a class="headerlink" href="#283" title="Permanent link">&para;</a></h3>
 <p><code>codehilite</code> 扩展不会把围栏语言写进 HTML。新增钩子 <code>hooks/code_lang.py</code>：按顺序扫描源文件里的 <code>`` 围栏语言，若数量与页面里</code><div class="codehilite"><code>完全一致，就逐个注入</code>data-lang`；数量对不上（页面混用缩进式代码块）时整体跳过，宁可不显示也不显示错。</p>
@@ -6607,6 +6629,44 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 <tr>
 <td>布局</td>
 <td>447 窄屏不溢出（块宽 400、工具区 106px）</td>
+<td>通过</td>
+</tr>
+</tbody>
+</table>
+<h3 id="285">28.5 代码主题不再跟随站点<a class="headerlink" href="#285" title="Permanent link">&para;</a></h3>
+<p>早先代码主题菜单的第一项是「跟随站点」，选中它等于撤掉 pygments 样式、退回 Material 自己的配色，于是同一篇文档里会出现「正文用 md-editor 默认、代码块却还是 Material」的割裂。这一版把它去掉：</p>
+<ul>
+<li>菜单只剩 8 项：<code>one-dark</code>（默认）/ github-dark / dracula / monokai / nord / solarized-light / vs / xcode。</li>
+<li><code>applyCodeTheme()</code> 的兜底改成：<code>!id || id === "material" || id === "default"</code> → <code>one-dark</code>。<code>&lt;link&gt;</code> 永远指向某个 pygments 样式，<code>body[data-md-code-theme]</code> 恒定有值；浏览器里存过 <code>material</code> 的老用户首次访问自动回落到默认。</li>
+<li>附带好处：<code>body[data-md-code-theme]</code> 不再可能缺席，代码块内层 <code>code</code> 的 <code>color: inherit</code> 规则一定命中，也就不会再出现「切了主题、代码文字还是 Material 灰」的情况。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>期望</th>
+<th>实测</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>菜单项</td>
+<td>8 项，首项为默认</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>默认值</td>
+<td><code>data-md-code-theme=one-dark</code></td>
+<td>通过</td>
+</tr>
+<tr>
+<td>旧值兼容</td>
+<td><code>mdgh.codeTheme=material</code> 刷新后仍是 one-dark</td>
+<td>通过</td>
+</tr>
+<tr>
+<td>块外观</td>
+<td>底 <code>rgb(40,44,52)</code>、前景 <code>rgb(171,178,191)</code></td>
 <td>通过</td>
 </tr>
 </tbody>
@@ -6721,7 +6781,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
       
         <script src="../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../javascripts/site-ui.js?v=20261127t"></script>
+        <script src="../javascripts/site-ui.js?v=20261127u"></script>
       
     
   </body>
