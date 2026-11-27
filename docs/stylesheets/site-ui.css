@@ -482,3 +482,36 @@ body[data-md-color-scheme="slate"] .mui-tag:hover {
     display: none !important;
   }
 }
+
+/* ---------- 文档内容主题 / 代码主题：两枚图标按钮（与编辑器一致） ---------- */
+.mui-dd { position: relative; display: inline-flex; }
+
+.mui-gly { font-size: .78rem; font-weight: 700; line-height: 1; letter-spacing: -.03em; }
+.mui-gly.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .7rem; font-weight: 600; letter-spacing: 0; }
+
+.mui-md-btn,
+.mui-code-btn {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  justify-content: center;
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 6px;
+}
+
+.mui-dot {
+  position: absolute;
+  right: .28rem;
+  bottom: .3rem;
+  width: .28rem;
+  height: .28rem;
+  border-radius: 50%;
+  background: var(--mui-dot, transparent);
+  pointer-events: none;
+}
+
+.mui-menu li { display: flex; align-items: center; gap: .34rem; }
+.mui-menu li.sel { color: var(--md-primary-fg-color); font-weight: 600; }
+.mui-swatch { width: .42rem; height: .42rem; border-radius: 50%; flex: 0 0 auto; }

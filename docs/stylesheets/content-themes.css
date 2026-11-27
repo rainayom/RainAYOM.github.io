@@ -1,0 +1,269 @@
+/* ==========================================================================
+   文档内容主题（content themes）
+   对齐 md-editor-v3 的五个预览主题：github / vuepress / mk-cute / smart-blue / cyanosis
+   默认（Material 原生）不加任何规则，由 body[data-md-content-theme] 控制
+   ========================================================================== */
+
+/* ---------- 共享骨架：主题变量 → Material 的 .md-typeset ---------- */
+body[data-md-content-theme] .md-typeset {
+  color: var(--ct-fg);
+  transition: color .25s ease;
+}
+
+body[data-md-content-theme] .md-typeset h1,
+body[data-md-content-theme] .md-typeset h2,
+body[data-md-content-theme] .md-typeset h3,
+body[data-md-content-theme] .md-typeset h4,
+body[data-md-content-theme] .md-typeset h5,
+body[data-md-content-theme] .md-typeset h6 {
+  color: var(--ct-h);
+  font-weight: var(--ct-hw, 600);
+}
+
+body[data-md-content-theme] .md-typeset h1 {
+  font-size: var(--ct-h1, 1.6rem);
+  border-bottom: var(--ct-h1-bd, 0);
+  padding-bottom: var(--ct-h1-pb, 0);
+}
+
+body[data-md-content-theme] .md-typeset h2 {
+  font-size: var(--ct-h2, 1.3rem);
+  border-bottom: var(--ct-h2-bd, 0);
+  padding-bottom: var(--ct-h2-pb, 0);
+}
+
+body[data-md-content-theme] .md-typeset h3 {
+  font-size: var(--ct-h3, 1.1rem);
+}
+
+body[data-md-content-theme] .md-typeset h6 {
+  color: var(--ct-h6, var(--ct-h));
+}
+
+body[data-md-content-theme] .md-typeset p {
+  line-height: var(--ct-lh, 1.7);
+}
+
+body[data-md-content-theme] .md-typeset a {
+  color: var(--ct-a);
+}
+
+body[data-md-content-theme] .md-typeset a:hover {
+  color: var(--ct-a-h, var(--ct-a));
+}
+
+body[data-md-content-theme] .md-typeset blockquote {
+  color: var(--ct-q-fg, var(--ct-fg));
+  border-left: var(--ct-q-bd, .2rem solid var(--ct-bd));
+  background: var(--ct-q-bg, transparent);
+  padding: .2em 1em;
+  border-radius: var(--ct-q-r, 0);
+}
+
+body[data-md-content-theme] .md-typeset hr {
+  height: var(--ct-hr-h, .15em);
+  border: 0;
+  background: var(--ct-bd);
+}
+
+body[data-md-content-theme] .md-typeset code {
+  background: var(--ct-code-bg, rgba(27, 31, 35, .05));
+  color: var(--ct-code-fg, inherit);
+  border-radius: var(--ct-code-r, .2rem);
+}
+
+/* 块级代码交给“代码主题”那套 pygments 样式，内容主题不插手 */
+body[data-md-content-theme] .md-typeset pre code,
+body[data-md-content-theme] .md-typeset .highlight code,
+body[data-md-content-theme] .md-typeset .codehilite code {
+  background: transparent !important;
+  color: inherit !important;
+  border-radius: 0;
+  padding: 0;
+}
+
+body[data-md-content-theme] .md-typeset table:not([class]) th {
+  background: var(--ct-th, transparent);
+  border-color: var(--ct-bd);
+  color: var(--ct-h);
+}
+
+body[data-md-content-theme] .md-typeset table:not([class]) td {
+  border-color: var(--ct-bd);
+}
+
+body[data-md-content-theme] .md-typeset table:not([class]) tr:nth-child(2n) {
+  background: var(--ct-stripe, transparent);
+}
+
+body[data-md-content-theme] .md-typeset img {
+  border-radius: var(--ct-img-r, 0);
+}
+
+/* ---------- 1. github ---------- */
+body[data-md-content-theme="github"] .md-typeset {
+  --ct-fg: #1f2328;
+  --ct-h: #1f2328;
+  --ct-h6: #59636e;
+  --ct-a: #0969da;
+  --ct-bd: #d1d9e0;
+  --ct-th: #f6f8fa;
+  --ct-stripe: #f6f8fa;
+  --ct-q-fg: #59636e;
+  --ct-q-bd: .25em solid #d1d9e0;
+  --ct-code-bg: rgba(175, 184, 193, .2);
+  --ct-code-r: .3rem;
+  --ct-h1: 1.75rem;
+  --ct-h2: 1.35rem;
+  --ct-h3: 1.1rem;
+  --ct-h1-bd: 1px solid #d1d9e0;
+  --ct-h2-bd: 1px solid #d1d9e0;
+  --ct-h1-pb: .3em;
+  --ct-h2-pb: .3em;
+  --ct-lh: 1.6;
+  --ct-hr-h: .2em;
+}
+
+body[data-md-color-scheme="slate"][data-md-content-theme="github"] .md-typeset {
+  --ct-fg: #f0f6fc;
+  --ct-h: #f0f6fc;
+  --ct-h6: #9198a1;
+  --ct-a: #4493f8;
+  --ct-bd: #3d444d;
+  --ct-th: #151b23;
+  --ct-stripe: #151b23;
+  --ct-q-fg: #9198a1;
+  --ct-q-bd: .25em solid #3d444d;
+  --ct-code-bg: rgba(101, 108, 118, .2);
+  --ct-h1-bd: 1px solid #3d444d;
+  --ct-h2-bd: 1px solid #3d444d;
+}
+
+/* ---------- 2. vuepress ---------- */
+body[data-md-content-theme="vuepress"] .md-typeset {
+  --ct-fg: #2c3e50;
+  --ct-h: #273849;
+  --ct-a: #3eaf7c;
+  --ct-bd: #dfe2e5;
+  --ct-th: #f6f8fa;
+  --ct-stripe: #f6f8fa;
+  --ct-q-bd: .2rem solid #eaecef;
+  --ct-code-bg: rgba(27, 31, 35, .05);
+  --ct-h1: 1.9rem;
+  --ct-h2: 1.5rem;
+  --ct-h3: 1.15rem;
+  --ct-h2-bd: 1px solid #eaecef;
+  --ct-h2-pb: .3em;
+  --ct-lh: 1.75;
+  --ct-hr-h: .1em;
+}
+
+body[data-md-color-scheme="slate"][data-md-content-theme="vuepress"] .md-typeset {
+  --ct-fg: #a7b3c2;
+  --ct-h: #c8d3e0;
+  --ct-a: #4dc08a;
+  --ct-bd: #38414e;
+  --ct-th: #22272e;
+  --ct-stripe: #22272e;
+  --ct-q-bd: .2rem solid #4c566a;
+  --ct-code-bg: rgba(255, 255, 255, .08);
+  --ct-h2-bd: 1px solid #38414e;
+}
+
+/* ---------- 3. mk-cute ---------- */
+body[data-md-content-theme="mk-cute"] .md-typeset {
+  --ct-fg: #3a4149;
+  --ct-h: #36ace1;
+  --ct-a: #409eff;
+  --ct-bd: #e3f0fa;
+  --ct-th: #f2f9ff;
+  --ct-stripe: #fcfcfc;
+  --ct-q-fg: #4a6b80;
+  --ct-q-bd: .2rem solid #409eff;
+  --ct-q-bg: #f7fbff;
+  --ct-q-r: .3rem;
+  --ct-code-bg: #f6fbff;
+  --ct-code-r: .3rem;
+  --ct-img-r: .5rem;
+  --ct-h1: 1.8rem;
+  --ct-h2: 1.4rem;
+  --ct-h3: 1.15rem;
+  --ct-hw: 600;
+  --ct-hr-h: .1em;
+}
+
+body[data-md-color-scheme="slate"][data-md-content-theme="mk-cute"] .md-typeset {
+  --ct-fg: #cfe6f5;
+  --ct-h: #6fc9f2;
+  --ct-a: #78b6ff;
+  --ct-bd: #2a3f52;
+  --ct-th: #1b2a38;
+  --ct-stripe: #1a2531;
+  --ct-q-fg: #a9c7da;
+  --ct-q-bd: .2rem solid #78b6ff;
+  --ct-q-bg: #17222e;
+  --ct-code-bg: #1b2a38;
+}
+
+/* ---------- 4. smart-blue ---------- */
+body[data-md-content-theme="smart-blue"] .md-typeset {
+  --ct-fg: #595959;
+  --ct-h: #135ce0;
+  --ct-a: #036aca;
+  --ct-bd: #dfe2e5;
+  --ct-th: #f6f8fa;
+  --ct-stripe: #f6f8fa;
+  --ct-q-fg: #666;
+  --ct-q-bd: .2rem solid #135ce0;
+  --ct-q-bg: #f7f9ff;
+  --ct-code-bg: #fff5f5;
+  --ct-h1: 1.75rem;
+  --ct-h2: 1.4rem;
+  --ct-h3: 1.12rem;
+  --ct-hw: 700;
+  --ct-hr-h: .1em;
+}
+
+body[data-md-color-scheme="slate"][data-md-content-theme="smart-blue"] .md-typeset {
+  --ct-fg: #c3c9d2;
+  --ct-h: #7ea5ff;
+  --ct-a: #6fa8ff;
+  --ct-bd: #333b48;
+  --ct-th: #1f2632;
+  --ct-stripe: #1f2632;
+  --ct-q-fg: #98a2b3;
+  --ct-q-bd: .2rem solid #7ea5ff;
+  --ct-q-bg: #191f28;
+  --ct-code-bg: #2a1f22;
+}
+
+/* ---------- 5. cyanosis ---------- */
+body[data-md-content-theme="cyanosis"] .md-typeset {
+  --ct-fg: #40464f;
+  --ct-h: #2b6cb0;
+  --ct-a: #3da8f5;
+  --ct-bd: #bedcff;
+  --ct-th: #eef6ff;
+  --ct-stripe: #fafcff;
+  --ct-q-fg: #5b7086;
+  --ct-q-bd: .2rem solid #bedcff;
+  --ct-q-bg: #f5f9ff;
+  --ct-code-bg: #f4f8fd;
+  --ct-h1: 1.75rem;
+  --ct-h2: 1.4rem;
+  --ct-h3: 1.12rem;
+  --ct-hr-h: .1em;
+}
+
+body[data-md-color-scheme="slate"][data-md-content-theme="cyanosis"] .md-typeset {
+  --ct-fg: #c6d2e0;
+  --ct-h: #79b6f2;
+  --ct-a: #5fb6f8;
+  --ct-bd: #2b3d52;
+  --ct-th: #182634;
+  --ct-stripe: #16212d;
+  --ct-q-fg: #93a7bd;
+  --ct-q-bd: .2rem solid #2b3d52;
+  --ct-q-bg: #16212d;
+  --ct-code-bg: #182634;
+}
