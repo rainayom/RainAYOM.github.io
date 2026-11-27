@@ -1,0 +1,51 @@
+/* 编辑本页按钮：与返回顶部同一套胶囊样式，叠在它上方，不重叠 */
+.edit-page {
+  position: fixed;
+  right: 1.4rem;
+  bottom: 4.35rem;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .55rem 1.05rem;
+  border-radius: 999px;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color--light);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  box-shadow: 0 .15rem .5rem rgba(0, 0, 0, .12);
+  font-size: .72rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+.edit-page:hover {
+  color: var(--md-primary-fg-color);
+  border-color: var(--md-primary-fg-color);
+  box-shadow: 0 .3rem .9rem rgba(0, 0, 0, .18);
+}
+
+[data-md-color-scheme="slate"] .edit-page {
+  background: var(--md-default-bg-color);
+  border-color: var(--md-default-fg-color--lightest);
+  box-shadow: 0 .15rem .5rem rgba(0, 0, 0, .5);
+}
+
+.edit-page svg {
+  width: .8rem;
+  height: .8rem;
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 76.1875em) {
+  .edit-page {
+    right: .8rem;
+    bottom: 3.85rem;
+    padding: .5rem .85rem;
+  }
+}
+
+@media print {
+  .edit-page { display: none; }
+}
