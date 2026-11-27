@@ -153,7 +153,7 @@
 
   async function findThread() {
     var data = await gql(
-      "query($o:String!,$n:String!,$c:String!){ repository(owner:$o,name:$n){ discussions(first:100, categoryId:$c){ nodes { id title url } } } }",
+      "query($o:String!,$n:String!,$c:ID!){ repository(owner:$o,name:$n){ discussions(first:100, categoryId:$c){ nodes { id title url } } } }",
       { o: OWNER, n: REPO, c: CATEGORY_ID }
     );
     var nodes = (data.repository.discussions && data.repository.discussions.nodes) || [];
@@ -247,22 +247,35 @@
   build();
   renderAuth();
 
+  function apply(token, user) {
+    var wasAnon = !state.token;
+    state.token = token || "";
+    state.user = user || null;
+    renderAuth();
+    if (state.token && wasAnon) {
+      load().then(restore);
+    } else if (!state.token) {
+      state.thread = null;
+      state.comments = [];
+      renderList();
+    }
+  }
+
+  function syncFromHub() {
+    if (!window.MDGitHub) return;
+    apply(window.MDGitHub.token || localStorage.getItem("mdgh.token") || "", window.MDGitHub.user || null);
+  }
+
   if (window.MDGitHub && window.MDGitHub.onChange) {
     window.MDGitHub.onChange(function (s) {
-      var wasAnon = !state.token;
-      state.token = (s && s.token) || "";
-      state.user = (s && s.user) || null;
-      renderAuth();
-      if (state.token && wasAnon) {
-        load().then(restore);
-      } else if (!state.token) {
-        state.thread = null;
-        state.comments = [];
-        renderList();
-      }
+      apply(s && s.token, s && s.user);
     });
+    // 页眉脚本初始化晚于本脚本时，补两次同步；回到页面时再同步一次
+    setTimeout(syncFromHub, 900);
+    setTimeout(syncFromHub, 2600);
+    window.addEventListener("focus", syncFromHub);
   } else {
-    state.token = localStorage.getItem("mdgh.token") || "";
+    apply(localStorage.getItem("mdgh.token") || "", null);
     load();
   }
 })();

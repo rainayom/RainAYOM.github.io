@@ -1291,11 +1291,11 @@ curl<span class="w"> </span>-sS<span class="w"> </span>-O<span class="w"> </span
 
 <p>批量安装</p>
 <div class="codehilite"><pre><span></span><code>我有三台服务器，（debian安装pssh老是报错，所以我用centos7来安装pssh作为服务端）
-A：debian12<span class="w"> </span><span class="m">192</span>.168.227.142<span class="w">  </span>
-B：centos7<span class="w"> </span><span class="m">192</span>.168.227.140<span class="w"> </span>
+A：debian12<span class="w"> </span><span class="m">192</span>.168.227.142
+B：centos7<span class="w"> </span><span class="m">192</span>.168.227.140
 C：centos7<span class="w"> </span><span class="m">192</span>.168.227.148
 首先在B服务器做免密登录
-ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w">    </span>
+ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa
 ssh-copy-id<span class="w"> </span>-i<span class="w"> </span>~/.ssh/id_rsa.pub<span class="w"> </span>root@192.168.227.142
 ssh-copy-id<span class="w"> </span>-i<span class="w"> </span>~/.ssh/id_rsa.pub<span class="w"> </span>root@192.168.227.148
 
@@ -1315,7 +1315,7 @@ vim<span class="w"> </span>pssh-hosts
 <span class="o">[</span><span class="m">2</span><span class="o">]</span><span class="w"> </span><span class="m">16</span>:34:25<span class="w"> </span><span class="o">[</span>SUCCESS<span class="o">]</span><span class="w"> </span><span class="m">192</span>.168.227.142:22
 <span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># ls</span>
 anaconda-ks.cfg<span class="w">  </span>kejilion.sh<span class="w">  </span>kernel-lt-5.4.278-1.el7.elrepo.x86_64.rpm<span class="w">  </span>pssh-hosts
-<span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># </span>
+<span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1">#</span>
 </code></pre></div>
 
 <blockquote>
@@ -1426,11 +1426,11 @@ anaconda-ks.cfg<span class="w">  </span>kejilion.sh<span class="w">  </span>kern
       
         <script src="../../javascripts/back-to-top.js"></script>
       
-        <script src="../../javascripts/github-hub.js?v=20261127b"></script>
+        <script src="../../javascripts/github-hub.js?v=20261127c"></script>
       
         <script src="../../javascripts/edit-page.js?v=20261127b"></script>
       
-        <script src="../../javascripts/comments.js?v=20261127c"></script>
+        <script src="../../javascripts/comments.js?v=20261127e"></script>
       
     
   </body>

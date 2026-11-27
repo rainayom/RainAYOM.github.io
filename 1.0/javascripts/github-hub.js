@@ -172,7 +172,14 @@
   }
 
   /* ---------------- 登录弹窗 ---------------- */
-    function loginModal() {
+  function loginModal() {
+    // 记住登录前的位置，授权完成后回到原页面原位置
+    try {
+      localStorage.setItem("mdgh.returnTo", location.href);
+      localStorage.setItem("mdgh.returnScroll", String(window.scrollY || 0));
+    } catch (e) {
+      /* 忽略 */
+    }
     let cancelled = false;
     const mask = document.createElement("div");
     mask.className = "ghm-mask";
@@ -446,6 +453,8 @@
     const box = build();
     if (!box) return;
     renderPanel();
+    // 通知订阅者当前状态（评论区靠它判断是否需要登录）
+    emit();
     if (state.token && !state.user) {
       fetchUser()
         .then((u) => save(state.token, u))
