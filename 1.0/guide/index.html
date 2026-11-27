@@ -1547,6 +1547,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#2532" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.3.2 按钮不带框
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3466,6 +3477,17 @@
     <span class="md-ellipsis">
       
         25.3.1 页眉只留一个放大镜
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2532" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.3.2 按钮不带框
       
     </span>
   </a>
@@ -5466,34 +5488,47 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 </code></pre></div>
 
 <h3 id="253">25.3 主题按钮：三态（跟随系统 / 暗 / 亮），只显示图标<a class="headerlink" href="#253" title="Permanent link">&para;</a></h3>
-<p>页眉这枚按钮不再是"明/暗"两态，而是按 Material 的原始语义做成三态轮换，顺序是「跟随系统 → 暗 → 亮」：</p>
+<p>页眉这枚按钮不是"明/暗"两态，而是按 Material 的原始语义做成三态轮换，顺序是「跟随系统 → 暗 → 亮」：</p>
 <table>
 <thead>
 <tr>
 <th>状态</th>
-<th>图标（对应参考图 2/3/4）</th>
+<th>图标（与参考图 2/3/4 完全一致）</th>
 <th>行为</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>auto</code> 跟随系统</td>
-<td>圆 + 月光</td>
+<td><code>theme-light-dark</code>：日 + 月，中间一条对角线分隔</td>
 <td>读 <code>prefers-color-scheme</code> 决定 <code>default</code> / <code>slate</code>，系统换主题时页面跟着换</td>
 </tr>
 <tr>
 <td><code>slate</code> 暗黑</td>
-<td>月牙 + 十字星</td>
+<td><code>weather-night</code>：月牙 + 两颗星</td>
 <td>固定 <code>data-md-color-scheme="slate"</code></td>
 </tr>
 <tr>
 <td><code>default</code> 明亮</td>
-<td>太阳 + 八道光芒</td>
+<td><code>white-balance-sunny</code>：太阳 + 八道光芒</td>
 <td>固定 <code>data-md-color-scheme="default"</code></td>
 </tr>
 </tbody>
 </table>
-<p>按钮里只放图标、不显示文字（中文说明放在 <code>title</code> 与 <code>aria-label</code> 里），状态写 <code>localStorage.mdgh.siteTheme</code>，首次访问默认就是 <code>auto</code>：</p>
+<p>三枚图标不自绘，直接内联 Material 官方图标文件里的 <code>&lt;path&gt;</code>，保证跟参考图一模一样。图标本体在 venv 里：</p>
+<div class="codehilite"><pre><span></span><code>/srv/mkdocs/.venv/lib/python*/site-packages/material/templates/.icons/material/
+<span class="w">  </span>theme-light-dark.svg<span class="w">   </span>weather-night.svg<span class="w">   </span>white-balance-sunny.svg
+</code></pre></div>
+
+<p>取出来只保留 <code>path d</code>，塞进脚本常量即可（<code>fill="currentColor"</code>，尺寸统一 20px）：</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">THEME_ICONS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">auto</span><span class="o">:</span><span class="w">  </span><span class="s1">'&lt;svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"&gt;&lt;path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5..."/&gt;&lt;/svg&gt;'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">slate</span><span class="o">:</span><span class="w"> </span><span class="s1">'&lt;svg ...&gt;&lt;path d="m17.75 4.09-2.53 1.94.91 3.06..."/&gt;&lt;/svg&gt;'</span><span class="p">,</span>
+<span class="w">  </span><span class="k">default</span><span class="o">:</span><span class="s1">'&lt;svg ...&gt;&lt;path d="m3.55 19.09 1.41 1.41 1.8-1.79..."/&gt;&lt;/svg&gt;'</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>按钮只放图标、不显示文字（中文说明放 <code>title</code> 与 <code>aria-label</code>），状态写 <code>localStorage.mdgh.siteTheme</code>，首次访问默认就是 <code>auto</code>：</p>
 <div class="codehilite"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">MODE_NEXT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">auto</span><span class="o">:</span><span class="w"> </span><span class="s2">"slate"</span><span class="p">,</span><span class="w"> </span><span class="nx">slate</span><span class="o">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w"> </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="w"> </span><span class="p">};</span>
 
 <span class="kd">function</span><span class="w"> </span><span class="nx">applyMode</span><span class="p">(</span><span class="nx">mode</span><span class="p">,</span><span class="w"> </span><span class="nx">remember</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -5505,9 +5540,6 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 </code></pre></div>
 
 <p>"跟随系统"要真的跟着走：除了 <code>matchMedia('(prefers-color-scheme: dark)').addEventListener('change')</code>，还补了 <code>visibilitychange</code> 和 <code>focus</code> 两个兜底，切回前台时再核对一次，避免颜色停留在旧状态。</p>
-<blockquote>
-<p>一个坑：最早想直接复用 Material <code>palette</code> 里 <code>&lt;label&gt;</code> 的 svg 当图标，结果明亮态取到的是另一套字形（渲染出来是个「A」）。现在三枚图标改成自绘，既对应参考图，也不依赖被隐藏的 palette 表单。</p>
-</blockquote>
 <h4 id="2531">25.3.1 页眉只留一个放大镜<a class="headerlink" href="#2531" title="Permanent link">&para;</a></h4>
 <p>Material 原生搜索按钮（<code>label.md-header__button[for="__search"]</code>）和居中胶囊功能重复，除了 CSS 隐藏，还在 JS 里直接把节点移除：</p>
 <div class="codehilite"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span>
@@ -5516,7 +5548,30 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 <span class="p">[].</span><span class="nx">forEach</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">nodes</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">el</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">el</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
 </code></pre></div>
 
-<p>这样无论浏览器缓存新旧、窗口宽窄，页眉都只有一个搜索入口。窄屏（≤960px）下主题按钮与代码主题按钮都收成圆形图标，宽屏才显示「代码主题：xxx」文字，不会出现"宽屏还是窄屏样式"的错位感。</p>
+<p>这样无论浏览器缓存新旧、窗口宽窄，页眉都只有一个搜索入口。窄屏（≤960px）下主题按钮与代码主题按钮都收成纯图标，宽屏才显示「代码主题：xxx」文字，不会出现"宽屏还是窄屏样式"的错位感。</p>
+<h4 id="2532">25.3.2 按钮不带框<a class="headerlink" href="#2532" title="Permanent link">&para;</a></h4>
+<p>页眉三个图标按钮（主题、代码主题、窄屏搜索）一律去掉描边和底色，只留图标本身，反馈靠 hover 的浅色底：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="nc">mui-theme</span><span class="o">,</span>
+<span class="p">.</span><span class="nc">mui-code-btn</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">transparent</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
+<span class="w">  </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">rem</span><span class="p">;</span>
+<span class="w">  </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">mui-theme</span><span class="p">:</span><span class="nd">hover</span><span class="o">,</span>
+<span class="p">.</span><span class="nc">mui-code-btn</span><span class="p">:</span><span class="nd">hover</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="nb">rgba</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="mf">.15</span><span class="p">)</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>窄屏下搜索按钮同样去框（宽屏的搜索胶囊另算，那是"输入框"外观 + 半透明底，跟图标按钮区分开）：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="nt">screen</span><span class="w"> </span><span class="nt">and</span><span class="w"> </span><span class="o">(</span><span class="nt">max-width</span><span class="o">:</span><span class="w"> </span><span class="nt">960px</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">mui-search</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">transparent</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"> </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"> </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">rem</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>验收时看 <code>getComputedStyle</code> 就行：<code>borderTopWidth</code> 应为 <code>0px</code>，<code>backgroundColor</code> 应为 <code>rgba(0, 0, 0, 0)</code>；宽屏再量 <code>mui-search</code> 的 <code>x + width/2</code> 是否等于页眉中线，确认居中胶囊没被挤偏。</p>
 <h3 id="254-pygments-link">25.4 代码主题：pygments 出样式 + 一个 link 换色<a class="headerlink" href="#254-pygments-link" title="Permanent link">&para;</a></h3>
 <p>代码主题不碰 JavaScript 高亮逻辑，纯 CSS 覆盖。用服务器上的 pygments 为 8 个主题各生成一份：</p>
 <div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo/docs/stylesheets/code-themes
