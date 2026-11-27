@@ -437,3 +437,48 @@ body[data-md-color-scheme="slate"] .mui-tag:hover {
     height: 18px;
   }
 }
+
+/* 主题与代码主题两个按钮：去掉描边和底色框，只留图标 */
+.mui-theme,
+.mui-code-btn {
+  border: 0 !important;
+  background: transparent !important;
+  height: 2rem;
+  padding: 0 .3rem;
+  border-radius: 6px;
+  color: var(--md-primary-bg-color);
+}
+
+.mui-theme {
+  width: 1.9rem;
+  justify-content: center;
+}
+
+.mui-theme:hover,
+.mui-code-btn:hover {
+  background: rgba(255, 255, 255, .15) !important;
+}
+
+.mui-theme .mui-ico svg,
+.mui-code-btn .mui-ico svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* 窄屏：搜索按钮同样只留图标，不要圆框 */
+@media screen and (max-width: 960px) {
+  .mui-search {
+    background: transparent !important;
+    border: 0 !important;
+    width: 2rem !important;
+    padding: 0 !important;
+    justify-content: center;
+  }
+  .mui-search:hover {
+    background: rgba(255, 255, 255, .15) !important;
+  }
+  .mui-search .mui-hint,
+  .mui-search .mui-kbd {
+    display: none !important;
+  }
+}
