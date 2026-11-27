@@ -59,7 +59,7 @@
     
       <link rel="stylesheet" href="../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../stylesheets/site-ui.css?v=20261127l">
+      <link rel="stylesheet" href="../stylesheets/site-ui.css?v=20261127m">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1525,13 +1525,30 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#253-material-palette" class="md-nav__link">
+  <a href="#253" class="md-nav__link">
     <span class="md-ellipsis">
       
-        25.3 主题按钮：接管 Material 的 palette，而不是另造一套
+        25.3 主题按钮：三态（跟随系统 / 暗 / 亮），只显示图标
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="25.3 主题按钮：三态（跟随系统 / 暗 / 亮），只显示图标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2531" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.3.1 页眉只留一个放大镜
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3433,13 +3450,30 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#253-material-palette" class="md-nav__link">
+  <a href="#253" class="md-nav__link">
     <span class="md-ellipsis">
       
-        25.3 主题按钮：接管 Material 的 palette，而不是另造一套
+        25.3 主题按钮：三态（跟随系统 / 暗 / 亮），只显示图标
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="25.3 主题按钮：三态（跟随系统 / 暗 / 亮），只显示图标">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2531" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        25.3.1 页眉只留一个放大镜
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -5431,30 +5465,58 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">javascripts/site-ui.js?v=20261127i</span>
 </code></pre></div>
 
-<h3 id="253-material-palette">25.3 主题按钮：接管 Material 的 palette，而不是另造一套<a class="headerlink" href="#253-material-palette" title="Permanent link">&para;</a></h3>
-<p>Material 的主题真源是 <code>body[data-md-color-scheme]</code>，而它是由页眉那组 palette 单选框驱动的。自建按钮最稳的做法是<strong>替用户点那个单选框</strong>：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">setScheme</span><span class="p">(</span><span class="nx">target</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                 </span><span class="c1">// target: "default" | "slate"</span>
-<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">inputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">'[data-md-component="palette"] input[type="radio"]'</span><span class="p">);</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">inputs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="w"> </span><span class="nx">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">inputs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">value</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="nx">target</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">inputs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">checked</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
-<span class="w">      </span><span class="nx">inputs</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">dispatchEvent</span><span class="p">(</span><span class="ow">new</span><span class="w"> </span><span class="nx">Event</span><span class="p">(</span><span class="s2">"change"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">bubbles</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}));</span>
-<span class="w">      </span><span class="k">break</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">"mdgh.siteTheme"</span><span class="p">,</span><span class="w"> </span><span class="nx">target</span><span class="p">);</span><span class="w">   </span><span class="c1">// 自己的记忆键</span>
-<span class="p">}</span>
+<h3 id="253">25.3 主题按钮：三态（跟随系统 / 暗 / 亮），只显示图标<a class="headerlink" href="#253" title="Permanent link">&para;</a></h3>
+<p>页眉这枚按钮不再是"明/暗"两态，而是按 Material 的原始语义做成三态轮换，顺序是「跟随系统 → 暗 → 亮」：</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>图标（对应参考图 2/3/4）</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>auto</code> 跟随系统</td>
+<td>圆 + 月光</td>
+<td>读 <code>prefers-color-scheme</code> 决定 <code>default</code> / <code>slate</code>，系统换主题时页面跟着换</td>
+</tr>
+<tr>
+<td><code>slate</code> 暗黑</td>
+<td>月牙 + 十字星</td>
+<td>固定 <code>data-md-color-scheme="slate"</code></td>
+</tr>
+<tr>
+<td><code>default</code> 明亮</td>
+<td>太阳 + 八道光芒</td>
+<td>固定 <code>data-md-color-scheme="default"</code></td>
+</tr>
+</tbody>
+</table>
+<p>按钮里只放图标、不显示文字（中文说明放在 <code>title</code> 与 <code>aria-label</code> 里），状态写 <code>localStorage.mdgh.siteTheme</code>，首次访问默认就是 <code>auto</code>：</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">MODE_NEXT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">auto</span><span class="o">:</span><span class="w"> </span><span class="s2">"slate"</span><span class="p">,</span><span class="w"> </span><span class="nx">slate</span><span class="o">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w"> </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="w"> </span><span class="p">};</span>
 
-<span class="kd">function</span><span class="w"> </span><span class="nx">toggleTheme</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">setScheme</span><span class="p">(</span><span class="nx">scheme</span><span class="p">()</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">"slate"</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s2">"default"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s2">"slate"</span><span class="p">);</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">applyMode</span><span class="p">(</span><span class="nx">mode</span><span class="p">,</span><span class="w"> </span><span class="nx">remember</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">scheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">"auto"</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">systemScheme</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">mode</span><span class="p">;</span><span class="w">   </span><span class="c1">// systemScheme() 读 matchMedia</span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s2">"data-md-color-scheme"</span><span class="p">,</span><span class="w"> </span><span class="nx">scheme</span><span class="p">);</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">remember</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">"mdgh.siteTheme"</span><span class="p">,</span><span class="w"> </span><span class="nx">mode</span><span class="p">);</span>
+<span class="w">  </span><span class="nx">paintThemeBtn</span><span class="p">();</span>
 <span class="p">}</span>
 </code></pre></div>
 
-<p>配套两件事：</p>
-<ul>
-<li>原生调色板开关和原生搜索开关在样式里隐藏（<code>.md-header__option { display:none }</code>、<code>[data-md-toggle="search"] { display:none }</code>），否则页眉会出现两套重复控件，也正是之前「搜索框从中间撑到右边缘」的根源；</li>
-<li>单选框只是视觉隐藏，JS 仍然可以 <code>checked + change</code>，Material 自己会完成 <code>__palette</code> 落盘与配色切换。</li>
-</ul>
+<p>"跟随系统"要真的跟着走：除了 <code>matchMedia('(prefers-color-scheme: dark)').addEventListener('change')</code>，还补了 <code>visibilitychange</code> 和 <code>focus</code> 两个兜底，切回前台时再核对一次，避免颜色停留在旧状态。</p>
+<blockquote>
+<p>一个坑：最早想直接复用 Material <code>palette</code> 里 <code>&lt;label&gt;</code> 的 svg 当图标，结果明亮态取到的是另一套字形（渲染出来是个「A」）。现在三枚图标改成自绘，既对应参考图，也不依赖被隐藏的 palette 表单。</p>
+</blockquote>
+<h4 id="2531">25.3.1 页眉只留一个放大镜<a class="headerlink" href="#2531" title="Permanent link">&para;</a></h4>
+<p>Material 原生搜索按钮（<code>label.md-header__button[for="__search"]</code>）和居中胶囊功能重复，除了 CSS 隐藏，还在 JS 里直接把节点移除：</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span>
+<span class="w">  </span><span class="s1">'.md-header__button[for="__search"], label[for="__search"].md-header__button'</span>
+<span class="p">);</span>
+<span class="p">[].</span><span class="nx">forEach</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">nodes</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">el</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">el</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
+</code></pre></div>
+
+<p>这样无论浏览器缓存新旧、窗口宽窄，页眉都只有一个搜索入口。窄屏（≤960px）下主题按钮与代码主题按钮都收成圆形图标，宽屏才显示「代码主题：xxx」文字，不会出现"宽屏还是窄屏样式"的错位感。</p>
 <h3 id="254-pygments-link">25.4 代码主题：pygments 出样式 + 一个 link 换色<a class="headerlink" href="#254-pygments-link" title="Permanent link">&para;</a></h3>
 <p>代码主题不碰 JavaScript 高亮逻辑，纯 CSS 覆盖。用服务器上的 pygments 为 8 个主题各生成一份：</p>
 <div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo/docs/stylesheets/code-themes
@@ -5614,6 +5676,16 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 <td>一并 <code>display:none</code></td>
 </tr>
 <tr>
+<td>页眉仍有两个放大镜（缓存旧版）</td>
+<td>只靠 CSS 隐藏不可靠</td>
+<td>JS 里直接 <code>removeChild</code> 掉原生搜索按钮</td>
+</tr>
+<tr>
+<td>明亮态图标渲染成「A」</td>
+<td>复用了 palette <code>label</code> 里另一套字形</td>
+<td>三枚图标改自绘</td>
+</tr>
+<tr>
 <td>搜索框撑满右侧、不居中</td>
 <td>原生 <code>.md-search__inner</code> 展开后按 flex 右对齐</td>
 <td>原生搜索整体隐藏，改用绝对居中胶囊 + 弹窗</td>
@@ -5740,7 +5812,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
       
         <script src="../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../javascripts/site-ui.js?v=20261127i"></script>
+        <script src="../javascripts/site-ui.js?v=20261127p"></script>
       
     
   </body>

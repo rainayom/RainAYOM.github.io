@@ -394,3 +394,46 @@ body[data-md-color-scheme="slate"] .mui-tag:hover {
     display: none;
   }
 }
+
+/* 主题按钮：只保留图标，自动 / 暗 / 亮 三态轮换（图标复用 Material palette） */
+.mui-theme {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border-radius: 50%;
+  justify-content: center;
+}
+
+.mui-theme .mui-ico svg {
+  width: 18px;
+  height: 18px;
+}
+
+.mui-theme-label {
+  display: none !important;
+}
+
+/* 窄屏时两个按钮都收成圆形图标，不再隐藏代码主题 */
+@media (max-width: 960px) {
+  .mui-tools .mui-code {
+    display: inline-flex !important;
+  }
+
+  .mui-code-btn {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+  }
+
+  .mui-code-btn .mui-code-word,
+  .mui-code-btn .mui-code-label {
+    display: none;
+  }
+
+  .mui-code-btn .mui-ico svg {
+    width: 18px;
+    height: 18px;
+  }
+}

@@ -41,42 +41,72 @@
     code:
       '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6z"/></svg>',
     filter:
-      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M4 5h16v2H4zm2 6h12v2H6zm3 6h6v2H9z"/></svg>'
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M4 5h16v2H4zm2 6h12v2H6zm3 6h6v2H9z"/></svg>',
+    auto:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4 2.26 5.4 5.4 0 0 1-3.1-9.8c-.44-.06-.9-.1-1.4-.1z"/><circle cx="16.5" cy="7.5" r="4.6"/></svg>'
   };
 
-  /* ---------------- 主题切换 ---------------- */
-  function scheme() {
-    return document.body.getAttribute("data-md-color-scheme") || "default";
+  /* ---------------- 主题切换：跟随系统 / 暗 / 亮 ---------------- */
+  var MODE_NEXT = { auto: "slate", slate: "default", default: "auto" };
+  var MODE_TEXT = { auto: "跟随系统", slate: "暗黑", default: "明亮" };
+
+  var S = '<g stroke="currentColor" stroke-width="1.7" stroke-linecap="round">';
+  var SE = "</g>";
+
+  // 三枚图标对应图 2/3/4：自动（日+月）/ 暗（月+星）/ 亮（太阳）
+  var THEME_ICONS = {
+    auto:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">' +
+      '<circle cx="8.8" cy="12" r="4.2"/>' +
+      '<path d="M15.2 4.4a7.6 7.6 0 1 0 4.2 10.9 6.1 6.1 0 0 1-4.2-10.9z" fill="none" stroke="currentColor" stroke-width="1.5"/>' +
+      "</svg>",
+    dark:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">' +
+      '<path d="M13.4 3.4a8.7 8.7 0 1 0 6.9 13.6 6.9 6.9 0 0 1-6.9-13.6z"/>' +
+      S + '<line x1="19.4" y1="2.4" x2="19.4" y2="5.6"/><line x1="17.8" y1="4" x2="21" y2="4"/>' + SE +
+      "</svg>",
+    light:
+      '<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">' +
+      '<circle cx="12" cy="12" r="4.1"/>' +
+      S +
+      '<line x1="12" y1="1.8" x2="12" y2="4.6"/><line x1="12" y1="19.4" x2="12" y2="22.2"/>' +
+      '<line x1="1.8" y1="12" x2="4.6" y2="12"/><line x1="19.4" y1="12" x2="22.2" y2="12"/>' +
+      '<line x1="4.7" y1="4.7" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="19.3" y2="19.3"/>' +
+      '<line x1="19.3" y1="4.7" x2="17.3" y2="6.7"/><line x1="6.7" y1="17.3" x2="4.7" y2="19.3"/>' +
+      SE +
+      "</svg>"
+  };
+
+  function systemScheme() {
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "slate"
+      : "default";
   }
 
-  function setScheme(target) {
-    var inputs = document.querySelectorAll('[data-md-component="palette"] input[type="radio"]');
-    var hit = null;
-    for (var i = 0; i < inputs.length; i++) {
-      if (inputs[i].value === target) hit = inputs[i];
-    }
-    if (hit) {
-      hit.checked = true;
-      hit.dispatchEvent(new Event("change", { bubbles: true }));
-    } else {
-      document.body.setAttribute("data-md-color-scheme", target);
-    }
-    localStorage.setItem(LS_THEME, target);
+  function currentMode() {
+    return localStorage.getItem(LS_THEME) || "auto";
+  }
+
+  function applyMode(mode, remember) {
+    var scheme = mode === "auto" ? systemScheme() : mode;
+    document.body.setAttribute("data-md-color-scheme", scheme);
+    if (remember !== false) localStorage.setItem(LS_THEME, mode);
     paintThemeBtn();
   }
 
   function paintThemeBtn() {
     var b = document.querySelector(".mui-theme");
     if (!b) return;
-    var dark = scheme() === "slate";
-    b.innerHTML =
-      '<span class="mui-ico">' + (dark ? ICON.moon : ICON.sun) +
-      '</span><span class="mui-theme-label">' + (dark ? "暗黑" : "明亮") + "</span>";
-    b.title = dark ? "当前暗黑主题，点击切回明亮" : "当前明亮主题，点击切到暗黑";
+    var mode = currentMode();
+    var key = mode === "auto" ? "auto" : mode === "slate" ? "dark" : "light";
+    b.innerHTML = '<span class="mui-ico">' + THEME_ICONS[key] + "</span>";
+    b.title = "主题：" + MODE_TEXT[mode] + "（点击切换）";
+    b.setAttribute("aria-label", "主题：" + MODE_TEXT[mode]);
+    b.setAttribute("data-mode", mode);
   }
 
   function toggleTheme() {
-    setScheme(scheme() === "slate" ? "default" : "slate");
+    applyMode(MODE_NEXT[currentMode()] || "auto");
   }
 
   /* ---------------- 代码主题 ---------------- */
@@ -101,9 +131,11 @@
       link.href = siteRoot() + "stylesheets/code-themes/" + id + ".css";
     }
     var label = document.querySelector(".mui-code .mui-code-label");
+    var btn = document.querySelector(".mui-code-btn");
     for (var i = 0; i < CODE_THEMES.length; i++) {
       if (CODE_THEMES[i].id === id) {
         if (label) label.textContent = CODE_THEMES[i].name;
+        if (btn) btn.title = "代码主题：" + CODE_THEMES[i].name;
         break;
       }
     }
@@ -386,12 +418,38 @@
   });
 
   /* ---------------- 启动 ---------------- */
+  function dropNativeSearch() {
+    // 原生搜索按钮与我们的胶囊重复，直接移除（否则页眉会出现两个放大镜）
+    var nodes = document.querySelectorAll(
+      '.md-header__button[for="__search"], label[for="__search"].md-header__button'
+    );
+    [].forEach.call(nodes, function (el) {
+      if (el && el.parentNode) el.parentNode.removeChild(el);
+    });
+  }
+
   function boot() {
     buildHeaderTools();
-    var savedTheme = localStorage.getItem(LS_THEME);
-    if (savedTheme) setScheme(savedTheme);
+    dropNativeSearch();
+    applyMode(currentMode(), false);
     var savedCode = localStorage.getItem(LS_CODE) || "material";
     applyCodeTheme(savedCode, false);
+    if (window.matchMedia) {
+      var mq = window.matchMedia("(prefers-color-scheme: dark)");
+      var onChange = function () {
+        if (currentMode() === "auto") applyMode("auto", false);
+      };
+      if (mq.addEventListener) mq.addEventListener("change", onChange);
+      else if (mq.addListener) mq.addListener(onChange);
+    }
+    // 系统主题变化的兜底：回到前台 / 窗口聚焦时再核对一次
+    var resync = function () {
+      if (currentMode() === "auto") applyMode("auto", false);
+    };
+    document.addEventListener("visibilitychange", function () {
+      if (!document.hidden) resync();
+    });
+    window.addEventListener("focus", resync);
   }
 
   if (document.readyState === "loading") {
@@ -400,6 +458,10 @@
     boot();
   }
   window.addEventListener("load", function () {
-    setTimeout(buildHeaderTools, 200);
+    setTimeout(function () {
+      buildHeaderTools();
+      dropNativeSearch();
+      applyMode(currentMode(), false);
+    }, 200);
   });
 })();
