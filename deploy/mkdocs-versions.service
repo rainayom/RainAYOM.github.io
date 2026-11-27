@@ -1,0 +1,29 @@
+[Unit]
+Description=MkDocs Material 版本化站点 (mike serve, 0.0.0.0:8001)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=mkdocs
+Group=docs
+WorkingDirectory=/srv/mkdocs/repo
+Environment=PATH=/srv/mkdocs/.venv/bin:/usr/local/bin:/usr/bin:/bin
+Environment=HOME=/var/lib/mkdocs
+Environment=NO_MKDOCS_2_WARNING=1
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/srv/mkdocs/.venv/bin/mike serve -a 0.0.0.0:8001
+Restart=always
+RestartSec=5
+TimeoutStopSec=20
+KillSignal=SIGINT
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/srv/mkdocs/repo /var/lib/mkdocs
+ReadOnlyPaths=/srv/mkdocs/.venv
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target

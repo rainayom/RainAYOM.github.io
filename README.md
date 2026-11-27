@@ -1,68 +1,84 @@
-# 运维知识库（MkDocs Material）
+# 运维知识库（MkDocs Material + 网页编辑器）
 
-基于 MkDocs Material 的运维文档站：自动亮暗模式、标签索引、mike 多版本发布，产物由 GitHub Pages 托管。
+用 Markdown 写运维笔记，MkDocs Material 渲染成站，浏览器里可以直接编辑（md-editor-v3），改动自动提交并发布到 GitHub Pages。
 
-- 站点：<https://rainayom.github.io/>
-- 源码分支：`main`（`mkdocs.yml` + `docs/` + `hooks/` + `deploy.sh`）
-- 产物分支：`gh-pages`（mike 生成，Pages 只认这个）
+- 站点：<https://rainayom.github.io/>（`/latest/` → `/1.0/`）
+- 源码分支：`main`；产物分支：`gh-pages`（mike 生成，Pages 只认这个）
+- 详细说明：[使用指南](docs/guide.md)
 
-## 目录结构
+## 功能
 
+| 能力 | 说明 |
+| --- | --- |
+| 三态主题 | 跟随系统 / 亮 / 暗，选择记在 `localStorage` |
+| 文档内容主题 | 6 套（默认 md-editor、github、vuepress、mk-cute、smart-blue、cyanosis），明暗各一套 |
+| 代码配色 | 8 套 pygments 主题，默认 One Dark |
+| 代码块 | 深色卡片 + 三个圆点 + 语言标签 + 文字「复制代码」+ 折叠 + 行号 |
+| 搜索 | 居中弹窗，`Ctrl+K` 唤起，带标题/正文/标签过滤 |
+| 评论 | 基于 GitHub Discussions 的自建评论区 |
+| 编辑入口 | 所有者直写仓库，其他人 fork → PR |
+| 网页编辑器 | 单预览、28 项工具栏、导出 PDF、返回、未保存拦截（`:8080`） |
+| 多版本 | mike 管理版本与 `latest` 别名（`:8001`） |
+| 自动发布 | systemd timer 每 5 分钟提交并 `mike deploy` |
+
+## 目录
+
+```text
+mkdocs.yml              站点配置（主题/插件/hooks/资源）
+requirements.txt        mkdocs-material、awesome-pages、mike
+deploy.sh               一键脚本：bootstrap/serve/build/deploy/release
+autopush.sh             自动提交并发布
+deploy/                 systemd 单元 + 离线安装脚本
+hooks/                  首页目录、标签、代码语言
+overrides/              模板覆盖
+editor/                 网页编辑器源码（Vue3 + md-editor-v3）
+server/editor_server.py 编辑器后端（零依赖标准库）
+packaging/              打离线包 / 源码包
+docs/                   正文、样式、脚本、图片
 ```
-.
-├── mkdocs.yml            # 站点配置：主题/调色板/插件/hooks
-├── requirements.txt      # mkdocs-material、awesome-pages、mike
-├── deploy.sh             # 一键脚本：环境/预览/构建/发布/密钥/Release
-├── hooks/index_listing.py# 首页自动目录
-└── docs/
-    ├── index.md
-    ├── guide.md          # 全流程部署手册（SMB、Windows、Git、密钥、Pages）
-    ├── tags.md           # 标签索引页
-    ├── ops/  ansible/    # 运维与自动化笔记
-    └── images/
-```
 
-## 一键部署
+## 部署（在线）
 
 ```bash
 git clone git@github.com:rainayom/RainAYOM.github.io.git
 cd RainAYOM.github.io
-./deploy.sh bootstrap          # 建 .venv 并安装依赖（会修正 pip 生成的 shebang）
-./deploy.sh serve              # 本地预览 0.0.0.0:8000
-./deploy.sh deploy 1.0 latest  # 构建 + mike 发布 + 推 gh-pages
+./deploy.sh bootstrap                       # 建 .venv 并装依赖
+./deploy.sh serve                           # 本地预览 0.0.0.0:8000
+
+# 常驻服务
+sudo cp deploy/mkdocs-serve.service deploy/mkdocs-versions.service \
+        deploy/mkdocs-editor.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now mkdocs-serve mkdocs-versions mkdocs-editor
+
+# 编辑器前端（首次或改过前端后）
+cd editor && npm ci && npm run build
 ```
 
-脚本以 root 运行时会自动 `runuser` 切到仓库属主（默认 `mkdocs`），避免 git 报 “dubious ownership”。
+## 部署（离线）
 
-## 子命令
+到 [Releases](https://github.com/rainayom/RainAYOM.github.io/releases) 下载：
 
-| 子命令 | 作用 |
-| --- | --- |
-| `bootstrap` | 创建 `.venv`、安装 `requirements.txt`、修正入口脚本 shebang |
-| `serve` | `mkdocs serve -a 0.0.0.0:8000` 热重载预览 |
-| `build` | `mkdocs build --clean` 输出到 `site/` |
-| `deploy [版本] [别名]` | `mike deploy --update-aliases` + `set-default latest` + 推 `gh-pages` |
-| `push` | 只推送 `main` |
-| `status` | 打印 `mike list`、最近提交与工作区状态 |
-| `genkey [路径]` | 生成 ed25519 部署密钥并打印公钥 |
-| `release [tag]` | 打 tag、推 tag、`git archive` 出源码包 |
-
-## 首次部署要做的三件事
-
-1. **部署密钥**：`./deploy.sh genkey` 生成密钥，把 `.pub` 内容加到仓库 Settings → Deploy keys，并**勾选 Allow write access**；再把私钥与 `~/.ssh/config` 放到运行用户可读的位置（600）。
-2. **远端**：`git remote add origin git@github.com:<user>/<user>.github.io.git`，先推 `main`，再推 `gh-pages`。
-3. **Pages**：Settings → Pages → Source 选 `Deploy from a branch` → `gh-pages` → `/ (root)` → Save。
-
-## 版本管理
+- `ops-kb-<版本>-offline.tar.gz`：**完全离线可装**，自带全部 Python wheels + 编辑器构建产物 + systemd 单元；
+- `ops-kb-<版本>-source.tar.gz`：纯源码，自行打包或二次开发。
 
 ```bash
-./deploy.sh deploy 1.1 latest   # 发 1.1，同时把 latest 指到它
-mike list                       # 看已发布版本
-mike delete 1.0 --push          # 撤销某版本
+tar xzf ops-kb-<版本>-offline.tar.gz
+cd ops-kb-<版本>-offline
+sudo bash install.sh              # 默认 /srv/mkdocs，用户 mkdocs
+sudo bash install.sh --help       # 其它参数（--prefix / --with-versions）
 ```
 
-版本选择器依赖 `plugins.mike.version_selector: true` 与 `alias_type: redirect`（GitHub Pages 不解析符号链接）。
+装完即可访问 `http://<IP>:8000`（站点）与 `http://<IP>:8080`（编辑器），全程不需要联网。
 
-## 完整手册
+## 发布与更新
 
-Samba 共享、Windows 资源管理器访问、git 提交、部署密钥、Pages 验收、明文清理等细节，见站点里的 `使用指南 → 16～18 章`（源文件 `docs/guide.md`）。
+```bash
+./deploy.sh deploy 1.0 latest     # 构建 + mike 发布 + 推 gh-pages
+./autopush.sh                     # 立即同步一次（等价于定时器跑一轮）
+packaging/build-bundles.sh 1.1.0  # 打离线包与源码包到 packaging/out/
+```
+
+## License
+
+仅供个人学习与内部运维使用，引用请注明出处。

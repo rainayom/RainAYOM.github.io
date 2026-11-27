@@ -4,3 +4,7 @@ __pycache__/
 *.pyc
 *.bak*
 *.swp
+editor/node_modules/
+editor/dist/
+packaging/wheels/
+packaging/out/
