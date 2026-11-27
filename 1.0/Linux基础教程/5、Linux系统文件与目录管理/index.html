@@ -59,9 +59,11 @@
     
       <link rel="stylesheet" href="../../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127u">
+      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127v">
     
-      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127a">
+      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127b">
+    
+      <link rel="stylesheet" href="../../stylesheets/code-block.css?v=20261127a">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -2501,7 +2503,7 @@
 </tbody>
 </table>
 <h3 id="1">1、查看目录结构命令<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1">#安装</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="c1">#安装</span>
 yum<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>tree
 tree<span class="w"> </span>目标目录
 </code></pre></div>
@@ -2515,14 +2517,14 @@ tree<span class="w"> </span>目标目录
 </ul>
 <h4 id="21">2.1、绝对路径<a class="headerlink" href="#21" title="Permanent link">&para;</a></h4>
 <p>表示从根路径开始，进入指定的路径中或子目录中，获取指定的数据资源信息。</p>
-<div class="codehilite"><pre><span></span><code><span class="x">#采用绝对路径方式进入到network-scripts目录中</span>
+<div class="codehilite" data-lang="php"><pre><span></span><code><span class="x">#采用绝对路径方式进入到network-scripts目录中</span>
 <span class="x">[root@kang ~]# cd /etc/sysconfig/network-scripts/</span>
 </code></pre></div>
 
 <p>说明：采用绝对路径的方式切换目录可以更有效地保证操作的准确度。</p>
 <h4 id="22">2.2、相对路径<a class="headerlink" href="#22" title="Permanent link">&para;</a></h4>
 <p>表示从当前路径开始，进入指定的路径中或子目录中，获取指定的数据资源信息。</p>
-<div class="codehilite"><pre><span></span><code><span class="x">#采用相对路径方式进入到network-scripts目录中</span>
+<div class="codehilite" data-lang="php"><pre><span></span><code><span class="x">#采用相对路径方式进入到network-scripts目录中</span>
 <span class="x">[root@kang ~]# cd /etc/sysconfig/</span>
 <span class="x">[root@kang sysconfig]# cd network-scripts/</span>
 </code></pre></div>
@@ -2548,7 +2550,7 @@ tree<span class="w"> </span>目标目录
 <h3 id="1_1">1、打印工作目录命令<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
 <p>pwd 命令来查看”当前工作目录“的完整路径。 简单得说，每当你在终端进行操作时，你都会有一个当前工作目录。在不太确定当前位置时，就会使用 pwd 来判定当前目录在文件系统内的确切位置。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nb">pwd</span><span class="w"> </span><span class="o">[</span>选项<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">pwd</span><span class="w"> </span><span class="o">[</span>选项<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2569,7 +2571,7 @@ tree<span class="w"> </span>目标目录
 <h3 id="2_1">2、目录切换命令<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
 <p>cd 命令可以说是 Linux 中最基本的命令语句，其他的命令语句要进行操作，都是建立在使用 cd 命令上的。</p>
 <p>语法：</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="o">[</span>目录名<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span><span class="o">[</span>目录名<span class="o">]</span>
 </code></pre></div>
 
 <p>选项：</p>
@@ -2606,7 +2608,7 @@ tree<span class="w"> </span>目标目录
 <h3 id="3_1">3、目录内容查看命令<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
 <p>ls 命令是 linux 下最常用的命令。ls 命令就是 list 的缩写 缺省下 ls 用来打印出当前目录的清单，如果 ls 指定其他目录，那么就会显示指定目录里的文件及文件夹清单。 通过 ls 命令不仅可以查看 linux 文件夹包含的文件 而且可以查看文件权限(包括目录、文件夹、文件权限) 查看目录信息等等。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>ls<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span><span class="o">[</span>FILE<span class="o">]</span>...
+<div class="codehilite" data-lang="bash"><pre><span></span><code>ls<span class="w"> </span><span class="o">[</span>OPTION<span class="o">]</span>...<span class="w"> </span><span class="o">[</span>FILE<span class="o">]</span>...
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2668,7 +2670,7 @@ tree<span class="w"> </span>目标目录
 <h4 id="41cat">4.1、cat命令<a class="headerlink" href="#41cat" title="Permanent link">&para;</a></h4>
 <p>cat 命令的用途是连接文件或标准输入并打印。这个命令常用来显示文件内容，或者将几个文件连接起来显示，或者从标准输入读取内容并显示，它常与重定向符号配合使用。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>cat<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件<span class="o">]</span>...
+<div class="codehilite" data-lang="bash"><pre><span></span><code>cat<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件<span class="o">]</span>...
 </code></pre></div>
 
 <p><strong>功能：</strong></p>
@@ -2731,7 +2733,7 @@ tree<span class="w"> </span>目标目录
 <h4 id="42more">4.2、more命令<a class="headerlink" href="#42more" title="Permanent link">&para;</a></h4>
 <p>用于逐页查看文本文件内容的命令。当需要查看大型文件时，more 命令能够按页显示文件内容，允许用户逐页浏览文件内容。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>more<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件名<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>more<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件名<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>操作：</strong></p>
@@ -2772,7 +2774,7 @@ tree<span class="w"> </span>目标目录
 <h4 id="43less">4.3、less命令<a class="headerlink" href="#43less" title="Permanent link">&para;</a></h4>
 <p>看文本文件内容的命令，类似于 more 命令，但提供了更多的功能和操作选项。less 命令可以让用户在文件中进行搜索、前后翻页、跳转到指定行等操作。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>less<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件名<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>less<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件名<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>操作：</strong></p>
@@ -2825,7 +2827,7 @@ tree<span class="w"> </span>目标目录
 <h4 id="44head">4.4、head命令<a class="headerlink" href="#44head" title="Permanent link">&para;</a></h4>
 <p>head 命令用于显示文件的开头部分，默认情况下显示文件的前 10 行内容。head 命令在查看文件的头部信息时非常有用，尤其适合用于快速查看文件的开头几行内容。</p>
 <p><strong>语法:</strong></p>
-<div class="codehilite"><pre><span></span><code>head<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件名<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>head<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件名<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2858,7 +2860,7 @@ tree<span class="w"> </span>目标目录
 <h4 id="45tail">4.5、tail命令<a class="headerlink" href="#45tail" title="Permanent link">&para;</a></h4>
 <p>tail 命令用于查看文件的尾部内容，默认情况下显示文件的最后 10 行。tail 命令在查看日志文件或需要关注文件末尾信息时非常有用。。使用 tail -f 选项可以实时监控文件的变化，这对于监控系统日志或等待文件尾部的特定信息非常方便。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>tail<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件名<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>tail<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>文件名<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2895,7 +2897,7 @@ tree<span class="w"> </span>目标目录
 <h4 id="46nl">4.6、nl命令<a class="headerlink" href="#46nl" title="Permanent link">&para;</a></h4>
 <p>nl 命令是 Linux 和类 Unix 系统中的一个用于将文本文件中的行号添加到内容的命令。它主要用于向文本文件中的每一行添加行号，便于阅读和查找</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>nl<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>file<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>nl<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>file<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2941,31 +2943,31 @@ tree<span class="w"> </span>目标目录
 <ol>
 <li>将行号添加到文件中的所有行，并将行号输出到标准输出：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>nl<span class="w"> </span>file.txt
+<div class="codehilite" data-lang="bash"><pre><span></span><code>nl<span class="w"> </span>file.txt
 </code></pre></div>
 
 <ol>
 <li>将行号添加到文件中的非空行，并使用制表符作为分隔符：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>nl<span class="w"> </span>-b<span class="w"> </span>a<span class="w"> </span>-s<span class="w"> </span><span class="s1">$'\t'</span><span class="w"> </span>file.txt
+<div class="codehilite" data-lang="bash"><pre><span></span><code>nl<span class="w"> </span>-b<span class="w"> </span>a<span class="w"> </span>-s<span class="w"> </span><span class="s1">$'\t'</span><span class="w"> </span>file.txt
 </code></pre></div>
 
 <ol>
 <li>将行号添加到文件中的所有行，从指定的行号开始：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>nl<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span><span class="w"> </span>file.txt
+<div class="codehilite" data-lang="bash"><pre><span></span><code>nl<span class="w"> </span>-n<span class="w"> </span><span class="m">100</span><span class="w"> </span>file.txt
 </code></pre></div>
 
 <ol>
 <li>设置行号字段的宽度为 3 个字符，并将行号添加到所有行：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>nl<span class="w"> </span>-w<span class="w"> </span><span class="m">3</span><span class="w"> </span>file.txt
+<div class="codehilite" data-lang="bash"><pre><span></span><code>nl<span class="w"> </span>-w<span class="w"> </span><span class="m">3</span><span class="w"> </span>file.txt
 </code></pre></div>
 
 <h3 id="5">5、创建目录命令<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
 <p>mkdir 命令用来创建指定的名称的目录，要求创建目录的用户在当前目录中具有写权限，并且指定的目录名不能是当前目录中已有的目录。如果需要创建多级目录，可以使用通配符 * 或多个目录名。还支持使用{}来进行创建多个目录。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>mkdir<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>目录名
+<div class="codehilite" data-lang="bash"><pre><span></span><code>mkdir<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>目录名
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2995,7 +2997,7 @@ tree<span class="w"> </span>目标目录
 <h4 id="61touch">6.1、touch命令<a class="headerlink" href="#61touch" title="Permanent link">&para;</a></h4>
 <p>用于创建一个新的空文件或修改现有文件的时间戳。它的全称是 "touch file"，即触摸文件。 </p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>touch<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span>...<span class="w"> </span>文件...
+<div class="codehilite" data-lang="bash"><pre><span></span><code>touch<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span>...<span class="w"> </span>文件...
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3024,7 +3026,7 @@ tree<span class="w"> </span>目标目录
 <h4 id="62echo">6.2、echo命令<a class="headerlink" href="#62echo" title="Permanent link">&para;</a></h4>
 <p>用于在终端输出指定的文本内容。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>文本内容
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>文本内容
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3049,7 +3051,7 @@ tree<span class="w"> </span>目标目录
 <h3 id="7">7、文件或目录复制命令<a class="headerlink" href="#7" title="Permanent link">&para;</a></h3>
 <p>cp命令用来复制文件和目录的命令</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>cp<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>destination
+<div class="codehilite" data-lang="bash"><pre><span></span><code>cp<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>destination
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3086,7 +3088,7 @@ tree<span class="w"> </span>目标目录
 <h3 id="8">8、文件或目录移动命令<a class="headerlink" href="#8" title="Permanent link">&para;</a></h3>
 <p>mv命令用来移动文件或目录，或者重命名文件和目录的命令。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>mv<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>destination
+<div class="codehilite" data-lang="bash"><pre><span></span><code>mv<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>destination
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3115,7 +3117,7 @@ tree<span class="w"> </span>目标目录
 <h3 id="9">9、文件或目录删除命令<a class="headerlink" href="#9" title="Permanent link">&para;</a></h3>
 <p>rm命令用于删除文件的命令。它的全称是 "remove"，意思是 "删除"。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>rm<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>file<span class="w"> </span>...
+<div class="codehilite" data-lang="bash"><pre><span></span><code>rm<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>file<span class="w"> </span>...
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3148,7 +3150,7 @@ tree<span class="w"> </span>目标目录
 <h3 id="10">10、别名命令<a class="headerlink" href="#10" title="Permanent link">&para;</a></h3>
 <p>用于创建或显示当前目录下的别名。别名是一种用户定义的命令或函数，可以用来简化复杂的命令序列。使用unalias name可以删除一个别名。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="nb">command</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">alias</span><span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="nv">name</span><span class="o">=</span><span class="nb">command</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3177,7 +3179,7 @@ tree<span class="w"> </span>目标目录
 <h3 id="11">11、文件属性查看命令<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
 <p>stat 命令是 Unix 和 Linux 系统中的一个实用程序，用于显示关于文件的状态信息。stat 命令提供比 ls -l 更详细的文件信息，包括文件的大小、创建时间、最后访问时间、最后修改时间等。 </p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>stat<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>file
+<div class="codehilite" data-lang="bash"><pre><span></span><code>stat<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>file
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3214,7 +3216,7 @@ tree<span class="w"> </span>目标目录
 <h3 id="12">12、目录结构查看命令<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
 <p>tree 命令是一个用于以树状结构显示目录及其内容的实用程序，常用于显示文件系统的层次结构。tree 命令会递归地列出指定目录下的所有子目录和文件，并以树的形式展示它们之间的关系。 </p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>tree<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>directory<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>tree<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>directory<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3251,7 +3253,7 @@ tree<span class="w"> </span>目标目录
 <h3 id="13dd">13、dd命令<a class="headerlink" href="#13dd" title="Permanent link">&para;</a></h3>
 <p>用于复制文件和转换数据。它用于将源文件复制到目标文件，或者用于在目标文件上进行数据转换。 </p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>dd<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>输出选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>输入选项<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>dd<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>输出选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>输入选项<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3308,7 +3310,7 @@ tree<span class="w"> </span>目标目录
 <li>符号链接可以跨越文件系统边界。</li>
 </ul>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>ln<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>destination
+<div class="codehilite" data-lang="bash"><pre><span></span><code>ln<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>destination
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3341,7 +3343,7 @@ tree<span class="w"> </span>目标目录
 <h3 id="15file">15、file命令<a class="headerlink" href="#15file" title="Permanent link">&para;</a></h3>
 <p>在UNIX和Linux系统中，<code>file</code>命令用于确定文件的类型或属性。它可以提供有关文件的内容、文件系统类型、文件权限等信息。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>file<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>文件名
+<div class="codehilite" data-lang="bash"><pre><span></span><code>file<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>文件名
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3740,7 +3742,7 @@ tree<span class="w"> </span>目标目录
       
         <script src="../../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../../javascripts/site-ui.js?v=20261127s"></script>
+        <script src="../../javascripts/site-ui.js?v=20261127t"></script>
       
     
   </body>

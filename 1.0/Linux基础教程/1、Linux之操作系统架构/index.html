@@ -59,9 +59,11 @@
     
       <link rel="stylesheet" href="../../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127u">
+      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127v">
     
-      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127a">
+      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127b">
+    
+      <link rel="stylesheet" href="../../stylesheets/code-block.css?v=20261127a">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -2317,7 +2319,7 @@
 <p>sendfile模式</p>
 <h5 id="5244">5.2.4.4 真正的零拷贝<a class="headerlink" href="#5244" title="Permanent link">&para;</a></h5>
 <p>Linux 内核 2.4如果网卡支持SG-DMA 技术，可以减少通过 CPU 把内核缓冲区里的数据拷贝到 socket 缓冲区的过程。</p>
-<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>ethtool<span class="w"> </span>-k<span class="w"> </span>eth0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>scatter-gather<span class="w">  </span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>$<span class="w"> </span>ethtool<span class="w"> </span>-k<span class="w"> </span>eth0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>scatter-gather<span class="w">  </span>
 scatter-gather:<span class="w"> </span>on
 </code></pre></div>
 
@@ -2451,7 +2453,7 @@ scatter-gather:<span class="w"> </span>on
       
         <script src="../../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../../javascripts/site-ui.js?v=20261127s"></script>
+        <script src="../../javascripts/site-ui.js?v=20261127t"></script>
       
     
   </body>

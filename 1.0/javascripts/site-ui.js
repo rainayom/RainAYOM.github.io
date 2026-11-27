@@ -6,9 +6,9 @@
   var LS_CODE = "mdgh.codeTheme";
   var LS_MD = "mdgh.mdContentTheme";
 
-  // 文档内容主题：与编辑器里的“预览主题”同一套，material = 站点原生
+  // 文档内容主题：与编辑器里的“预览主题”同一套，default = md-editor-v3 默认主题
   var MD_THEMES = [
-    { id: "material", name: "默认（站点原生）", color: "#3f51b5" },
+    { id: "default", name: "默认（md-editor）", color: "#3f4a54" },
     { id: "github", name: "github", color: "#0969da" },
     { id: "vuepress", name: "vuepress", color: "#3eaf7c" },
     { id: "mk-cute", name: "mk-cute", color: "#36ace1" },
@@ -17,15 +17,15 @@
   ];
 
   var CODE_THEMES = [
-    { id: "material", name: "默认（跟随主题）" },
+    { id: "one-dark", name: "默认（md-editor One Dark）" },
     { id: "github-dark", name: "github-dark" },
-    { id: "one-dark", name: "one-dark" },
     { id: "dracula", name: "dracula" },
     { id: "monokai", name: "monokai" },
     { id: "nord", name: "nord" },
     { id: "solarized-light", name: "solarized-light" },
     { id: "vs", name: "vs" },
-    { id: "xcode", name: "xcode" }
+    { id: "xcode", name: "xcode" },
+    { id: "material", name: "跟随站点" }
   ];
 
   function siteRoot() {
@@ -112,13 +112,15 @@
 
   /* ---------------- 文档内容主题（md 预览主题） ---------------- */
   function currentMdTheme() {
-    return localStorage.getItem(LS_MD) || "material";
+    var v = localStorage.getItem(LS_MD) || "default";
+    if (v === "material") v = "default";
+    return v;
   }
 
   function applyMdTheme(id, remember) {
-    id = id || "material";
-    if (id === "material") document.body.removeAttribute("data-md-content-theme");
-    else document.body.setAttribute("data-md-content-theme", id);
+    id = id || "default";
+    if (id === "material") id = "default";
+    document.body.setAttribute("data-md-content-theme", id);
 
     var hit = MD_THEMES[0];
     for (var i = 0; i < MD_THEMES.length; i++) {
@@ -495,13 +497,104 @@
     });
   }
 
+  /* ---------------- 代码块外观：对齐 md-editor 默认主题 ---------------- */
+  var COPY_TEXT = "复制代码";
+
+  function fallbackCopy(text, done) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.top = "-9999px";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand("copy");
+      done();
+    } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  function copyCode(btn, codeEl) {
+    var text = codeEl ? codeEl.textContent : "";
+    var done = function () {
+      btn.textContent = "已复制";
+      setTimeout(function () {
+        btn.textContent = COPY_TEXT;
+      }, 1400);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () {
+        fallbackCopy(text, done);
+      });
+    } else {
+      fallbackCopy(text, done);
+    }
+  }
+
+  function gutterHtml(codeEl) {
+    var text = codeEl ? codeEl.textContent || "" : "";
+    var n = text.replace(/\n$/, "").split("\n").length;
+    if (!n) return "";
+    var out = [];
+    for (var i = 1; i <= n; i++) out.push("<span>" + i + "</span>");
+    return out.join("");
+  }
+
+  function decorateCodeBlocks() {
+    var blocks = document.querySelectorAll(".md-typeset div.codehilite, .md-typeset div.highlight");
+    [].forEach.call(blocks, function (box) {
+      if (box.getAttribute("data-mdg")) return;
+      var pre = box.querySelector("pre");
+      if (!pre) return;
+      box.setAttribute("data-mdg", "1");
+
+      var lang = (box.getAttribute("data-lang") || "").replace(/[^A-Za-z0-9+#._-]/g, "");
+
+      var bar = document.createElement("div");
+      bar.className = "mdg-bar";
+      bar.innerHTML =
+        '<span class="mdg-dots" aria-hidden="true"><i></i><i></i><i></i></span>' +
+        '<span class="mdg-tools">' +
+        (lang ? '<span class="mdg-lang">' + esc(lang) + "</span>" : "") +
+        '<button type="button" class="mdg-copy">' + COPY_TEXT + "</button>" +
+        '<button type="button" class="mdg-fold" aria-label="折叠代码" title="折叠代码">' +
+        '<svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true">' +
+        '<path d="M12 15.6 6 9.6l1.4-1.4 4.6 4.6 4.6-4.6L18 9.6z"/></svg>' +
+        "</button></span>";
+
+      var body = document.createElement("div");
+      body.className = "mdg-body";
+      var ln = document.createElement("div");
+      ln.className = "mdg-ln";
+      ln.setAttribute("aria-hidden", "true");
+      ln.innerHTML = gutterHtml(pre.querySelector("code") || pre);
+
+      box.insertBefore(bar, pre);
+      box.insertBefore(body, pre);
+      body.appendChild(ln);
+      body.appendChild(pre);
+
+      bar.querySelector(".mdg-copy").addEventListener("click", function () {
+        copyCode(this, pre.querySelector("code") || pre);
+      });
+      bar.querySelector(".mdg-fold").addEventListener("click", function () {
+        var collapsed = box.classList.toggle("mdg-collapsed");
+        var label = collapsed ? "展开代码" : "折叠代码";
+        this.setAttribute("aria-label", label);
+        this.setAttribute("title", label);
+      });
+    });
+  }
+
   function boot() {
     buildHeaderTools();
     dropNativeSearch();
     applyMode(currentMode(), false);
     applyMdTheme(currentMdTheme(), false);
-    var savedCode = localStorage.getItem(LS_CODE) || "material";
+    var savedCode = localStorage.getItem(LS_CODE) || "one-dark";
     applyCodeTheme(savedCode, false);
+    decorateCodeBlocks();
     if (window.matchMedia) {
       var mq = window.matchMedia("(prefers-color-scheme: dark)");
       var onChange = function () {
@@ -531,6 +624,7 @@
       dropNativeSearch();
       applyMode(currentMode(), false);
       applyMdTheme(currentMdTheme(), false);
+      decorateCodeBlocks();
     }, 200);
   });
 })();

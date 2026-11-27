@@ -59,9 +59,11 @@
     
       <link rel="stylesheet" href="../../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127u">
+      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127v">
     
-      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127a">
+      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127b">
+    
+      <link rel="stylesheet" href="../../stylesheets/code-block.css?v=20261127a">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -2215,7 +2217,7 @@
 <p>可以使用绝对模式（八进制数字模式），符号模式指定文件的权限。</p>
 <p><img alt="img" src="../9%E3%80%81Linux%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86.assets/rwx-standard-unix-permission-bits-17807383301834.png" /></p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>chmod<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>权限模式<span class="w"> </span>文件...
+<div class="codehilite" data-lang="bash"><pre><span></span><code>chmod<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>权限模式<span class="w"> </span>文件...
 chmod<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>--reference<span class="o">=</span>参考文件<span class="w"> </span>文件...
 </code></pre></div>
 
@@ -2256,7 +2258,7 @@ chmod<span class="w"> </span><span class="o">[</span>选项<span class="o">]</sp
 </table>
 <h5 id="_2">权限模式<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
 <h6 id="1ugoa-">1、符号模式（ugoa+/-权限）<a class="headerlink" href="#1ugoa-" title="Permanent link">&para;</a></h6>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">ugoa...</span><span class="o">][</span><span class="n">[+-=</span><span class="o">][</span><span class="n">rwxX</span><span class="o">]</span><span class="p">...</span><span class="err">]</span><span class="o">[</span><span class="n">,...</span><span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="o">[</span><span class="n">ugoa...</span><span class="o">][</span><span class="n">[+-=</span><span class="o">][</span><span class="n">rwxX</span><span class="o">]</span><span class="p">...</span><span class="err">]</span><span class="o">[</span><span class="n">,...</span><span class="o">]</span>
 </code></pre></div>
 
 <p>其中：</p>
@@ -2468,31 +2470,31 @@ chmod<span class="w"> </span><span class="o">[</span>选项<span class="o">]</sp
 </ul>
 <p><strong>案例：</strong></p>
 <p>将文件 file1.txt 设为所有人皆可读取 :</p>
-<div class="codehilite"><pre><span></span><code>chmod ugo+r file1.txt
+<div class="codehilite" data-lang="bash"><pre><span></span><code>chmod ugo+r file1.txt
 </code></pre></div>
 
 <p>将文件 file1.txt 设为所有人皆可读取 :</p>
-<div class="codehilite"><pre><span></span><code>chmod a+r file1.txt
+<div class="codehilite" data-lang="bash"><pre><span></span><code>chmod a+r file1.txt
 </code></pre></div>
 
 <p>将文件 file1.txt 与 file2.txt 设为该文件拥有者，与其所属同一个群体者可写入，但其他以外的人则不可写入 :</p>
-<div class="codehilite"><pre><span></span><code>chmod ug+w,o-w file1.txt file2.txt
+<div class="codehilite" data-lang="bash"><pre><span></span><code>chmod ug+w,o-w file1.txt file2.txt
 </code></pre></div>
 
 <p>为 ex1.py 文件拥有者增加可执行权限:</p>
-<div class="codehilite"><pre><span></span><code>chmod u+x ex1.py
+<div class="codehilite" data-lang="bash"><pre><span></span><code>chmod u+x ex1.py
 </code></pre></div>
 
 <p>将目前目录下的所有文件与子目录皆设为任何人可读取 :</p>
-<div class="codehilite"><pre><span></span><code>chmod -R a+r *
+<div class="codehilite" data-lang="bash"><pre><span></span><code>chmod -R a+r *
 </code></pre></div>
 
 <p>此外chmod也可以用数字来表示权限如 :</p>
-<div class="codehilite"><pre><span></span><code>chmod 777 file
+<div class="codehilite" data-lang="bash"><pre><span></span><code>chmod 777 file
 </code></pre></div>
 
 <p>语法为：</p>
-<div class="codehilite"><pre><span></span><code>chmod abc file
+<div class="codehilite" data-lang="bash"><pre><span></span><code>chmod abc file
 </code></pre></div>
 
 <p>其中a,b,c各为一个数字，分别表示User、Group、及Other的权限。</p>
@@ -2502,19 +2504,19 @@ chmod<span class="w"> </span><span class="o">[</span>选项<span class="o">]</sp
 <li>若要 rw- 属性则 4+2=6；</li>
 <li>若要 r-x 属性则 4+1=5。</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>chmod a=rwx file
+<div class="codehilite" data-lang="bash"><pre><span></span><code>chmod a=rwx file
 </code></pre></div>
 
 <p>和</p>
-<div class="codehilite"><pre><span></span><code>chmod 777 file
+<div class="codehilite" data-lang="bash"><pre><span></span><code>chmod 777 file
 </code></pre></div>
 
 <p>效果相同</p>
-<div class="codehilite"><pre><span></span><code>chmod ug=rwx,o=x file
+<div class="codehilite" data-lang="bash"><pre><span></span><code>chmod ug=rwx,o=x file
 </code></pre></div>
 
 <p>和</p>
-<div class="codehilite"><pre><span></span><code>chmod 771 file
+<div class="codehilite" data-lang="bash"><pre><span></span><code>chmod 771 file
 </code></pre></div>
 
 <p>效果相同</p>
@@ -2954,7 +2956,7 @@ rm:<span class="w"> </span>无法删除<span class="s2">"./bbb"</span>:<span cla
       
         <script src="../../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../../javascripts/site-ui.js?v=20261127s"></script>
+        <script src="../../javascripts/site-ui.js?v=20261127t"></script>
       
     
   </body>

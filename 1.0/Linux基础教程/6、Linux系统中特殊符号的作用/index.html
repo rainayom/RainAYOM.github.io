@@ -59,9 +59,11 @@
     
       <link rel="stylesheet" href="../../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127u">
+      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127v">
     
-      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127a">
+      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127b">
+    
+      <link rel="stylesheet" href="../../stylesheets/code-block.css?v=20261127a">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -2438,7 +2440,7 @@
 <li><code>$$</code> 表示<code>Shell</code>本身的<code>PID</code>（<code>ProcessID</code>）</li>
 </ol>
 <p><code>$*</code>和<code>$@</code>区别：<code>$*</code>变量会将所有参数当成单个参数，而<code>$@</code>变量会单独处理每个参数</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">###这是测试脚本</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code><span class="c1">###这是测试脚本</span>
 <span class="c1">#!/bin/sh</span>
 <span class="nb">echo</span><span class="w"> </span>这是脚本名字：<span class="nv">$0</span>
 <span class="nb">echo</span><span class="w"> </span>总共有<span class="nv">$#</span>个人，分别是<span class="nv">$*</span>
@@ -2457,7 +2459,7 @@
 <p><strong><code>单引号</code></strong> 中是原始字符串，<strong><code>属于强引用</code></strong>，它会忽略所有被引起来的字符的特殊处理，被引用起来的字符会被原封不动的使用，唯一需要注意的点是不允许引用自身</p>
 <p><strong><code>双引号</code></strong> 可以对特殊字符进行扩展， <strong><code>属于弱引用</code></strong>，它会对一些被引起来的字符进行特殊处理。双引号与单引号的区别在于其可以包含特殊字符（单引号直接输出内部字符串，不解析特殊字符；双引号内则会解析特殊字符），包括<code>', ", $, \,</code>如果要忽略特殊字符，就可以利用<code>\</code>来转义，忽略特殊字符，作为普通字符输出</p>
 <p>一般不写的就是当<code>双引号</code>用的</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">a</span><span class="o">=</span>bcdef
+<div class="codehilite" data-lang="shell"><pre><span></span><code><span class="nv">a</span><span class="o">=</span>bcdef
 <span class="nb">echo</span><span class="w"> </span><span class="nv">$a</span><span class="w"> </span><span class="c1"># 输出bcdef</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$a</span><span class="s2">"</span><span class="w"> </span><span class="c1">#双引号将进行变量扩展 ，输出bcdef</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s1">'$a'</span><span class="w"> </span><span class="c1">#单引号直接输出$a</span>
@@ -2555,7 +2557,7 @@
 <h6 id="1461">1.4.6.1 界定符号<a class="headerlink" href="#1461" title="Permanent link">&para;</a></h6>
 <p><code>${}</code> 界定符号，比如<code>$ab</code>，就相当于<code>${ab}</code>，而<code>${a}b</code>才是只取<code>a</code>的值  </p>
 <h6 id="1462">1.4.6.2 取路径,文件名,后缀<a class="headerlink" href="#1462" title="Permanent link">&para;</a></h6>
-<div class="codehilite"><pre><span></span><code><span class="c1">#假设一个变量名为file</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code><span class="c1">#假设一个变量名为file</span>
 <span class="nv">file</span><span class="o">=</span>/dir1/dir2/dir3/my.file.txt
 <span class="si">${</span><span class="nv">file</span><span class="p">#*/</span><span class="si">}</span>：删掉第一个<span class="w"> </span>/<span class="w"> </span>及其左边的字符串：dir1/dir2/dir3/my.file.txt
 <span class="si">${</span><span class="nv">file</span><span class="p">##*/</span><span class="si">}</span>：删掉最后一个<span class="w"> </span>/<span class="w"> </span>及其左边的字符串：my.file.txt
@@ -2638,7 +2640,7 @@
 </tbody>
 </table>
 <p><code>注意</code>：在 <strong><code>重定向到</code></strong> 文件描述符时，必须在文件描述符数字之前加一个<code>&amp;</code>，一般写法是<code>2 &gt;&amp;1</code>，把错误重定向到标准输出</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"This is an error message"</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"This is an error message"</span><span class="w"> </span>&gt;<span class="p">&amp;</span><span class="m">2</span>
 </code></pre></div>
 
 <p>这行会在脚本的<code>STDERR</code>文件描述符所指向的位置显示文本，而不是通常的<code>STDOUT</code></p>
@@ -2707,7 +2709,7 @@
 <p><code>n &gt;&amp; m</code>：将输出文件m 和n合并  </p>
 <p><code>n &lt;&amp; m</code>：将输入文件m 和n合并</p>
 <p>使用例子：</p>
-<div class="codehilite"><pre><span></span><code>下面两种写法一样，都是从分界符EOF<span class="o">(</span>分界符自己定义<span class="o">)</span>读入后输出到file1
+<div class="codehilite" data-lang="shell"><pre><span></span><code>下面两种写法一样，都是从分界符EOF<span class="o">(</span>分界符自己定义<span class="o">)</span>读入后输出到file1
 cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt;file1</span>
 <span class="s">cat &gt;file1 &lt;&lt;EOF</span>
 </code></pre></div>
@@ -2716,19 +2718,19 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt;file1</span>
 <p>两者都是获取<code>stdin</code>，并在<code>EOF</code>处结束<code>stdin</code>，输出<code>stdout</code>  </p>
 <p><code>&lt;&lt;-</code> : 分界符(<code>EOF</code>)所在航的开头部分的制表符都将被去除  </p>
 <p>例如：</p>
-<div class="codehilite"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span><span class="m">1</span>.txt<span class="s">&lt;&lt;EOF</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span><span class="m">1</span>.txt<span class="s">&lt;&lt;EOF</span>
 <span class="s">TEST</span>
 <span class="s">EOF</span>
 </code></pre></div>
 
 <p>以上写法是不会出错的，但是如果如下写就容易出错了</p>
-<div class="codehilite"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span><span class="m">1</span>.txt<span class="s">&lt;&lt;EOF</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span><span class="m">1</span>.txt<span class="s">&lt;&lt;EOF</span>
 <span class="s">TEST</span>
 <span class="s">    EOF</span>
 </code></pre></div>
 
 <p><code>EOF</code>前面有制表符或者空格，那么<code>EOF</code>不会当作结束分界符，只会继续被当做<code>stdin</code>来输入，<code>&lt;&lt;-</code>就是为了解决这个问题的</p>
-<div class="codehilite"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span><span class="m">1</span>.txt<span class="s">&lt;&lt;-EOF</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code>cat<span class="w"> </span>&gt;<span class="w"> </span><span class="m">1</span>.txt<span class="s">&lt;&lt;-EOF</span>
 <span class="s">TEST</span>
 <span class="s">    EOF</span>
 </code></pre></div>
@@ -2742,7 +2744,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt;file1</span>
 </ul>
 <h6 id="2122">2.1.2.2 永久重定向<a class="headerlink" href="#2122" title="Permanent link">&para;</a></h6>
 <p>如果脚本中有大量数据需要重定向，那重定向每个<code>echo</code>语句就会很烦琐。取而代之，可以用<code>exec</code>命令告诉shell在脚本执行期间重定向某个特定文件描述符</p>
-<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1"># redirecting all output to a file</span>
 <span class="nb">exec</span><span class="w"> </span><span class="m">1</span>&gt;testout
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"This is a test of redirecting all output"</span>
@@ -2751,7 +2753,7 @@ cat<span class="w"> </span><span class="s">&lt;&lt;EOF &gt;file1</span>
 </code></pre></div>
 
 <p>运行结果</p>
-<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>./test10
+<div class="codehilite" data-lang="shell"><pre><span></span><code>$<span class="w"> </span>./test10
 $<span class="w"> </span>cat<span class="w"> </span>testout
 This<span class="w"> </span>is<span class="w"> </span>a<span class="w"> </span><span class="nb">test</span><span class="w"> </span>of<span class="w"> </span>redirecting<span class="w"> </span>all<span class="w"> </span>output
 from<span class="w"> </span>a<span class="w"> </span>script<span class="w"> </span>to<span class="w"> </span>another<span class="w"> </span>file.
@@ -2760,7 +2762,7 @@ without<span class="w"> </span>having<span class="w"> </span>to<span class="w"> 
 
 <p><code>exec</code>命令会启动一个新<code>shell</code>并将<code>STDOUT</code>文件描述符重定向到文件。脚本中发给<code>STDOUT</code>的所有输出会被重定向到文件<br />
 可以在脚本执行过程中重定向STDOUT</p>
-<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1"># redirecting output to different locations</span>
 <span class="nb">exec</span><span class="w"> </span><span class="m">2</span>&gt;testerror
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"This is the start of the script"</span>
@@ -2771,7 +2773,7 @@ without<span class="w"> </span>having<span class="w"> </span>to<span class="w"> 
 </code></pre></div>
 
 <p>运行结果</p>
-<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>./test11
+<div class="codehilite" data-lang="shell"><pre><span></span><code>$<span class="w"> </span>./test11
 This<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>start<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>script
 now<span class="w"> </span>redirecting<span class="w"> </span>all<span class="w"> </span>output<span class="w"> </span>to<span class="w"> </span>another<span class="w"> </span>location
 $<span class="w"> </span>cat<span class="w"> </span>testout
@@ -2781,7 +2783,7 @@ but<span class="w"> </span>this<span class="w"> </span>should<span class="w"> </
 </code></pre></div>
 
 <p>可以使用与脚本中重定向<code>STDOUT</code>和<code>STDERR</code>相同的方法来将<code>STDIN</code>从键盘重定向到其他位置。 <code>exec</code>命令允许你将<code>STDIN</code>重定向到<code>Linux</code>系统上的文件中：<code>exec 0&lt; testfile</code>这个命令会告诉<code>shell</code>它应该从文件<code>testfile</code>中获得输入，而不是<code>STDIN</code>。这个重定向只要在脚本需要输入时就会作用。下面是该用法的实例</p>
-<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="c1"># redirecting file input</span>
 <span class="nb">exec</span><span class="w"> </span><span class="m">0</span>&lt;<span class="w"> </span>testfile
 <span class="nv">count</span><span class="o">=</span><span class="m">1</span>
@@ -2793,7 +2795,7 @@ but<span class="w"> </span>this<span class="w"> </span>should<span class="w"> </
 </code></pre></div>
 
 <p>运行结果</p>
-<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>./test12
+<div class="codehilite" data-lang="shell"><pre><span></span><code>$<span class="w"> </span>./test12
 Line<span class="w"> </span><span class="c1">#1: This is the first line.</span>
 Line<span class="w"> </span><span class="c1">#2: This is the second line.</span>
 Line<span class="w"> </span><span class="c1">#3: This is the third line.</span>
@@ -2839,7 +2841,7 @@ Line<span class="w"> </span><span class="c1">#3: This is the third line.</span>
 <h6 id="2241">2.2.4.1 准备脚本<a class="headerlink" href="#2241" title="Permanent link">&para;</a></h6>
 <p>创建两个脚本  </p>
 <p>第一个脚本，我们命名为 exec.sh:</p>
-<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code><span class="ch">#!/bin/sh</span>
 <span class="nv">A</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"before exec/source/fork: PID for exec.sh = </span><span class="nv">$$</span><span class="s2">"</span><span class="w"> </span>
 <span class="nb">export</span><span class="w"> </span>A
@@ -2862,7 +2864,7 @@ Line<span class="w"> </span><span class="c1">#3: This is the third line.</span>
 </code></pre></div>
 
 <p>第二个脚本，命名为 test.sh：</p>
-<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code><span class="ch">#!/bin/sh</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"PID for test.sh = </span><span class="nv">$$</span><span class="s2">"</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"In test.sh get variable A=</span><span class="nv">$A</span><span class="s2"> from exec.sh"</span>
 
@@ -2875,7 +2877,7 @@ Line<span class="w"> </span><span class="c1">#3: This is the third line.</span>
 <p>这个例子是通过显示 PID 判断两个脚本是分开执行还是同一进程里执行，也就是是否有新开子 Shell。当执行完脚本 test.sh 后，脚本 exec.sh 后面的内容是否还执行。</p>
 <h6 id="2242">2.2.4.2 结果分析<a class="headerlink" href="#2242" title="Permanent link">&para;</a></h6>
 <p>fork执行结果：</p>
-<div class="codehilite"><pre><span></span><code>./exec.sh<span class="w"> </span>fork
+<div class="codehilite" data-lang="shell"><pre><span></span><code>./exec.sh<span class="w"> </span>fork
 before<span class="w"> </span>exec/source/fork:<span class="w"> </span>PID<span class="w"> </span><span class="k">for</span><span class="w"> </span>exec.sh<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5374</span>
 In<span class="w"> </span>exec.sh:<span class="w"> </span>variable<span class="w"> </span><span class="nv">A</span><span class="o">=</span><span class="nv">1</span>
 <span class="o">==</span>&gt;<span class="w"> </span>using<span class="w"> </span>fork<span class="w"> </span>by<span class="w"> </span>default…
@@ -2890,7 +2892,7 @@ In<span class="w"> </span>exec.sh:<span class="w"> </span>variable<span class="w
 
 <p><code>fork</code> 方式可以看出，两个脚本都执行了，运行顺序为1-2-1，从两者的PID值(exec.sh PID=5374, test.sh PID=5375)，可以看出，两个脚本是分成两个进程运行的。</p>
 <p>exec执行结果：</p>
-<div class="codehilite"><pre><span></span><code>./exec.sh<span class="w"> </span><span class="nb">exec</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code>./exec.sh<span class="w"> </span><span class="nb">exec</span>
 before<span class="w"> </span>exec/source/fork:<span class="w"> </span>PID<span class="w"> </span><span class="k">for</span><span class="w"> </span>exec.sh<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">20224</span>
 In<span class="w"> </span>exec.sh:<span class="w"> </span>variable<span class="w"> </span><span class="nv">A</span><span class="o">=</span><span class="nv">1</span>
 <span class="o">==</span>&gt;<span class="w"> </span>using<span class="w"> </span>exec…
@@ -2902,7 +2904,7 @@ In<span class="w"> </span>test.sh:<span class="w"> </span>variable<span class="w
 
 <p>exec 方式运行的结果是，test.sh 执行完成后，不再回到 exec.sh。运行顺序为 1-2。从pid值看，两者是在同一进程 PID=20224中运行的。</p>
 <p>source执行结果：</p>
-<div class="codehilite"><pre><span></span><code>before<span class="w"> </span>exec/source/fork:<span class="w"> </span>PID<span class="w"> </span><span class="k">for</span><span class="w"> </span>exec.sh<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">25906</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code>before<span class="w"> </span>exec/source/fork:<span class="w"> </span>PID<span class="w"> </span><span class="k">for</span><span class="w"> </span>exec.sh<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">25906</span>
 In<span class="w"> </span>exec.sh:<span class="w"> </span>variable<span class="w"> </span><span class="nv">A</span><span class="o">=</span><span class="nv">1</span>
 <span class="o">==</span>&gt;<span class="w"> </span>using<span class="w"> </span>source…
 
@@ -2920,14 +2922,14 @@ In<span class="w"> </span>exec.sh:<span class="w"> </span>variable<span class="w
 <p>就像上面提到的特殊符号：<code>${0},${1},${2}..</code>  </p>
 <p><code>${0}</code>获取到的是脚本路径以及脚本名，后面按顺序获取参数。<code>${10}</code>之前的都可以写为<code>$1,$2</code></p>
 <p>新建一个noparam.sh的文件</p>
-<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"脚本</span><span class="si">${</span><span class="nv">0</span><span class="si">}</span><span class="s2">"</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"第一个参数</span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="s2">"</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"第二个参数</span><span class="si">${</span><span class="nv">2</span><span class="si">}</span><span class="s2">"</span>
 </code></pre></div>
 
 <p>执行结果</p>
-<div class="codehilite"><pre><span></span><code>./noparam.sh<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code>./noparam.sh<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">4</span>
 脚本./noparam.sh
 第一个参数1
 第二个参数4
@@ -2937,7 +2939,7 @@ In<span class="w"> </span>exec.sh:<span class="w"> </span>variable<span class="w
 <p>指定参数名称主要用的是<code>getopts</code>，其中 <code>$OPTARG</code> 是一个特殊的变量，用于存储 <code>getopts</code> 命令解析命令行选项时的当前选项参数值。<code>getopts</code>命令用于解析<code>shell</code>脚本的命令行选项和参数，它可以处理短选项（以单个破折号开头的选项，如<code>-a</code>）和长选项（以两个破折号开头的选项，如<code>--option</code>）。</p>
 <p><code>getopts</code>变量通常在<code>while</code>循环中使用，与<code>getopts</code>命令一起处理命令行选项。当<code>getopts</code>解析到一个选项时，它将该选项的参数值存储在<code>$OPTARG</code>变量中。<br />
 下面是一个简单的示例，说明如何使用<code>getopts</code>和<code>$OPTARG</code>处理命令行选项：</p>
-<div class="codehilite"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<div class="codehilite" data-lang="shell"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
 <span class="k">while</span><span class="w"> </span><span class="nb">getopts</span><span class="w"> </span><span class="s2">":a:b:"</span><span class="w"> </span>opt<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nv">$opt</span><span class="w"> </span><span class="k">in</span>
@@ -3071,7 +3073,7 @@ In<span class="w"> </span>exec.sh:<span class="w"> </span>variable<span class="w
       
         <script src="../../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../../javascripts/site-ui.js?v=20261127s"></script>
+        <script src="../../javascripts/site-ui.js?v=20261127t"></script>
       
     
   </body>

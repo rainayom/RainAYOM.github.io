@@ -59,9 +59,11 @@
     
       <link rel="stylesheet" href="../../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127u">
+      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127v">
     
-      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127a">
+      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127b">
+    
+      <link rel="stylesheet" href="../../stylesheets/code-block.css?v=20261127a">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -3129,7 +3131,7 @@
 <p>/sys文件系统基本上包含了系统中所有设备的所有信息，比如制造商和型号、设备插入的位置、设备的状态、设备的层次结构等等。在这里看到的文件不是设备节点，因此实际上并不是在/sys目录下与设备交互，而是在管理设备。</p>
 <h2 id="_2">三、磁盘分区与挂载<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <p><strong>磁盘热扫描：</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w">  </span>/sys/class/scsi_host
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">cd</span><span class="w">  </span>/sys/class/scsi_host
 <span class="k">for</span><span class="w"> </span>i<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="sb">`</span>ls<span class="w"> </span>/sys/class/scsi_host<span class="sb">`</span><span class="p">;</span><span class="k">do</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"- - -"</span><span class="w"> </span>&gt;<span class="w"> </span><span class="si">${</span><span class="nv">i</span><span class="si">}</span>/scan<span class="p">;</span><span class="k">done</span>
 </code></pre></div>
 
@@ -3143,7 +3145,7 @@
 <h3 id="2_1">2、分区命令<a class="headerlink" href="#2_1" title="Permanent link">&para;</a></h3>
 <h4 id="21fdisk">2.1、fdisk命令<a class="headerlink" href="#21fdisk" title="Permanent link">&para;</a></h4>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3172,7 +3174,7 @@
 <p><strong>案例：</strong></p>
 <h4 id="22parted">2.2、parted命令<a class="headerlink" href="#22parted" title="Permanent link">&para;</a></h4>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3202,7 +3204,7 @@
 <h3 id="3_2">3、查看与识别命令<a class="headerlink" href="#3_2" title="Permanent link">&para;</a></h3>
 <h4 id="31lsblk">3.1、lsblk命令<a class="headerlink" href="#31lsblk" title="Permanent link">&para;</a></h4>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3231,7 +3233,7 @@
 <p><strong>案例：</strong></p>
 <h4 id="32partprobe">3.2、partprobe命令<a class="headerlink" href="#32partprobe" title="Permanent link">&para;</a></h4>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3261,7 +3263,7 @@
 <h3 id="4_2">4、挂载命令<a class="headerlink" href="#4_2" title="Permanent link">&para;</a></h3>
 <h4 id="41mount">4.1、mount命令<a class="headerlink" href="#41mount" title="Permanent link">&para;</a></h4>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3290,7 +3292,7 @@
 <p><strong>案例：</strong></p>
 <h4 id="42umount">4.2、umount命令<a class="headerlink" href="#42umount" title="Permanent link">&para;</a></h4>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3384,7 +3386,7 @@
 </table>
 <h3 id="3_3">3、配置案例<a class="headerlink" href="#3_3" title="Permanent link">&para;</a></h3>
 <h4 id="31lvm">3.1、构建LVM逻辑卷<a class="headerlink" href="#31lvm" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code><span class="c1">#创建分区</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="c1">#创建分区</span>
 fdisk<span class="w"> </span>/dev/sdb<span class="w">  </span>
 <span class="c1">#创建物理卷</span>
 pvcreate<span class="w"> </span>/dev/sdb1<span class="w"> </span>/dev/sdb2<span class="w"> </span>/dev/sdb3
@@ -3395,11 +3397,11 @@ lvcreate<span class="w"> </span>-n<span class="w"> </span>tstlv<span class="w"> 
 </code></pre></div>
 
 <h4 id="32lvm">3.2、扩容LVM逻辑卷<a class="headerlink" href="#32lvm" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <h4 id="33lvm">3.3、缩容LVM逻辑卷<a class="headerlink" href="#33lvm" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <h2 id="_3">五、磁盘配额<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
@@ -3418,7 +3420,7 @@ lvcreate<span class="w"> </span>-n<span class="w"> </span>tstlv<span class="w"> 
 <h3 id="2_3">2、配置命令<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h3>
 <h4 id="21quota">2.1、quota命令<a class="headerlink" href="#21quota" title="Permanent link">&para;</a></h4>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3447,7 +3449,7 @@ lvcreate<span class="w"> </span>-n<span class="w"> </span>tstlv<span class="w"> 
 <p><strong>案例：</strong></p>
 <h4 id="22xfs_quota">2.2、xfs_quota命令<a class="headerlink" href="#22xfs_quota" title="Permanent link">&para;</a></h4>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3475,7 +3477,7 @@ lvcreate<span class="w"> </span>-n<span class="w"> </span>tstlv<span class="w"> 
 </table>
 <p><strong>案例：</strong></p>
 <h3 id="3_4">3、配置案例<a class="headerlink" href="#3_4" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1">#针对用户和组，用于配置用户和组在该磁盘的使用容量限制。</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="c1">#针对用户和组，用于配置用户和组在该磁盘的使用容量限制。</span>
 <span class="c1">#实现支持磁盘配额的挂载：</span>
 mount<span class="w"> </span>-o<span class="w"> </span>ursquota,grpquota<span class="w"> </span>/dev/test_vg/test_lv<span class="w"> </span>/testlvm
 <span class="c1">#查看是否支持磁盘配额：</span>
@@ -3499,51 +3501,51 @@ mkdir<span class="w"> </span>dir<span class="o">{</span><span class="m">1</span>
 
 <h4 id="31xfs">3.1、xfs配额<a class="headerlink" href="#31xfs" title="Permanent link">&para;</a></h4>
 <p>1、挂载并启用配额</p>
-<div class="codehilite"><pre><span></span><code><span class="c">mount </span><span class="o">-</span><span class="nv">o</span><span class="w"> </span><span class="nv">usrquota</span><span class="p">,</span><span class="nv">grpquota</span><span class="w"> </span><span class="o">/</span><span class="err">挂载磁盘</span><span class="w"> </span><span class="o">/</span><span class="err">挂载点</span>
+<div class="codehilite" data-lang="cobol"><pre><span></span><code><span class="c">mount </span><span class="o">-</span><span class="nv">o</span><span class="w"> </span><span class="nv">usrquota</span><span class="p">,</span><span class="nv">grpquota</span><span class="w"> </span><span class="o">/</span><span class="err">挂载磁盘</span><span class="w"> </span><span class="o">/</span><span class="err">挂载点</span>
 </code></pre></div>
 
 <p>永久挂载参数如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="c">/dev/s</span><span class="nv">db1</span><span class="w"> </span><span class="o">/</span><span class="nv">mail</span><span class="w"> </span><span class="nv">xfs</span><span class="w"> </span><span class="nv">defaults</span><span class="p">,</span><span class="nv">usrquota</span><span class="p">,</span><span class="nv">grpquota</span><span class="w"> </span><span class="mi">0 0</span>
+<div class="codehilite" data-lang="cobol"><pre><span></span><code><span class="c">/dev/s</span><span class="nv">db1</span><span class="w"> </span><span class="o">/</span><span class="nv">mail</span><span class="w"> </span><span class="nv">xfs</span><span class="w"> </span><span class="nv">defaults</span><span class="p">,</span><span class="nv">usrquota</span><span class="p">,</span><span class="nv">grpquota</span><span class="w"> </span><span class="mi">0 0</span>
 </code></pre></div>
 
 <p>2、编辑用户配额</p>
-<div class="codehilite"><pre><span></span><code><span class="c">xfs_qu</span><span class="nv">ota</span><span class="w"> </span><span class="o">-</span><span class="nv">x</span><span class="w"> </span><span class="o">-</span><span class="nv">c</span><span class="w"> </span><span class="s1">'limit -u bsoft:30M bhard:50M isft:3 ihard:5 用户名'</span><span class="w"> </span><span class="o">/</span><span class="err">挂载目录</span>
+<div class="codehilite" data-lang="cobol"><pre><span></span><code><span class="c">xfs_qu</span><span class="nv">ota</span><span class="w"> </span><span class="o">-</span><span class="nv">x</span><span class="w"> </span><span class="o">-</span><span class="nv">c</span><span class="w"> </span><span class="s1">'limit -u bsoft:30M bhard:50M isft:3 ihard:5 用户名'</span><span class="w"> </span><span class="o">/</span><span class="err">挂载目录</span>
 </code></pre></div>
 
 <p>3、也可以针对组编辑配额</p>
-<div class="codehilite"><pre><span></span><code><span class="c">xfs_qu</span><span class="nv">ota</span><span class="w"> </span><span class="o">-</span><span class="nv">x</span><span class="w"> </span><span class="o">-</span><span class="nv">c</span><span class="w"> </span><span class="s1">'limit -g bsoft:30M bhard:50M isft:3 ihard:5 组名'</span><span class="w"> </span><span class="o">/</span><span class="err">挂载目录</span>
+<div class="codehilite" data-lang="cobol"><pre><span></span><code><span class="c">xfs_qu</span><span class="nv">ota</span><span class="w"> </span><span class="o">-</span><span class="nv">x</span><span class="w"> </span><span class="o">-</span><span class="nv">c</span><span class="w"> </span><span class="s1">'limit -g bsoft:30M bhard:50M isft:3 ihard:5 组名'</span><span class="w"> </span><span class="o">/</span><span class="err">挂载目录</span>
 </code></pre></div>
 
 <h4 id="32ext4">3.2、ext4配额<a class="headerlink" href="#32ext4" title="Permanent link">&para;</a></h4>
 <p>1、挂载</p>
-<div class="codehilite"><pre><span></span><code><span class="c">mount </span><span class="o">-</span><span class="nv">o</span><span class="w"> </span><span class="nv">defaults</span><span class="p">,</span><span class="nv">usrquota</span><span class="p">,</span><span class="nv">grpquota</span><span class="w"> </span><span class="o">/</span><span class="err">挂载磁盘</span><span class="w"> </span><span class="o">/</span><span class="err">挂载点</span>
+<div class="codehilite" data-lang="cobol"><pre><span></span><code><span class="c">mount </span><span class="o">-</span><span class="nv">o</span><span class="w"> </span><span class="nv">defaults</span><span class="p">,</span><span class="nv">usrquota</span><span class="p">,</span><span class="nv">grpquota</span><span class="w"> </span><span class="o">/</span><span class="err">挂载磁盘</span><span class="w"> </span><span class="o">/</span><span class="err">挂载点</span>
 </code></pre></div>
 
 <p>永久挂载参数如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="c">/dev/s</span><span class="nv">db1</span><span class="w"> </span><span class="o">/</span><span class="nv">mail</span><span class="w"> </span><span class="nv">ext4</span><span class="w"> </span><span class="nv">defaults</span><span class="p">,</span><span class="nv">usrquota</span><span class="p">,</span><span class="nv">grpquota</span><span class="p">,</span><span class="nv">defaults</span><span class="w"> </span><span class="mi">0 0</span>
+<div class="codehilite" data-lang="cobol"><pre><span></span><code><span class="c">/dev/s</span><span class="nv">db1</span><span class="w"> </span><span class="o">/</span><span class="nv">mail</span><span class="w"> </span><span class="nv">ext4</span><span class="w"> </span><span class="nv">defaults</span><span class="p">,</span><span class="nv">usrquota</span><span class="p">,</span><span class="nv">grpquota</span><span class="p">,</span><span class="nv">defaults</span><span class="w"> </span><span class="mi">0 0</span>
 </code></pre></div>
 
 <p>2、生成配额文件</p>
-<div class="codehilite"><pre><span></span><code><span class="c">quotac</span><span class="nv">heck</span><span class="w"> </span><span class="o">/</span><span class="err">挂载点</span>
+<div class="codehilite" data-lang="cobol"><pre><span></span><code><span class="c">quotac</span><span class="nv">heck</span><span class="w"> </span><span class="o">/</span><span class="err">挂载点</span>
 </code></pre></div>
 
 <p>3、启用配额；关闭配额命令用quotaoff</p>
-<div class="codehilite"><pre><span></span><code><span class="c">quotao</span><span class="nv">n</span><span class="w"> </span><span class="o">-</span><span class="nv">ugv</span><span class="w"> </span><span class="o">/</span><span class="err">挂载点</span>
+<div class="codehilite" data-lang="cobol"><pre><span></span><code><span class="c">quotao</span><span class="nv">n</span><span class="w"> </span><span class="o">-</span><span class="nv">ugv</span><span class="w"> </span><span class="o">/</span><span class="err">挂载点</span>
 </code></pre></div>
 
 <p>4、针对用户配额</p>
-<div class="codehilite"><pre><span></span><code>edquota -u 用户名
+<div class="codehilite" data-lang="undefined"><pre><span></span><code>edquota -u 用户名
 </code></pre></div>
 
 <p>也可以针对组做配额： edquota -g 组名</p>
 <p>5、修改配置文件格式如下：</p>
-<div class="codehilite"><pre><span></span><code><span class="c">/dev/s</span><span class="nv">dd1</span><span class="w"> </span><span class="mi">0 30</span><span class="nv">M</span><span class="w"> </span><span class="mi">50</span><span class="nv">M</span><span class="w"> </span><span class="mi">0 8 10</span>
+<div class="codehilite" data-lang="cobol"><pre><span></span><code><span class="c">/dev/s</span><span class="nv">dd1</span><span class="w"> </span><span class="mi">0 30</span><span class="nv">M</span><span class="w"> </span><span class="mi">50</span><span class="nv">M</span><span class="w"> </span><span class="mi">0 8 10</span>
 </code></pre></div>
 
 <h2 id="_4">六、磁盘检测与修复<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="1fsck">1、fsck命令<a class="headerlink" href="#1fsck" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3572,7 +3574,7 @@ mkdir<span class="w"> </span>dir<span class="o">{</span><span class="m">1</span>
 <p><strong>案例：</strong></p>
 <h3 id="2xfs-repair">2、xfs-repair命令<a class="headerlink" href="#2xfs-repair" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3601,7 +3603,7 @@ mkdir<span class="w"> </span>dir<span class="o">{</span><span class="m">1</span>
 <p><strong>案例：</strong></p>
 <h3 id="3badblocks">3、badblocks命令<a class="headerlink" href="#3badblocks" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3631,7 +3633,7 @@ mkdir<span class="w"> </span>dir<span class="o">{</span><span class="m">1</span>
 <h2 id="_5">七、文件系统备份与恢复<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
 <h3 id="1xfsdump">1、xfsdump命令<a class="headerlink" href="#1xfsdump" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3660,7 +3662,7 @@ mkdir<span class="w"> </span>dir<span class="o">{</span><span class="m">1</span>
 <p><strong>案例：</strong></p>
 <h3 id="2xfsrestore">2、xfsrestore命令<a class="headerlink" href="#2xfsrestore" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -3797,7 +3799,7 @@ mkdir<span class="w"> </span>dir<span class="o">{</span><span class="m">1</span>
       
         <script src="../../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../../javascripts/site-ui.js?v=20261127s"></script>
+        <script src="../../javascripts/site-ui.js?v=20261127t"></script>
       
     
   </body>

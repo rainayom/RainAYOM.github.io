@@ -59,9 +59,11 @@
     
       <link rel="stylesheet" href="../../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127u">
+      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127v">
     
-      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127a">
+      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127b">
+    
+      <link rel="stylesheet" href="../../stylesheets/code-block.css?v=20261127a">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1624,7 +1626,7 @@
 <li><a href="https://blog.csdn.net/cf313995/article/details/131374574?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=pssh&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-131374574.nonecase&amp;spm=1018.2226.3001.4187#_198"><font style="color:rgba(0, 0, 0, 0.85);">自定义脚本</font></a></li>
 </ul>
 <h2 id="pssh"><font style="color:rgb(79, 79, 79);">PSSH</font><a class="headerlink" href="#pssh" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>全称是parallel-ssh，基于Python编写的并发在多台服务器上批量执行命令的工具。包括pssh，pscp，prsync，pnuke和pslurp。该项目包括psshlib，可以在自定义应用程序中使用。它相当于ansible的简化版，执行起来速度比ansible快，支持文件并行复制，远程命令执行，杀掉远程主机上的进程，杀手锏是文件并行复制。
+<div class="codehilite" data-lang="plain"><pre><span></span><code>全称是parallel-ssh，基于Python编写的并发在多台服务器上批量执行命令的工具。包括pssh，pscp，prsync，pnuke和pslurp。该项目包括psshlib，可以在自定义应用程序中使用。它相当于ansible的简化版，执行起来速度比ansible快，支持文件并行复制，远程命令执行，杀掉远程主机上的进程，杀手锏是文件并行复制。
     主要用法：
         pssh命令    在远程主机上执行本地命令或者脚本
         pscp命令    将本地文件拷贝至多个远端主机
@@ -1634,29 +1636,29 @@
 </code></pre></div>
 
 <p>测试环境背景</p>
-<div class="codehilite"><pre><span></span><code>A：centos7 192.168.227.140
+<div class="codehilite" data-lang="plain"><pre><span></span><code>A：centos7 192.168.227.140
 B：centos7 192.168.227.148
 C：debian12 192.168.227.142
 </code></pre></div>
 
 <h3 id="_2"><font style="color:rgb(79, 79, 79);">安装</font><a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <p>首先在A机器上安装pssh</p>
-<div class="codehilite"><pre><span></span><code>yum install epel-release
+<div class="codehilite" data-lang="plain"><pre><span></span><code>yum install epel-release
 yum install pssh
 </code></pre></div>
 
 <h3 id="_3"><font style="color:rgb(79, 79, 79);">使用</font><a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
 <h4 id="1pssh-hosts"><font style="color:rgb(79, 79, 79);">(1)、定义一个文件，写入需要操作的机器，如pssh-</font><font style="color:rgb(78, 161, 219) !important;">hosts</font><a class="headerlink" href="#1pssh-hosts" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>vim pssh-hosts
+<div class="codehilite" data-lang="plain"><pre><span></span><code>vim pssh-hosts
 </code></pre></div>
 
 <p><font style="color:rgb(77, 77, 77);">然后写入需要控制的机器</font></p>
-<div class="codehilite"><pre><span></span><code><span class="mf">192.168.227.148</span><span class="p">:</span><span class="mf">22</span>
+<div class="codehilite" data-lang="plain"><pre><span></span><code><span class="mf">192.168.227.148</span><span class="p">:</span><span class="mf">22</span>
 <span class="mf">192.168.227.142</span><span class="p">:</span><span class="mf">22</span>
 </code></pre></div>
 
 <h3 id="2pssh"><font style="color:rgb(79, 79, 79);">(2)、</font><em><font style="color:#DF2A3F;">pssh执行命令</font></em><a class="headerlink" href="#2pssh" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>pssh<span class="w"> </span>-h<span class="w"> </span>pssh-hosts<span class="w"> </span>-l<span class="w"> </span>root<span class="w"> </span>-i<span class="w"> </span><span class="s2">"echo "</span>Hello<span class="w"> </span>World<span class="s2">""</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>pssh<span class="w"> </span>-h<span class="w"> </span>pssh-hosts<span class="w"> </span>-l<span class="w"> </span>root<span class="w"> </span>-i<span class="w"> </span><span class="s2">"echo "</span>Hello<span class="w"> </span>World<span class="s2">""</span>
 <span class="c1"># 因为已经是互信环境，所以不需要输入密码</span>
 
 <span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1"># pssh -h pssh-hosts -l root -i "ls"</span>
@@ -1671,7 +1673,7 @@ pass-hosts
 
 <p><img alt="1731397195371-22135c14-846d-423d-b674-c11db0f2f39e.png" src="../img/SqZORuOnjNeySVId/1731397195371-22135c14-846d-423d-b674-c11db0f2f39e-926630.png" /></p>
 <h4 id="3"><font style="color:rgb(79, 79, 79);">(3)、参数含义</font><a class="headerlink" href="#3" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>-h -–hosts 主机文件列表，内容格式[user@]host[:port]
+<div class="codehilite" data-lang="plain"><pre><span></span><code>-h -–hosts 主机文件列表，内容格式[user@]host[:port]
 -l -–user 登录使用的用户名
 -p -–par 并发的线程数【可选】
 -t --timeout 超时时间【可选】
@@ -1679,11 +1681,11 @@ pass-hosts
 </code></pre></div>
 
 <p><font style="color:rgb(77, 77, 77);">仅包含在pslurp里的</font></p>
-<div class="codehilite"><pre><span></span><code>-L --localdir 下载文件的保存目录
+<div class="codehilite" data-lang="plain"><pre><span></span><code>-L --localdir 下载文件的保存目录
 </code></pre></div>
 
 <h3 id="4pscp9654"><font style="color:rgb(79, 79, 79);">(4)、</font><em><font style="color:#DF2A3F;">pscp从96.54拷贝文件到其他机器</font></em><a class="headerlink" href="#4pscp9654" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>pscp.pssh<span class="w"> </span>-h<span class="w"> </span>pssh-hosts<span class="w"> </span>-l<span class="w"> </span>root<span class="w"> </span>pssh-hosts<span class="w"> </span>/tmp
+<div class="codehilite" data-lang="bash"><pre><span></span><code>pscp.pssh<span class="w"> </span>-h<span class="w"> </span>pssh-hosts<span class="w"> </span>-l<span class="w"> </span>root<span class="w"> </span>pssh-hosts<span class="w"> </span>/tmp
 <span class="c1"># 拷贝pssh-hosts文件到其他机器的/tmp目录</span>
 <span class="c1"># pscp从本地拷贝到远程，所以先写本地的某个文件或目录，再写远程的目录</span>
 
@@ -1695,7 +1697,7 @@ pass-hosts
 
 <p><img alt="1731397195529-1d3681fa-dc8e-44a2-b7c1-67e42b0d3115.png" src="../img/SqZORuOnjNeySVId/1731397195529-1d3681fa-dc8e-44a2-b7c1-67e42b0d3115-451224.png" /></p>
 <h4 id="5pslurp"><font style="color:rgb(79, 79, 79);">(5)、pslurp从其它机器下载文件到本地</font><a class="headerlink" href="#5pslurp" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>例如，先创建一个脚本，并将其传入到每个机器上，获取每个机器的hostname并写入到一个文件，然后将每个机器上的该文件下载到本地。
+<div class="codehilite" data-lang="plain"><pre><span></span><code>例如，先创建一个脚本，并将其传入到每个机器上，获取每个机器的hostname并写入到一个文件，然后将每个机器上的该文件下载到本地。
 </code></pre></div>
 
 <p><font style="color:rgb(77, 77, 77);">准备：<br />
@@ -1704,7 +1706,7 @@ pass-hosts
 </font><img alt="1731397195514-3f24cc35-e3d1-4e4d-a95e-480d5d2e4d51.png" src="../img/SqZORuOnjNeySVId/1731397195514-3f24cc35-e3d1-4e4d-a95e-480d5d2e4d51-611498.png" /><font style="color:rgb(77, 77, 77);"><br />
 </font><font style="color:rgb(77, 77, 77);">最后使用pslurp将其</font><a href="https://so.csdn.net/so/search?q=%E6%8B%B7%E8%B4%9D%E5%88%B0&amp;spm=1001.2101.3001.7020"><font style="color:rgb(77, 77, 77);">拷贝到</font></a><font style="color:rgb(77, 77, 77);">本地的某个目录<br />
 </font><img alt="1731397195362-635a182c-146f-4ab3-81a7-e34c5541e562.png" src="../img/SqZORuOnjNeySVId/1731397195362-635a182c-146f-4ab3-81a7-e34c5541e562-150963.png" /></p>
-<div class="codehilite"><pre><span></span><code>pslurp -h pssh-hosts -L /a /tmp/1.txt 1.txt
+<div class="codehilite" data-lang="plain"><pre><span></span><code>pslurp -h pssh-hosts -L /a /tmp/1.txt 1.txt
 # 将每个节点上的/tmp/1.txt下载到本地的a目录里
 # pslurp从远程下载到远程，所以先写远程的某个文件或目录，再写本地的目录
 </code></pre></div>
@@ -1715,7 +1717,7 @@ pass-hosts
 </font><font style="color:rgb(77, 77, 77);">查看每个节点的nginx的状态<br />
 </font><img alt="1731397195872-bc0a8364-3cf6-49ec-a15f-be9c243b4630.png" src="../img/SqZORuOnjNeySVId/1731397195872-bc0a8364-3cf6-49ec-a15f-be9c243b4630-007700.png" /><font style="color:rgb(77, 77, 77);"><br />
 </font><font style="color:rgb(77, 77, 77);">执行命令</font></p>
-<div class="codehilite"><pre><span></span><code>pnuke -h pssh-hosts nginx
+<div class="codehilite" data-lang="plain"><pre><span></span><code>pnuke -h pssh-hosts nginx
 </code></pre></div>
 
 <p><font style="color:rgb(77, 77, 77);">查看效果<br />
@@ -1835,7 +1837,7 @@ pass-hosts
       
         <script src="../../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../../javascripts/site-ui.js?v=20261127s"></script>
+        <script src="../../javascripts/site-ui.js?v=20261127t"></script>
       
     
   </body>

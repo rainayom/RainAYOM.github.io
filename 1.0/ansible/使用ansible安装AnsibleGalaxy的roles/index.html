@@ -59,9 +59,11 @@
     
       <link rel="stylesheet" href="../../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127u">
+      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127v">
     
-      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127a">
+      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127b">
+    
+      <link rel="stylesheet" href="../../stylesheets/code-block.css?v=20261127a">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -1350,17 +1352,17 @@
 <ul>
 <li><strong>通过 Ansible Galaxy CLI 安装 Role</strong><font style="color:rgb(38, 38, 38);">首先，确保你的系统上已经安装了 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;ansible-galaxy&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 命令。然后，你可以使用以下命令来安装 Role：</font></li>
 </ul>
-<div class="codehilite"><pre><span></span><code>ansible-galaxy<span class="w"> </span>install<span class="w"> </span>&lt;username&gt;.&lt;rolename&gt;
+<div class="codehilite" data-lang="bash"><pre><span></span><code>ansible-galaxy<span class="w"> </span>install<span class="w"> </span>&lt;username&gt;.&lt;rolename&gt;
 </code></pre></div>
 
 <p><font style="color:rgb(38, 38, 38);">其中 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;&lt;username&gt;&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 是 Role 作者的用户名，</font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;&lt;rolename&gt;&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 是 Role 的名称。例如，如果你想要安装一个名为 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;geerlingguy.nginx&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 的 Role，你可以运行：</font></p>
-<div class="codehilite"><pre><span></span><code>ansible-galaxy<span class="w"> </span>install<span class="w"> </span>geerlingguy.nginx
+<div class="codehilite" data-lang="bash"><pre><span></span><code>ansible-galaxy<span class="w"> </span>install<span class="w"> </span>geerlingguy.nginx
 </code></pre></div>
 
 <p><font style="color:rgb(38, 38, 38);">Role 将会被安装到你的 Ansible 环境中的 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;roles&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 目录下（默认情况下是当前工作目录下的 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;roles&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 子目录）。</font></p>
 <h3 id="3-role"><font style="color:rgb(38, 38, 38);">3. 使用 Role</font><a class="headerlink" href="#3-role" title="Permanent link">&para;</a></h3>
 <p><font style="color:rgb(38, 38, 38);">安装完 Role 后，你可以在你的 Ansible Playbook 中引用它。创建一个新的 Playbook 文件（例如 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;site.yml&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);">），然后在其中使用 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;roles&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 关键字来包含 Role：</font></p>
-<div class="codehilite"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
+<div class="codehilite" data-lang="yaml"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">all</span>
 <span class="w">  </span><span class="nt">roles</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">geerlingguy.nginx</span>
 </code></pre></div>
@@ -1368,11 +1370,11 @@
 <p><font style="color:rgb(38, 38, 38);">这个 Playbook 将会在所有主机上应用 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;geerlingguy.nginx&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> Role。</font></p>
 <h3 id="4-playbook"><font style="color:rgb(38, 38, 38);">4. 运行 Playbook</font><a class="headerlink" href="#4-playbook" title="Permanent link">&para;</a></h3>
 <p><font style="color:rgb(38, 38, 38);">最后，使用 </font><code>&lt;font style="color:rgb(38, 38, 38);"&gt;ansible-playbook&lt;/font&gt;</code><font style="color:rgb(38, 38, 38);"> 命令来运行你的 Playbook：</font></p>
-<div class="codehilite"><pre><span></span><code>ansible-playbook<span class="w"> </span>site.yaml
+<div class="codehilite" data-lang="bash"><pre><span></span><code>ansible-playbook<span class="w"> </span>site.yaml
 </code></pre></div>
 
 <p><font style="color:rgb(38, 38, 38);">根据你的 Role 和 Playbook 的配置，Ansible 将会在被控制节点上执行相应的任务。</font></p>
-<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ansible-galaxy install geerlingguy.nginx</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ansible-galaxy install geerlingguy.nginx</span>
 -<span class="w"> </span>downloading<span class="w"> </span>role<span class="w"> </span><span class="s1">'nginx'</span>,<span class="w"> </span>owned<span class="w"> </span>by<span class="w"> </span>geerlingguy
 -<span class="w"> </span>downloading<span class="w"> </span>role<span class="w"> </span>from<span class="w"> </span>https://github.com/geerlingguy/ansible-role-nginx/archive/3.2.0.tar.gz
 -<span class="w"> </span>extracting<span class="w"> </span>geerlingguy.nginx<span class="w"> </span>to<span class="w"> </span>/root/.ansible/roles/geerlingguy.nginx
@@ -1498,7 +1500,7 @@ root@control<span class="w"> </span>/home/roles<span class="w"> </span><span cla
 <p><img alt="1733234344697-689c3f16-b09f-4c95-8075-634ba8db0338.png" src="../img/rcSPgtsGI-NZGdEv/1733234344697-689c3f16-b09f-4c95-8075-634ba8db0338-176000.png" /></p>
 <h5 id="font-stylecolorrgb6-6-7geerlingguynginxfont-nginx-nginx-nginx-nginx"><font style="color:rgb(6, 6, 7);">这些任务展示了 </font><code>&lt;font style="color:rgb(6, 6, 7);"&gt;geerlingguy.nginx&lt;/font&gt;</code><font style="color:rgb(6, 6, 7);"> 角色的主要功能，包括配置 Nginx 用户、管理虚拟主机配置文件、复制 Nginx 配置文件以及确保 Nginx 服务正确运行。通过这些任务，你可以自动化 Nginx 的安装和配置过程。</font><a class="headerlink" href="#font-stylecolorrgb6-6-7geerlingguynginxfont-nginx-nginx-nginx-nginx" title="Permanent link">&para;</a></h5>
 <h1 id="2node2database17216120250mysql">二.案例2，给node2（database）服务器（172.16.120.250）安装mysql<a class="headerlink" href="#2node2database17216120250mysql" title="Permanent link">&para;</a></h1>
-<div class="codehilite"><pre><span></span><code>root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ansible-galaxy install geerlingguy.mysql</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>root@control<span class="w"> </span>/home/roles<span class="w"> </span><span class="c1"># ansible-galaxy install geerlingguy.mysql</span>
 -<span class="w"> </span>downloading<span class="w"> </span>role<span class="w"> </span><span class="s1">'mysql'</span>,<span class="w"> </span>owned<span class="w"> </span>by<span class="w"> </span>geerlingguy
 -<span class="w"> </span>downloading<span class="w"> </span>role<span class="w"> </span>from<span class="w"> </span>https://github.com/geerlingguy/ansible-role-mysql/archive/4.3.4.tar.gz
 -<span class="w"> </span>extracting<span class="w"> </span>geerlingguy.mysql<span class="w"> </span>to<span class="w"> </span>/root/.ansible/roles/geerlingguy.mysql
@@ -1647,7 +1649,7 @@ root@control<span class="w"> </span>/home/roles<span class="w"> </span><span cla
       
         <script src="../../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../../javascripts/site-ui.js?v=20261127s"></script>
+        <script src="../../javascripts/site-ui.js?v=20261127t"></script>
       
     
   </body>

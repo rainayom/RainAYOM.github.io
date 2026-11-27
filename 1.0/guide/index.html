@@ -59,9 +59,11 @@
     
       <link rel="stylesheet" href="../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../stylesheets/site-ui.css?v=20261127u">
+      <link rel="stylesheet" href="../stylesheets/site-ui.css?v=20261127v">
     
-      <link rel="stylesheet" href="../stylesheets/content-themes.css?v=20261127a">
+      <link rel="stylesheet" href="../stylesheets/content-themes.css?v=20261127b">
+    
+      <link rel="stylesheet" href="../stylesheets/code-block.css?v=20261127a">
     
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -3949,7 +3951,7 @@
 </tbody>
 </table>
 <h2 id="2">2. 架构与数据流<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>        ┌─────────────────────────────────────────┐
+<div class="codehilite" data-lang="text"><pre><span></span><code>        ┌─────────────────────────────────────────┐
         │  Windows 资源管理器 (FTP 21, 被动)       │
         └───────────────┬─────────────────────────┘
                         │ 上传 md / 图片
@@ -4023,19 +4025,19 @@
 </div>
 <h2 id="4-python">4. 阶段一：Python 环境<a class="headerlink" href="#4-python" title="Permanent link">&para;</a></h2>
 <p>不要用系统 pip 装 mkdocs——openEuler 的 pip 受 PEP 668 与发行版策略限制，且升级会污染系统包。统一用 venv：</p>
-<div class="codehilite"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/srv/mkdocs/.venv
+<div class="codehilite" data-lang="bash"><pre><span></span><code>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>/srv/mkdocs/.venv
 /srv/mkdocs/.venv/bin/pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pip
 /srv/mkdocs/.venv/bin/pip<span class="w"> </span>install<span class="w"> </span><span class="s1">'mkdocs-material&gt;=9.6,&lt;10'</span><span class="w"> </span><span class="s1">'mkdocs-awesome-pages-plugin&gt;=2.9,&lt;3'</span>
 </code></pre></div>
 
 <p>国内网络慢就加镜像：<code>-i https://pypi.tuna.tsinghua.edu.cn/simple</code>。实测 mkdocs-material 9.8.2 + mkdocs 1.6.1 + awesome-pages 2.10.1。</p>
 <p>依赖写进 <code>requirements.txt</code>，让本机与 GitHub Actions 用同一份版本约束：</p>
-<div class="codehilite"><pre><span></span><code>mkdocs-material&gt;=9.6,&lt;10
+<div class="codehilite" data-lang="text"><pre><span></span><code>mkdocs-material&gt;=9.6,&lt;10
 mkdocs-awesome-pages-plugin&gt;=2.9,&lt;3
 </code></pre></div>
 
 <h2 id="5">5. 阶段二：仓库骨架与写作约定<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="n">repo</span><span class="o">/</span>
+<div class="codehilite" data-lang="yaml"><pre><span></span><code><span class="n">repo</span><span class="o">/</span>
 <span class="err">├──</span><span class="w"> </span><span class="n">docs</span><span class="o">/</span>
 <span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="nf">index</span><span class="p">.</span><span class="n">md</span><span class="w">          </span><span class="err">首页（内含</span><span class="w"> </span><span class="o">&lt;!--</span><span class="w"> </span><span class="n">DOC</span><span class="o">-</span><span class="n">LIST</span><span class="w"> </span><span class="o">--&gt;</span><span class="w"> </span><span class="err">占位）</span>
 <span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">guide</span><span class="p">.</span><span class="n">md</span>
@@ -4054,7 +4056,7 @@ mkdocs-awesome-pages-plugin&gt;=2.9,&lt;3
 <li><strong>文件名避开纯数字和特殊符号</strong>，中文名可用（FTP 与 mkdocs 均按 UTF-8 处理），但 URL 里会被转义，分享链接略丑。</li>
 </ol>
 <h2 id="6-mkdocsyml">6. 阶段三：mkdocs.yml 逐项说明<a class="headerlink" href="#6-mkdocsyml" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">我的知识库</span>
+<div class="codehilite" data-lang="markdown"><pre><span></span><code><span class="nt">site_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">我的知识库</span>
 <span class="nt">docs_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs</span>
 <span class="nt">site_dir</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">site</span>
 
@@ -4118,13 +4120,13 @@ mkdocs-awesome-pages-plugin&gt;=2.9,&lt;3
 </table>
 <h2 id="7">7. 阶段四：首页自动目录的原理<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
 <p><code>docs/index.md</code> 里只放一个占位标记：</p>
-<div class="codehilite"><pre><span></span><code><span class="gu">## 文档目录</span>
+<div class="codehilite" data-lang="python"><pre><span></span><code><span class="gu">## 文档目录</span>
 
 &lt;!-- DOC-LIST --&gt;
 </code></pre></div>
 
 <p>hook 在每个页面渲染前拦截：只在 <code>index.md</code>、且只有出现标记时才动作。它遍历 mkdocs 已收集的 <code>files</code>，跳过 <code>index.md</code>，按父目录分组（<code>根目录</code> / 子目录名），取每个文件首个 H1 作标题，生成表格替换标记：</p>
-<div class="codehilite"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_page_markdown</span><span class="p">(</span><span class="n">markdown</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">on_page_markdown</span><span class="p">(</span><span class="n">markdown</span><span class="p">,</span> <span class="n">page</span><span class="p">,</span> <span class="n">config</span><span class="p">,</span> <span class="n">files</span><span class="p">):</span>
     <span class="n">src_path</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">src_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\\</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">src_path</span> <span class="o">!=</span> <span class="s2">"index.md"</span> <span class="ow">or</span> <span class="n">MARKER</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">markdown</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">markdown</span>
@@ -4139,7 +4141,7 @@ mkdocs-awesome-pages-plugin&gt;=2.9,&lt;3
 <p>想固定顺序就在文件名前加 <code>01-</code>、<code>02-</code> 前缀；awesome-pages 与首页表格都按路径字符串排序。</p>
 </div>
 <h2 id="8">8. 阶段五：构建与验收<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo
 /srv/mkdocs/.venv/bin/python<span class="w"> </span>-m<span class="w"> </span>mkdocs<span class="w"> </span>build<span class="w"> </span>--strict<span class="w">   </span><span class="c1"># CI 用这条</span>
 /srv/mkdocs/.venv/bin/python<span class="w"> </span>-m<span class="w"> </span>mkdocs<span class="w"> </span>serve<span class="w"> </span>-a<span class="w"> </span><span class="m">0</span>.0.0.0:8000
 </code></pre></div>
@@ -4218,7 +4220,7 @@ mkdocs-awesome-pages-plugin&gt;=2.9,&lt;3
 </tbody>
 </table>
 <p>验证自愈：<code>kill -9</code> 主进程，5 秒内 PID 变化、端口仍 200：</p>
-<div class="codehilite"><pre><span></span><code>systemctl<span class="w"> </span>show<span class="w"> </span>-p<span class="w"> </span>MainPID<span class="w"> </span>mkdocs-serve<span class="w"> </span>--value
+<div class="codehilite" data-lang="python"><pre><span></span><code>systemctl<span class="w"> </span>show<span class="w"> </span>-p<span class="w"> </span>MainPID<span class="w"> </span>mkdocs-serve<span class="w"> </span>--value
 <span class="nb">kill</span><span class="w"> </span>-9<span class="w"> </span><span class="k">$(</span>systemctl<span class="w"> </span>show<span class="w"> </span>-p<span class="w"> </span>MainPID<span class="w"> </span>mkdocs-serve<span class="w"> </span>--value<span class="k">)</span>
 sleep<span class="w"> </span><span class="m">6</span><span class="p">;</span><span class="w"> </span>systemctl<span class="w"> </span>show<span class="w"> </span>-p<span class="w"> </span>MainPID<span class="w"> </span>mkdocs-serve<span class="w"> </span>--value<span class="p">;</span><span class="w"> </span>curl<span class="w"> </span>-sI<span class="w"> </span>http://127.0.0.1:8000<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
 </code></pre></div>
@@ -4251,7 +4253,7 @@ sleep<span class="w"> </span><span class="m">6</span><span class="p">;</span><sp
 <h3 id="102">10.2 被动模式是唯一的坑<a class="headerlink" href="#102" title="Permanent link">&para;</a></h3>
 <p>FTP 有两个连接：控制连接（21）传命令，数据连接（每次列表/传输新建）传内容。客户端默认用被动模式：服务端回一个「我的地址+端口」，客户端去连。容器或 NAT 后面，服务端回的是内网/容器地址，客户端连不上，就出现「能登录，但读取目录列表失败」。</p>
 <p>两个参数解决：</p>
-<div class="codehilite"><pre><span></span><code><span class="n">handler</span><span class="o">.</span><span class="n">passive_ports</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">21200</span><span class="p">,</span> <span class="mi">21211</span><span class="p">)</span>     <span class="c1"># 固定被动端口段，好放行</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="n">handler</span><span class="o">.</span><span class="n">passive_ports</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">21200</span><span class="p">,</span> <span class="mi">21211</span><span class="p">)</span>     <span class="c1"># 固定被动端口段，好放行</span>
 <span class="n">handler</span><span class="o">.</span><span class="n">masquerade_address</span> <span class="o">=</span> <span class="s2">"192.168.7.130"</span>   <span class="c1"># 回给客户端的就是这个 IP</span>
 </code></pre></div>
 
@@ -4343,11 +4345,11 @@ sleep<span class="w"> </span><span class="m">6</span><span class="p">;</span><sp
 </ul>
 <h2 id="11">11. 阶段八：一键部署脚本<a class="headerlink" href="#11" title="Permanent link">&para;</a></h2>
 <p><code>deploy-mkdocs-ftp.sh</code> 是单文件脚本，把上面第 4-10 阶段全部自动化，不依赖其他模板文件（内容都内嵌了）。</p>
-<div class="codehilite"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">FTP_PASS</span><span class="o">=</span><span class="s1">'换成你的强密码'</span><span class="w"> </span>bash<span class="w"> </span>deploy-mkdocs-ftp.sh
+<div class="codehilite" data-lang="bash"><pre><span></span><code>sudo<span class="w"> </span><span class="nv">FTP_PASS</span><span class="o">=</span><span class="s1">'换成你的强密码'</span><span class="w"> </span>bash<span class="w"> </span>deploy-mkdocs-ftp.sh
 </code></pre></div>
 
 <p>常用变体：</p>
-<div class="codehilite"><pre><span></span><code>sudo<span class="w"> </span>bash<span class="w"> </span>deploy-mkdocs-ftp.sh<span class="w"> </span>--dry-run<span class="w">              </span><span class="c1"># 只打印将要做什么</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>sudo<span class="w"> </span>bash<span class="w"> </span>deploy-mkdocs-ftp.sh<span class="w"> </span>--dry-run<span class="w">              </span><span class="c1"># 只打印将要做什么</span>
 sudo<span class="w"> </span>bash<span class="w"> </span>deploy-mkdocs-ftp.sh<span class="w"> </span>--skip-ftp<span class="w">             </span><span class="c1"># 只要站点，不要 FTP</span>
 sudo<span class="w"> </span><span class="nv">FTP_PASS</span><span class="o">=</span>xxx<span class="w"> </span><span class="nv">PIP_INDEX_URL</span><span class="o">=</span>https://pypi.tuna.tsinghua.edu.cn/simple<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span><span class="nv">DOC_ROOT</span><span class="o">=</span>/srv/mkdocs<span class="w"> </span>bash<span class="w"> </span>deploy-mkdocs-ftp.sh<span class="w">    </span><span class="c1"># 国内镜像 + 自定义根</span>
@@ -4414,7 +4416,7 @@ sudo<span class="w"> </span><span class="nv">FTP_PASS</span><span class="o">=</s
 <p>脚本分九步：参数打印 → 建用户组 → venv 与依赖 → 仓库骨架 → mkdocs-serve 单元 → FTP 服务（venv/ftpd.py/env/单元）→ 启动自启 → 防火墙 → 验收与摘要。</p>
 <h2 id="sambadoc">部署samba共享doc目录<a class="headerlink" href="#sambadoc" title="Permanent link">&para;</a></h2>
 <p>方便linux与windows之间进行文档编辑上传，即时生效</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">#安装</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="c1">#安装</span>
 sudo<span class="w"> </span>yum<span class="w"> </span>install<span class="w"> </span>samba<span class="w"> </span>samba-client<span class="w"> </span>-y
 
 <span class="c1">#设置共享目录、设置权限</span>
@@ -4426,7 +4428,7 @@ sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">2775</s
 </code></pre></div>
 
 <p><strong>1. 配置文件</strong>（<code>/etc/samba/smb.conf</code>）</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">#编辑配置文件</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="c1">#编辑配置文件</span>
 vim<span class="w"> </span>/etc/samba.smb.conf
 <span class="c1">#添加下面配置</span>
 <span class="c1">## read only = no  才运行写入</span>
@@ -4456,7 +4458,7 @@ vim<span class="w"> </span>/etc/samba.smb.conf
 <ol>
 <li><strong>本机初始化并推送</strong></li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo
+<div class="codehilite" data-lang="yaml"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo
 git<span class="w"> </span>init<span class="w"> </span>-b<span class="w"> </span>main
 git<span class="w"> </span>add<span class="w"> </span>-A<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"init: mkdocs site"</span>
 git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:&lt;user&gt;/&lt;repo&gt;.git
@@ -4466,7 +4468,7 @@ git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span
 <ol>
 <li><strong>仓库内 workflow</strong>（<code>.github/workflows/deploy-cloudflare.yml</code>）</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build &amp; Deploy</span>
+<div class="codehilite" data-lang="ini"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build &amp; Deploy</span>
 <span class="nt">on</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">push</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">main</span><span class="p p-Indicator">]</span>
@@ -4651,7 +4653,7 @@ git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span
 </tbody>
 </table>
 <h3 id="162-smbconf">16.2 smb.conf 片段<a class="headerlink" href="#162-smbconf" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="k">[share]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="k">[share]</span>
 <span class="w">   </span><span class="na">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Linux SMB share</span>
 <span class="w">   </span><span class="na">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/srv/mkdocs/repo/docs/</span>
 <span class="w">   </span><span class="na">browseable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span>
@@ -4670,7 +4672,7 @@ git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span
 <li>不要用 <code>inherit permissions = yes</code>：源文件带属主可执行位时，落地会变成 <code>-rwxrw-r--</code>；显式掩码才稳。</li>
 </ol>
 <h3 id="163">16.3 账号<a class="headerlink" href="#163" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>groupadd<span class="w"> </span>-f<span class="w"> </span>docs
+<div class="codehilite" data-lang="bash"><pre><span></span><code>groupadd<span class="w"> </span>-f<span class="w"> </span>docs
 usermod<span class="w"> </span>-aG<span class="w"> </span>docs<span class="w"> </span>mkdocs
 smbpasswd<span class="w"> </span>-a<span class="w"> </span>mdftp<span class="w">        </span><span class="c1"># 口令自行设定，不要写进任何文档</span>
 smbpasswd<span class="w"> </span>-e<span class="w"> </span>mdftp
@@ -4678,14 +4680,14 @@ pdbedit<span class="w"> </span>-L<span class="w">                </span><span cl
 </code></pre></div>
 
 <h3 id="164">16.4 启停与端口<a class="headerlink" href="#164" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>smb<span class="w"> </span>nmb
+<div class="codehilite" data-lang="bash"><pre><span></span><code>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>smb<span class="w"> </span>nmb
 systemctl<span class="w"> </span>status<span class="w"> </span>smb<span class="w"> </span>--no-pager<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-5
 ss<span class="w"> </span>-lntp<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">':445|:139'</span>
 </code></pre></div>
 
 <p>本机 SELinux 为 Disabled、firewalld 未启用（启用会挡 SSH），因此不需要额外放行；若开了 firewalld，需 <code>firewall-cmd --permanent --add-service=samba &amp;&amp; firewall-cmd --reload</code>。</p>
 <h3 id="165">16.5 端到端验证<a class="headerlink" href="#165" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>smbclient<span class="w"> </span>//127.0.0.1/share<span class="w"> </span>-U<span class="w"> </span>mdftp%<span class="s1">'口令'</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">'mkdir t1; mkdir t1/t2; put docs/guide.md t1/g.md; ls t1'</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>smbclient<span class="w"> </span>//127.0.0.1/share<span class="w"> </span>-U<span class="w"> </span>mdftp%<span class="s1">'口令'</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">'mkdir t1; mkdir t1/t2; put docs/guide.md t1/g.md; ls t1'</span>
 <span class="c1"># 期望：t1、t1/t2 为 2775，t1/g.md 为 664，属主 mdftp:docs</span>
 rm<span class="w"> </span>-rf<span class="w"> </span>/srv/mkdocs/repo/docs/t1
 </code></pre></div>
@@ -4702,7 +4704,7 @@ rm<span class="w"> </span>-rf<span class="w"> </span>/srv/mkdocs/repo/docs/t1
 <h3 id="171-ssh-https">17.1 为什么走 SSH 而不是 HTTPS<a class="headerlink" href="#171-ssh-https" title="Permanent link">&para;</a></h3>
 <p>实测该主机访问 <code>https://github.com</code> 与 <code>git info/refs</code> 全部超时（curl 000/28），但 22 端口可达、<code>ssh -T git@github.com</code> 能建连。因此推送统一走 SSH + <strong>Deploy Key</strong>：只授予单个仓库的写权限，比个人 PAT 的权限面小得多。</p>
 <h3 id="172">17.2 仓库初始化<a class="headerlink" href="#172" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo
 git<span class="w"> </span>init<span class="w"> </span>-b<span class="w"> </span>main
 git<span class="w"> </span>config<span class="w"> </span>user.name<span class="w">  </span>mkdocs
 git<span class="w"> </span>config<span class="w"> </span>user.email<span class="w"> </span>mkdocs@vm7.130
@@ -4711,11 +4713,11 @@ git<span class="w"> </span>add<span class="w"> </span>-A<span class="w"> </span>
 </code></pre></div>
 
 <p>仓库属主必须是 <code>mkdocs</code>，用 root 直接执行 git 会报“可疑的仓库所有权（dubious ownership）”，统一这样跑：</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">G</span><span class="o">=</span><span class="s2">"runuser -u mkdocs -- env HOME=/var/lib/mkdocs git -C /srv/mkdocs/repo"</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nv">G</span><span class="o">=</span><span class="s2">"runuser -u mkdocs -- env HOME=/var/lib/mkdocs git -C /srv/mkdocs/repo"</span>
 </code></pre></div>
 
 <h3 id="173">17.3 生成部署密钥<a class="headerlink" href="#173" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-f<span class="w"> </span>/root/.ssh/github_deploy<span class="w"> </span>-N<span class="w"> </span><span class="s2">""</span><span class="w"> </span>-C<span class="w"> </span><span class="s2">"mkdocs@</span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2"> mike deploy"</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>ed25519<span class="w"> </span>-f<span class="w"> </span>/root/.ssh/github_deploy<span class="w"> </span>-N<span class="w"> </span><span class="s2">""</span><span class="w"> </span>-C<span class="w"> </span><span class="s2">"mkdocs@</span><span class="k">$(</span>hostname<span class="k">)</span><span class="s2"> mike deploy"</span>
 cat<span class="w"> </span>/root/.ssh/github_deploy.pub
 </code></pre></div>
 
@@ -4731,7 +4733,7 @@ cat<span class="w"> </span>/root/.ssh/github_deploy.pub
 </blockquote>
 <h3 id="175-vm-ssh">17.5 VM 侧 SSH 配置<a class="headerlink" href="#175-vm-ssh" title="Permanent link">&para;</a></h3>
 <p>mike 以 <code>mkdocs</code> 用户运行，所以密钥与 config 都要放到 <code>mkdocs</code> 能读的位置：</p>
-<div class="codehilite"><pre><span></span><code>install<span class="w"> </span>-d<span class="w"> </span>-m<span class="w"> </span><span class="m">700</span><span class="w"> </span>-o<span class="w"> </span>mkdocs<span class="w"> </span>-g<span class="w"> </span>docs<span class="w"> </span>/var/lib/mkdocs/.ssh
+<div class="codehilite" data-lang="bash"><pre><span></span><code>install<span class="w"> </span>-d<span class="w"> </span>-m<span class="w"> </span><span class="m">700</span><span class="w"> </span>-o<span class="w"> </span>mkdocs<span class="w"> </span>-g<span class="w"> </span>docs<span class="w"> </span>/var/lib/mkdocs/.ssh
 install<span class="w"> </span>-m<span class="w"> </span><span class="m">600</span><span class="w"> </span>-o<span class="w"> </span>mkdocs<span class="w"> </span>-g<span class="w"> </span>docs<span class="w"> </span>/root/.ssh/github_deploy<span class="w"> </span>/var/lib/mkdocs/.ssh/github_deploy
 cat<span class="w"> </span>&gt;<span class="w"> </span>/var/lib/mkdocs/.ssh/config<span class="w"> </span><span class="s">&lt;&lt;'EOF'</span>
 <span class="s">Host github.com</span>
@@ -4748,7 +4750,7 @@ runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> 
 </code></pre></div>
 
 <h3 id="176-remote">17.6 关联 remote 与推送<a class="headerlink" href="#176-remote" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nv">$G</span><span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:rainayom/RainAYOM.github.io.git
+<div class="codehilite" data-lang="yaml"><pre><span></span><code><span class="nv">$G</span><span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>origin<span class="w"> </span>git@github.com:rainayom/RainAYOM.github.io.git
 <span class="nv">$G</span><span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>main
 <span class="nv">$G</span><span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>gh-pages
 </code></pre></div>
@@ -4776,7 +4778,7 @@ runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> 
 </tbody>
 </table>
 <h3 id="177-mike">17.7 mike 的两个必要设置<a class="headerlink" href="#177-mike" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nt">plugins</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">mike</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">version_selector</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">      </span><span class="nt">alias_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redirect</span>
@@ -4787,7 +4789,7 @@ runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> 
 <li><code>alias_type</code> 默认 <code>symlink</code>，GitHub Pages 不解析符号链接，必须改 <code>redirect</code>。</li>
 </ul>
 <p>部署命令固定带环境变量（否则找不到 mkdocs / HOME 不对）：</p>
-<div class="codehilite"><pre><span></span><code>runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> </span>--<span class="w"> </span>env<span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/srv/mkdocs/.venv/bin:/usr/local/bin:/usr/bin:/bin<span class="w"> </span><span class="nv">HOME</span><span class="o">=</span>/var/lib/mkdocs<span class="w"> </span><span class="se">\</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> </span>--<span class="w"> </span>env<span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/srv/mkdocs/.venv/bin:/usr/local/bin:/usr/bin:/bin<span class="w"> </span><span class="nv">HOME</span><span class="o">=</span>/var/lib/mkdocs<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>/srv/mkdocs/.venv/bin/mike<span class="w"> </span>deploy<span class="w"> </span>--update-aliases<span class="w"> </span><span class="m">1</span>.0<span class="w"> </span>latest
 runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> </span>--<span class="w"> </span>env<span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/srv/mkdocs/.venv/bin:/usr/local/bin:/usr/bin:/bin<span class="w"> </span><span class="nv">HOME</span><span class="o">=</span>/var/lib/mkdocs<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>/srv/mkdocs/.venv/bin/mike<span class="w"> </span>set-default<span class="w"> </span>latest
@@ -4830,7 +4832,7 @@ runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> 
 </tbody>
 </table>
 <h3 id="183-release">18.3 打 Release<a class="headerlink" href="#183-release" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nv">$G</span><span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v1.0.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">"运维知识库 v1.0.0"</span>
+<div class="codehilite" data-lang="text"><pre><span></span><code><span class="nv">$G</span><span class="w"> </span>tag<span class="w"> </span>-a<span class="w"> </span>v1.0.0<span class="w"> </span>-m<span class="w"> </span><span class="s2">"运维知识库 v1.0.0"</span>
 <span class="nv">$G</span><span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>v1.0.0
 <span class="nv">$G</span><span class="w"> </span>archive<span class="w"> </span>--format<span class="o">=</span>tar.gz<span class="w"> </span>--prefix<span class="o">=</span>mkdocs-ops-docs-1.0.0/<span class="w"> </span>-o<span class="w"> </span>/tmp/mkdocs-ops-docs-1.0.0.tar.gz<span class="w"> </span>v1.0.0
 </code></pre></div>
@@ -4870,7 +4872,7 @@ runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> 
 </table>
 <p>注意：本机到 <code>github.com</code> 的 HTTPS 被墙，Actions 的 <code>checkout</code> 反而跑不通；而且 Pages 现在是「branch 模式」，推送 <code>gh-pages</code> 后 GitHub 自己会构建，不需要再上一套 Actions。</p>
 <h3 id="192">19.2 生效链路<a class="headerlink" href="#192" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>docs/*.md 改动
+<div class="codehilite" data-lang="ini"><pre><span></span><code>docs/*.md 改动
    └─ mkdocs-autopush.service（每 5 分钟）
         ├─ git add -A + commit
         ├─ git push origin main          # 源码留痕
@@ -4891,7 +4893,7 @@ runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> 
 <li>全部以 <code>mkdocs</code> 身份执行（<code>User=mkdocs</code>、<code>HOME=/var/lib/mkdocs</code>），否则 git 会报可疑所有权。</li>
 </ul>
 <p><code>/etc/systemd/system/mkdocs-autopush.service</code>：</p>
-<div class="codehilite"><pre><span></span><code><span class="k">[Service]</span>
+<div class="codehilite" data-lang="ini"><pre><span></span><code><span class="k">[Service]</span>
 <span class="na">Type</span><span class="o">=</span><span class="s">oneshot</span>
 <span class="na">User</span><span class="o">=</span><span class="s">mkdocs</span>
 <span class="na">Group</span><span class="o">=</span><span class="s">docs</span>
@@ -4903,7 +4905,7 @@ runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> 
 </code></pre></div>
 
 <p><code>/etc/systemd/system/mkdocs-autopush.timer</code>：</p>
-<div class="codehilite"><pre><span></span><code><span class="k">[Timer]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="k">[Timer]</span>
 <span class="na">OnBootSec</span><span class="o">=</span><span class="s">2min</span>
 <span class="na">OnUnitActiveSec</span><span class="o">=</span><span class="s">5min</span>
 <span class="na">AccuracySec</span><span class="o">=</span><span class="s">30s</span>
@@ -4911,7 +4913,7 @@ runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> 
 </code></pre></div>
 
 <h3 id="194">19.4 启用与验收<a class="headerlink" href="#194" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>install<span class="w"> </span>-m<span class="w"> </span><span class="m">755</span><span class="w"> </span>-o<span class="w"> </span>mkdocs<span class="w"> </span>-g<span class="w"> </span>docs<span class="w"> </span>autopush.sh<span class="w"> </span>/srv/mkdocs/repo/autopush.sh
+<div class="codehilite" data-lang="ini"><pre><span></span><code>install<span class="w"> </span>-m<span class="w"> </span><span class="m">755</span><span class="w"> </span>-o<span class="w"> </span>mkdocs<span class="w"> </span>-g<span class="w"> </span>docs<span class="w"> </span>autopush.sh<span class="w"> </span>/srv/mkdocs/repo/autopush.sh
 install<span class="w"> </span>-m<span class="w"> </span><span class="m">644</span><span class="w"> </span>mkdocs-autopush.service<span class="w"> </span>/etc/systemd/system/
 install<span class="w"> </span>-m<span class="w"> </span><span class="m">644</span><span class="w"> </span>mkdocs-autopush.timer<span class="w">   </span>/etc/systemd/system/
 systemctl<span class="w"> </span>daemon-reload
@@ -4925,7 +4927,7 @@ journalctl<span class="w"> </span>-u<span class="w"> </span>mkdocs-autopush.serv
 <p>验收标准：<code>journalctl</code> 出现「推送 gh-pages / 完成」；<code>git log --oneline -1</code> 有 <code>auto:</code> 开头的提交；等 1 分钟后刷新站点能看到新内容。</p>
 <h3 id="195">19.5 想更快就换事件驱动<a class="headerlink" href="#195" title="Permanent link">&para;</a></h3>
 <p>把定时器换成 path unit，文件一改就推（示例）：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># /etc/systemd/system/mkdocs-autopush.path</span>
+<div class="codehilite" data-lang="jinja"><pre><span></span><code><span class="c1"># /etc/systemd/system/mkdocs-autopush.path</span>
 <span class="k">[Path]</span>
 <span class="na">PathModified</span><span class="o">=</span><span class="s">/srv/mkdocs/repo/docs</span>
 <span class="na">Unit</span><span class="o">=</span><span class="s">mkdocs-autopush.service</span>
@@ -4978,7 +4980,7 @@ journalctl<span class="w"> </span>-u<span class="w"> </span>mkdocs-autopush.serv
 <p><code>http://192.168.7.130:8000/Linux基础教程/</code> 下的 12 篇 md 全部能打开，但<strong>右侧目录栏永远空白</strong>；同时这批文档不出现在 <code>/tags/</code> 标签页。</p>
 <h3 id="202">20.2 根因<a class="headerlink" href="#202" title="Permanent link">&para;</a></h3>
 <p>Material 的目录模板 <code>partials/toc.html</code> 有这样一段：</p>
-<div class="codehilite"><pre><span></span><code><span class="cp">{%</span> <span class="k">set</span> <span class="nv">toc</span> <span class="o">=</span> <span class="nv">page.toc</span> <span class="cp">%}</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="cp">{%</span> <span class="k">set</span> <span class="nv">toc</span> <span class="o">=</span> <span class="nv">page.toc</span> <span class="cp">%}</span>
 <span class="cp">{%</span> <span class="k">set</span> <span class="nv">first</span> <span class="o">=</span> <span class="nv">toc</span> <span class="o">|</span> <span class="nf">first</span> <span class="cp">%}</span>
 <span class="cp">{%</span> <span class="k">if</span> <span class="nv">first</span> <span class="k">and</span> <span class="nv">first.level</span> <span class="o">==</span> <span class="m">1</span> <span class="cp">%}</span>
 <span class="x">  </span><span class="cp">{%</span> <span class="k">set</span> <span class="nv">toc</span> <span class="o">=</span> <span class="nv">first.children</span> <span class="cp">%}</span>
@@ -5014,13 +5016,13 @@ journalctl<span class="w"> </span>-u<span class="w"> </span>mkdocs-autopush.serv
 </tbody>
 </table>
 <p>两个脚本都支持 <code>--dry-run</code> 先看要改哪些文件：</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo
+<div class="codehilite" data-lang="text"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo
 runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> </span>--<span class="w"> </span>/srv/mkdocs/.venv/bin/python<span class="w"> </span>tools/fix_headings.py<span class="w"> </span>docs/Linux基础教程<span class="w"> </span>--dry-run
 </code></pre></div>
 
 <p>实测这批文档 12 篇里 11 篇需要降级（<code>8、Linux系统用户与组管理.md</code> 最多，28 处；<code>/etc/shadow</code> 配置块里的 <code>#</code> 注释因为在代码块内，原样保留）。</p>
 <p>执行完的效果：</p>
-<div class="codehilite"><pre><span></span><code># Linux系统基础设置与命令行      &lt;- 页面标题，唯一 H1
+<div class="codehilite" data-lang="bash"><pre><span></span><code># Linux系统基础设置与命令行      &lt;- 页面标题，唯一 H1
 ## 一、系统基本操作              &lt;- 右侧目录第一层
 ### 1、登录界面
 ### 2、桌面
@@ -5028,7 +5030,7 @@ runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> 
 
 <h3 id="204">20.4 让标签自动跟上<a class="headerlink" href="#204" title="Permanent link">&para;</a></h3>
 <p><code>autopush.sh</code> 在每次同步前会先跑一遍 <code>autotag.py</code>：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 0) 新文档自动补标签（幂等：已带 tags 的文件不动，无新文件时几毫秒返回）</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="c1"># 0) 新文档自动补标签（幂等：已带 tags 的文件不动，无新文件时几毫秒返回）</span>
 <span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">"</span><span class="nv">$VENV</span><span class="s2">/bin/python"</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>-f<span class="w"> </span><span class="s2">"</span><span class="nv">$ROOT</span><span class="s2">/tools/autotag.py"</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="s2">"</span><span class="nv">$VENV</span><span class="s2">/bin/python"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ROOT</span><span class="s2">/tools/autotag.py"</span><span class="w"> </span><span class="s2">"</span><span class="nv">$ROOT</span><span class="s2">/docs"</span><span class="w"> </span>&gt;/tmp/autotag.log<span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <span class="w">    </span>log<span class="w"> </span><span class="s2">"autotag 执行失败，详见 /tmp/autotag.log"</span>
@@ -5043,7 +5045,7 @@ runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> 
 <p>所以往 <code>docs/Linux基础教程/</code> 里再丢一篇 md，5 分钟内会自动：补 <code>tags: Linux基础教程</code> → 提交 main → <code>mike deploy 1.0 latest</code> → 推 gh-pages → Pages 更新，标签页与版本站同时刷新。</p>
 <h3 id="205">20.5 权限要点<a class="headerlink" href="#205" title="Permanent link">&para;</a></h3>
 <p>通过 SMB 上传的文件属主是 Samba 账号（<code>mdftp</code>），但目录里若混有 root 属主文件，<code>mkdocs</code> 身份构建时可能读不动、后续也无法由 mkdocs 改写。统一归位：</p>
-<div class="codehilite"><pre><span></span><code><span class="nv">D</span><span class="o">=</span>/srv/mkdocs/repo/docs/Linux基础教程
+<div class="codehilite" data-lang="markdown"><pre><span></span><code><span class="nv">D</span><span class="o">=</span>/srv/mkdocs/repo/docs/Linux基础教程
 chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w"> </span><span class="s2">"</span><span class="nv">$D</span><span class="s2">"</span>
 find<span class="w"> </span><span class="s2">"</span><span class="nv">$D</span><span class="s2">"</span><span class="w"> </span>-type<span class="w"> </span>d<span class="w"> </span>-exec<span class="w"> </span>chmod<span class="w"> </span><span class="m">2775</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
 find<span class="w"> </span><span class="s2">"</span><span class="nv">$D</span><span class="s2">"</span><span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-exec<span class="w"> </span>chmod<span class="w"> </span><span class="m">0664</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span>+
@@ -5120,7 +5122,7 @@ find<span class="w"> </span><span class="s2">"</span><span class="nv">$D</span><
 <li><code>hooks/index_listing.py</code> 新增标记 <code>&lt;!-- SECTION-LIST --&gt;</code>：在<strong>任意目录的 <code>index.md</code></strong> 里写这个标记，构建时自动列出该目录（含子目录）下所有 md，带标题与相对链接；</li>
 <li><code>docs/Linux基础教程/index.md</code> 用了这个标记，正文只写一句简介 + <code>## 文档列表</code>。</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>---
+<div class="codehilite" data-lang="yaml"><pre><span></span><code>---
 tags:
 <span class="gu">  - Linux基础教程</span>
 <span class="gu">---</span>
@@ -5158,7 +5160,7 @@ tags:
 </tbody>
 </table>
 <h3 id="212">21.2 挂进配置<a class="headerlink" href="#212" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nt">extra_css</span><span class="p">:</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nt">extra_css</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stylesheets/back-to-top.css</span>
 <span class="nt">extra_javascript</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">javascripts/back-to-top.js</span>
@@ -5175,7 +5177,7 @@ tags:
 <li><code>@media print</code> 下隐藏，打印不出现按钮。</li>
 </ul>
 <h3 id="214">21.4 验收<a class="headerlink" href="#214" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">'stylesheets/back-to-top.css\|javascripts/back-to-top.js'</span><span class="w"> </span>site/index.html
+<div class="codehilite" data-lang="css"><pre><span></span><code>grep<span class="w"> </span>-o<span class="w"> </span><span class="s1">'stylesheets/back-to-top.css\|javascripts/back-to-top.js'</span><span class="w"> </span>site/index.html
 </code></pre></div>
 
 <p>两行都能命中即为注入成功；浏览器里把页面往下滚，右下角出现胶囊按钮，点一下回到顶部。</p>
@@ -5221,13 +5223,13 @@ tags:
 </table>
 <h3 id="223">22.3 按钮与「返回顶部」的排布<a class="headerlink" href="#223" title="Permanent link">&para;</a></h3>
 <p>两个按钮同一套胶囊样式，靠 <code>bottom</code> 错开，不重叠：</p>
-<div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="nc">back-to-top</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">right</span><span class="p">:</span><span class="w"> </span><span class="mf">1.4</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="k">bottom</span><span class="p">:</span><span class="w"> </span><span class="mf">1.6</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c">/* 返回顶部 */</span>
+<div class="codehilite" data-lang="js"><pre><span></span><code><span class="p">.</span><span class="nc">back-to-top</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">right</span><span class="p">:</span><span class="w"> </span><span class="mf">1.4</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="k">bottom</span><span class="p">:</span><span class="w"> </span><span class="mf">1.6</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c">/* 返回顶部 */</span>
 <span class="p">.</span><span class="nc">edit-page</span><span class="w">   </span><span class="p">{</span><span class="w"> </span><span class="k">right</span><span class="p">:</span><span class="w"> </span><span class="mf">1.4</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="k">bottom</span><span class="p">:</span><span class="w"> </span><span class="mf">4.35</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c">/* 编辑本页，位于其上方 */</span>
 </code></pre></div>
 
 <p>实测位置（视口 518px 高时）：编辑本页底边 441px、返回顶部顶边 473px，中间留 32px 间隙。</p>
 <p>按钮只在局域网里出现，公网 Pages 上自动隐藏：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">EDIT_HOSTS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"192.168.7.130"</span><span class="p">,</span><span class="w"> </span><span class="s2">"localhost"</span><span class="p">,</span><span class="w"> </span><span class="s2">"127.0.0.1"</span><span class="p">];</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">EDIT_HOSTS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"192.168.7.130"</span><span class="p">,</span><span class="w"> </span><span class="s2">"localhost"</span><span class="p">,</span><span class="w"> </span><span class="s2">"127.0.0.1"</span><span class="p">];</span>
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">EDIT_HOSTS</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
 </code></pre></div>
 
@@ -5284,7 +5286,7 @@ tags:
 <li>5 分钟内 <code>mkdocs-autopush.timer</code> 会把改动 commit、<code>mike deploy</code> 并推到 gh-pages，GitHub Pages 同步更新。</li>
 </ol>
 <h3 id="226">22.6 服务管理<a class="headerlink" href="#226" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>systemctl<span class="w"> </span>status<span class="w"> </span>mkdocs-editor
+<div class="codehilite" data-lang="yaml"><pre><span></span><code>systemctl<span class="w"> </span>status<span class="w"> </span>mkdocs-editor
 journalctl<span class="w"> </span>-u<span class="w"> </span>mkdocs-editor<span class="w"> </span>-f
 
 <span class="c1"># 改了前端源码后重新构建</span>
@@ -5381,7 +5383,7 @@ systemctl<span class="w"> </span>restart<span class="w"> </span>mkdocs-editor
 <p>本章记录在既有站点与网页编辑器之上，叠加「读的人能切换文档、登录的人能改文档、拥有者能拍板」的一层协作能力。</p>
 <h3 id="231">23.1 页脚「上一篇 / 下一篇」<a class="headerlink" href="#231" title="Permanent link">&para;</a></h3>
 <p>Material 主题自带开关，只在 <code>mkdocs.yml</code> 的 <code>theme.features</code> 里加一行：</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">theme</span><span class="p">:</span>
+<div class="codehilite" data-lang="text"><pre><span></span><code><span class="nt">theme</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">features</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">navigation.footer</span><span class="w">      </span><span class="c1"># 页脚出现上一篇 / 下一篇</span>
 </code></pre></div>
@@ -5398,7 +5400,7 @@ systemctl<span class="w"> </span>restart<span class="w"> </span>mkdocs-editor
 <li>记下 <code>Client ID</code>（本项目为 <code>Ov23liZFcmfLX6wLHrmi</code>），写进两处前端常量。</li>
 <li>登录时序：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>浏览器 → POST https://github.com/login/device/code   {client_id, scope}
+<div class="codehilite" data-lang="text"><pre><span></span><code>浏览器 → POST https://github.com/login/device/code   {client_id, scope}
        ← {device_code, user_code, verification_uri, interval}
 用户  → 打开 https://github.com/login/device 输入 user_code 并 Authorize
 浏览器 → GET(轮询) https://github.com/login/oauth/access_token {client_id, device_code}
@@ -5480,7 +5482,7 @@ systemctl<span class="w"> </span>restart<span class="w"> </span>mkdocs-editor
 </table>
 <p>非拥有者的分支命名为 <code>edit/&lt;文件名净化&gt;-&lt;base36 时间戳&gt;</code>，PR 标题 <code>docs: 更新 &lt;path&gt;</code>，正文标明提交人和文件路径。</p>
 <h3 id="235-editor_serverpy-v2">23.5 后端鉴权（editor_server.py v2）<a class="headerlink" href="#235-editor_serverpy-v2" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>Authorization: Bearer &lt;github_token&gt;   ← 前端带，后端拿它去 api.github.com/user 换身份
+<div class="codehilite" data-lang="bash"><pre><span></span><code>Authorization: Bearer &lt;github_token&gt;   ← 前端带，后端拿它去 api.github.com/user 换身份
 身份缓存 5 分钟，避免每次保存都打 API
 </code></pre></div>
 
@@ -5514,14 +5516,14 @@ systemctl<span class="w"> </span>restart<span class="w"> </span>mkdocs-editor
 <p>服务单元新增 <code>Environment=REPO_OWNER=rainayom</code>、<code>Environment=REPO_NAME=RainAYOM.github.io</code>；原来的 <code>EDITOR_USER/EDITOR_PASS</code> 口令登录已移除。</p>
 <h3 id="236">23.6 与自动发布的关系<a class="headerlink" href="#236" title="Permanent link">&para;</a></h3>
 <p>PR 合并、网页直改都会让 GitHub 上的 <code>main</code> 领先服务器本地仓库，所以 <code>autopush.sh</code> 在推送前增加一步：</p>
-<div class="codehilite"><pre><span></span><code>git<span class="w"> </span>fetch<span class="w"> </span>-q<span class="w"> </span>origin<span class="w"> </span>main
+<div class="codehilite" data-lang="bash"><pre><span></span><code>git<span class="w"> </span>fetch<span class="w"> </span>-q<span class="w"> </span>origin<span class="w"> </span>main
 <span class="nv">behind</span><span class="o">=</span><span class="k">$(</span>git<span class="w"> </span>rev-list<span class="w"> </span>--count<span class="w"> </span>main..origin/main<span class="k">)</span>
 <span class="o">[[</span><span class="w"> </span><span class="nv">$behind</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">]]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>git<span class="w"> </span>pull<span class="w"> </span>-q<span class="w"> </span>--rebase<span class="w"> </span>origin<span class="w"> </span>main
 </code></pre></div>
 
 <p>rebase 冲突时脚本记录日志并跳过本轮推送（不覆盖远端），等人工处理。</p>
 <h3 id="237">23.7 验收清单<a class="headerlink" href="#237" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1"># 1. 页脚导航</span>
+<div class="codehilite" data-lang="html"><pre><span></span><code><span class="c1"># 1. 页脚导航</span>
 curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span>md-footer__link<span class="w">       </span><span class="c1"># ≥1</span>
 
 <span class="c1"># 2. 登录接口（未带 token）</span>
@@ -5614,14 +5616,14 @@ curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>
 <p>页面 key 用 <code>page.url</code>（相对路径），不用 <code>location.pathname</code>——这样内网 IP 和 <code>rainayom.github.io</code> 共用同一串讨论，换域名不丢评论。每页第一次有人发言时才创建讨论，没人评论的页面不会产生空讨论。</p>
 <h3 id="243">24.3 三个文件<a class="headerlink" href="#243" title="Permanent link">&para;</a></h3>
 <p><code>overrides/partials/comments.html</code>（只留标题和占位容器，页面 key 塞进 data 属性）：</p>
-<div class="codehilite"><pre><span></span><code>{% if page.meta.comments %}
+<div class="codehilite" data-lang="js"><pre><span></span><code>{% if page.meta.comments %}
 <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">id</span><span class="o">=</span><span class="s">"__comments"</span><span class="p">&gt;</span>{{ lang.t("meta.comments") }}<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">"mdgh-comments"</span> <span class="na">data-page</span><span class="o">=</span><span class="s">"{{ page.url }}"</span> <span class="na">data-title</span><span class="o">=</span><span class="s">"{{ page.title | e }}"</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 {% endif %}
 </code></pre></div>
 
 <p><code>docs/javascripts/comments.js</code>（渲染、查询、发表，约 300 行）：</p>
-<div class="codehilite"><pre><span></span><code><span class="c1">// 找讨论串</span>
+<div class="codehilite" data-lang="yaml"><pre><span></span><code><span class="c1">// 找讨论串</span>
 <span class="nx">query</span><span class="p">(</span><span class="nx">$o</span><span class="o">:</span><span class="nb">String</span><span class="o">!</span><span class="p">,</span><span class="nx">$n</span><span class="o">:</span><span class="nb">String</span><span class="o">!</span><span class="p">,</span><span class="nx">$c</span><span class="o">:</span><span class="nx">ID</span><span class="o">!</span><span class="p">){</span><span class="w"> </span><span class="nx">repository</span><span class="p">(</span><span class="nx">owner</span><span class="o">:</span><span class="nx">$o</span><span class="p">,</span><span class="nx">name</span><span class="o">:</span><span class="nx">$n</span><span class="p">){</span>
 <span class="w">  </span><span class="nx">discussions</span><span class="p">(</span><span class="nx">first</span><span class="o">:</span><span class="mf">100</span><span class="p">,</span><span class="w"> </span><span class="nx">categoryId</span><span class="o">:</span><span class="nx">$c</span><span class="p">){</span><span class="w"> </span><span class="nx">nodes</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="nx">title</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
 
@@ -5637,7 +5639,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>
 
 <p><code>docs/stylesheets/comments.css</code>：卡片式列表、输入框、两个胶囊按钮，颜色全部走 <code>var(--md-*)</code> 变量，暗黑模式自动适配；底部留 8rem 空间避开「编辑本页 / 返回顶部」。</p>
 <p><code>mkdocs.yml</code> 里加载顺序很重要，<code>comments.js</code> 必须排在 <code>github-hub.js</code> 之后（要先有 <code>window.MDGitHub</code>）：</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">extra_javascript</span><span class="p">:</span>
+<div class="codehilite" data-lang="js"><pre><span></span><code><span class="nt">extra_javascript</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">javascripts/back-to-top.js</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">javascripts/github-hub.js?v=20261127c</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">javascripts/edit-page.js?v=20261127b</span>
@@ -5646,7 +5648,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>
 
 <h3 id="244">24.4 一次登录是怎么串起来的<a class="headerlink" href="#244" title="Permanent link">&para;</a></h3>
 <p>页眉脚本对外暴露了 <code>window.MDGitHub = { token, user, login, logout, onChange(fn) }</code>。评论区订阅 <code>onChange</code>，状态一变就重绘：</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">MDGitHub</span><span class="p">.</span><span class="nx">onChange</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">MDGitHub</span><span class="p">.</span><span class="nx">onChange</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">apply</span><span class="p">(</span><span class="nx">s</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">token</span><span class="p">,</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">user</span><span class="p">);</span><span class="w">   </span><span class="c1">// 有 token 就拉评论，没 token 就只显示登录按钮</span>
 <span class="p">});</span>
 </code></pre></div>
@@ -5685,7 +5687,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>
 </tbody>
 </table>
 <h3 id="246">24.6 验收<a class="headerlink" href="#246" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/guide/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">'id="mdgh-comments"'</span><span class="w">   </span><span class="c1"># 1</span>
+<div class="codehilite" data-lang="js"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/guide/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">'id="mdgh-comments"'</span><span class="w">   </span><span class="c1"># 1</span>
 curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s1">'id="mdgh-comments"'</span><span class="w">         </span><span class="c1"># 0（首页关掉了）</span>
 </code></pre></div>
 
@@ -5693,7 +5695,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 <h3 id="247">24.7 编辑器：一个预览 + 全功能工具栏<a class="headerlink" href="#247" title="Permanent link">&para;</a></h3>
 <p>原来页面是「自建 MdPreview + MdEditor 内建预览」两套预览并排，看着像三个栏。改法：删掉外层 MdPreview，只用 <code>MdEditor</code> 自己那套分栏预览（<code>main</code> 里只剩一个 <code>MdEditor</code>）。</p>
 <p>工具栏换成 md-editor-v3 的默认全集，与官方 demo 一致：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">FULL_TOOLBARS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<div class="codehilite" data-lang="yaml"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">FULL_TOOLBARS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">  </span><span class="s1">'bold'</span><span class="p">,</span><span class="w"> </span><span class="s1">'underline'</span><span class="p">,</span><span class="w"> </span><span class="s1">'italic'</span><span class="p">,</span><span class="w"> </span><span class="s1">'strikeThrough'</span><span class="p">,</span><span class="w"> </span><span class="s1">'-'</span><span class="p">,</span>
 <span class="w">  </span><span class="s1">'title'</span><span class="p">,</span><span class="w"> </span><span class="s1">'sub'</span><span class="p">,</span><span class="w"> </span><span class="s1">'sup'</span><span class="p">,</span><span class="w"> </span><span class="s1">'quote'</span><span class="p">,</span><span class="w"> </span><span class="s1">'unorderedList'</span><span class="p">,</span><span class="w"> </span><span class="s1">'orderedList'</span><span class="p">,</span><span class="w"> </span><span class="s1">'task'</span><span class="p">,</span><span class="w"> </span><span class="s1">'-'</span><span class="p">,</span>
 <span class="w">  </span><span class="s1">'codeRow'</span><span class="p">,</span><span class="w"> </span><span class="s1">'code'</span><span class="p">,</span><span class="w"> </span><span class="s1">'link'</span><span class="p">,</span><span class="w"> </span><span class="s1">'image'</span><span class="p">,</span><span class="w"> </span><span class="s1">'table'</span><span class="p">,</span><span class="w"> </span><span class="s1">'mermaid'</span><span class="p">,</span><span class="w"> </span><span class="s1">'katex'</span><span class="p">,</span><span class="w"> </span><span class="s1">'-'</span><span class="p">,</span>
@@ -5752,7 +5754,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 <li>页眉正中换成 <strong><code>搜索文档 Ctrl+K</code></strong> 胶囊，<code>Ctrl+K</code> 唤起居中搜索弹窗，弹窗右侧是 <code>筛选 / 标签</code> 计数面板（对齐 Zensical 的交互）。</li>
 </ol>
 <h3 id="251">25.1 最终形态<a class="headerlink" href="#251" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="err">页眉（</span><span class="o">.</span><span class="n">md</span><span class="o">-</span><span class="n">header__inner</span><span class="err">）</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="err">页眉（</span><span class="o">.</span><span class="n">md</span><span class="o">-</span><span class="n">header__inner</span><span class="err">）</span>
 <span class="err">├──</span><span class="w"> </span><span class="err">汉堡菜单</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">logo</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">站点标题</span>
 <span class="err">├──</span><span class="w"> </span><span class="o">.</span><span class="n">md</span><span class="o">-</span><span class="n">search</span><span class="w">           </span><span class="err">←</span><span class="w"> </span><span class="n">Material</span><span class="w"> </span><span class="err">原生搜索：</span><span class="n">display</span><span class="p">:</span><span class="n">none</span><span class="w"> </span><span class="err">隐藏</span>
 <span class="err">├──</span><span class="w"> </span><span class="p">[</span><span class="n">data</span><span class="o">-</span><span class="n">md</span><span class="o">-</span><span class="n">toggle</span><span class="o">=</span><span class="n">search</span><span class="p">]</span><span class="w"> </span><span class="err">←</span><span class="w"> </span><span class="err">原生搜索开关：同样隐藏</span>
@@ -5788,7 +5790,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 </tbody>
 </table>
 <p><code>mkdocs.yml</code> 三处登记（顺序很重要，<code>site-ui.js</code> 必须在 <code>github-hub.js</code> 之后，否则拿不到 <code>.ghh</code> 锚点）：</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">hooks</span><span class="p">:</span>
+<div class="codehilite" data-lang="javascript"><pre><span></span><code><span class="nt">hooks</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks/index_listing.py</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hooks/tags_json.py</span>
 
@@ -5828,12 +5830,12 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 </tbody>
 </table>
 <p>三枚图标不自绘，直接内联 Material 官方图标文件里的 <code>&lt;path&gt;</code>，保证跟参考图一模一样。图标本体在 venv 里：</p>
-<div class="codehilite"><pre><span></span><code>/srv/mkdocs/.venv/lib/python*/site-packages/material/templates/.icons/material/
+<div class="codehilite" data-lang="javascript"><pre><span></span><code>/srv/mkdocs/.venv/lib/python*/site-packages/material/templates/.icons/material/
 <span class="w">  </span>theme-light-dark.svg<span class="w">   </span>weather-night.svg<span class="w">   </span>white-balance-sunny.svg
 </code></pre></div>
 
 <p>取出来只保留 <code>path d</code>，塞进脚本常量即可（<code>fill="currentColor"</code>，尺寸统一 20px）：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">THEME_ICONS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<div class="codehilite" data-lang="javascript"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">THEME_ICONS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">auto</span><span class="o">:</span><span class="w">  </span><span class="s1">'&lt;svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"&gt;&lt;path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5..."/&gt;&lt;/svg&gt;'</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">slate</span><span class="o">:</span><span class="w"> </span><span class="s1">'&lt;svg ...&gt;&lt;path d="m17.75 4.09-2.53 1.94.91 3.06..."/&gt;&lt;/svg&gt;'</span><span class="p">,</span>
 <span class="w">  </span><span class="k">default</span><span class="o">:</span><span class="s1">'&lt;svg ...&gt;&lt;path d="m3.55 19.09 1.41 1.41 1.8-1.79..."/&gt;&lt;/svg&gt;'</span>
@@ -5841,7 +5843,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 </code></pre></div>
 
 <p>按钮只放图标、不显示文字（中文说明放 <code>title</code> 与 <code>aria-label</code>），状态写 <code>localStorage.mdgh.siteTheme</code>，首次访问默认就是 <code>auto</code>：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">MODE_NEXT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">auto</span><span class="o">:</span><span class="w"> </span><span class="s2">"slate"</span><span class="p">,</span><span class="w"> </span><span class="nx">slate</span><span class="o">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w"> </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="w"> </span><span class="p">};</span>
+<div class="codehilite" data-lang="css"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">MODE_NEXT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">auto</span><span class="o">:</span><span class="w"> </span><span class="s2">"slate"</span><span class="p">,</span><span class="w"> </span><span class="nx">slate</span><span class="o">:</span><span class="w"> </span><span class="s2">"default"</span><span class="p">,</span><span class="w"> </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="s2">"auto"</span><span class="w"> </span><span class="p">};</span>
 
 <span class="kd">function</span><span class="w"> </span><span class="nx">applyMode</span><span class="p">(</span><span class="nx">mode</span><span class="p">,</span><span class="w"> </span><span class="nx">remember</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">scheme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">mode</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">"auto"</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nx">systemScheme</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="nx">mode</span><span class="p">;</span><span class="w">   </span><span class="c1">// systemScheme() 读 matchMedia</span>
@@ -5854,7 +5856,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 <p>"跟随系统"要真的跟着走：除了 <code>matchMedia('(prefers-color-scheme: dark)').addEventListener('change')</code>，还补了 <code>visibilitychange</code> 和 <code>focus</code> 两个兜底，切回前台时再核对一次，避免颜色停留在旧状态。</p>
 <h4 id="2531">25.3.1 页眉只留一个放大镜<a class="headerlink" href="#2531" title="Permanent link">&para;</a></h4>
 <p>Material 原生搜索按钮（<code>label.md-header__button[for="__search"]</code>）和居中胶囊功能重复，除了 CSS 隐藏，还在 JS 里直接把节点移除：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span>
+<div class="codehilite" data-lang="css"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">nodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span>
 <span class="w">  </span><span class="s1">'.md-header__button[for="__search"], label[for="__search"].md-header__button'</span>
 <span class="p">);</span>
 <span class="p">[].</span><span class="nx">forEach</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">nodes</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">el</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">el</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">el</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span><span class="w"> </span><span class="p">});</span>
@@ -5863,7 +5865,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 <p>这样无论浏览器缓存新旧、窗口宽窄，页眉都只有一个搜索入口。窄屏（≤960px）下主题按钮与代码主题按钮都收成纯图标，宽屏才显示「代码主题：xxx」文字，不会出现"宽屏还是窄屏样式"的错位感。</p>
 <h4 id="2532">25.3.2 按钮不带框<a class="headerlink" href="#2532" title="Permanent link">&para;</a></h4>
 <p>页眉三个图标按钮（主题、代码主题、窄屏搜索）一律去掉描边和底色，只留图标本身，反馈靠 hover 的浅色底：</p>
-<div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="nc">mui-theme</span><span class="o">,</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="p">.</span><span class="nc">mui-theme</span><span class="o">,</span>
 <span class="p">.</span><span class="nc">mui-code-btn</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
 <span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">transparent</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span>
@@ -5878,7 +5880,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 </code></pre></div>
 
 <p>窄屏下搜索按钮同样去框（宽屏的搜索胶囊另算，那是"输入框"外观 + 半透明底，跟图标按钮区分开）：</p>
-<div class="codehilite"><pre><span></span><code><span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="nt">screen</span><span class="w"> </span><span class="nt">and</span><span class="w"> </span><span class="o">(</span><span class="nt">max-width</span><span class="o">:</span><span class="w"> </span><span class="nt">960px</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<div class="codehilite" data-lang="javascript"><pre><span></span><code><span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="nt">screen</span><span class="w"> </span><span class="nt">and</span><span class="w"> </span><span class="o">(</span><span class="nt">max-width</span><span class="o">:</span><span class="w"> </span><span class="nt">960px</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="p">.</span><span class="nc">mui-search</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">transparent</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"> </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"> </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="kt">rem</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -5886,7 +5888,7 @@ curl<span class="w"> </span>-s<span class="w"> </span>http://192.168.7.130:8000/
 <p>验收时看 <code>getComputedStyle</code> 就行：<code>borderTopWidth</code> 应为 <code>0px</code>，<code>backgroundColor</code> 应为 <code>rgba(0, 0, 0, 0)</code>；宽屏再量 <code>mui-search</code> 的 <code>x + width/2</code> 是否等于页眉中线，确认居中胶囊没被挤偏。</p>
 <h3 id="254-pygments-link">25.4 代码主题：pygments 出样式 + 一个 link 换色<a class="headerlink" href="#254-pygments-link" title="Permanent link">&para;</a></h3>
 <p>代码主题不碰 JavaScript 高亮逻辑，纯 CSS 覆盖。用服务器上的 pygments 为 8 个主题各生成一份：</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo/docs/stylesheets/code-themes
+<div class="codehilite" data-lang="python"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/repo/docs/stylesheets/code-themes
 <span class="nv">P</span><span class="o">=</span>/srv/mkdocs/.venv/bin/pygmentize
 <span class="k">for</span><span class="w"> </span>t<span class="w"> </span><span class="k">in</span><span class="w"> </span>github-dark<span class="w"> </span>one-dark<span class="w"> </span>dracula<span class="w"> </span>monokai<span class="w"> </span>nord<span class="w"> </span>solarized-light<span class="w"> </span>vs<span class="w"> </span>xcode<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">  </span><span class="nv">$P</span><span class="w"> </span>-S<span class="w"> </span><span class="s2">"</span><span class="nv">$t</span><span class="s2">"</span><span class="w"> </span>-f<span class="w"> </span>html<span class="w"> </span>-a<span class="w"> </span><span class="s2">".md-typeset .codehilite"</span><span class="w"> </span>&gt;<span class="w"> </span>_tmp.css
@@ -5907,7 +5909,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 <li>生成物只给 <code>.codehilite</code> 上底色，<code>pre &gt; code</code> 仍带着 Material 的 <code>--md-code-bg-color</code>，所以每个文件开头要补那条 <code>background: transparent !important</code>，让底色透出到容器上。</li>
 </ol>
 <p>前台切换只要一个 <code>&lt;link&gt;</code>：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">applyCodeTheme</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">remember</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">           </span><span class="c1">// id = "material" 表示回到默认</span>
+<div class="codehilite" data-lang="json"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">applyCodeTheme</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="w"> </span><span class="nx">remember</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">           </span><span class="c1">// id = "material" 表示回到默认</span>
 <span class="w">  </span><span class="kd">var</span><span class="w"> </span><span class="nx">link</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"mui-code-theme"</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">createLink</span><span class="p">();</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">id</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">"material"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">link</span><span class="p">.</span><span class="nx">removeAttribute</span><span class="p">(</span><span class="s2">"href"</span><span class="p">);</span><span class="w"> </span><span class="nx">link</span><span class="p">.</span><span class="nx">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">link</span><span class="p">.</span><span class="nx">disabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"> </span><span class="nx">link</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">siteRoot</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">"stylesheets/code-themes/"</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">id</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s2">".css"</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
@@ -5923,7 +5925,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 <li>结果：<code>search/search_index.json</code>（Material <code>search</code> 插件本来就产出的索引）；</li>
 <li>标签：<code>tags.json</code>（本钩子生成）。</li>
 </ul>
-<div class="codehilite"><pre><span></span><code><span class="c1"># hooks/tags_json.py 核心</span>
+<div class="codehilite" data-lang="css"><pre><span></span><code><span class="c1"># hooks/tags_json.py 核心</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">on_post_build</span><span class="p">(</span><span class="n">config</span><span class="p">):</span>
     <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">"docs_dir"</span><span class="p">]):</span>
@@ -5941,7 +5943,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 </code></pre></div>
 
 <p>产出形如：</p>
-<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+<div class="codehilite" data-lang="javascript"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Linux基础教程"</span><span class="p">,</span><span class="w"> </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">13</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ansible"</span><span class="p">,</span><span class="w"> </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">}],</span>
 <span class="w">  </span><span class="nt">"docs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"guide/"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"使用指南"</span><span class="p">,</span><span class="w"> </span><span class="nt">"tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mkdocs"</span><span class="p">,</span><span class="w"> </span><span class="s2">"部署"</span><span class="p">]}}</span>
 <span class="p">}</span>
@@ -6099,7 +6101,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 </tr>
 </tbody>
 </table>
-<div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="nc">ibtn</span><span class="w"> </span><span class="p">{</span>
+<div class="codehilite" data-lang="text"><pre><span></span><code><span class="p">.</span><span class="nc">ibtn</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-flex</span><span class="p">;</span><span class="w"> </span><span class="k">align-items</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span><span class="w"> </span><span class="k">justify-content</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
 <span class="w">  </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
 <span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">transparent</span><span class="p">;</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#333a4d</span><span class="p">;</span><span class="w"> </span><span class="k">cursor</span><span class="p">:</span><span class="w"> </span><span class="kc">pointer</span><span class="p">;</span>
@@ -6109,7 +6111,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 </code></pre></div>
 
 <p>中文说明不占版面，全塞进 <code>title</code> 与下拉项里（<code>title="文档内容主题：vuepress（点击切换）"</code>），鼠标悬停就能看到当前值。主题名与色点：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">PREVIEW_THEMES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<div class="codehilite" data-lang="css"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">PREVIEW_THEMES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'default'</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'默认'</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">'#3f51b5'</span><span class="w"> </span><span class="p">},</span>
 <span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'github'</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'github'</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">'#0969da'</span><span class="w"> </span><span class="p">},</span>
 <span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'vuepress'</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'vuepress'</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">'#3eaf7c'</span><span class="w"> </span><span class="p">},</span>
@@ -6123,11 +6125,11 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 <h3 id="262-pdf">26.2 导出 PDF：走打印页，不强上服务端<a class="headerlink" href="#262-pdf" title="Permanent link">&para;</a></h3>
 <p>先试过服务端生成，两条路都堵：openEuler 上 <code>fc-list :lang=zh</code> 是空的（没有中文字体，转出来全是方块），<code>weasyprint</code> / <code>wkhtmltopdf</code> / chromium 也都没装。所以改成"打印页 + 浏览器另存为 PDF"——用的是用户自己的系统字体，中文和代码高亮都不掉。</p>
 <p>点页眉的 PDF 图标，新标签打开：</p>
-<div class="codehilite"><pre><span></span><code>http://192.168.7.130:8080/?print=1&amp;path=guide.md
+<div class="codehilite" data-lang="javascript"><pre><span></span><code>http://192.168.7.130:8080/?print=1&amp;path=guide.md
 </code></pre></div>
 
 <p>同一个前端里 <code>isPrint</code> 分支只渲染 <code>MdPreview</code>（正文，没有任何按钮），加载完 1.2 秒自动唤起 <code>window.print()</code>，在打印对话框里选「另存为 PDF」即可。版式靠 CSS：</p>
-<div class="codehilite"><pre><span></span><code><span class="p">@</span><span class="k">page</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">size</span><span class="o">:</span><span class="w"> </span><span class="nt">A4</span><span class="o">;</span><span class="w"> </span><span class="nt">margin</span><span class="o">:</span><span class="w"> </span><span class="nt">14mm</span><span class="w"> </span><span class="nt">12mm</span><span class="o">;</span><span class="w"> </span><span class="p">}</span>
+<div class="codehilite" data-lang="javascript"><pre><span></span><code><span class="p">@</span><span class="k">page</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">size</span><span class="o">:</span><span class="w"> </span><span class="nt">A4</span><span class="o">;</span><span class="w"> </span><span class="nt">margin</span><span class="o">:</span><span class="w"> </span><span class="nt">14mm</span><span class="w"> </span><span class="nt">12mm</span><span class="o">;</span><span class="w"> </span><span class="p">}</span>
 
 <span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="nt">print</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="p">.</span><span class="nc">printwrap</span><span class="w"> </span><span class="p">.</span><span class="nc">md-editor-preview</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
@@ -6145,7 +6147,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 <li>去掉 YAML front matter（<code>tags:</code> 那几行不该出现在纸上）。</li>
 <li>MkDocs 的 <code>!!! tip "标题"</code> 这类 admonition，md-editor 不认，会当成代码块渲染成一堆三色小圆点。打印页里转成引用块：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">convertAdmonitions</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">          </span><span class="c1">// !!! / ??? → &gt; **💡 标题**</span>
+<div class="codehilite" data-lang="javascript"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">convertAdmonitions</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">          </span><span class="c1">// !!! / ??? → &gt; **💡 标题**</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">line</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^(?:!!!|\?\?\?)\s*([a-zA-Z-]*)(?:\s+"([^"]*)")?\s*$/</span><span class="p">)</span>
 <span class="w">  </span><span class="c1">// 取下面缩进 4 空格的行，去掉 4 空格，逐行加 "&gt; " 前缀；嵌套的那层递归再转一次</span>
 <span class="p">}</span>
@@ -6154,7 +6156,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 <p>类型到图标：tip 💡、note 📝、info ℹ️、warning ⚠️、danger 🚨、success ✅、example 🧪、quote 📌，其余默认 📌。转完效果是「&gt; <strong>💡 最短路径</strong> + 引用正文」，纸上干净、层级还在。</p>
 <h3 id="263">26.3 返回：先认站点页，认不到就回列表<a class="headerlink" href="#263" title="Permanent link">&para;</a></h3>
 <p>页眉左边加一个 ← 图标，<code>title="返回（回到站点页面）"</code>：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">doBack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<div class="codehilite" data-lang="javascript"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">doBack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">pageUrl</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">          </span><span class="c1">// 打开文档时后端就给了 page_url，比如 /guide/</span>
 <span class="w">    </span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`http://</span><span class="si">${</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span><span class="si">}</span><span class="sb">:8000</span><span class="si">${</span><span class="nx">pageUrl</span><span class="p">.</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span>
 <span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">      </span><span class="c1">// 没有站点页（比如新建的文档）</span>
@@ -6169,13 +6171,13 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 <p>顺带补了 <code>Esc</code> 关下拉菜单、<code>Ctrl+S</code> 保存的老逻辑不变。</p>
 <h3 id="264">26.4 未保存就离开：两层拦截<a class="headerlink" href="#264" title="Permanent link">&para;</a></h3>
 <p>第一层是浏览器原生兜底，关标签页/刷新/跳外链都会被拦：</p>
-<div class="codehilite"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'beforeunload'</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<div class="codehilite" data-lang="css"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'beforeunload'</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">isPrint</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">dirty</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">returnValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="w"> </span><span class="p">}</span>
 <span class="p">})</span>
 </code></pre></div>
 
 <p>第二层是自己画的弹窗（原生 <code>confirm</code> 只有两个按钮，说不清"保存"这件事），三个选项：<strong>保存并离开</strong>、<strong>不保存离开</strong>、<strong>取消</strong>：</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">askBack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<div class="codehilite" data-lang="css"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">askBack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">dirty</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">leaveAction</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'back'</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c1">// 弹窗</span>
 <span class="w">  </span><span class="nx">doBack</span><span class="p">()</span>
 <span class="p">}</span>
@@ -6468,7 +6470,7 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
       
         <script src="../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../javascripts/site-ui.js?v=20261127s"></script>
+        <script src="../javascripts/site-ui.js?v=20261127t"></script>
       
     
   </body>

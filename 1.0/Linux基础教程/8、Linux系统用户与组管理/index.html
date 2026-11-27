@@ -59,9 +59,11 @@
     
       <link rel="stylesheet" href="../../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127u">
+      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127v">
     
-      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127a">
+      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127b">
+    
+      <link rel="stylesheet" href="../../stylesheets/code-block.css?v=20261127a">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -2053,7 +2055,7 @@
 <li><strong>/etc/passwd</strong></li>
 </ul>
 <p>存储用户信息</p>
-<div class="codehilite"><pre><span></span><code>tail<span class="w"> </span>-1<span class="w"> </span>/etc/passwd
+<div class="codehilite" data-lang="bash"><pre><span></span><code>tail<span class="w"> </span>-1<span class="w"> </span>/etc/passwd
 user10:x:1014:1014::/home/user10:/bin/bash
 <span class="c1">#用户名:密码占位符:用户ID:组ID:用户描述信息:用户家目录:登录shell</span>
 </code></pre></div>
@@ -2062,7 +2064,7 @@ user10:x:1014:1014::/home/user10:/bin/bash
 <li><strong>/etc/shadow</strong>  </li>
 </ul>
 <p>该配置文件保存了用户的密码信息 。</p>
-<div class="codehilite"><pre><span></span><code>tail<span class="w"> </span>-1<span class="w"> </span>/etc/shadow
+<div class="codehilite" data-lang="bash"><pre><span></span><code>tail<span class="w"> </span>-1<span class="w"> </span>/etc/shadow
 user2:!!:19522:0:99999:7:::
 <span class="c1">#用户名:密码:用户创建时间:密码最短使用期限:密码最长使用期限:密码过期提醒时间:密码过期后的宽容时间:密码过期时间:没用</span>
 </code></pre></div>
@@ -2071,7 +2073,7 @@ user2:!!:19522:0:99999:7:::
 <li><strong>/etc/group</strong> </li>
 </ul>
 <p>该文件保存了用户组的信息 。</p>
-<div class="codehilite"><pre><span></span><code>tail<span class="w"> </span>-1<span class="w"> </span>/etc/group
+<div class="codehilite" data-lang="bash"><pre><span></span><code>tail<span class="w"> </span>-1<span class="w"> </span>/etc/group
 nginx:x:982:
 <span class="c1">#组名:占位符:组ID:非同名用户的组成员</span>
 </code></pre></div>
@@ -2084,7 +2086,7 @@ nginx:x:982:
 <li><strong>/etc/login.defs</strong>  </li>
 </ul>
 <p>该文件可以设置密码过期时间，密码最大长度限制等内容。</p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span>root@ansible<span class="w"> </span>~<span class="o">]</span><span class="c1"># cat /etc/login.defs </span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="o">[</span>root@ansible<span class="w"> </span>~<span class="o">]</span><span class="c1"># cat /etc/login.defs </span>
 <span class="c1">#</span>
 <span class="c1"># Please note that the parameters in this configuration file control the</span>
 <span class="c1"># behavior of the tools from the shadow-utils component. None of these</span>
@@ -2161,7 +2163,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <h2 id="_2">二、用户管理<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="1useradd">1、useradd命令<a class="headerlink" href="#1useradd" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2190,7 +2192,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="2userdel">2、userdel<a class="headerlink" href="#2userdel" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2219,7 +2221,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="3password">3、password命令<a class="headerlink" href="#3password" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2248,7 +2250,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="4usermod">4、usermod命令<a class="headerlink" href="#4usermod" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2277,7 +2279,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="5chpasswd">5、chpasswd命令<a class="headerlink" href="#5chpasswd" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2306,7 +2308,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="4chage">4、chage命令<a class="headerlink" href="#4chage" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2336,7 +2338,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <h2 id="_3">三、组管理<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <h3 id="1groupadd">1、groupadd命令<a class="headerlink" href="#1groupadd" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2365,7 +2367,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="2groupdel">2、groupdel命令<a class="headerlink" href="#2groupdel" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2394,7 +2396,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="3groupmod">3、groupmod命令<a class="headerlink" href="#3groupmod" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2423,7 +2425,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p>*<em>案例：</em></p>
 <h3 id="4gpasswd">4、gpasswd命令<a class="headerlink" href="#4gpasswd" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2453,7 +2455,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <h2 id="sudo">四、用户切换与sudo提权<a class="headerlink" href="#sudo" title="Permanent link">&para;</a></h2>
 <h3 id="1su">1、su命令<a class="headerlink" href="#1su" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2482,7 +2484,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="2sudo">2、sudo命令<a class="headerlink" href="#2sudo" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2512,7 +2514,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <h2 id="_4">五、用户登录信息查看<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="1id">1、id命令<a class="headerlink" href="#1id" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2541,7 +2543,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="2w">2、w命令<a class="headerlink" href="#2w" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2570,7 +2572,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="3who">3、who命令<a class="headerlink" href="#3who" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2599,7 +2601,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="4whoami">4、whoami命令<a class="headerlink" href="#4whoami" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2628,7 +2630,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="5finger">5、finger命令<a class="headerlink" href="#5finger" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2658,7 +2660,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <h3 id="6last">6、last命令<a class="headerlink" href="#6last" title="Permanent link">&para;</a></h3>
 <p>last命令可以查看登录用户列表，last命令实际上从日志文件/var/log/wtmp读取信息并显示用户最近的登录列表。此命令普通用户也可以执行。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2688,7 +2690,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <h3 id="7lastb">7、lastb命令<a class="headerlink" href="#7lastb" title="Permanent link">&para;</a></h3>
 <p>lastb命令可以从日志文件/var/log/btmp中读取信息，并显示用户登录失败的记录用于发现系统登录异常。此命令要求root用户才可以执行，lastb可用参数与last命令参数相同。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2717,7 +2719,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
 <p><strong>案例：</strong></p>
 <h3 id="8lastlog">8、lastlog命令<a class="headerlink" href="#8lastlog" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2854,7 +2856,7 @@ ENCRYPT_METHOD<span class="w"> </span>SHA512
       
         <script src="../../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../../javascripts/site-ui.js?v=20261127s"></script>
+        <script src="../../javascripts/site-ui.js?v=20261127t"></script>
       
     
   </body>

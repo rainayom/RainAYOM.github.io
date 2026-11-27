@@ -59,9 +59,11 @@
     
       <link rel="stylesheet" href="../../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127u">
+      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127v">
     
-      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127a">
+      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127b">
+    
+      <link rel="stylesheet" href="../../stylesheets/code-block.css?v=20261127a">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -2095,7 +2097,7 @@
 <h3 id="1grep">1、grep筛选<a class="headerlink" href="#1grep" title="Permanent link">&para;</a></h3>
 <p>在文本中查找指定的字符串所在的行。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>grep<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>file
+<div class="codehilite" data-lang="bash"><pre><span></span><code>grep<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>file
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2236,7 +2238,7 @@
 <h2 id="3uniq">3、uniq去重<a class="headerlink" href="#3uniq" title="Permanent link">&para;</a></h2>
 <p><code>uniq</code> 是 Unix 和类 Unix 系统中的命令，用于从排序的文本数据中去除重复行，仅保留唯一的行。它通常与 <code>sort</code> 命令结合使用，因为 <code>uniq</code> 只能删除相邻的重复行。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>uniq<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>input_file<span class="w"> </span><span class="o">[</span>output_file<span class="o">]]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>uniq<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>input_file<span class="w"> </span><span class="o">[</span>output_file<span class="o">]]</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2270,25 +2272,25 @@
 <ol>
 <li>删除输入文件中的重复行：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>sort<span class="w"> </span>input.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq
+<div class="codehilite" data-lang="bash"><pre><span></span><code>sort<span class="w"> </span>input.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq
 </code></pre></div>
 
 <ol>
 <li>仅显示重复的行：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>sort<span class="w"> </span>input.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-d
+<div class="codehilite" data-lang="bash"><pre><span></span><code>sort<span class="w"> </span>input.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-d
 </code></pre></div>
 
 <ol>
 <li>忽略大小写进行比较：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>sort<span class="w"> </span>-i<span class="w"> </span>input.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-i
+<div class="codehilite" data-lang="bash"><pre><span></span><code>sort<span class="w"> </span>-i<span class="w"> </span>input.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-i
 </code></pre></div>
 
 <h2 id="4tr">4、tr转换<a class="headerlink" href="#4tr" title="Permanent link">&para;</a></h2>
 <p><code>tr</code> 命令是 Unix 和类 Unix 系统中的一个用于字符转换或删除的实用程序。<code>tr</code> 命令通常用于处理文本数据，例如删除特定字符、替换字符、转换大小写等操作。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>tr<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>set1<span class="w"> </span>set2
+<div class="codehilite" data-lang="bash"><pre><span></span><code>tr<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span>set1<span class="w"> </span>set2
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2322,37 +2324,37 @@
 <ol>
 <li>将文本中的大写字母转换为小写字母：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"HELLO"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">'A-Z'</span><span class="w"> </span><span class="s1">'a-z'</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"HELLO"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">'A-Z'</span><span class="w"> </span><span class="s1">'a-z'</span>
 </code></pre></div>
 
 <ol>
 <li>删除文本中的空格：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"hello world"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">' '</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"hello world"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">' '</span>
 </code></pre></div>
 
 <ol>
 <li>将文本中的特定字符替换为另一个字符：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"abc-"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">'1-3'</span><span class="w"> </span><span class="s1">'X-Y'</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"abc-"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">'1-3'</span><span class="w"> </span><span class="s1">'X-Y'</span>
 </code></pre></div>
 
 <ol>
 <li>压缩重复字符：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"foo     bar"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">' '</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"foo     bar"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-s<span class="w"> </span><span class="s1">' '</span>
 </code></pre></div>
 
 <ol>
 <li>去掉空白符：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"hello\tworld"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'[:space:]'</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"hello\tworld"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">'[:space:]'</span>
 </code></pre></div>
 
 <h2 id="5cut">5、cut切割<a class="headerlink" href="#5cut" title="Permanent link">&para;</a></h2>
 <p><code>cut</code> 是 Unix 和类 Unix 系统中的命令，用于根据指定的字符分隔符从输入中提取字段。<code>cut</code> 命令用于处理文本文件，通常与管道 (<code>|</code>) 和其他命令一起使用，以进一步处理和分析文本数据。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>cut<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>field-spec<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>cut<span class="w"> </span><span class="o">[</span>options<span class="o">]</span><span class="w"> </span><span class="o">[</span>field-spec<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2399,37 +2401,37 @@
 <ol>
 <li>提取指定范围内的字段：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">':'</span><span class="w"> </span>-f<span class="w"> </span><span class="m">1</span>-3<span class="w"> </span>file.txt
+<div class="codehilite" data-lang="bash"><pre><span></span><code>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">':'</span><span class="w"> </span>-f<span class="w"> </span><span class="m">1</span>-3<span class="w"> </span>file.txt
 </code></pre></div>
 
 <ol>
 <li>使用制表符作为分隔符提取字段：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">$'\t'</span><span class="w"> </span>-f<span class="w"> </span><span class="m">1</span><span class="w"> </span>file.txt
+<div class="codehilite" data-lang="bash"><pre><span></span><code>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">$'\t'</span><span class="w"> </span>-f<span class="w"> </span><span class="m">1</span><span class="w"> </span>file.txt
 </code></pre></div>
 
 <ol>
 <li>提取指定文件中的所有字段：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f<span class="w"> </span>*<span class="w"> </span>file.txt
+<div class="codehilite" data-lang="bash"><pre><span></span><code>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f<span class="w"> </span>*<span class="w"> </span>file.txt
 </code></pre></div>
 
 <ol>
 <li>仅提取非空白字段：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>cut<span class="w"> </span>-b<span class="w"> </span>file.txt
+<div class="codehilite" data-lang="bash"><pre><span></span><code>cut<span class="w"> </span>-b<span class="w"> </span>file.txt
 </code></pre></div>
 
 <ol>
 <li>使用通配符提取多个字段：</li>
 </ol>
-<div class="codehilite"><pre><span></span><code>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f<span class="w"> </span>field1,field2,field3<span class="w"> </span>file.txt
+<div class="codehilite" data-lang="bash"><pre><span></span><code>cut<span class="w"> </span>-d<span class="s1">' '</span><span class="w"> </span>-f<span class="w"> </span>field1,field2,field3<span class="w"> </span>file.txt
 </code></pre></div>
 
 <h3 id="6which">6、which命令<a class="headerlink" href="#6which" title="Permanent link">&para;</a></h3>
 <p><code>which</code> 命令在 Unix 和类 Unix 系统中用于查找一个命令的完整路径。当您输入一个命令名称时，<code>which</code> 命令会告诉您该命令位于哪个文件系统中。<code>which</code> 命令通常用于确认命令是否存在于系统 PATH 中，或者用于在脚本中获取命令的确切路径。如果您想要查找的命令不存在于 PATH 中，<code>which</code> 命令将不会返回任何输出。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>which<span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>which<span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2459,7 +2461,7 @@
 <h3 id="7whereis">7、whereis命令<a class="headerlink" href="#7whereis" title="Permanent link">&para;</a></h3>
 <p><code>whereis</code> 命令在 Unix 和类 Unix 系统中用于查找二进制文件、源代码文件和手册页的位置。它搜索默认的文件系统路径来确定指定命令的相关文件。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>whereis<span class="w"> </span><span class="o">[</span>-bms<span class="o">]</span><span class="w"> </span><span class="o">[</span>-u<span class="o">]</span><span class="w"> </span><span class="o">[</span>-f<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-L<span class="o">]</span><span class="w"> </span><span class="o">[</span>-M<span class="o">]</span><span class="w"> </span><span class="o">[</span>-S<span class="o">]</span><span class="w"> </span><span class="o">[</span>-version<span class="o">]</span><span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>whereis<span class="w"> </span><span class="o">[</span>-bms<span class="o">]</span><span class="w"> </span><span class="o">[</span>-u<span class="o">]</span><span class="w"> </span><span class="o">[</span>-f<span class="o">]</span><span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span><span class="o">[</span>-L<span class="o">]</span><span class="w"> </span><span class="o">[</span>-M<span class="o">]</span><span class="w"> </span><span class="o">[</span>-S<span class="o">]</span><span class="w"> </span><span class="o">[</span>-version<span class="o">]</span><span class="w"> </span><span class="o">[</span>command<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2512,7 +2514,7 @@
 <p><strong>案例：</strong></p>
 <h3 id="8diff">8、diff命令<a class="headerlink" href="#8diff" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>diff<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>文件1<span class="w"> </span>文件2
+<div class="codehilite" data-lang="bash"><pre><span></span><code>diff<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span>文件1<span class="w"> </span>文件2
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2618,7 +2620,7 @@
 <h2 id="_2">三、文件与目录归档压缩命令<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
 <h3 id="1tar">1、tar命令<a class="headerlink" href="#1tar" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2647,7 +2649,7 @@
 <p><strong>案例：</strong></p>
 <h3 id="2zip">2、zip命令<a class="headerlink" href="#2zip" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2676,7 +2678,7 @@
 <p><strong>案例：</strong></p>
 <h3 id="3gzip">3、gzip命令<a class="headerlink" href="#3gzip" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2705,7 +2707,7 @@
 <p><strong>案例：</strong></p>
 <h3 id="4bzip2">4、bzip2命令<a class="headerlink" href="#4bzip2" title="Permanent link">&para;</a></h3>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2842,7 +2844,7 @@
       
         <script src="../../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../../javascripts/site-ui.js?v=20261127s"></script>
+        <script src="../../javascripts/site-ui.js?v=20261127t"></script>
       
     
   </body>

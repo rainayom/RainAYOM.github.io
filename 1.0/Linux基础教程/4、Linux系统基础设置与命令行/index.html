@@ -59,9 +59,11 @@
     
       <link rel="stylesheet" href="../../stylesheets/comments.css">
     
-      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127u">
+      <link rel="stylesheet" href="../../stylesheets/site-ui.css?v=20261127v">
     
-      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127a">
+      <link rel="stylesheet" href="../../stylesheets/content-themes.css?v=20261127b">
+    
+      <link rel="stylesheet" href="../../stylesheets/code-block.css?v=20261127a">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -2286,17 +2288,17 @@
 <h3 id="6">6、终端操作<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
 <h4 id="61">6.1、登录显示<a class="headerlink" href="#61" title="Permanent link">&para;</a></h4>
 <h5 id="_2">普通用户<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span>zhx@localhost<span class="w"> </span>~<span class="o">]</span>$
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="o">[</span>zhx@localhost<span class="w"> </span>~<span class="o">]</span>$
 <span class="o">[</span>username@hostname<span class="w"> </span>homeDirectory（~）<span class="o">]</span>$
 </code></pre></div>
 
 <h5 id="root">超级管理员用户root<a class="headerlink" href="#root" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1">#</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="o">[</span>root@localhost<span class="w"> </span>~<span class="o">]</span><span class="c1">#</span>
 <span class="o">[</span>username@hostname<span class="w"> </span>homeDirectory（~）<span class="o">]</span><span class="c1">#</span>
 </code></pre></div>
 
 <h5 id="_3">目录切换后<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h5>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span>username@hostname<span class="w"> </span>当前目录名称<span class="o">]</span><span class="c1">#|$</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="o">[</span>username@hostname<span class="w"> </span>当前目录名称<span class="o">]</span><span class="c1">#|$</span>
 </code></pre></div>
 
 <h4 id="62">6.2、快捷键<a class="headerlink" href="#62" title="Permanent link">&para;</a></h4>
@@ -2381,7 +2383,7 @@
 </ul>
 <h2 id="_4">二、命令行基础<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
 <h3 id="1_1">1、命令语法<a class="headerlink" href="#1_1" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>命令字<span class="w">  </span><span class="o">[</span>选项<span class="o">]</span><span class="w">  </span><span class="o">[</span>参数1<span class="o">]</span><span class="w">  </span><span class="o">[</span>参数2<span class="o">]</span><span class="w"> </span>....
+<div class="codehilite" data-lang="bash"><pre><span></span><code>命令字<span class="w">  </span><span class="o">[</span>选项<span class="o">]</span><span class="w">  </span><span class="o">[</span>参数1<span class="o">]</span><span class="w">  </span><span class="o">[</span>参数2<span class="o">]</span><span class="w"> </span>....
 </code></pre></div>
 
 <ul>
@@ -2500,7 +2502,7 @@
 <li>相对路径：从当前位置出发</li>
 </ul>
 <h3 id="2_2">2、操作命令<a class="headerlink" href="#2_2" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="c1">#查看主机名</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code><span class="c1">#查看主机名</span>
 hostname
 --n
 
@@ -2546,25 +2548,25 @@ cat
 <ul>
 <li>临时修改，重启失效</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>hostname<span class="w">  </span>new_hostname
+<div class="codehilite" data-lang="bash"><pre><span></span><code>hostname<span class="w">  </span>new_hostname
 </code></pre></div>
 
 <ul>
 <li>刷新</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>bash
+<div class="codehilite" data-lang="bash"><pre><span></span><code>bash
 </code></pre></div>
 
 <ul>
 <li>永久修改</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>hostnamectl<span class="w"> </span>set-hostname<span class="w">  </span>new_hostname
+<div class="codehilite" data-lang="bash"><pre><span></span><code>hostnamectl<span class="w"> </span>set-hostname<span class="w">  </span>new_hostname
 </code></pre></div>
 
 <ul>
 <li>配置文件修改，重启生效</li>
 </ul>
-<div class="codehilite"><pre><span></span><code>vim<span class="w"> </span>/etc/hostname
+<div class="codehilite" data-lang="bash"><pre><span></span><code>vim<span class="w"> </span>/etc/hostname
 </code></pre></div>
 
 <h3 id="2_3">2、时间管理<a class="headerlink" href="#2_3" title="Permanent link">&para;</a></h3>
@@ -2572,7 +2574,7 @@ cat
 <p><strong>date命令</strong></p>
 <p>用于显示或设置系统的日期和时间。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>date<span class="w">  </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>+格式<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>date<span class="w">  </span><span class="o">[</span>选项<span class="o">]</span><span class="w"> </span><span class="o">[</span>+格式<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2622,14 +2624,14 @@ cat
 <p><strong>hwclock命令</strong></p>
 <p>现在硬件bios中的时间</p>
 <p><strong>时间同步</strong></p>
-<div class="codehilite"><pre><span></span><code>hwclock<span class="w"> </span>-w
+<div class="codehilite" data-lang="bash"><pre><span></span><code>hwclock<span class="w"> </span>-w
 </code></pre></div>
 
 <h3 id="3_1">3、显示输出系统信息<a class="headerlink" href="#3_1" title="Permanent link">&para;</a></h3>
 <h4 id="31uname">3.1、uname命令<a class="headerlink" href="#31uname" title="Permanent link">&para;</a></h4>
 <p>用于显示系统信息，包括操作系统名称、主机名、内核版本等。</p>
 <p><strong>语法：</strong></p>
-<div class="codehilite"><pre><span></span><code>uname<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span>
+<div class="codehilite" data-lang="bash"><pre><span></span><code>uname<span class="w"> </span><span class="o">[</span>选项<span class="o">]</span>
 </code></pre></div>
 
 <p><strong>选项：</strong></p>
@@ -2680,7 +2682,7 @@ cat
 </tbody>
 </table>
 <h4 id="32">3.2、显示系统版本<a class="headerlink" href="#32" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>cat<span class="w"> </span>/etc/redhat-release
+<div class="codehilite" data-lang="bash"><pre><span></span><code>cat<span class="w"> </span>/etc/redhat-release
 <span class="c1">#RedHat系列特有</span>
 cat<span class="w"> </span>/etc/centos-release
 <span class="c1">#所有Linux系统都有</span>
@@ -3208,7 +3210,7 @@ cat<span class="w"> </span>/etc/os-release
       
         <script src="../../javascripts/comments.js?v=20261127e"></script>
       
-        <script src="../../javascripts/site-ui.js?v=20261127s"></script>
+        <script src="../../javascripts/site-ui.js?v=20261127t"></script>
       
     
   </body>
