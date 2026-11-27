@@ -1290,3 +1290,184 @@ const FULL_FOOTERS = ['markdownTotal', '=', 'scrollSwitch']
 | 菜单一展开就消失 | 给 `document` 加了「点外部关闭」，程序化点击会误触 | 去掉全局关闭，只在选中项/再次点按钮时收起 |
 | 评论区一直显示「用 GitHub 登录」但页眉已登录 | 页眉 init 完成后没有 `emit()`，订阅者拿到的是初始空 token | `renderPanel()` 后补 `emit()`，评论区再加定时兜底同步 |
 | `Type mismatch ... categoryId (String! / ID)` | GraphQL 变量类型写错 | 改成 `$c:ID!` |
+## 25. 站点页眉：主题/代码主题按钮与 Ctrl+K 搜索弹窗
+
+第 24 章把**编辑器**里的主题能力补齐了，但站点上真正给人看的页面还只有 Material 原生那一个调色板开关，代码配色也只能跟着主题走。本章把两件事补到**实际展示的页面**上：
+
+1. 页眉右侧新增两枚胶囊按钮：**主题（明亮/暗黑）** 与 **代码主题**，作用于全站所有 Markdown 正文；
+2. 页眉正中换成 **`搜索文档 Ctrl+K`** 胶囊，`Ctrl+K` 唤起居中搜索弹窗，弹窗右侧是 `筛选 / 标签` 计数面板（对齐 Zensical 的交互）。
+
+### 25.1 最终形态
+
+```
+页眉（.md-header__inner）
+├── 汉堡菜单 / logo / 站点标题
+├── .md-search           ← Material 原生搜索：display:none 隐藏
+├── [data-md-toggle=search] ← 原生搜索开关：同样隐藏
+├── .mui-search          ← 新增：绝对居中，left:50% + translateX(-50%)
+├── .mui-tools           ← 新增：主题按钮 + 代码主题下拉
+│   ├── .mui-theme       → 明亮 / 暗黑 二态切换，写 localStorage 并驱动 Material palette
+│   └── .mui-code        → 9 个代码主题（默认 + 8 个 pygments 主题）
+└── .ghh                 ← 已有：GitHub 个人中心胶囊
+```
+
+页面级效果：主题切换直接改 `body[data-md-color-scheme]`，全站正文、代码块、表格、提示框一起变；代码主题切换只替换一个 `<link id="mui-code-theme">` 的 `href`，全站代码块配色立刻换色，且刷新后记忆。
+
+### 25.2 新增的三个文件
+
+| 文件 | 作用 |
+| --- | --- |
+| `docs/javascripts/site-ui.js` | 注入页眉按钮、主题/代码主题逻辑、Ctrl+K 搜索弹窗与标签筛选 |
+| `docs/stylesheets/site-ui.css` | 按钮与弹窗样式；隐藏原生搜索；居中定位；移动端折叠 |
+| `hooks/tags_json.py` | 构建后扫描 front matter，产出 `tags.json` 给弹窗做标签与计数 |
+
+`mkdocs.yml` 三处登记（顺序很重要，`site-ui.js` 必须在 `github-hub.js` 之后，否则拿不到 `.ghh` 锚点）：
+
+```yaml
+hooks:
+  - hooks/index_listing.py
+  - hooks/tags_json.py
+
+extra_css:
+  - stylesheets/site-ui.css
+
+extra_javascript:
+  - javascripts/site-ui.js?v=20261127i
+```
+
+### 25.3 主题按钮：接管 Material 的 palette，而不是另造一套
+
+Material 的主题真源是 `body[data-md-color-scheme]`，而它是由页眉那组 palette 单选框驱动的。自建按钮最稳的做法是**替用户点那个单选框**：
+
+```javascript
+function setScheme(target) {                 // target: "default" | "slate"
+  var inputs = document.querySelectorAll('[data-md-component="palette"] input[type="radio"]');
+  for (var i = 0; i < inputs.length; i++) {
+    if (inputs[i].value === target) {
+      inputs[i].checked = true;
+      inputs[i].dispatchEvent(new Event("change", { bubbles: true }));
+      break;
+    }
+  }
+  localStorage.setItem("mdgh.siteTheme", target);   // 自己的记忆键
+}
+
+function toggleTheme() {
+  setScheme(scheme() === "slate" ? "default" : "slate");
+}
+```
+
+配套两件事：
+
+- 原生调色板开关和原生搜索开关在样式里隐藏（`.md-header__option { display:none }`、`[data-md-toggle="search"] { display:none }`），否则页眉会出现两套重复控件，也正是之前「搜索框从中间撑到右边缘」的根源；
+- 单选框只是视觉隐藏，JS 仍然可以 `checked + change`，Material 自己会完成 `__palette` 落盘与配色切换。
+
+### 25.4 代码主题：pygments 出样式 + 一个 link 换色
+
+代码主题不碰 JavaScript 高亮逻辑，纯 CSS 覆盖。用服务器上的 pygments 为 8 个主题各生成一份：
+
+```bash
+cd /srv/mkdocs/repo/docs/stylesheets/code-themes
+P=/srv/mkdocs/.venv/bin/pygmentize
+for t in github-dark one-dark dracula monokai nord solarized-light vs xcode; do
+  $P -S "$t" -f html -a ".md-typeset .codehilite" > _tmp.css
+  {
+    echo "/* 代码主题：$t（pygments） */"
+    echo ".md-typeset .codehilite pre, .md-typeset .codehilite pre > code, .md-typeset .codehilite code { background: transparent !important; }"
+    echo ".md-typeset .highlight pre, .md-typeset .highlight pre > code { background: transparent !important; }"
+    cat _tmp.css
+  } > "$t.css"
+  rm -f _tmp.css
+done
+chown -R mkdocs:docs /srv/mkdocs/repo/docs/stylesheets/code-themes
+```
+
+两个必须踩准的点：
+
+1. **锚点必须是 `.md-typeset .codehilite`**，不是 `.highlight`。本站 `markdown_extensions` 里配的是 `codehilite`，实际 DOM 是 `<div class="codehilite"><pre><code>`，用 `.highlight` 生成出来一条也命中不了（实测页面里 `.highlight` 数量为 0、`.codehilite` 有 55 个）。
+2. 生成物只给 `.codehilite` 上底色，`pre > code` 仍带着 Material 的 `--md-code-bg-color`，所以每个文件开头要补那条 `background: transparent !important`，让底色透出到容器上。
+
+前台切换只要一个 `<link>`：
+
+```javascript
+function applyCodeTheme(id, remember) {           // id = "material" 表示回到默认
+  var link = document.getElementById("mui-code-theme") || createLink();
+  if (!id || id === "material") { link.removeAttribute("href"); link.disabled = true; }
+  else { link.disabled = false; link.href = siteRoot() + "stylesheets/code-themes/" + id + ".css"; }
+  if (remember) localStorage.setItem("mdgh.codeTheme", id);
+}
+```
+
+`siteRoot()` 从自己 `<script src>` 反推站点根，这样内网 `:8000`、mike 的 `/1.0/`、Pages 域名三种路径都能拼对 CSS 地址，不用写死绝对路径。
+
+### 25.5 Ctrl+K 搜索弹窗
+
+交互按 Zensical：页眉中间一个胶囊（图标 + 「搜索文档」+ `Ctrl+K` 键帽），点开是居中卡片，左边输入框与结果列表，右边是 `筛选 / 标签` 面板（每个标签带文档计数）。
+
+数据全部走静态文件，不依赖后端：
+
+- 结果：`search/search_index.json`（Material `search` 插件本来就产出的索引）；
+- 标签：`tags.json`（本钩子生成）。
+
+```python
+# hooks/tags_json.py 核心
+def on_post_build(config):
+    items = []
+    for root, dirs, files in os.walk(config["docs_dir"]):
+        dirs[:] = [d for d in dirs if not d.startswith(".") and not d.endswith(".assets")]
+        for name in files:
+            if not name.endswith(".md"):
+                continue
+            text = open(os.path.join(root, name), encoding="utf-8").read()
+            match = FRONT.match(text)                     # 只认 front matter
+            tags = _tags_of(match.group(1)) if match else []
+            ...
+    json.dump({"tags": [...], "docs": {...}},
+              open(os.path.join(config["site_dir"], "tags.json"), "w", encoding="utf-8"),
+              ensure_ascii=False)
+```
+
+产出形如：
+
+```json
+{
+  "tags": [{"name": "Linux基础教程", "count": 13}, {"name": "ansible", "count": 4}],
+  "docs": {"guide/": {"title": "使用指南", "tags": ["mkdocs", "部署"]}}
+}
+```
+
+写进 `on_post_build` 而不是 `on_page_markdown`，是因为 `site_dir` 在 mike 构建时是临时目录，钩子写完的 `tags.json` 会随后被 mike 一起搬进版本目录，内网与 Pages 都能取到。
+
+前端三个细节值得记一笔：
+
+1. **标题要另取**。索引里 `doc.title` 是「小节标题」，直接取最长的一条会得到整段正文当标题（实测搜 `nginx` 第一条标题是几百字的说明）。做法是按 `location.split("#")[0]` 聚合成页面，标题优先用 `tags.json` 里的 H1；
+2. **摘要要清洗**。索引文本是 Markdown/HTML 混合体，先解 `&lt; &gt; &amp;` 实体、再去 `<code>` 之类的标签、去围栏代码块与表格竖线，最后才截 120 字并在命中词上包 `<mark>`；
+3. **标签与关键词是"与"关系**。点标签不清空输入框，两者同时收窄结果；点「全部文档」清空标签。
+
+键盘：`Ctrl+K`（mac 上 `⌘K`）开关弹窗，`Esc` 关闭，`Enter` 跳第一条结果，`⌘/Ctrl+K` 再按一次收起。窄屏（≤960px）弹窗改为上下排布，页眉胶囊退化成只有图标的按钮，主题按钮隐藏文字只留图标，代码主题下拉暂时收起，避免页眉被挤爆。
+
+### 25.6 验收清单
+
+| 项目 | 验收方式 | 结果 |
+| --- | --- | --- |
+| 页眉两个按钮存在且可用 | `.mui-theme` / `.mui-code` 点击后 `body[data-md-color-scheme]`、`#mui-code-theme.href` 变化 | 通过 |
+| 主题切换全站生效 | 切暗黑后正文、代码块、提示框、表格同时变深 | 通过 |
+| 代码主题切全站生效 | 选 monokai 后 `.codehilite` 背景 `rgb(39,40,34)`，`pre>code` 透明 | 通过 |
+| 设置刷新保留 | 重载后 `mdgh.siteTheme=default`、`mdgh.codeTheme=monokai` 仍生效 | 通过 |
+| 搜索胶囊居中 | `.mui-search` 绝对定位 `left:50%` + `translateX(-50%)`，与右侧按钮无重叠 | 通过 |
+| Ctrl+K 弹窗 | 弹窗打开、输入 `nginx` 出 10 条结果、标题干净、命中词高亮 | 通过 |
+| 标签面板计数 | 16 个标签，`Linux基础教程 13 / ansible 4 / 自动化 3 / docker 2 …` | 通过 |
+| 原生搜索不再错位 | `.md-search`、`[data-md-toggle=search]` 均为 `display:none` | 通过 |
+
+### 25.7 本章故障表
+
+| 现象 | 根因 | 处置 |
+| --- | --- | --- |
+| 代码主题选了没反应 | 样式按 `.highlight` 生成，本站 DOM 是 `.codehilite` | 用 `-a ".md-typeset .codehilite"` 重新生成 |
+| 代码块只有外框变色、块内还是原底色 | `pre > code` 带着 Material 的 `--md-code-bg-color` | 每个主题补 `background: transparent !important` |
+| 搜索结果标题变成一大段正文 | 取了索引里最长 `doc.title` | 按页面聚合，标题改用 H1（`tags.json`） |
+| 摘要里出现 `&gt;geerlingguy &lt;/font&gt;` | 索引文本里的 HTML 被转义 | 先解实体再去标签，最后截断 |
+| 页眉出现两个放大镜 | 原生 `[data-md-toggle=search]` 按钮没隐藏 | 一并 `display:none` |
+| 搜索框撑满右侧、不居中 | 原生 `.md-search__inner` 展开后按 flex 右对齐 | 原生搜索整体隐藏，改用绝对居中胶囊 + 弹窗 |
+| 主题按钮点了没变化 | 只改了 `data-md-color-scheme` 属性，Material 内部状态没同步 | 改成点 palette 单选框并派发 `change` |
+| `siteRoot()` 拼错地址 | 写死 `/stylesheets/…`，在 mike 的 `/1.0/` 下 404 | 从 `script[src*=site-ui.js]` 反推站点根 |
