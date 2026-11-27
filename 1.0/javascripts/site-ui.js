@@ -4,6 +4,17 @@
 
   var LS_THEME = "mdgh.siteTheme";
   var LS_CODE = "mdgh.codeTheme";
+  var LS_MD = "mdgh.mdContentTheme";
+
+  // 文档内容主题：与编辑器里的“预览主题”同一套，material = 站点原生
+  var MD_THEMES = [
+    { id: "material", name: "默认（站点原生）", color: "#3f51b5" },
+    { id: "github", name: "github", color: "#0969da" },
+    { id: "vuepress", name: "vuepress", color: "#3eaf7c" },
+    { id: "mk-cute", name: "mk-cute", color: "#36ace1" },
+    { id: "smart-blue", name: "smart-blue", color: "#135ce0" },
+    { id: "cyanosis", name: "cyanosis", color: "#3da8f5" }
+  ];
 
   var CODE_THEMES = [
     { id: "material", name: "默认（跟随主题）" },
@@ -99,6 +110,36 @@
     applyMode(MODE_NEXT[currentMode()] || "auto");
   }
 
+  /* ---------------- 文档内容主题（md 预览主题） ---------------- */
+  function currentMdTheme() {
+    return localStorage.getItem(LS_MD) || "material";
+  }
+
+  function applyMdTheme(id, remember) {
+    id = id || "material";
+    if (id === "material") document.body.removeAttribute("data-md-content-theme");
+    else document.body.setAttribute("data-md-content-theme", id);
+
+    var hit = MD_THEMES[0];
+    for (var i = 0; i < MD_THEMES.length; i++) {
+      if (MD_THEMES[i].id === id) { hit = MD_THEMES[i]; break; }
+    }
+    var btn = document.querySelector(".mui-md-btn");
+    if (btn) {
+      btn.title = "文档内容主题：" + hit.name + "（点击切换）";
+      btn.setAttribute("aria-label", "文档内容主题：" + hit.name);
+      btn.setAttribute("data-theme", id);
+      btn.style.setProperty("--mui-dot", hit.color);
+    }
+    var menu = document.querySelector(".mui-md .mui-menu");
+    if (menu) {
+      [].forEach.call(menu.querySelectorAll("li"), function (li) {
+        li.classList.toggle("sel", li.getAttribute("data-id") === id);
+      });
+    }
+    if (remember) localStorage.setItem(LS_MD, id);
+  }
+
   /* ---------------- 代码主题 ---------------- */
   function codeThemeLink() {
     var l = document.getElementById("mui-code-theme");
@@ -124,10 +165,15 @@
     var btn = document.querySelector(".mui-code-btn");
     for (var i = 0; i < CODE_THEMES.length; i++) {
       if (CODE_THEMES[i].id === id) {
-        if (label) label.textContent = CODE_THEMES[i].name;
-        if (btn) btn.title = "代码主题：" + CODE_THEMES[i].name;
+        if (btn) btn.title = "代码主题：" + CODE_THEMES[i].name + "（点击切换）";
         break;
       }
+    }
+    var menu = document.querySelector(".mui-code .mui-menu");
+    if (menu) {
+      [].forEach.call(menu.querySelectorAll("li"), function (li) {
+        li.classList.toggle("sel", li.getAttribute("data-id") === id);
+      });
     }
     if (remember) localStorage.setItem(LS_CODE, id);
   }
@@ -151,30 +197,59 @@
     });
     tools.appendChild(themeBtn);
 
-    var codeWrap = document.createElement("div");
-    codeWrap.className = "mui-code";
-    codeWrap.innerHTML =
-      '<button class="mui-btn mui-code-btn" type="button"><span class="mui-ico">' + ICON.code + '</span><span class="mui-code-word">代码主题：</span><span class="mui-code-label">默认</span> ▾</button>' +
-      '<ul class="mui-menu hidden">' +
-      CODE_THEMES.map(function (c) {
-        return '<li data-id="' + c.id + '">' + esc(c.name) + "</li>";
-      }).join("") +
-      "</ul>";
-    var menu = codeWrap.querySelector(".mui-menu");
-    codeWrap.querySelector(".mui-code-btn").addEventListener("click", function (e) {
-      e.stopPropagation();
-      menu.classList.toggle("hidden");
-    });
-    menu.addEventListener("click", function (e) {
-      var li = e.target.closest("li");
-      if (!li) return;
-      applyCodeTheme(li.getAttribute("data-id"), true);
-      menu.classList.add("hidden");
-    });
-    document.addEventListener("click", function (e) {
-      if (!codeWrap.contains(e.target)) menu.classList.add("hidden");
-    });
-    tools.appendChild(codeWrap);
+    function closeMenus(except) {
+      var all = document.querySelectorAll(".mui-menu");
+      [].forEach.call(all, function (m) {
+        if (m !== except) m.classList.add("hidden");
+      });
+    }
+
+    function makeDropdown(cls, btnCls, glyphHtml, items, pick) {
+      var wrap = document.createElement("div");
+      wrap.className = "mui-dd " + cls;
+      wrap.innerHTML =
+        '<button class="mui-btn ' + btnCls + '" type="button">' + glyphHtml +
+        '<span class="mui-dot"></span></button>' +
+        '<ul class="mui-menu hidden">' +
+        items.map(function (it) {
+          var sw = it.color ? '<span class="mui-swatch" style="background:' + it.color + '"></span>' : "";
+          return '<li data-id="' + it.id + '">' + sw + esc(it.name) + "</li>";
+        }).join("") +
+        "</ul>";
+      var menu = wrap.querySelector(".mui-menu");
+      var btn = wrap.querySelector(".mui-btn");
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var willOpen = menu.classList.contains("hidden");
+        closeMenus(menu);
+        menu.classList.toggle("hidden", !willOpen);
+      });
+      menu.addEventListener("click", function (e) {
+        e.stopPropagation();
+        var li = e.target.closest("li");
+        if (!li) return;
+        pick(li.getAttribute("data-id"));
+        menu.classList.add("hidden");
+      });
+      document.addEventListener("click", function () {
+        menu.classList.add("hidden");
+      });
+      return wrap;
+    }
+
+    // 文档内容主题（Aa）
+    tools.appendChild(
+      makeDropdown("mui-md", "mui-md-btn", '<span class="mui-gly">Aa</span>', MD_THEMES, function (id) {
+        applyMdTheme(id, true);
+      })
+    );
+
+    // 代码主题（</>）
+    tools.appendChild(
+      makeDropdown("mui-code", "mui-code-btn", '<span class="mui-gly mono">&lt;/&gt;</span>', CODE_THEMES, function (id) {
+        applyCodeTheme(id, true);
+      })
+    );
 
     if (ghh && ghh.parentNode === inner) inner.insertBefore(tools, ghh);
     else inner.appendChild(tools);
@@ -422,6 +497,7 @@
     buildHeaderTools();
     dropNativeSearch();
     applyMode(currentMode(), false);
+    applyMdTheme(currentMdTheme(), false);
     var savedCode = localStorage.getItem(LS_CODE) || "material";
     applyCodeTheme(savedCode, false);
     if (window.matchMedia) {
@@ -452,6 +528,7 @@
       buildHeaderTools();
       dropNativeSearch();
       applyMode(currentMode(), false);
+      applyMdTheme(currentMdTheme(), false);
     }, 200);
   });
 })();
