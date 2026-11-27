@@ -1530,3 +1530,135 @@ def on_post_build(config):
 | 搜索框撑满右侧、不居中 | 原生 `.md-search__inner` 展开后按 flex 右对齐 | 原生搜索整体隐藏，改用绝对居中胶囊 + 弹窗 |
 | 主题按钮点了没变化 | 只改了 `data-md-color-scheme` 属性，Material 内部状态没同步 | 改成点 palette 单选框并派发 `change` |
 | `siteRoot()` 拼错地址 | 写死 `/stylesheets/…`，在 mike 的 `/1.0/` 下 404 | 从 `script[src*=site-ui.js]` 反推站点根 |
+
+## 26. 编辑器交互打磨：主题图标化、导出 PDF、返回与未保存提示
+
+这一章只动 `editor-app/src/App.vue`（外加重新 `npm run build`），解决四件事：主题区按钮太大、导出 PDF 没实现、返回没实现、改了不保存不提醒。
+
+### 26.1 主题区：三个 32px 图标，不再显示文字
+
+原来一排四个大按钮（默认模式 / 暗黑模式 / 预览主题：xxx / 代码主题：xxx），窄窗口直接顶到屏幕外。现在收成三个正方形图标：
+
+| 图标 | 含义 | 点开之后 |
+| --- | --- | --- |
+| 太阳 / 月亮 | 编辑器本身亮暗（当前状态） | 直接切换 |
+| `Aa` | 文档内容主题（previewTheme） | 下拉：默认 / github / vuepress / mk-cute / smart-blue / cyanosis，每项带主题色圆点 |
+| `</>` | 代码主题（codeTheme） | 下拉：atom / a11y / github / gradient / kimbie / paraiso / qtcreator / stackoverflow |
+
+```css
+.ibtn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; padding: 0; border: 0; border-radius: 8px;
+  background: transparent; color: #333a4d; cursor: pointer;
+}
+.ibtn:hover { background: #eef0f8; }
+.ibtn.act { background: #e6e9f9; color: #3f51b5; }
+```
+
+中文说明不占版面，全塞进 `title` 与下拉项里（`title="文档内容主题：vuepress（点击切换）"`），鼠标悬停就能看到当前值。主题名与色点：
+
+```javascript
+const PREVIEW_THEMES = [
+  { id: 'default', name: '默认', color: '#3f51b5' },
+  { id: 'github', name: 'github', color: '#0969da' },
+  { id: 'vuepress', name: 'vuepress', color: '#3eaf7c' },
+  { id: 'mk-cute', name: 'mk-cute', color: '#f28f5c' },
+  { id: 'smart-blue', name: 'smart-blue', color: '#1677ff' },
+  { id: 'cyanosis', name: 'cyanosis', color: '#2b90d9' }
+]
+```
+
+三个值都落 `localStorage`（`mdedit.theme` / `mdedit.previewTheme` / `mdedit.codeTheme`），刷新还是上次的选择。切换是否生效，看预览根节点 class 就知道：`.md-editor-preview vuepress-theme`、`github-theme`……顺带一个坑：给下拉菜单加 `right: 0` 会在窄窗口里把菜单甩到屏幕左边外，菜单统一 `left: 0`。
+
+### 26.2 导出 PDF：走打印页，不强上服务端
+
+先试过服务端生成，两条路都堵：openEuler 上 `fc-list :lang=zh` 是空的（没有中文字体，转出来全是方块），`weasyprint` / `wkhtmltopdf` / chromium 也都没装。所以改成"打印页 + 浏览器另存为 PDF"——用的是用户自己的系统字体，中文和代码高亮都不掉。
+
+点页眉的 PDF 图标，新标签打开：
+
+```text
+http://192.168.7.130:8080/?print=1&path=guide.md
+```
+
+同一个前端里 `isPrint` 分支只渲染 `MdPreview`（正文，没有任何按钮），加载完 1.2 秒自动唤起 `window.print()`，在打印对话框里选「另存为 PDF」即可。版式靠 CSS：
+
+```css
+@page { size: A4; margin: 14mm 12mm; }
+
+@media print {
+  .printwrap .md-editor-preview { max-width: none; padding: 0 !important; }
+  .printwrap .md-editor-preview h1,
+  .printwrap .md-editor-preview h2 { break-after: avoid-page; }
+  .printwrap .md-editor-preview pre,
+  .printwrap .md-editor-preview table,
+  .printwrap .md-editor-preview img { break-inside: avoid; }
+  .printwrap .md-editor-preview pre { white-space: pre-wrap; word-break: break-word; }
+}
+```
+
+打印前还要把正文洗一遍，否则 PDF 很难看：
+
+1. 去掉 YAML front matter（`tags:` 那几行不该出现在纸上）。
+2. MkDocs 的 `!!! tip "标题"` 这类 admonition，md-editor 不认，会当成代码块渲染成一堆三色小圆点。打印页里转成引用块：
+
+```javascript
+function convertAdmonitions(src) {          // !!! / ??? → > **💡 标题**
+  const m = line.match(/^(?:!!!|\?\?\?)\s*([a-zA-Z-]*)(?:\s+"([^"]*)")?\s*$/)
+  // 取下面缩进 4 空格的行，去掉 4 空格，逐行加 "> " 前缀；嵌套的那层递归再转一次
+}
+```
+
+类型到图标：tip 💡、note 📝、info ℹ️、warning ⚠️、danger 🚨、success ✅、example 🧪、quote 📌，其余默认 📌。转完效果是「> **💡 最短路径** + 引用正文」，纸上干净、层级还在。
+
+### 26.3 返回：先认站点页，认不到就回列表
+
+页眉左边加一个 ← 图标，`title="返回（回到站点页面）"`：
+
+```javascript
+function doBack() {
+  if (pageUrl.value) {          // 打开文档时后端就给了 page_url，比如 /guide/
+    location.href = `http://${location.hostname}:8000${pageUrl.value}`
+  } else if (path.value) {      // 没有站点页（比如新建的文档）
+    path.value = ''             // 退回“选择文档”界面
+    loadList()
+  } else {
+    history.back()
+  }
+}
+```
+
+顺带补了 `Esc` 关下拉菜单、`Ctrl+S` 保存的老逻辑不变。
+
+### 26.4 未保存就离开：两层拦截
+
+第一层是浏览器原生兜底，关标签页/刷新/跳外链都会被拦：
+
+```javascript
+window.addEventListener('beforeunload', (e) => {
+  if (!isPrint && dirty.value) { e.preventDefault(); e.returnValue = '' }
+})
+```
+
+第二层是自己画的弹窗（原生 `confirm` 只有两个按钮，说不清"保存"这件事），三个选项：**保存并离开**、**不保存离开**、**取消**：
+
+```javascript
+function askBack() {
+  if (dirty.value) { leaveAction.value = 'back'; return }   // 弹窗
+  doBack()
+}
+async function saveThenLeave() { await save(); if (!dirty.value) doBack() }
+function leaveAnyway() { savedText.value = text.value; doBack() }   // 丢掉改动，避免再拦一次
+```
+
+`dirty` 的判定就是 `text !== savedText`，保存成功后 `savedText` 同步成最新内容，弹窗自然不再出现。
+
+### 26.5 验收
+
+| 检查项 | 期望 |
+| --- | --- |
+| 主题区 | 三个 32×32 图标，无文字，窄窗口不出界；悬停有 `title` 提示 |
+| 文档内容主题 | 菜单里点 vuepress / github，预览根节点 class 变化、标题样式立刻变 |
+| 代码主题 | 同上，代码块配色跟着变 |
+| 导出 PDF | 新标签打开打印页，无按钮、A4 版式、`!!!` 变引用块、front matter 不在纸上 |
+| 返回 | 有 `page_url` 时回到站点对应页；没有时回到文档列表 |
+| 未保存 | 页眉出现「未保存」；点返回/关页面都会拦，弹窗三个选项都可用 |
