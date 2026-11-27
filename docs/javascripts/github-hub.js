@@ -233,7 +233,13 @@
 
   function pageTitle() {
     const h = document.querySelector("h1");
-    return (h && h.textContent.trim()) || document.title.split(" - ")[0] || pagePath();
+    if (h) {
+      const c = h.cloneNode(true);
+      c.querySelectorAll(".headerlink, .md-content__button, svg").forEach((x) => x.remove());
+      const t = c.textContent.replace(/[¶#]/g, "").trim();
+      if (t) return t;
+    }
+    return document.title.split(" - ")[0] || pagePath();
   }
 
   function statusOf(pr) {
