@@ -1612,6 +1612,78 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#26-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. 编辑器交互打磨：主题图标化、导出 PDF、返回与未保存提示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="26. 编辑器交互打磨：主题图标化、导出 PDF、返回与未保存提示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261-32px" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.1 主题区：三个 32px 图标，不再显示文字
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.2 导出 PDF：走打印页，不强上服务端
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.3 返回：先认站点页，认不到就回列表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.4 未保存就离开：两层拦截
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.5 验收
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3537,6 +3609,78 @@
     <span class="md-ellipsis">
       
         25.7 本章故障表
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26. 编辑器交互打磨：主题图标化、导出 PDF、返回与未保存提示
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="26. 编辑器交互打磨：主题图标化、导出 PDF、返回与未保存提示">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261-32px" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.1 主题区：三个 32px 图标，不再显示文字
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262-pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.2 导出 PDF：走打印页，不强上服务端
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.3 返回：先认站点页，认不到就回列表
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.4 未保存就离开：两层拦截
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        26.5 验收
       
     </span>
   </a>
@@ -5754,6 +5898,156 @@ chown<span class="w"> </span>-R<span class="w"> </span>mkdocs:docs<span class="w
 <td><code>siteRoot()</code> 拼错地址</td>
 <td>写死 <code>/stylesheets/…</code>，在 mike 的 <code>/1.0/</code> 下 404</td>
 <td>从 <code>script[src*=site-ui.js]</code> 反推站点根</td>
+</tr>
+</tbody>
+</table>
+<h2 id="26-pdf">26. 编辑器交互打磨：主题图标化、导出 PDF、返回与未保存提示<a class="headerlink" href="#26-pdf" title="Permanent link">&para;</a></h2>
+<p>这一章只动 <code>editor-app/src/App.vue</code>（外加重新 <code>npm run build</code>），解决四件事：主题区按钮太大、导出 PDF 没实现、返回没实现、改了不保存不提醒。</p>
+<h3 id="261-32px">26.1 主题区：三个 32px 图标，不再显示文字<a class="headerlink" href="#261-32px" title="Permanent link">&para;</a></h3>
+<p>原来一排四个大按钮（默认模式 / 暗黑模式 / 预览主题：xxx / 代码主题：xxx），窄窗口直接顶到屏幕外。现在收成三个正方形图标：</p>
+<table>
+<thead>
+<tr>
+<th>图标</th>
+<th>含义</th>
+<th>点开之后</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>太阳 / 月亮</td>
+<td>编辑器本身亮暗（当前状态）</td>
+<td>直接切换</td>
+</tr>
+<tr>
+<td><code>Aa</code></td>
+<td>文档内容主题（previewTheme）</td>
+<td>下拉：默认 / github / vuepress / mk-cute / smart-blue / cyanosis，每项带主题色圆点</td>
+</tr>
+<tr>
+<td><code>&lt;/&gt;</code></td>
+<td>代码主题（codeTheme）</td>
+<td>下拉：atom / a11y / github / gradient / kimbie / paraiso / qtcreator / stackoverflow</td>
+</tr>
+</tbody>
+</table>
+<div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="nc">ibtn</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">display</span><span class="p">:</span><span class="w"> </span><span class="kc">inline-flex</span><span class="p">;</span><span class="w"> </span><span class="k">align-items</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span><span class="w"> </span><span class="k">justify-content</span><span class="p">:</span><span class="w"> </span><span class="kc">center</span><span class="p">;</span>
+<span class="w">  </span><span class="k">width</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">height</span><span class="p">:</span><span class="w"> </span><span class="mi">32</span><span class="kt">px</span><span class="p">;</span><span class="w"> </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="k">border</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="k">border-radius</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="kt">px</span><span class="p">;</span>
+<span class="w">  </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="kc">transparent</span><span class="p">;</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#333a4d</span><span class="p">;</span><span class="w"> </span><span class="k">cursor</span><span class="p">:</span><span class="w"> </span><span class="kc">pointer</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">ibtn</span><span class="p">:</span><span class="nd">hover</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="mh">#eef0f8</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">.</span><span class="nc">ibtn</span><span class="p">.</span><span class="nc">act</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">background</span><span class="p">:</span><span class="w"> </span><span class="mh">#e6e9f9</span><span class="p">;</span><span class="w"> </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="mh">#3f51b5</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+
+<p>中文说明不占版面，全塞进 <code>title</code> 与下拉项里（<code>title="文档内容主题：vuepress（点击切换）"</code>），鼠标悬停就能看到当前值。主题名与色点：</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">PREVIEW_THEMES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'default'</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'默认'</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">'#3f51b5'</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'github'</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'github'</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">'#0969da'</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'vuepress'</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'vuepress'</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">'#3eaf7c'</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'mk-cute'</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'mk-cute'</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">'#f28f5c'</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'smart-blue'</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'smart-blue'</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">'#1677ff'</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'cyanosis'</span><span class="p">,</span><span class="w"> </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'cyanosis'</span><span class="p">,</span><span class="w"> </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">'#2b90d9'</span><span class="w"> </span><span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>三个值都落 <code>localStorage</code>（<code>mdedit.theme</code> / <code>mdedit.previewTheme</code> / <code>mdedit.codeTheme</code>），刷新还是上次的选择。切换是否生效，看预览根节点 class 就知道：<code>.md-editor-preview vuepress-theme</code>、<code>github-theme</code>……顺带一个坑：给下拉菜单加 <code>right: 0</code> 会在窄窗口里把菜单甩到屏幕左边外，菜单统一 <code>left: 0</code>。</p>
+<h3 id="262-pdf">26.2 导出 PDF：走打印页，不强上服务端<a class="headerlink" href="#262-pdf" title="Permanent link">&para;</a></h3>
+<p>先试过服务端生成，两条路都堵：openEuler 上 <code>fc-list :lang=zh</code> 是空的（没有中文字体，转出来全是方块），<code>weasyprint</code> / <code>wkhtmltopdf</code> / chromium 也都没装。所以改成"打印页 + 浏览器另存为 PDF"——用的是用户自己的系统字体，中文和代码高亮都不掉。</p>
+<p>点页眉的 PDF 图标，新标签打开：</p>
+<div class="codehilite"><pre><span></span><code>http://192.168.7.130:8080/?print=1&amp;path=guide.md
+</code></pre></div>
+
+<p>同一个前端里 <code>isPrint</code> 分支只渲染 <code>MdPreview</code>（正文，没有任何按钮），加载完 1.2 秒自动唤起 <code>window.print()</code>，在打印对话框里选「另存为 PDF」即可。版式靠 CSS：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">@</span><span class="k">page</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">size</span><span class="o">:</span><span class="w"> </span><span class="nt">A4</span><span class="o">;</span><span class="w"> </span><span class="nt">margin</span><span class="o">:</span><span class="w"> </span><span class="nt">14mm</span><span class="w"> </span><span class="nt">12mm</span><span class="o">;</span><span class="w"> </span><span class="p">}</span>
+
+<span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="nt">print</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">printwrap</span><span class="w"> </span><span class="p">.</span><span class="nc">md-editor-preview</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">max-width</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="k">padding</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="cp">!important</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">printwrap</span><span class="w"> </span><span class="p">.</span><span class="nc">md-editor-preview</span><span class="w"> </span><span class="nt">h1</span><span class="o">,</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">printwrap</span><span class="w"> </span><span class="p">.</span><span class="nc">md-editor-preview</span><span class="w"> </span><span class="nt">h2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">break-after</span><span class="p">:</span><span class="w"> </span><span class="kc">avoid-page</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">printwrap</span><span class="w"> </span><span class="p">.</span><span class="nc">md-editor-preview</span><span class="w"> </span><span class="nt">pre</span><span class="o">,</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">printwrap</span><span class="w"> </span><span class="p">.</span><span class="nc">md-editor-preview</span><span class="w"> </span><span class="nt">table</span><span class="o">,</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">printwrap</span><span class="w"> </span><span class="p">.</span><span class="nc">md-editor-preview</span><span class="w"> </span><span class="nt">img</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">break-inside</span><span class="p">:</span><span class="w"> </span><span class="kc">avoid</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">printwrap</span><span class="w"> </span><span class="p">.</span><span class="nc">md-editor-preview</span><span class="w"> </span><span class="nt">pre</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">white-space</span><span class="p">:</span><span class="w"> </span><span class="kc">pre-wrap</span><span class="p">;</span><span class="w"> </span><span class="k">word-break</span><span class="p">:</span><span class="w"> </span><span class="kc">break-word</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>打印前还要把正文洗一遍，否则 PDF 很难看：</p>
+<ol>
+<li>去掉 YAML front matter（<code>tags:</code> 那几行不该出现在纸上）。</li>
+<li>MkDocs 的 <code>!!! tip "标题"</code> 这类 admonition，md-editor 不认，会当成代码块渲染成一堆三色小圆点。打印页里转成引用块：</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">convertAdmonitions</span><span class="p">(</span><span class="nx">src</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">          </span><span class="c1">// !!! / ??? → &gt; **💡 标题**</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">line</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^(?:!!!|\?\?\?)\s*([a-zA-Z-]*)(?:\s+"([^"]*)")?\s*$/</span><span class="p">)</span>
+<span class="w">  </span><span class="c1">// 取下面缩进 4 空格的行，去掉 4 空格，逐行加 "&gt; " 前缀；嵌套的那层递归再转一次</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>类型到图标：tip 💡、note 📝、info ℹ️、warning ⚠️、danger 🚨、success ✅、example 🧪、quote 📌，其余默认 📌。转完效果是「&gt; <strong>💡 最短路径</strong> + 引用正文」，纸上干净、层级还在。</p>
+<h3 id="263">26.3 返回：先认站点页，认不到就回列表<a class="headerlink" href="#263" title="Permanent link">&para;</a></h3>
+<p>页眉左边加一个 ← 图标，<code>title="返回（回到站点页面）"</code>：</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">doBack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">pageUrl</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">          </span><span class="c1">// 打开文档时后端就给了 page_url，比如 /guide/</span>
+<span class="w">    </span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sb">`http://</span><span class="si">${</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span><span class="si">}</span><span class="sb">:8000</span><span class="si">${</span><span class="nx">pageUrl</span><span class="p">.</span><span class="nx">value</span><span class="si">}</span><span class="sb">`</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">      </span><span class="c1">// 没有站点页（比如新建的文档）</span>
+<span class="w">    </span><span class="nx">path</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="w">             </span><span class="c1">// 退回“选择文档”界面</span>
+<span class="w">    </span><span class="nx">loadList</span><span class="p">()</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">history</span><span class="p">.</span><span class="nx">back</span><span class="p">()</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>顺带补了 <code>Esc</code> 关下拉菜单、<code>Ctrl+S</code> 保存的老逻辑不变。</p>
+<h3 id="264">26.4 未保存就离开：两层拦截<a class="headerlink" href="#264" title="Permanent link">&para;</a></h3>
+<p>第一层是浏览器原生兜底，关标签页/刷新/跳外链都会被拦：</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'beforeunload'</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">isPrint</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">dirty</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">returnValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">''</span><span class="w"> </span><span class="p">}</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<p>第二层是自己画的弹窗（原生 <code>confirm</code> 只有两个按钮，说不清"保存"这件事），三个选项：<strong>保存并离开</strong>、<strong>不保存离开</strong>、<strong>取消</strong>：</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">askBack</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">dirty</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">leaveAction</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'back'</span><span class="p">;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c1">// 弹窗</span>
+<span class="w">  </span><span class="nx">doBack</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">saveThenLeave</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">save</span><span class="p">();</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">dirty</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span><span class="w"> </span><span class="nx">doBack</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">leaveAnyway</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">savedText</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">text</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span><span class="w"> </span><span class="nx">doBack</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c1">// 丢掉改动，避免再拦一次</span>
+</code></pre></div>
+
+<p><code>dirty</code> 的判定就是 <code>text !== savedText</code>，保存成功后 <code>savedText</code> 同步成最新内容，弹窗自然不再出现。</p>
+<h3 id="265">26.5 验收<a class="headerlink" href="#265" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主题区</td>
+<td>三个 32×32 图标，无文字，窄窗口不出界；悬停有 <code>title</code> 提示</td>
+</tr>
+<tr>
+<td>文档内容主题</td>
+<td>菜单里点 vuepress / github，预览根节点 class 变化、标题样式立刻变</td>
+</tr>
+<tr>
+<td>代码主题</td>
+<td>同上，代码块配色跟着变</td>
+</tr>
+<tr>
+<td>导出 PDF</td>
+<td>新标签打开打印页，无按钮、A4 版式、<code>!!!</code> 变引用块、front matter 不在纸上</td>
+</tr>
+<tr>
+<td>返回</td>
+<td>有 <code>page_url</code> 时回到站点对应页；没有时回到文档列表</td>
+</tr>
+<tr>
+<td>未保存</td>
+<td>页眉出现「未保存」；点返回/关页面都会拦，弹窗三个选项都可用</td>
 </tr>
 </tbody>
 </table>
