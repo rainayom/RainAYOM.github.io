@@ -1662,3 +1662,76 @@ function leaveAnyway() { savedText.value = text.value; doBack() }   // 丢掉改
 | 导出 PDF | 新标签打开打印页，无按钮、A4 版式、`!!!` 变引用块、front matter 不在纸上 |
 | 返回 | 有 `page_url` 时回到站点对应页；没有时回到文档列表 |
 | 未保存 | 页眉出现「未保存」；点返回/关页面都会拦，弹窗三个选项都可用 |
+
+## 27. 站点内容主题：网页上的 md 文档也能直接切换
+
+前两轮页眉里只有「站点亮暗」和「代码主题（文字胶囊）」。这一轮把编辑器里的两套主题搬到了站点页眉：**文档内容主题（Aa）** 与 **代码主题（</>）**，图标、尺寸、交互规则与编辑器完全一致，切换结果立刻作用到网页正文，而不是只改按钮外观。
+
+### 27.1 页眉最终形态
+
+右侧工具条从右到左：搜索胶囊（居中）→ GH → `</>` → `Aa` → 太阳/月亮。
+
+| 控件 | 含义 | 取值 | 记忆 |
+| --- | --- | --- | --- |
+| 太阳 / 月亮 | 站点亮暗 | 跟随系统 → 暗 → 亮 | `mdgh.siteTheme` |
+| `Aa` | 文档内容主题 | 默认 / github / vuepress / mk-cute / smart-blue / cyanosis | `mdgh.mdContentTheme` |
+| `</>` | 代码块配色 | 默认 / github-dark / one-dark / dracula / monokai / nord / solarized-light / vs / xcode | `mdgh.codeTheme` |
+
+三枚按钮统一 `2rem × 2rem`、`border:0`、透明底、悬停浅底，中文只进 `title`/`aria-label`，不在按钮上出现文字；当前主题以右下角 `.28rem` 小色点（`--mui-dot`）提示。
+
+### 27.2 为什么不能直接复用编辑器的主题样式
+
+md-editor-v3 的预览主题样式只存在于**构建产物** `dist/assets/index-*.css` 里，选择器形如：
+
+```css
+.md-editor div.github-theme { --md-theme-color: ...; --md-theme-link-color: ...; }
+```
+
+作用域被锁在 `.md-editor` 里面，变量也只喂给编辑器自己的 `.md-editor-preview`；站点的正文容器是 `.md-typeset`，拿不到这些变量。所以站点这一侧改为**自写一套等价样式**，色值锚定编辑器里的真实取值。
+
+### 27.3 `content-themes.css` 的做法
+
+一个共享骨架 + 每个主题一组变量，全部以 `body[data-md-content-theme="X"] .md-typeset` 作用域：
+
+- 骨架负责：正文颜色与行高、h1~h6 颜色/字号/下边框、链接色、引用块、`hr`、行内 `code`、表格边框/斑马纹/表头底色、图片圆角。
+- 每个主题下发 `--ct-*` 变量，明暗各一套（暗色写在 `body[data-md-color-scheme="slate"][data-md-content-theme="X"]`）。
+- `material`（默认）**不设属性**，整段骨架自然失效，页面回到 Material 原样。
+
+```css
+body[data-md-content-theme] .md-typeset { color: var(--ct-fg); }
+body[data-md-content-theme] .md-typeset h1 {
+  font-size: var(--ct-h1, 1.6rem);
+  border-bottom: var(--ct-h1-bd, 0);
+}
+body[data-md-content-theme] .md-typeset table:not([class]) tr:nth-child(2n) {
+  background: var(--ct-stripe, transparent);
+}
+```
+
+关键取舍：**块级代码不归内容主题管**。`pre code` / `.highlight code` / `.codehilite code` 统一 `background/color: inherit`，配色一律交给代码主题那套 pygments 样式，避免两套规则打架。
+
+### 27.4 三个文件的分工
+
+| 文件 | 职责 |
+| --- | --- |
+| `docs/stylesheets/content-themes.css` | 5 套内容主题 × 明暗两版，只认 `body[data-md-content-theme]` |
+| `docs/javascripts/site-ui.js` | `MD_THEMES`、`applyMdTheme()` 写属性 + 色点 + 菜单 `.sel`；`applyCodeTheme()` 换 `link.href` 并写 `body[data-md-code-theme]` |
+| `docs/stylesheets/site-ui.css` | 两枚图标按钮外观、下拉定位、色点；代码块继承链修正 |
+
+### 27.5 踩到的两个坑
+
+1. **代码块文字色不跟着主题走**。主题 CSS 里的 `color` 写在 `.codehilite` 外层，但内层 `code` 被 Material 的 `.md-typeset code` 覆盖，实测切到 solarized-light 仍是 `rgb(54,70,78)`。加 `color: inherit !important` 后仍不对，因为 `pre` 自己也有前景色，把继承链掐断；把 `pre` 一起拉回 `inherit` 才通。
+2. **菜单定位**。给下拉菜单加 `right: 0` 在页眉右侧会把面板甩到屏幕左侧外，站点与编辑器统一改 `left: 0`。
+
+### 27.6 验收
+
+| 检查项 | 期望 | 实测 |
+| --- | --- | --- |
+| 图标一致 | 站点与编辑器同为 `Aa` / `</>`，无文字 | 一致 |
+| 宽屏布局 | 1440 下不与搜索胶囊、GH 重叠 | Aa x=1091 w=40，`</>` x=1137 w=40，GH x=1189 |
+| 窄屏 | 447 下五个控件不挤爆 | 通过 |
+| 内容主题生效 | 切 github 标题 `#1f2328` 且带下边框 | 35px + 0.67px 边框 |
+| 其它主题 | vuepress `#273849`、mk-cute `#36ace1`、smart-blue `#135ce0`、cyanosis `#2b6cb0` | 均按预期变色 |
+| 暗色组合 | slate + cyanosis 标题 `rgb(121,182,242)` | 通过 |
+| 代码主题 | 切 dracula 背景 `#282a36`、solarized-light `#fdf6e3` 且文字色随主题 | 通过 |
+| 记忆 | 刷新后主题保持 | 通过 |

@@ -515,3 +515,19 @@ body[data-md-color-scheme="slate"] .mui-tag:hover {
 .mui-menu li { display: flex; align-items: center; gap: .34rem; }
 .mui-menu li.sel { color: var(--md-primary-fg-color); font-weight: 600; }
 .mui-swatch { width: .42rem; height: .42rem; border-radius: 50%; flex: 0 0 auto; }
+
+/* 选中代码主题时，代码块内层 code 继承主题自身文字色（否则被 Material 覆盖） */
+body[data-md-code-theme] .md-typeset .codehilite code,
+body[data-md-code-theme] .md-typeset .codehilite pre > code,
+body[data-md-code-theme] .md-typeset .highlight code,
+body[data-md-code-theme] .md-typeset .highlight pre > code {
+  color: inherit !important;
+  background: transparent !important;
+}
+
+/* 修正：pre 自带 Material 前景色会截断继承链，这里把 pre 也拉回来 */
+body[data-md-code-theme] .md-typeset .codehilite pre,
+body[data-md-code-theme] .md-typeset .highlight pre {
+  color: inherit !important;
+  background: transparent !important;
+}
