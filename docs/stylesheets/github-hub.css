@@ -1,0 +1,379 @@
+/* 页眉右上角：GitHub 登录 / 个人中心（收藏 + 我的提交） */
+.ghh {
+  position: relative;
+  margin-left: 0.4rem;
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+}
+
+.ghh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 1.9rem;
+  padding: 0.15rem 0.6rem 0.15rem 0.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--md-primary-bg-color, #fff);
+  font: inherit;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s;
+  white-space: nowrap;
+}
+
+.ghh-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.ghh-avatar {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22) center/cover no-repeat;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.ghh-login {
+  max-width: 8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ghh-panel {
+  position: absolute;
+  top: 2.4rem;
+  right: 0;
+  width: 22rem;
+  max-width: calc(100vw - 1.5rem);
+  padding: 0.7rem;
+  border-radius: 0.5rem;
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, #222);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.22);
+  z-index: 40;
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+.ghh-panel.hidden {
+  display: none;
+}
+
+.ghh-id {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest, rgba(0, 0, 0, 0.08));
+}
+
+.ghh-img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.ghh-meta {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.ghh-name {
+  font-size: 0.78rem;
+}
+
+.ghh-role {
+  font-size: 0.6rem;
+  opacity: 0.75;
+}
+
+.ghh-role.ok {
+  color: #2e7d32;
+  opacity: 1;
+}
+
+.ghh-role.wait {
+  color: #b26a00;
+  opacity: 1;
+}
+
+.ghh-out {
+  border: 1px solid var(--md-default-fg-color--lightest, rgba(0, 0, 0, 0.12));
+  border-radius: 2rem;
+  background: transparent;
+  color: inherit;
+  padding: 0.2rem 0.55rem;
+  font: inherit;
+  font-size: 0.62rem;
+  cursor: pointer;
+}
+
+.ghh-out:hover {
+  border-color: var(--md-primary-fg-color, #3f51b5);
+  color: var(--md-primary-fg-color, #3f51b5);
+}
+
+.ghh-acts {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0.55rem 0;
+}
+
+.ghh-fav,
+.ghh-prof {
+  flex: 1;
+  text-align: center;
+  border-radius: 2rem;
+  border: 1px solid var(--md-default-fg-color--lightest, rgba(0, 0, 0, 0.12));
+  background: transparent;
+  color: inherit;
+  padding: 0.28rem 0.4rem;
+  font: inherit;
+  font-size: 0.62rem;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ghh-fav.on {
+  border-color: #f0a500;
+  color: #b26a00;
+  background: rgba(240, 165, 0, 0.1);
+}
+
+.ghh-prof:hover {
+  border-color: var(--md-primary-fg-color, #3f51b5);
+}
+
+.ghh-sec {
+  margin-top: 0.5rem;
+}
+
+.ghh-sec-h {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  font-weight: 600;
+  font-size: 0.65rem;
+  opacity: 0.85;
+  margin-bottom: 0.25rem;
+}
+
+.ghh-favn,
+.ghh-prn {
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+.ghh-favlist,
+.ghh-prlist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 11rem;
+  overflow: auto;
+}
+
+.ghh-favlist li,
+.ghh-prlist li {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+.ghh-favlist li:hover,
+.ghh-prlist li:hover {
+  background: var(--md-default-fg-color--lightest, rgba(0, 0, 0, 0.05));
+}
+
+.ghh-favlist a,
+.ghh-prlist a {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: inherit;
+  text-decoration: none;
+}
+
+.ghh-favlist a:hover,
+.ghh-prlist a:hover {
+  color: var(--md-primary-fg-color, #3f51b5);
+  text-decoration: underline;
+}
+
+.ghh-del {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  opacity: 0.5;
+  cursor: pointer;
+  font-size: 0.6rem;
+  padding: 0 0.2rem;
+}
+
+.ghh-del:hover {
+  opacity: 1;
+  color: #c62828;
+}
+
+.ghh-tag {
+  flex: 0 0 auto;
+  border-radius: 2rem;
+  padding: 0.05rem 0.35rem;
+  font-size: 0.55rem;
+  white-space: nowrap;
+}
+
+.ghh-tag.wait {
+  background: rgba(240, 165, 0, 0.16);
+  color: #a15c00;
+}
+
+.ghh-tag.ok {
+  background: rgba(46, 125, 50, 0.14);
+  color: #2e7d32;
+}
+
+.ghh-tag.no {
+  background: rgba(198, 40, 40, 0.12);
+  color: #c62828;
+}
+
+.ghh-prlist time {
+  flex: 0 0 auto;
+  font-size: 0.52rem;
+  opacity: 0.55;
+}
+
+.ghh-empty {
+  display: block !important;
+  opacity: 0.6;
+  font-size: 0.6rem;
+  padding: 0.3rem 0.25rem;
+}
+
+/* 登录弹窗 */
+.ghm-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ghm {
+  width: 21rem;
+  max-width: calc(100vw - 2rem);
+  background: var(--md-default-bg-color, #fff);
+  color: var(--md-default-fg-color, #222);
+  border-radius: 0.6rem;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  padding: 1rem;
+  font-size: 0.7rem;
+}
+
+.ghm-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+
+.ghm-step,
+.ghm-hint,
+.ghm-err {
+  margin: 0.3rem 0;
+  line-height: 1.6;
+}
+
+.ghm-hint {
+  opacity: 0.7;
+  font-size: 0.64rem;
+}
+
+.ghm-err {
+  color: #c62828;
+}
+
+.ghm-code {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.ghm-code-text {
+  flex: 1;
+  text-align: center;
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  padding: 0.35rem;
+  border-radius: 0.35rem;
+  background: var(--md-default-fg-color--lightest, rgba(0, 0, 0, 0.06));
+}
+
+.ghm-copy,
+.ghm-open,
+.ghm-close {
+  border: 1px solid var(--md-default-fg-color--lightest, rgba(0, 0, 0, 0.14));
+  border-radius: 2rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.64rem;
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ghm-open {
+  border-color: var(--md-primary-fg-color, #3f51b5);
+  color: var(--md-primary-fg-color, #3f51b5);
+}
+
+.ghm-copy:hover,
+.ghm-close:hover {
+  border-color: var(--md-primary-fg-color, #3f51b5);
+}
+
+.ghm-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.hidden {
+  display: none;
+}
+
+@media screen and (max-width: 60em) {
+  .ghh-login {
+    display: none;
+  }
+  .ghh-btn {
+    padding: 0.15rem 0.2rem;
+  }
+  .ghh-panel {
+    width: calc(100vw - 1.2rem);
+    right: -0.4rem;
+  }
+}
