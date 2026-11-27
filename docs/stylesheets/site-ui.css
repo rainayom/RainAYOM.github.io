@@ -83,8 +83,25 @@
 }
 
 .mui-ico {
-  font-size: .9rem;
+  display: inline-flex;
+  align-items: center;
   line-height: 1;
+}
+
+.mui-search-ico,
+.mui-filterbtn {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Material 自带搜索开关（弹窗已在页眉中央取代它） */
+[data-md-toggle="search"] {
+  display: none !important;
+}
+
+/* 隐藏 Material 自带的调色板开关（页眉已有独立的主题按钮） */
+.md-header__option {
+  display: none !important;
 }
 
 .mui-code {
@@ -358,5 +375,21 @@ body[data-md-color-scheme="slate"] .mui-tag:hover {
 
   .mui-btn {
     padding: 0 .55rem;
+  }
+}
+
+/* 中等宽度下收窄搜索胶囊，避免与右侧按钮重叠 */
+@media (min-width: 961px) and (max-width: 1180px) {
+  .mui-search {
+    min-width: 12rem;
+    max-width: 14rem;
+  }
+
+  .mui-search-text {
+    font-size: .7rem;
+  }
+
+  .mui-kbd {
+    display: none;
   }
 }
