@@ -60,7 +60,7 @@ extra_css:
   - stylesheets/edit-page.css
   - stylesheets/github-hub.css
   - stylesheets/comments.css
-  - stylesheets/site-ui.css?v=20261127i
+  - stylesheets/site-ui.css?v=20261127j
 extra_javascript:
   - javascripts/back-to-top.js
   - javascripts/github-hub.js?v=20261127c
