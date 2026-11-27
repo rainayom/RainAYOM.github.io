@@ -1167,3 +1167,163 @@ curl -s -o /dev/null -w '%{http_code}\n' -X POST -d '{"password":"MdEditor@2026"
 | 非拥有者保存报「没有直接写入权限」 | 后端判定非 owner | 改用「提交审核」，等拥有者合并 |
 | PR 已合并但站点没更新 | autopush 未跑或 rebase 冲突 | `journalctl -u mkdocs-autopush`，看 `/tmp/autopush.log` |
 | 页眉没有登录胶囊 | JS 未加载或被缓存 | 强刷；确认 `extra_javascript` 里有 `javascripts/github-hub.js` |
+
+## 24. 阶段十八：GitHub 评论（Giscus）与编辑器主题切换
+
+这一章把两件事一次做完：给站点每一页加上「GitHub Discussions 驱动」的评论区，以及让浏览器编辑器能切 Markdown 主题（明亮/暗黑）、预览主题和代码高亮主题。
+
+### 24.1 评论系统选型：Giscus
+
+Material 官方文档（<https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/>）给的做法就是覆盖 `partials/comments.html`，里面塞 Giscus 的脚本。Giscus 的评论存在 GitHub Discussions 里，等于「登录 GitHub 才能发评论、评论有 GitHub 身份、有邮件通知」，和本知识库已经做好的 GitHub 登录正好一路。
+
+前置条件两件：
+
+1. 在仓库开启 Discussions（Settings → Features → Discussions，或者 API `PATCH /repos/{owner}/{repo}` 带 `{"has_discussions": true}`）。开启后 GitHub 会自动建好 Announcements / General / Ideas / Polls / Q&A / Show and tell 六个分类。
+2. 安装 giscus App（<https://github.com/apps/giscus> → Install → 选中 `rainayom/RainAYOM.github.io`）。权限只需 *Read and write access to discussions*。
+
+```bash
+# 用 OAuth token 直接开 Discussions（省得点界面）
+T=<站点登录拿到的 token>
+curl -s -X PATCH -H "Authorization: Bearer $T" -H 'Accept: application/vnd.github+json' \
+  -d '{"has_discussions":true}' https://api.github.com/repos/rainayom/RainAYOM.github.io \
+  | grep has_discussions
+```
+
+### 24.2 取 repo_id / category_id
+
+Giscus 只认 node id，不认仓库名字符串。REST 拿 `node_id`，GraphQL 拿分类 id：
+
+```bash
+# repo_id
+curl -s -H "Authorization: Bearer $T" https://api.github.com/repos/rainayom/RainAYOM.github.io | grep node_id
+
+# category_id
+curl -s -X POST -H "Authorization: Bearer $T" -H 'Content-Type: application/json' \
+  -d '{"query":"{ repository(owner:\"rainayom\", name:\"RainAYOM.github.io\") { discussionCategories(first:20){ nodes { id name } } } }"}' \
+  https://api.github.com/graphql
+```
+
+本机实测拿到：
+
+| 字段 | 值 |
+| --- | --- |
+| `repo_id` | `R_kgDOV9nhcA` |
+| `category` | `Announcements` |
+| `category_id` | `DIC_kwDOV9nhcM4DMFBc` |
+
+### 24.3 落地的三个文件
+
+`overrides/partials/comments.html`（覆盖主题自带空模板）：
+
+```html
+{% if page.meta.comments %}
+<h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
+<script src="https://giscus.app/client.js"
+        data-repo="rainayom/RainAYOM.github.io"
+        data-repo-id="R_kgDOV9nhcA"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOV9nhcM4DMFBc"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="light"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous" async></script>
+{% endif %}
+```
+
+`mkdocs.yml` 两处：
+
+```yaml
+theme:
+  name: material
+  custom_dir: overrides        # 新增，指向覆盖目录
+
+plugins:
+  - search
+  - meta                       # 新增，.meta.yml 才能生效
+```
+
+`docs/.meta.yml`（递归作用于所有页面）：
+
+```yaml
+comments: true
+```
+
+首页不需要评论，在 `docs/index.md` 的 front matter 里单独关掉：
+
+```yaml
+---
+comments: false
+tags: [首页, 索引]
+---
+```
+
+`data-mapping="pathname"` 的副作用要知道：同一个页面的不同 URL（`/guide/` 与 `/1.0/guide/`、内网 IP 与 `rainayom.github.io`）会被 Giscus 当成不同讨论。想全站共用一套就用 `data-mapping="og:title"`，但改标题就断链，权衡后这里保留 `pathname`。
+
+### 24.4 评论跟随站点明暗主题
+
+Material 的调色板状态存在 `__md_get("__palette")`，`scheme === "slate"` 就是暗黑。首屏按它设 `data-theme`，切换时给 iframe 发 `postMessage`：
+
+```js
+var giscus = document.querySelector("script[src*=giscus]");
+var palette = __md_get("__palette");
+if (palette && typeof palette.color === "object") {
+  giscus.setAttribute("data-theme", palette.color.scheme === "slate" ? "transparent_dark" : "light");
+}
+document.addEventListener("DOMContentLoaded", function () {
+  var frame = document.querySelector(".giscus-frame");
+  document.querySelector("[data-md-component=palette]").addEventListener("change", function () {
+    var p = __md_get("__palette");
+    var theme = p.color.scheme === "slate" ? "transparent_dark" : "light";
+    frame.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, "https://giscus.app");
+  });
+});
+```
+
+排版上再补一小块 CSS（`docs/stylesheets/comments.css`），让评论框不被右下角「编辑本页 / 返回顶部」两个胶囊压住：
+
+```css
+#__comments { margin-top: 2.6rem; }
+.giscus { margin-bottom: 9rem; }
+.giscus-frame { width: 100% !important; }
+```
+
+### 24.5 验收
+
+```bash
+# 评论脚本是否进了页面
+curl -s http://192.168.7.130:8000/guide/ | grep -c 'giscus.app/client.js'   # 1
+# 首页应当没有
+curl -s http://192.168.7.130:8000/ | grep -c 'giscus.app/client.js'         # 0
+```
+
+浏览器侧：滚动到文末能看到「评论 / 0 个表情 / 登录后可发表评论」的框；点页眉的调色板切到暗黑，评论框跟着变深色；发评论需要点框里的 GitHub 登录，授权后即以 GitHub 账号身份发言，评论同时出现在仓库的 Discussions 里。
+
+### 24.6 编辑器的四类主题切换
+
+md-editor-v3 的属性就三个，全部透传给 `MdEditor` 与 `MdPreview`：
+
+| 需求 | 属性 | 取值 |
+| --- | --- | --- |
+| 编辑器明亮/暗黑 | `theme` | `light` / `dark` |
+| 预览排版风格 | `previewTheme` | `default` / `github` / `vuepress` / `mk-cute` / `smart-blue` / `cyanosis` |
+| 代码高亮主题 | `codeTheme` | `atom` / `a11y` / `github` / `gradient` / `kimbie` / `paraiso` / `qtcreator` / `stackoverflow` |
+
+```vue
+<MdEditor v-model="text" :theme="theme" :preview-theme="previewTheme" :code-theme="codeTheme" />
+<MdPreview :model-value="text" :theme="theme" :preview-theme="previewTheme" :code-theme="codeTheme" />
+```
+
+顶栏下面加一行胶囊按钮：`默认模式`、`暗黑模式`、`预览主题：xxx ▾`、`代码主题：xxx ▾`。选择写进 `localStorage`（`mdedit.theme`、`mdedit.previewTheme`、`mdedit.codeTheme`），重开页面仍是上次的样式；没有记录时按系统深色模式判断。
+
+### 24.7 两个踩过的坑
+
+| 现象 | 原因 | 处理 |
+| --- | --- | --- |
+| 下拉菜单能展开但是空列表 | 模板里写 `v-for="c in codeThemes"`，脚本里变量叫 `CODE_THEMES`，`codeThemes` 根本不存在 | 补 `const codeThemes = CODE_THEMES` |
+| 下拉菜单刚展开就自己消失 | 给 `document` 加了「点外部关闭」，自动化/程序化点击会命中这条逻辑 | 去掉全局点击关闭，只在选中项或再次点击按钮时关闭 |
+| 评论框加载出来但被悬浮按钮压住 | 浮动胶囊固定在右下角 | `comments.css` 里给 `.giscus` 留 9rem 底边距 |

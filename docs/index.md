@@ -1,4 +1,5 @@
 ---
+comments: false
 tags:
   - 首页
   - 索引
