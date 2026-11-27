@@ -1168,162 +1168,125 @@ curl -s -o /dev/null -w '%{http_code}\n' -X POST -d '{"password":"MdEditor@2026"
 | PR 已合并但站点没更新 | autopush 未跑或 rebase 冲突 | `journalctl -u mkdocs-autopush`，看 `/tmp/autopush.log` |
 | 页眉没有登录胶囊 | JS 未加载或被缓存 | 强刷；确认 `extra_javascript` 里有 `javascripts/github-hub.js` |
 
-## 24. 阶段十八：GitHub 评论（Giscus）与编辑器主题切换
+## 24. 阶段十八：自建评论区（GitHub Discussions）与编辑器主题、工具栏
 
-这一章把两件事一次做完：给站点每一页加上「GitHub Discussions 驱动」的评论区，以及让浏览器编辑器能切 Markdown 主题（明亮/暗黑）、预览主题和代码高亮主题。
+这一章做三件事：给每页加评论区、让「页眉登录」和「评论登录」合成一次、把网页编辑器修成单预览 + 全功能工具栏。
 
-### 24.1 评论系统选型：Giscus
+### 24.1 为什么最后没用 Giscus
 
-Material 官方文档（<https://squidfunk.github.io/mkdocs-material/setup/adding-a-comment-system/>）给的做法就是覆盖 `partials/comments.html`，里面塞 Giscus 的脚本。Giscus 的评论存在 GitHub Discussions 里，等于「登录 GitHub 才能发评论、评论有 GitHub 身份、有邮件通知」，和本知识库已经做好的 GitHub 登录正好一路。
+Material 官方推荐 Giscus，先按官方文档接过一版，能跑通：装 giscus App、开 Discussions、`overrides/partials/comments.html` 里放脚本、随 palette 切明暗。但它有个绕不开的问题——**Giscus 有自己的 OAuth 会话**，用户点「使用 GitHub 登录」会在 iframe 里再走一遍 GitHub 授权，还会跳走再回来。站点页眉那套设备码登录拿到的 token 无法交给 Giscus 用。
 
-前置条件两件：
+要求是「登录一次，页眉和评论都能用，认证完回到原页面」，那就只能自建：评论读写走 GitHub Discussions 的 GraphQL 接口，鉴权直接用页眉的 `mdgh.token`。
 
-1. 在仓库开启 Discussions（Settings → Features → Discussions，或者 API `PATCH /repos/{owner}/{repo}` 带 `{"has_discussions": true}`）。开启后 GitHub 会自动建好 Announcements / General / Ideas / Polls / Q&A / Show and tell 六个分类。
-2. 安装 giscus App（<https://github.com/apps/giscus> → Install → 选中 `rainayom/RainAYOM.github.io`）。权限只需 *Read and write access to discussions*。
+### 24.2 数据模型
 
-```bash
-# 用 OAuth token 直接开 Discussions（省得点界面）
-T=<站点登录拿到的 token>
-curl -s -X PATCH -H "Authorization: Bearer $T" -H 'Accept: application/vnd.github+json' \
-  -d '{"has_discussions":true}' https://api.github.com/repos/rainayom/RainAYOM.github.io \
-  | grep has_discussions
-```
-
-### 24.2 取 repo_id / category_id
-
-Giscus 只认 node id，不认仓库名字符串。REST 拿 `node_id`，GraphQL 拿分类 id：
-
-```bash
-# repo_id
-curl -s -H "Authorization: Bearer $T" https://api.github.com/repos/rainayom/RainAYOM.github.io | grep node_id
-
-# category_id
-curl -s -X POST -H "Authorization: Bearer $T" -H 'Content-Type: application/json' \
-  -d '{"query":"{ repository(owner:\"rainayom\", name:\"RainAYOM.github.io\") { discussionCategories(first:20){ nodes { id name } } } }"}' \
-  https://api.github.com/graphql
-```
-
-本机实测拿到：
-
-| 字段 | 值 |
+| 项 | 取值 |
 | --- | --- |
-| `repo_id` | `R_kgDOV9nhcA` |
-| `category` | `Announcements` |
-| `category_id` | `DIC_kwDOV9nhcM4DMFBc` |
+| repo_id | `R_kgDOV9nhcA`（仓库 node id） |
+| category_id | `DIC_kwDOV9nhcM4DMFBc`（Announcements） |
+| 讨论标题 | `评论：<page.url>`，比如 `评论：guide/` |
+| 讨论正文 | 记录对应页面地址，方便在 GitHub 里认领 |
 
-### 24.3 落地的三个文件
+页面 key 用 `page.url`（相对路径），不用 `location.pathname`——这样内网 IP 和 `rainayom.github.io` 共用同一串讨论，换域名不丢评论。每页第一次有人发言时才创建讨论，没人评论的页面不会产生空讨论。
 
-`overrides/partials/comments.html`（覆盖主题自带空模板）：
+### 24.3 三个文件
+
+`overrides/partials/comments.html`（只留标题和占位容器，页面 key 塞进 data 属性）：
 
 ```html
 {% if page.meta.comments %}
 <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
-<script src="https://giscus.app/client.js"
-        data-repo="rainayom/RainAYOM.github.io"
-        data-repo-id="R_kgDOV9nhcA"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOV9nhcM4DMFBc"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="top"
-        data-theme="light"
-        data-lang="zh-CN"
-        data-loading="lazy"
-        crossorigin="anonymous" async></script>
+<div id="mdgh-comments" data-page="{{ page.url }}" data-title="{{ page.title | e }}"></div>
 {% endif %}
 ```
 
-`mkdocs.yml` 两处：
-
-```yaml
-theme:
-  name: material
-  custom_dir: overrides        # 新增，指向覆盖目录
-
-plugins:
-  - search
-  - meta                       # 新增，.meta.yml 才能生效
-```
-
-`docs/.meta.yml`（递归作用于所有页面）：
-
-```yaml
-comments: true
-```
-
-首页不需要评论，在 `docs/index.md` 的 front matter 里单独关掉：
-
-```yaml
----
-comments: false
-tags: [首页, 索引]
----
-```
-
-`data-mapping="pathname"` 的副作用要知道：同一个页面的不同 URL（`/guide/` 与 `/1.0/guide/`、内网 IP 与 `rainayom.github.io`）会被 Giscus 当成不同讨论。想全站共用一套就用 `data-mapping="og:title"`，但改标题就断链，权衡后这里保留 `pathname`。
-
-### 24.4 评论跟随站点明暗主题
-
-Material 的调色板状态存在 `__md_get("__palette")`，`scheme === "slate"` 就是暗黑。首屏按它设 `data-theme`，切换时给 iframe 发 `postMessage`：
+`docs/javascripts/comments.js`（渲染、查询、发表，约 300 行）：
 
 ```js
-var giscus = document.querySelector("script[src*=giscus]");
-var palette = __md_get("__palette");
-if (palette && typeof palette.color === "object") {
-  giscus.setAttribute("data-theme", palette.color.scheme === "slate" ? "transparent_dark" : "light");
-}
-document.addEventListener("DOMContentLoaded", function () {
-  var frame = document.querySelector(".giscus-frame");
-  document.querySelector("[data-md-component=palette]").addEventListener("change", function () {
-    var p = __md_get("__palette");
-    var theme = p.color.scheme === "slate" ? "transparent_dark" : "light";
-    frame.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, "https://giscus.app");
-  });
+// 找讨论串
+query($o:String!,$n:String!,$c:ID!){ repository(owner:$o,name:$n){
+  discussions(first:100, categoryId:$c){ nodes { id title url } } } }
+
+// 首次发言时创建
+mutation($rid:ID!,$cid:ID!,$title:String!,$body:String!){
+  createDiscussion(input:{repositoryId:$rid, categoryId:$cid, title:$title, body:$body}){
+    discussion { id url } } }
+
+// 发表评论
+mutation($id:ID!,$body:String!){
+  addDiscussionComment(input:{discussionId:$id, body:$body}){ comment { id } } }
+```
+
+`docs/stylesheets/comments.css`：卡片式列表、输入框、两个胶囊按钮，颜色全部走 `var(--md-*)` 变量，暗黑模式自动适配；底部留 8rem 空间避开「编辑本页 / 返回顶部」。
+
+`mkdocs.yml` 里加载顺序很重要，`comments.js` 必须排在 `github-hub.js` 之后（要先有 `window.MDGitHub`）：
+
+```yaml
+extra_javascript:
+  - javascripts/back-to-top.js
+  - javascripts/github-hub.js?v=20261127c
+  - javascripts/edit-page.js?v=20261127b
+  - javascripts/comments.js?v=20261127e
+```
+
+### 24.4 一次登录是怎么串起来的
+
+页眉脚本对外暴露了 `window.MDGitHub = { token, user, login, logout, onChange(fn) }`。评论区订阅 `onChange`，状态一变就重绘：
+
+```js
+window.MDGitHub.onChange(function (s) {
+  apply(s && s.token, s && s.user);   // 有 token 就拉评论，没 token 就只显示登录按钮
 });
 ```
 
-排版上再补一小块 CSS（`docs/stylesheets/comments.css`），让评论框不被右下角「编辑本页 / 返回顶部」两个胶囊压住：
+三个细节缺一不可：
 
-```css
-#__comments { margin-top: 2.6rem; }
-.giscus { margin-bottom: 9rem; }
-.giscus-frame { width: 100% !important; }
-```
+1. **页眉 init 完成后要主动 `emit()` 一次**，否则评论区在页面刚加载时读到的是空 token，会一直显示「用 GitHub 登录」。
+2. 评论区自己在 900ms / 2600ms 各补一次同步，并在窗口 `focus` 时再同步，兜住脚本执行顺序的竞争。
+3. 设备码登录不跳页面，`loginModal()` 打开前把 `mdgh.returnTo` 和 `mdgh.returnScroll` 记进 localStorage，登录成功后滚回原位置并把光标放进评论输入框——这就是「认证完回到登录前的页面」。
 
-### 24.5 验收
-
-```bash
-# 评论脚本是否进了页面
-curl -s http://192.168.7.130:8000/guide/ | grep -c 'giscus.app/client.js'   # 1
-# 首页应当没有
-curl -s http://192.168.7.130:8000/ | grep -c 'giscus.app/client.js'         # 0
-```
-
-浏览器侧：滚动到文末能看到「评论 / 0 个表情 / 登录后可发表评论」的框；点页眉的调色板切到暗黑，评论框跟着变深色；发评论需要点框里的 GitHub 登录，授权后即以 GitHub 账号身份发言，评论同时出现在仓库的 Discussions 里。
-
-### 24.6 编辑器的四类主题切换
-
-md-editor-v3 的属性就三个，全部透传给 `MdEditor` 与 `MdPreview`：
-
-| 需求 | 属性 | 取值 |
-| --- | --- | --- |
-| 编辑器明亮/暗黑 | `theme` | `light` / `dark` |
-| 预览排版风格 | `previewTheme` | `default` / `github` / `vuepress` / `mk-cute` / `smart-blue` / `cyanosis` |
-| 代码高亮主题 | `codeTheme` | `atom` / `a11y` / `github` / `gradient` / `kimbie` / `paraiso` / `qtcreator` / `stackoverflow` |
-
-```vue
-<MdEditor v-model="text" :theme="theme" :preview-theme="previewTheme" :code-theme="codeTheme" />
-<MdPreview :model-value="text" :theme="theme" :preview-theme="previewTheme" :code-theme="codeTheme" />
-```
-
-顶栏下面加一行胶囊按钮：`默认模式`、`暗黑模式`、`预览主题：xxx ▾`、`代码主题：xxx ▾`。选择写进 `localStorage`（`mdedit.theme`、`mdedit.previewTheme`、`mdedit.codeTheme`），重开页面仍是上次的样式；没有记录时按系统深色模式判断。
-
-### 24.7 两个踩过的坑
+### 24.5 GraphQL 踩坑
 
 | 现象 | 原因 | 处理 |
 | --- | --- | --- |
-| 下拉菜单能展开但是空列表 | 模板里写 `v-for="c in codeThemes"`，脚本里变量叫 `CODE_THEMES`，`codeThemes` 根本不存在 | 补 `const codeThemes = CODE_THEMES` |
-| 下拉菜单刚展开就自己消失 | 给 `document` 加了「点外部关闭」，自动化/程序化点击会命中这条逻辑 | 去掉全局点击关闭，只在选中项或再次点击按钮时关闭 |
-| 评论框加载出来但被悬浮按钮压住 | 浮动胶囊固定在右下角 | `comments.css` 里给 `.giscus` 留 9rem 底边距 |
+| `Type mismatch on variable $c and argument categoryId (String! / ID)` | `categoryId` 参数类型是 `ID!`，不是 `String!` | 查询里写 `$c:ID!` |
+| `Argument 'id' on InputObject 'DeleteDiscussionInput'` | 删讨论的入参字段叫 `id`，不是 `discussionId` | `deleteDiscussion(input:{id:$id})` |
+| 普通用户点发表报权限错误 | `createDiscussion` 需要仓库写权限，只有拥有者/协作者能建串 | 让拥有者先在页面发一条，生成讨论串后其他人即可在串里评论 |
+
+### 24.6 验收
+
+```bash
+curl -s http://192.168.7.130:8000/guide/ | grep -c 'id="mdgh-comments"'   # 1
+curl -s http://192.168.7.130:8000/ | grep -c 'id="mdgh-comments"'         # 0（首页关掉了）
+```
+
+浏览器侧：未登录时评论框显示「用 GitHub 登录」；点页眉登录授权完成后，评论区自己变成「已登录 xxx + 发表评论」，不用再点第二次；发表后列表出现头像、昵称、「刚刚」和正文，右上角多一个「在 GitHub 查看 ↗」。
+
+### 24.7 编辑器：一个预览 + 全功能工具栏
+
+原来页面是「自建 MdPreview + MdEditor 内建预览」两套预览并排，看着像三个栏。改法：删掉外层 MdPreview，只用 `MdEditor` 自己那套分栏预览（`main` 里只剩一个 `MdEditor`）。
+
+工具栏换成 md-editor-v3 的默认全集，与官方 demo 一致：
+
+```js
+const FULL_TOOLBARS = [
+  'bold', 'underline', 'italic', 'strikeThrough', '-',
+  'title', 'sub', 'sup', 'quote', 'unorderedList', 'orderedList', 'task', '-',
+  'codeRow', 'code', 'link', 'image', 'table', 'mermaid', 'katex', '-',
+  'revoke', 'next', 'save', '=', 'prettier', 'pageFullscreen', 'fullscreen',
+  'preview', 'previewOnly', 'htmlPreview', 'catalog', 'github'
+]
+const FULL_FOOTERS = ['markdownTotal', '=', 'scrollSwitch']
+```
+
+含：加粗/下划线/斜体/删除线、标题、下标、上标、引用、无序与有序列表、任务列表、行内代码、块级代码、链接、图片、表格、mermaid、katex、撤回/重做、保存（绑 `onSave`，即写文件）、prettier 格式化、页面全屏/屏幕全屏、预览开关、仅预览、HTML 预览、目录、GitHub 链接；页脚是「字数 / 同步滚动」。
+
+### 24.8 本轮故障表
+
+| 现象 | 原因 | 处理 |
+| --- | --- | --- |
+| 编辑器出现两个预览 | 外层又放了一个 `MdPreview` | 删掉外层预览，只留 `MdEditor` 内建分栏 |
+| 下拉菜单展开是空列表 | 模板 `v-for` 用了不存在的 `codeThemes` | 补 `const codeThemes = CODE_THEMES` |
+| 菜单一展开就消失 | 给 `document` 加了「点外部关闭」，程序化点击会误触 | 去掉全局关闭，只在选中项/再次点按钮时收起 |
+| 评论区一直显示「用 GitHub 登录」但页眉已登录 | 页眉 init 完成后没有 `emit()`，订阅者拿到的是初始空 token | `renderPanel()` 后补 `emit()`，评论区再加定时兜底同步 |
+| `Type mismatch ... categoryId (String! / ID)` | GraphQL 变量类型写错 | 改成 `$c:ID!` |

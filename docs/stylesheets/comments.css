@@ -1,18 +1,177 @@
-/* Giscus 评论区排版：与右下角悬浮按钮（编辑本页 / 返回顶部）留出空间 */
+/* 站点评论区（GitHub Discussions 驱动，复用页眉登录） */
 #__comments {
   margin-top: 2.6rem;
 }
 
-.giscus {
-  margin-bottom: 9rem;
+#mdgh-comments {
+  margin-bottom: 8rem;
+  display: block;
 }
 
-.giscus-frame {
-  width: 100% !important;
+.mdc-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.mdc-count {
+  font-size: .8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.mdc-thread {
+  font-size: .75rem;
+  color: var(--md-primary-fg-color);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--md-primary-fg-color);
+}
+
+.mdc-empty {
+  color: var(--md-default-fg-color--light);
+  font-size: .8rem;
+  margin: 10px 0;
+}
+
+.mdc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px 0 18px;
+}
+
+.mdc-item {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--md-default-bg-color);
+}
+
+.mdc-item-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.mdc-av {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.mdc-av-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--md-primary-fg-color);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.mdc-user {
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color);
+  text-decoration: none;
+}
+
+.mdc-time {
+  font-size: .7rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.mdc-body {
+  font-size: .8rem;
+  line-height: 1.7;
+  color: var(--md-default-fg-color);
+  word-break: break-word;
+}
+
+.mdc-code {
+  background: var(--md-code-bg-color);
+  border-radius: 4px;
+  padding: 0 4px;
+  font-size: .85em;
+}
+
+.mdc-box {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.mdc-hint {
+  margin: 0 0 8px;
+  font-size: .75rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.mdc-input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 74px;
+  resize: vertical;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: .8rem;
+  color: var(--md-default-fg-color);
+  background: var(--md-default-bg-color);
+}
+
+.mdc-input:focus {
+  outline: none;
+  border-color: var(--md-primary-fg-color);
+}
+
+.mdc-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.mdc-send,
+.mdc-login {
+  border: 0;
+  border-radius: 999px;
+  padding: 7px 18px;
+  font-size: .78rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--md-primary-fg-color);
+  color: #fff;
+}
+
+.mdc-send:disabled {
+  opacity: .55;
+  cursor: default;
+}
+
+.mdc-login {
+  background: var(--md-default-fg-color);
+  color: var(--md-default-bg-color);
+}
+
+.mdc-status {
+  font-size: .75rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.mdc-status.err {
+  color: var(--md-typeset-color-red, #d32f2f);
+}
+
+.hidden {
+  display: none !important;
 }
 
 @media (max-width: 600px) {
-  .giscus {
-    margin-bottom: 7rem;
+  #mdgh-comments {
+    margin-bottom: 10rem;
   }
 }
