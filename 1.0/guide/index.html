@@ -1203,6 +1203,111 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#22-markdown-md-editor-v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. 阶段十六：浏览器里的 Markdown 编辑器（md-editor-v3）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22. 阶段十六：浏览器里的 Markdown 编辑器（md-editor-v3）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.1 为什么这么做
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.2 组成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.3 按钮与「返回顶部」的排布
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.4 后端接口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.5 使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.6 服务管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#227" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.7 验收
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#228" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.8 常见故障
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2736,6 +2841,111 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#22-markdown-md-editor-v3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22. 阶段十六：浏览器里的 Markdown 编辑器（md-editor-v3）
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="22. 阶段十六：浏览器里的 Markdown 编辑器（md-editor-v3）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.1 为什么这么做
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.2 组成
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.3 按钮与「返回顶部」的排布
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#224" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.4 后端接口
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#225" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.5 使用
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#226" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.6 服务管理
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#227" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.7 验收
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#228" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        22.8 常见故障
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -4055,6 +4265,200 @@ tags:
 </code></pre></div>
 
 <p>两行都能命中即为注入成功；浏览器里把页面往下滚，右下角出现胶囊按钮，点一下回到顶部。</p>
+<hr />
+<h2 id="22-markdown-md-editor-v3">22. 阶段十六：浏览器里的 Markdown 编辑器（md-editor-v3）<a class="headerlink" href="#22-markdown-md-editor-v3" title="Permanent link">&para;</a></h2>
+<h3 id="221">22.1 为什么这么做<a class="headerlink" href="#221" title="Permanent link">&para;</a></h3>
+<p>站点要能"边写边看"，但文档放在服务器上，有两种做法：</p>
+<ol>
+<li>给本机开一个仓库根目录的 SMB 共享，用本地编辑器打开 —— <strong>没有采用</strong>，等于把 <code>mkdocs.yml</code>、<code>.venv</code>、<code>.git</code> 全暴露到网络；</li>
+<li>把编辑器跑在服务器上，浏览器访问 —— <strong>采用</strong>。前端用 <a href="https://github.com/imzbf/md-editor-v3">md-editor-v3</a>，后端用 Python 标准库写的零依赖小服务，只暴露 <code>docs/</code> 下的 <code>.md</code>。</li>
+</ol>
+<h3 id="222">22.2 组成<a class="headerlink" href="#222" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>路径</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>前端源码</td>
+<td><code>/srv/mkdocs/editor-app</code></td>
+<td>Vue 3 + md-editor-v3，<code>npm run build</code> 产出 <code>dist/</code></td>
+</tr>
+<tr>
+<td>后端</td>
+<td><code>/srv/mkdocs/editor_server.py</code></td>
+<td>标准库 <code>http.server</code>，无第三方依赖</td>
+</tr>
+<tr>
+<td>服务单元</td>
+<td><code>/etc/systemd/system/mkdocs-editor.service</code></td>
+<td><code>User=mkdocs</code>、端口 8080</td>
+</tr>
+<tr>
+<td>站点按钮</td>
+<td><code>docs/javascripts/edit-page.js</code>、<code>docs/stylesheets/edit-page.css</code></td>
+<td>右下角「编辑本页」胶囊</td>
+</tr>
+</tbody>
+</table>
+<h3 id="223">22.3 按钮与「返回顶部」的排布<a class="headerlink" href="#223" title="Permanent link">&para;</a></h3>
+<p>两个按钮同一套胶囊样式，靠 <code>bottom</code> 错开，不重叠：</p>
+<div class="codehilite"><pre><span></span><code><span class="p">.</span><span class="nc">back-to-top</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">right</span><span class="p">:</span><span class="w"> </span><span class="mf">1.4</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="k">bottom</span><span class="p">:</span><span class="w"> </span><span class="mf">1.6</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c">/* 返回顶部 */</span>
+<span class="p">.</span><span class="nc">edit-page</span><span class="w">   </span><span class="p">{</span><span class="w"> </span><span class="k">right</span><span class="p">:</span><span class="w"> </span><span class="mf">1.4</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="k">bottom</span><span class="p">:</span><span class="w"> </span><span class="mf">4.35</span><span class="kt">rem</span><span class="p">;</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c">/* 编辑本页，位于其上方 */</span>
+</code></pre></div>
+
+<p>实测位置（视口 518px 高时）：编辑本页底边 441px、返回顶部顶边 473px，中间留 32px 间隙。</p>
+<p>按钮只在局域网里出现，公网 Pages 上自动隐藏：</p>
+<div class="codehilite"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">EDIT_HOSTS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">"192.168.7.130"</span><span class="p">,</span><span class="w"> </span><span class="s2">"localhost"</span><span class="p">,</span><span class="w"> </span><span class="s2">"127.0.0.1"</span><span class="p">];</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">EDIT_HOSTS</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="o">-</span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+</code></pre></div>
+
+<p>点击后跳到 <code>http://192.168.7.130:8080/?url=&lt;当前页面路径&gt;</code>，后端按 URL 反查源文件（会依次尝试去掉版本前缀、补 <code>/index.md</code>、补 <code>.md</code>），所以 mike 的 <code>/1.0/xxx/</code>、<code>/latest/xxx/</code>、本地 <code>:8000/xxx/</code> 都能定位到同一篇 md。</p>
+<h3 id="224">22.4 后端接口<a class="headerlink" href="#224" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>路径</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/api/session</code></td>
+<td>查询是否已登录</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/login</code></td>
+<td><code>{"password": "..."}</code>，成功种 30 天 HttpOnly Cookie</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/list</code></td>
+<td>列出 docs 下全部 md（标题 + 相对路径）</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/doc?path=xxx.md</code></td>
+<td>读单篇内容</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/resolve?url=/1.0/xxx/</code></td>
+<td>站点 URL 反查源文件</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/doc</code></td>
+<td><code>{"path": "...", "content": "..."}</code> 保存</td>
+</tr>
+</tbody>
+</table>
+<p>安全边界都在 <code>safe_doc()</code> 里：<code>normpath</code> 之后必须仍在 <code>docs/</code> 内、后缀必须 <code>.md</code>，穿越和写非 md 一律 400；<code>\r\n</code> 统一转 <code>\n</code>；写回后 <code>chmod 0664</code>（root 运行时顺带 chown 到 mkdocs:docs），保证 Samba 侧仍能读写。</p>
+<h3 id="225">22.5 使用<a class="headerlink" href="#225" title="Permanent link">&para;</a></h3>
+<ol>
+<li>站点页面右下角点「编辑本页」→ 新标签页打开编辑器，自动带出当前文档；</li>
+<li>首次进入要登录：账号 <code>mdftp</code>，口令 <code>MdEditor@2026</code>（Cookie 会话 30 天，之后不再问）；</li>
+<li>左边编辑、右边 Markdown 实时预览，随输入更新；<code>Ctrl+S</code> 或右上「保存」写回服务器；</li>
+<li>保存后 <code>mkdocs serve</code>（:8000）自动重建，刷新即可看到站点效果；</li>
+<li>5 分钟内 <code>mkdocs-autopush.timer</code> 会把改动 commit、<code>mike deploy</code> 并推到 gh-pages，GitHub Pages 同步更新。</li>
+</ol>
+<h3 id="226">22.6 服务管理<a class="headerlink" href="#226" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>systemctl<span class="w"> </span>status<span class="w"> </span>mkdocs-editor
+journalctl<span class="w"> </span>-u<span class="w"> </span>mkdocs-editor<span class="w"> </span>-f
+
+<span class="c1"># 改了前端源码后重新构建</span>
+<span class="nb">cd</span><span class="w"> </span>/srv/mkdocs/editor-app
+runuser<span class="w"> </span>-u<span class="w"> </span>mkdocs<span class="w"> </span>--<span class="w"> </span>env<span class="w"> </span><span class="nv">HOME</span><span class="o">=</span>/var/lib/mkdocs<span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/usr/bin:/bin<span class="w"> </span>npm<span class="w"> </span>run<span class="w"> </span>build
+systemctl<span class="w"> </span>restart<span class="w"> </span>mkdocs-editor
+</code></pre></div>
+
+<p>改口令：编辑单元里的 <code>Environment=EDITOR_PASS=...</code>，<code>systemctl daemon-reload &amp;&amp; systemctl restart mkdocs-editor</code>，旧 Cookie 立刻失效（Cookie 值由账号口令哈希派生）。</p>
+<h3 id="227">22.7 验收<a class="headerlink" href="#227" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>检查</th>
+<th>命令 / 操作</th>
+<th>期望</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>端口</td>
+<td><code>ss -lntp \| grep 8080</code></td>
+<td>python3 监听 0.0.0.0:8080</td>
+</tr>
+<tr>
+<td>登录接口</td>
+<td><code>curl -s -X POST -d '{"password":"MdEditor@2026"}' http://127.0.0.1:8080/api/login</code></td>
+<td><code>{"ok": true}</code></td>
+</tr>
+<tr>
+<td>未登录拦截</td>
+<td><code>curl -s http://127.0.0.1:8080/api/session</code></td>
+<td><code>{"auth": false}</code></td>
+</tr>
+<tr>
+<td>保存</td>
+<td>页面点「保存」</td>
+<td>顶部出现「已保存 HH:MM:SS · N 字节」</td>
+</tr>
+<tr>
+<td>站点按钮</td>
+<td>打开任意页</td>
+<td>右下角「编辑本页」在「返回顶部」上方</td>
+</tr>
+<tr>
+<td>公网站点</td>
+<td>打开 <code>https://rainayom.github.io/</code></td>
+<td>不出现「编辑本页」</td>
+</tr>
+</tbody>
+</table>
+<h3 id="228">22.8 常见故障<a class="headerlink" href="#228" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>打开 8080 白屏</td>
+<td><code>dist/</code> 不存在</td>
+<td>进 <code>editor-app</code> 跑 <code>npm run build</code></td>
+</tr>
+<tr>
+<td>点保存提示需要登录</td>
+<td>Cookie 过期或换了口令</td>
+<td>重新输入口令登录</td>
+</tr>
+<tr>
+<td>保存成功但站点没变</td>
+<td>mkdocs serve 未 watch 到</td>
+<td><code>systemctl restart mkdocs-serve</code></td>
+</tr>
+<tr>
+<td>打开某篇报"没有匹配到源文件"</td>
+<td>该页不在 docs（如标签页）</td>
+<td>用左上文档下拉选择</td>
+</tr>
+<tr>
+<td>端口被占</td>
+<td>8080 有其他服务</td>
+<td>改单元里的 <code>EDITOR_PORT</code> 并同步 <code>edit-page.js</code></td>
+</tr>
+</tbody>
+</table>
 
 
 
