@@ -58,5 +58,5 @@ extra_css:
   - stylesheets/github-hub.css
 extra_javascript:
   - javascripts/back-to-top.js
-  - javascripts/github-hub.js?v=20261127a
-  - javascripts/edit-page.js?v=20261127a
+  - javascripts/github-hub.js?v=20261127b
+  - javascripts/edit-page.js?v=20261127b

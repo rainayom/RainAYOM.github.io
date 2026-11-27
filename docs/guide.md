@@ -1074,6 +1074,8 @@ theme:
 - 轮询偶发 `Failed to fetch`（网络抖动/浏览器限流），代码里对单次请求异常做了 `continue`，不中断整个轮询。
 - 设备码有效期 15 分钟，`interval` 默认 5 秒，`slow_down` 时要把间隔加 5 秒。
 
+- **内网 HTTP 页面复制不了设备码**：`navigator.clipboard` 只在安全上下文（HTTPS / localhost）可用，`http://192.168.7.130:8000` 下会直接报「复制失败」。现在改成 `clipboard` 优先、`document.execCommand("copy")` 兜底，两者都失败时把代码整段选中并提示 `Ctrl+C`；弹窗打开时已经自动选中，直接按 `Ctrl+C` 也能复制。
+
 ### 23.3 页眉右上角个人中心
 
 `docs/javascripts/github-hub.js` 在 `.md-header__inner` 尾部插一个胶囊（未登录显示 `GitHub 登录`，登录后显示头像 + 用户名），点开是下拉面板：

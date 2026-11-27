@@ -5,8 +5,6 @@
 (function () {
   "use strict";
 
-  window.__ghhRuns = (window.__ghhRuns || 0) + 1;
-
   const CLIENT_ID = "Ov23liZFcmfLX6wLHrmi";
   const OWNER = "rainayom";
   const REPO = "RainAYOM.github.io";
@@ -185,7 +183,7 @@
       '<p class="ghm-step">正在向 GitHub 申请设备码…</p>' +
       '<div class="ghm-code hidden"><span class="ghm-code-text">----</span>' +
       '<button class="ghm-copy" type="button">复制</button></div>' +
-      '<p class="ghm-hint hidden">在打开的页面输入上面的代码并点击 Authorize 后，此窗口会自动完成登录。</p>' +
+      '<p class="ghm-hint hidden">在打开的页面输入上面的代码并点击 Authorize 后，此窗口会自动完成登录。代码已选中，也可直接 Ctrl+C 复制。</p>' +
       '<p class="ghm-err hidden"></p>' +
       "</div>" +
       '<div class="ghm-actions"><a class="ghm-open hidden" target="_blank" rel="noopener" href="https://github.com/login/device">打开授权页 ↗</a>' +
@@ -208,6 +206,16 @@
         $(".ghm-code").classList.remove("hidden");
         $(".ghm-hint").classList.remove("hidden");
         $(".ghm-code-text").textContent = code;
+        // 打开弹窗就把代码整段选中：剪贴板 API 在 HTTP 页面不可用时也能直接 Ctrl+C
+        try {
+          const sel = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents($(".ghm-code-text"));
+          sel.removeAllRanges();
+          sel.addRange(range);
+        } catch (e) {
+          /* 忽略 */
+        }
         const a = $(".ghm-open");
         a.href = url || "https://github.com/login/device";
         a.classList.remove("hidden");
